@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 
 
@@ -13,10 +12,10 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://napari.org/stable/gallery/latlon-data-with-map.html" />
 <meta property="og:site_name" content="napari" />
-<meta property="og:description" content="For a given set of points of interest (POI) with lat/lon coordinates, download a background map from contextily and display it in napari together with the POI. Requires geopandas and contextily to be installed. Tags: gui, geodata Python (.py) Notebook (.ipynb) Download Jupyter notebook: latlon-da..." />
+<meta property="og:description" content="For a given set of points of interest (POI) with lat/lon coordinates, download a background map from contextily and display it in napari together with the POI. Requires geopandas and contextily to be installed. Tags: gui, geodata Python (.py) Notebook (.ipynb) import contextily as ctx import geop..." />
 <meta property="og:image" content="https://napari.org/dev/_static/opengraph_image.png" />
 <meta property="og:image:alt" content="3D segmented tribolium embryo in the napari viewer" />
-<meta name="description" content="For a given set of points of interest (POI) with lat/lon coordinates, download a background map from contextily and display it in napari together with the POI. Requires geopandas and contextily to be installed. Tags: gui, geodata Python (.py) Notebook (.ipynb) Download Jupyter notebook: latlon-da..." />
+<meta name="description" content="For a given set of points of interest (POI) with lat/lon coordinates, download a background map from contextily and display it in napari together with the POI. Requires geopandas and contextily to be installed. Tags: gui, geodata Python (.py) Notebook (.ipynb) import contextily as ctx import geop..." />
 <meta name="twitter:card" content="summary_large_image" />
 
     <title>Lat/Lon data with background map &#8212; napari</title>
@@ -38,14 +37,14 @@
   </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=cb8930eaaf36d9849b67" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=cb8930eaaf36d9849b67" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=64cc4de3f052d77215f0" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=64cc4de3f052d77215f0" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d8568271" />
     <link rel="stylesheet" type="text/css" href="../_static/css/napari-sphinx-theme.css?v=3779b88c" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=fd6457a4" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=c83e6b79" />
     <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css?v=f4aeca0c" />
     <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=2082cf3c" />
     <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
@@ -53,12 +52,12 @@
     <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=d2b87285" />
   
   <!-- So that users can add custom icons -->
-  <script defer src="../_static/scripts/fontawesome.js?digest=cb8930eaaf36d9849b67"></script>
+  <script defer src="../_static/scripts/fontawesome.js?digest=64cc4de3f052d77215f0"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=cb8930eaaf36d9849b67" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=cb8930eaaf36d9849b67" />
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=64cc4de3f052d77215f0" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=64cc4de3f052d77215f0" />
 
-    <script src="../_static/documentation_options.js?v=a4878671"></script>
+    <script src="../_static/documentation_options.js?v=a267c092"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -68,7 +67,7 @@
     <script data-domain="napari.org" defer="defer" src="https://plausible.io/js/plausible.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'gallery/latlon-data-with-map';</script>
     <script>
-        DOCUMENTATION_OPTIONS.theme_version = '0.21.0';
+        DOCUMENTATION_OPTIONS.theme_version = '0.22.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'dev';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
@@ -129,7 +128,7 @@
   
     <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
 <div class="bd-header__inner bd-page-width">
-  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+  <button type="button" class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
     <span class="fa-solid fa-bars"></span>
   </button>
   
@@ -219,7 +218,7 @@
         <div class="navbar-item navbar-persistent--container">
           
 
-<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button type="button" class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
  <i class="fa-solid fa-magnifying-glass"></i>
  <span class="search-button__default-text">Search</span>
  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
@@ -265,15 +264,15 @@
         <div class="navbar-item">
 
 <div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+  <button type="button" class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
     <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
     <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
     <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
   </button>
   <ul class="dropdown-menu dropdown-menu-end">
-    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
-    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
-    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
   </ul>
 </div></div>
       
@@ -284,7 +283,7 @@
   
     <div class="navbar-persistent--mobile">
 
-<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button type="button" class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
  <i class="fa-solid fa-magnifying-glass"></i>
  <span class="search-button__default-text">Search</span>
  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
@@ -293,7 +292,7 @@
   
 
   
-    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+    <button type="button" class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
       <span class="fa-solid fa-outdent"></span>
     </button>
   
@@ -406,15 +405,15 @@
           <div class="navbar-item">
 
 <div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+  <button type="button" class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
     <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
     <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
     <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
   </button>
   <ul class="dropdown-menu dropdown-menu-end">
-    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
-    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
-    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
   </ul>
 </div></div>
         
@@ -526,7 +525,7 @@
 </ul>
 </details></li>
 <li class="toctree-l3 current active has-children"><a class="reference internal" href="../_tags/geodata.html">geodata (1)</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
-<li class="toctree-l4 current active"><a class="current reference internal" href="#">Lat/Lon data with background map</a></li>
+<li class="toctree-l4 current active"><a aria-current="page" class="current reference internal" href="#">Lat/Lon data with background map</a></li>
 </ul>
 </details></li>
 <li class="toctree-l3 current active has-children"><a class="reference internal" href="../_tags/gui.html">gui (20)</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
@@ -541,7 +540,7 @@
 <li class="toctree-l4"><a class="reference internal" href="get_current_viewer.html">Get current viewer</a></li>
 <li class="toctree-l4"><a class="reference internal" href="image_custom_kernel.html">Custom image interpolation kernels</a></li>
 <li class="toctree-l4"><a class="reference internal" href="inherit_viewer_style.html">Method to get napari style in magicgui based windows</a></li>
-<li class="toctree-l4 current active"><a class="current reference internal" href="#">Lat/Lon data with background map</a></li>
+<li class="toctree-l4 current active"><a aria-current="page" class="current reference internal" href="#">Lat/Lon data with background map</a></li>
 <li class="toctree-l4"><a class="reference internal" href="magic_image_arithmetic.html">magicgui Image Arithmetic</a></li>
 <li class="toctree-l4"><a class="reference internal" href="magic_parameter_sweep.html">magicgui parameter sweep</a></li>
 <li class="toctree-l4"><a class="reference internal" href="magic_viewer.html">magicgui viewer</a></li>
@@ -862,105 +861,104 @@ you will need to install additional packages: <code class="docutils literal notr
 See the <a class="reference external" href="https://napari.org/napari-plugin-manager/#installing-via-direct-entry">plugin manager guide</a>
 for ways to install additional packages from within napari.</p>
 </div>
-<img src="../_images/sphx_glr_latlon-data-with-map_001.png" srcset="../_images/sphx_glr_latlon-data-with-map_001.png" alt="latlon data with map" class = "sphx-glr-single-img"/><div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">contextily</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ctx</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">geopandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">gpd</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">zarr</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">requests.exceptions</span><span class="w"> </span><span class="kn">import</span> <a href="https://docs.python.org/3/builtins/exceptions.html#OSError" title="builtins.OSError" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-exception"><span class="n">HTTPError</span></a>
-
-<span class="kn">import</span><span class="w"> </span><span class="nn">napari</span>
-
-<span class="c1"># some point of interest with lat/lon coordinates and a description</span>
-<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([</span>
-    <span class="p">{</span><span class="s1">'lon'</span><span class="p">:</span> <span class="mf">14.3983569</span><span class="p">,</span> <span class="s1">'lat'</span><span class="p">:</span> <span class="mf">50.0897206</span><span class="p">,</span>
-     <span class="s1">'sight'</span><span class="p">:</span> <span class="s1">'old castle'</span><span class="p">,</span> <span class="s1">'nature'</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">'stars'</span><span class="p">:</span> <span class="mf">5.0</span><span class="p">},</span>
-    <span class="p">{</span><span class="s1">'lon'</span><span class="p">:</span> <span class="mf">14.4112958</span><span class="p">,</span> <span class="s1">'lat'</span><span class="p">:</span> <span class="mf">50.0864922</span><span class="p">,</span>
-     <span class="s1">'sight'</span><span class="p">:</span> <span class="s1">'crowded bridge'</span><span class="p">,</span> <span class="s1">'nature'</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">'stars'</span><span class="p">:</span> <span class="mf">4.0</span><span class="p">},</span>
-    <span class="p">{</span><span class="s1">'lon'</span><span class="p">:</span> <span class="mf">14.4178942</span><span class="p">,</span> <span class="s1">'lat'</span><span class="p">:</span> <span class="mf">50.0629778</span><span class="p">,</span>
-     <span class="s1">'sight'</span><span class="p">:</span> <span class="s1">'even older castle'</span><span class="p">,</span> <span class="s1">'nature'</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">'stars'</span><span class="p">:</span> <span class="mf">4.1</span><span class="p">},</span>
-    <span class="p">{</span><span class="s1">'lon'</span><span class="p">:</span> <span class="mf">14.4495206</span><span class="p">,</span> <span class="s1">'lat'</span><span class="p">:</span> <span class="mf">50.0884767</span><span class="p">,</span>
-     <span class="s1">'sight'</span><span class="p">:</span> <span class="s1">'nice view from here'</span><span class="p">,</span> <span class="s1">'nature'</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s1">'stars'</span><span class="p">:</span> <span class="mf">3.2</span><span class="p">},</span>
-    <span class="p">{</span><span class="s1">'lon'</span><span class="p">:</span> <span class="mf">14.4052019</span><span class="p">,</span> <span class="s1">'lat'</span><span class="p">:</span> <span class="mf">50.1171367</span><span class="p">,</span>
-     <span class="s1">'sight'</span><span class="p">:</span> <span class="s1">'zoo'</span><span class="p">,</span> <span class="s1">'nature'</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s1">'stars'</span><span class="p">:</span> <span class="mf">5.0</span><span class="p">},</span>
-<span class="p">])</span>
-<span class="n">gdf</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">(</span>
-        <span class="n">df</span><span class="p">,</span> <span class="n">geometry</span><span class="o">=</span><span class="n">gpd</span><span class="o">.</span><span class="n">points_from_xy</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">lon</span><span class="p">,</span> <span class="n">df</span><span class="o">.</span><span class="n">lat</span><span class="p">),</span> <span class="n">crs</span><span class="o">=</span><span class="s1">'EPSG:4326'</span>
-        <span class="p">)</span>
-<span class="c1"># convert coordinates</span>
-
-<span class="c1"># convert bounds from crs=4326 (World Geodetic System 1984)</span>
-<span class="c1"># to crs=3857 (Web Mercator)</span>
-<a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">boundsWgs84</span></a> <span class="o">=</span> <span class="n">gdf</span><span class="o">.</span><span class="n">total_bounds</span>
-<span class="c1"># make a dataframe with the points</span>
-<span class="n">corners</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">(</span>
-                <span class="n">geometry</span><span class="o">=</span><span class="n">gpd</span><span class="o">.</span><span class="n">points_from_xy</span><span class="p">(</span>
-                        <span class="p">[</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">boundsWgs84</span></a><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">boundsWgs84</span></a><span class="p">[</span><span class="mi">2</span><span class="p">]],</span>
-                        <span class="p">[</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">boundsWgs84</span></a><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">boundsWgs84</span></a><span class="p">[</span><span class="mi">3</span><span class="p">]],</span>
-                        <span class="n">crs</span><span class="o">=</span><span class="mi">4326</span><span class="p">,</span>
-                        <span class="p">)</span>
-                <span class="p">)</span>
-<span class="c1"># convert to new CRS and get the new bounds</span>
-<a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">bounds</span></a> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoSeries</span><span class="p">(</span><span class="n">corners</span><span class="o">.</span><span class="n">to_crs</span><span class="p">(</span><span class="mi">3857</span><span class="p">)</span><span class="o">.</span><span class="n">geometry</span><span class="p">)</span><span class="o">.</span><span class="n">total_bounds</span>
-
-<span class="c1"># get the background map from contextily, OR, because sometimes OSM's API</span>
-<span class="c1"># fails, perhaps because CI is spamming the API, fall back on napari test data.</span>
-<span class="k">try</span><span class="p">:</span>
-    <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">bg_map</span></a><span class="p">,</span> <a href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="builtins.tuple" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">bg_extent</span></a> <span class="o">=</span> <span class="n">ctx</span><span class="o">.</span><span class="n">bounds2img</span><span class="p">(</span><span class="o">*</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">bounds</span></a><span class="p">,</span> <span class="n">zoom</span><span class="o">=</span><span class="mi">13</span><span class="p">)</span>
-<span class="k">except</span> <span class="p">(</span><span class="ne">ConnectionError</span><span class="p">,</span> <a href="https://docs.python.org/3/builtins/exceptions.html#OSError" title="builtins.OSError" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-exception"><span class="n">HTTPError</span></a><span class="p">):</span>
-    <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">bg_map</span></a> <span class="o">=</span> <span class="n">zarr</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">'https://data.napari.dev/prague-map.zarr'</span><span class="p">)</span>
-    <a href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="builtins.tuple" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">bg_extent</span></a> <span class="o">=</span> <span class="p">(</span>
-            <span class="mf">1599674.1279521685</span><span class="p">,</span> <span class="mf">1609458.067572671</span><span class="p">,</span>
-            <span class="mf">6452508.179721437</span><span class="p">,</span> <span class="mf">6467184.089152193</span><span class="p">,</span>
-            <span class="p">)</span>
-
-<span class="c1"># convert the true bounds of the downloaded map to WGS84 (crs=4326) coordinates</span>
-<span class="n">bounds_map_wm_df</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">(</span>
-        <span class="n">geometry</span><span class="o">=</span><span class="n">gpd</span><span class="o">.</span><span class="n">points_from_xy</span><span class="p">(</span>
-                <span class="p">[</span><a href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="builtins.tuple" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">bg_extent</span></a><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <a href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="builtins.tuple" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">bg_extent</span></a><span class="p">[</span><span class="mi">1</span><span class="p">]],</span>
-                <span class="p">[</span><a href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="builtins.tuple" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">bg_extent</span></a><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <a href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="builtins.tuple" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">bg_extent</span></a><span class="p">[</span><span class="mi">3</span><span class="p">]],</span>
-                <span class="n">crs</span><span class="o">=</span><span class="mi">3857</span><span class="p">,</span>
-                <span class="p">)</span>
-        <span class="p">)</span>
-<a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">bounds_map_wgs84</span></a> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoSeries</span><span class="p">(</span>
-        <span class="n">bounds_map_wm_df</span><span class="o">.</span><span class="n">to_crs</span><span class="p">(</span><span class="mi">4326</span><span class="p">)</span><span class="o">.</span><span class="n">geometry</span>
-        <span class="p">)</span><span class="o">.</span><span class="n">total_bounds</span>
-
-<span class="c1"># display the background map in napari</span>
-<a href="../api/napari.Viewer.html#napari.Viewer" title="napari.Viewer" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">viewer</span></a> <span class="o">=</span> <a href="../api/napari.Viewer.html#napari.Viewer" title="napari.Viewer" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-class"><span class="n">napari</span><span class="o">.</span><span class="n">Viewer</span></a><span class="p">()</span>
-<a href="../api/napari.Viewer.html#napari.Viewer" title="napari.Viewer" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">viewer</span></a><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">orientation2d</span> <span class="o">=</span> <span class="s1">'up'</span><span class="p">,</span><span class="s1">'right'</span>
-<a href="https://docs.python.org/3/builtins/functions.html#bool" title="builtins.bool" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">viewer</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">overlays</span><span class="o">.</span><span class="n">axes</span><span class="o">.</span><span class="n">visible</span></a> <span class="o">=</span> <span class="kc">True</span>
-<a href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="builtins.tuple" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">viewer</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">axis_labels</span></a> <span class="o">=</span> <span class="s1">'lat'</span><span class="p">,</span><span class="s1">'lon'</span>
-<a href="../api/napari.components.ViewerModel.html#napari.components.ViewerModel.window" title="napari.components.ViewerModel.window" class="sphx-glr-backref-module-napari-components sphx-glr-backref-type-py-attribute"><span class="n">viewer</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">add_plugin_dock_widget</span></a><span class="p">(</span><span class="s1">'napari'</span><span class="p">,</span> <span class="s1">'Features table widget'</span><span class="p">)</span>
-
-<span class="c1"># add the downloaded background map as an image layer, with the correct</span>
-<span class="c1"># translation and scale to match the lat/lon coordinates</span>
-<a href="../api/napari.Viewer.html#napari.Viewer.add_image" title="napari.Viewer.add_image" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-method"><span class="n">viewer</span><span class="o">.</span><span class="n">add_image</span></a><span class="p">(</span>
-        <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">bg_map</span></a><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>  <span class="c1"># invert the map so it goes up with latitude</span>
-        <span class="n">name</span><span class="o">=</span><span class="s1">'map'</span><span class="p">,</span>
-        <span class="n">rgb</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-        <span class="n">translate</span><span class="o">=</span><span class="p">(</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">bounds_map_wgs84</span></a><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">bounds_map_wgs84</span></a><span class="p">[</span><span class="mi">0</span><span class="p">]),</span>
-        <span class="n">scale</span><span class="o">=</span><span class="p">((</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">bounds_map_wgs84</span></a><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">-</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">bounds_map_wgs84</span></a><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">/</span><a href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="builtins.tuple" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">bg_map</span><span class="o">.</span><span class="n">shape</span></a><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
-               <span class="p">(</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">bounds_map_wgs84</span></a><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">-</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">bounds_map_wgs84</span></a><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">/</span><a href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="builtins.tuple" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">bg_map</span><span class="o">.</span><span class="n">shape</span></a><span class="p">[</span><span class="mi">1</span><span class="p">]),</span>
-        <span class="p">)</span>
-
-<span class="c1"># add the points of interest as a points layer, using some of the features for</span>
-<span class="c1"># coloring</span>
-<a href="../api/napari.layers.Points.html#napari.layers.Points" title="napari.layers.Points" class="sphx-glr-backref-module-napari-layers sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">points_layer</span></a> <span class="o">=</span> <a href="../api/napari.Viewer.html#napari.Viewer.add_points" title="napari.Viewer.add_points" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-method"><span class="n">viewer</span><span class="o">.</span><span class="n">add_points</span></a><span class="p">(</span>
-    <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">[[</span><span class="s1">'lat'</span><span class="p">,</span><span class="s1">'lon'</span><span class="p">]]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(),</span>
-    <span class="n">features</span><span class="o">=</span><span class="n">df</span><span class="p">,</span>
-    <span class="n">border_color</span><span class="o">=</span><span class="s1">'nature'</span><span class="p">,</span>
-    <span class="n">border_color_cycle</span><span class="o">=</span><span class="p">[</span><span class="s1">'blue'</span><span class="p">,</span> <span class="s1">'green'</span><span class="p">],</span>
-    <span class="n">border_width</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span>
-    <span class="n">face_color</span><span class="o">=</span><span class="s1">'stars'</span><span class="p">,</span>
-    <span class="n">face_colormap</span><span class="o">=</span><span class="s1">'reds'</span><span class="p">,</span>
-    <span class="n">size</span><span class="o">=</span><span class="mf">0.002</span><span class="p">,</span>
-    <span class="n">name</span><span class="o">=</span><span class="s1">'POI'</span><span class="p">,</span>
-<span class="p">)</span>
-
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">'__main__'</span><span class="p">:</span>
-    <a href="../api/napari.html#napari.run" title="napari.run" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-function"><span class="n">napari</span><span class="o">.</span><span class="n">run</span></a><span class="p">()</span>
-</pre></div>
-</div>
+<img src="../_images/sphx_glr_latlon-data-with-map_001.png" srcset="../_images/sphx_glr_latlon-data-with-map_001.png" alt="latlon data with map" class = "sphx-glr-single-img"/><div class="highlight-Python notranslate"><div class="highlight"><pre><span class="kn">import</span><span class="w"> </span><span class="nn">contextily</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ctx</span><span class="w">
+</span><span class="kn">import</span><span class="w"> </span><span class="nn">geopandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">gpd</span><span class="w">
+</span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span><span class="w">
+</span><span class="kn">import</span><span class="w"> </span><span class="nn">zarr</span><span class="w">
+</span><span class="kn">from</span><span class="w"> </span><span class="nn">requests</span><span class="nn">.</span><span class="nn">exceptions</span><span class="w"> </span><span class="kn">import</span> <a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-exception reference external" href="https://docs.python.org/3/builtins/exceptions.html#OSError" title="OSError"><span class="n">HTTPError</span></a><span class="w">
+</span><span class="w">
+</span><span class="kn">import</span><span class="w"> </span><span class="nn">napari</span><span class="w">
+</span><span class="w">
+</span><span class="c1"># some point of interest with lat/lon coordinates and a description</span><span class="w">
+</span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="p">[</span><span class="w">
+</span>    <span class="p">{</span><span class="s1">'</span><span class="s1">lon</span><span class="s1">'</span><span class="p">:</span> <span class="mf">14.3983569</span><span class="p">,</span> <span class="s1">'</span><span class="s1">lat</span><span class="s1">'</span><span class="p">:</span> <span class="mf">50.0897206</span><span class="p">,</span><span class="w">
+</span>     <span class="s1">'</span><span class="s1">sight</span><span class="s1">'</span><span class="p">:</span> <span class="s1">'</span><span class="s1">old castle</span><span class="s1">'</span><span class="p">,</span> <span class="s1">'</span><span class="s1">nature</span><span class="s1">'</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">'</span><span class="s1">stars</span><span class="s1">'</span><span class="p">:</span> <span class="mf">5.0</span><span class="p">}</span><span class="p">,</span><span class="w">
+</span>    <span class="p">{</span><span class="s1">'</span><span class="s1">lon</span><span class="s1">'</span><span class="p">:</span> <span class="mf">14.4112958</span><span class="p">,</span> <span class="s1">'</span><span class="s1">lat</span><span class="s1">'</span><span class="p">:</span> <span class="mf">50.0864922</span><span class="p">,</span><span class="w">
+</span>     <span class="s1">'</span><span class="s1">sight</span><span class="s1">'</span><span class="p">:</span> <span class="s1">'</span><span class="s1">crowded bridge</span><span class="s1">'</span><span class="p">,</span> <span class="s1">'</span><span class="s1">nature</span><span class="s1">'</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">'</span><span class="s1">stars</span><span class="s1">'</span><span class="p">:</span> <span class="mf">4.0</span><span class="p">}</span><span class="p">,</span><span class="w">
+</span>    <span class="p">{</span><span class="s1">'</span><span class="s1">lon</span><span class="s1">'</span><span class="p">:</span> <span class="mf">14.4178942</span><span class="p">,</span> <span class="s1">'</span><span class="s1">lat</span><span class="s1">'</span><span class="p">:</span> <span class="mf">50.0629778</span><span class="p">,</span><span class="w">
+</span>     <span class="s1">'</span><span class="s1">sight</span><span class="s1">'</span><span class="p">:</span> <span class="s1">'</span><span class="s1">even older castle</span><span class="s1">'</span><span class="p">,</span> <span class="s1">'</span><span class="s1">nature</span><span class="s1">'</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">'</span><span class="s1">stars</span><span class="s1">'</span><span class="p">:</span> <span class="mf">4.1</span><span class="p">}</span><span class="p">,</span><span class="w">
+</span>    <span class="p">{</span><span class="s1">'</span><span class="s1">lon</span><span class="s1">'</span><span class="p">:</span> <span class="mf">14.4495206</span><span class="p">,</span> <span class="s1">'</span><span class="s1">lat</span><span class="s1">'</span><span class="p">:</span> <span class="mf">50.0884767</span><span class="p">,</span><span class="w">
+</span>     <span class="s1">'</span><span class="s1">sight</span><span class="s1">'</span><span class="p">:</span> <span class="s1">'</span><span class="s1">nice view from here</span><span class="s1">'</span><span class="p">,</span> <span class="s1">'</span><span class="s1">nature</span><span class="s1">'</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s1">'</span><span class="s1">stars</span><span class="s1">'</span><span class="p">:</span> <span class="mf">3.2</span><span class="p">}</span><span class="p">,</span><span class="w">
+</span>    <span class="p">{</span><span class="s1">'</span><span class="s1">lon</span><span class="s1">'</span><span class="p">:</span> <span class="mf">14.4052019</span><span class="p">,</span> <span class="s1">'</span><span class="s1">lat</span><span class="s1">'</span><span class="p">:</span> <span class="mf">50.1171367</span><span class="p">,</span><span class="w">
+</span>     <span class="s1">'</span><span class="s1">sight</span><span class="s1">'</span><span class="p">:</span> <span class="s1">'</span><span class="s1">zoo</span><span class="s1">'</span><span class="p">,</span> <span class="s1">'</span><span class="s1">nature</span><span class="s1">'</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s1">'</span><span class="s1">stars</span><span class="s1">'</span><span class="p">:</span> <span class="mf">5.0</span><span class="p">}</span><span class="p">,</span><span class="w">
+</span><span class="p">]</span><span class="p">)</span><span class="w">
+</span><span class="n">gdf</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">(</span><span class="w">
+</span>        <span class="n">df</span><span class="p">,</span> <span class="n">geometry</span><span class="o">=</span><span class="n">gpd</span><span class="o">.</span><span class="n">points_from_xy</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">lon</span><span class="p">,</span> <span class="n">df</span><span class="o">.</span><span class="n">lat</span><span class="p">)</span><span class="p">,</span> <span class="n">crs</span><span class="o">=</span><span class="s1">'</span><span class="s1">EPSG:4326</span><span class="s1">'</span><span class="w">
+</span>        <span class="p">)</span><span class="w">
+</span><span class="c1"># convert coordinates</span><span class="w">
+</span><span class="w">
+</span><span class="c1"># convert bounds from crs=4326 (World Geodetic System 1984)</span><span class="w">
+</span><span class="c1"># to crs=3857 (Web Mercator)</span><span class="w">
+</span><a class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray"><span class="n">boundsWgs84</span></a> <span class="o">=</span> <span class="n">gdf</span><span class="o">.</span><span class="n">total_bounds</span><span class="w">
+</span><span class="c1"># make a dataframe with the points</span><span class="w">
+</span><span class="n">corners</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">(</span><span class="w">
+</span>                <span class="n">geometry</span><span class="o">=</span><span class="n">gpd</span><span class="o">.</span><span class="n">points_from_xy</span><span class="p">(</span><span class="w">
+</span>                        <span class="p">[</span><a class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray"><span class="n">boundsWgs84</span></a><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="p">,</span> <a class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray"><span class="n">boundsWgs84</span></a><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="p">]</span><span class="p">,</span><span class="w">
+</span>                        <span class="p">[</span><a class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray"><span class="n">boundsWgs84</span></a><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="p">,</span> <a class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray"><span class="n">boundsWgs84</span></a><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="p">]</span><span class="p">,</span><span class="w">
+</span>                        <span class="n">crs</span><span class="o">=</span><span class="mi">4326</span><span class="p">,</span><span class="w">
+</span>                        <span class="p">)</span><span class="w">
+</span>                <span class="p">)</span><span class="w">
+</span><span class="c1"># convert to new CRS and get the new bounds</span><span class="w">
+</span><a class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray"><span class="n">bounds</span></a> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoSeries</span><span class="p">(</span><span class="n">corners</span><span class="o">.</span><span class="n">to_crs</span><span class="p">(</span><span class="mi">3857</span><span class="p">)</span><span class="o">.</span><span class="n">geometry</span><span class="p">)</span><span class="o">.</span><span class="n">total_bounds</span><span class="w">
+</span><span class="w">
+</span><span class="c1"># get the background map from contextily, OR, because sometimes OSM's API</span><span class="w">
+</span><span class="c1"># fails, perhaps because CI is spamming the API, fall back on napari test data.</span><span class="w">
+</span><span class="k">try</span><span class="p">:</span><span class="w">
+</span>    <a class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray"><span class="n">bg_map</span></a><span class="p">,</span> <a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="tuple"><span class="n">bg_extent</span></a> <span class="o">=</span> <span class="n">ctx</span><span class="o">.</span><span class="n">bounds2img</span><span class="p">(</span><span class="o">*</span><a class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray"><span class="n">bounds</span></a><span class="p">,</span> <span class="n">zoom</span><span class="o">=</span><span class="mi">13</span><span class="p">)</span><span class="w">
+</span><span class="k">except</span> <span class="p">(</span><span class="ne">ConnectionError</span><span class="p">,</span> <a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-exception reference external" href="https://docs.python.org/3/builtins/exceptions.html#OSError" title="OSError"><span class="n">HTTPError</span></a><span class="p">)</span><span class="p">:</span><span class="w">
+</span>    <a class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray"><span class="n">bg_map</span></a> <span class="o">=</span> <span class="n">zarr</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">'</span><span class="s1">https://data.napari.dev/prague-map.zarr</span><span class="s1">'</span><span class="p">)</span><span class="w">
+</span>    <a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="tuple"><span class="n">bg_extent</span></a> <span class="o">=</span> <span class="p">(</span><span class="w">
+</span>            <span class="mf">1599674.1279521685</span><span class="p">,</span> <span class="mf">1609458.067572671</span><span class="p">,</span><span class="w">
+</span>            <span class="mf">6452508.179721437</span><span class="p">,</span> <span class="mf">6467184.089152193</span><span class="p">,</span><span class="w">
+</span>            <span class="p">)</span><span class="w">
+</span><span class="w">
+</span><span class="c1"># convert the true bounds of the downloaded map to WGS84 (crs=4326) coordinates</span><span class="w">
+</span><span class="n">bounds_map_wm_df</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">(</span><span class="w">
+</span>        <span class="n">geometry</span><span class="o">=</span><span class="n">gpd</span><span class="o">.</span><span class="n">points_from_xy</span><span class="p">(</span><span class="w">
+</span>                <span class="p">[</span><a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="tuple"><span class="n">bg_extent</span></a><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="p">,</span> <a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="tuple"><span class="n">bg_extent</span></a><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="p">]</span><span class="p">,</span><span class="w">
+</span>                <span class="p">[</span><a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="tuple"><span class="n">bg_extent</span></a><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="p">,</span> <a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="tuple"><span class="n">bg_extent</span></a><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="p">]</span><span class="p">,</span><span class="w">
+</span>                <span class="n">crs</span><span class="o">=</span><span class="mi">3857</span><span class="p">,</span><span class="w">
+</span>                <span class="p">)</span><span class="w">
+</span>        <span class="p">)</span><span class="w">
+</span><a class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray"><span class="n">bounds_map_wgs84</span></a> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoSeries</span><span class="p">(</span><span class="w">
+</span>        <span class="n">bounds_map_wm_df</span><span class="o">.</span><span class="n">to_crs</span><span class="p">(</span><span class="mi">4326</span><span class="p">)</span><span class="o">.</span><span class="n">geometry</span><span class="w">
+</span>        <span class="p">)</span><span class="o">.</span><span class="n">total_bounds</span><span class="w">
+</span><span class="w">
+</span><span class="c1"># display the background map in napari</span><span class="w">
+</span><a class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-class sphx-glr-backref-instance reference internal" href="../api/napari.Viewer.html#napari.Viewer" title="napari.Viewer"><span class="n">viewer</span></a> <span class="o">=</span> <a class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-class reference internal" href="../api/napari.Viewer.html#napari.Viewer" title="napari.Viewer"><span class="n">napari</span><span class="o">.</span><span class="n">Viewer</span></a><span class="p">(</span><span class="p">)</span><span class="w">
+</span><a class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-class sphx-glr-backref-instance reference internal" href="../api/napari.Viewer.html#napari.Viewer" title="napari.Viewer"><span class="n">viewer</span></a><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">orientation2d</span> <span class="o">=</span> <span class="s1">'</span><span class="s1">up</span><span class="s1">'</span><span class="p">,</span><span class="s1">'</span><span class="s1">right</span><span class="s1">'</span><span class="w">
+</span><a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="bool"><span class="n">viewer</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">overlays</span><span class="o">.</span><span class="n">axes</span><span class="o">.</span><span class="n">visible</span></a> <span class="o">=</span> <span class="kc">True</span><span class="w">
+</span><a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="tuple"><span class="n">viewer</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">axis_labels</span></a> <span class="o">=</span> <span class="s1">'</span><span class="s1">lat</span><span class="s1">'</span><span class="p">,</span><span class="s1">'</span><span class="s1">lon</span><span class="s1">'</span><span class="w">
+</span><a class="sphx-glr-backref-module-napari-components sphx-glr-backref-type-py-attribute reference internal" href="../api/napari.components.ViewerModel.html#napari.components.ViewerModel.window" title="napari.components.ViewerModel.window"><span class="n">viewer</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">add_plugin_dock_widget</span></a><span class="p">(</span><span class="s1">'</span><span class="s1">napari</span><span class="s1">'</span><span class="p">,</span> <span class="s1">'</span><span class="s1">Features table widget</span><span class="s1">'</span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span><span class="c1"># add the downloaded background map as an image layer, with the correct</span><span class="w">
+</span><span class="c1"># translation and scale to match the lat/lon coordinates</span><span class="w">
+</span><a class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-method reference internal" href="../api/napari.Viewer.html#napari.Viewer.add_image" title="napari.Viewer.add_image"><span class="n">viewer</span><span class="o">.</span><span class="n">add_image</span></a><span class="p">(</span><span class="w">
+</span>        <a class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray"><span class="n">bg_map</span></a><span class="p">[</span><span class="p">:</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="p">,</span>  <span class="c1"># invert the map so it goes up with latitude</span><span class="w">
+</span>        <span class="n">name</span><span class="o">=</span><span class="s1">'</span><span class="s1">map</span><span class="s1">'</span><span class="p">,</span><span class="w">
+</span>        <span class="n">rgb</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="w">
+</span>        <span class="n">translate</span><span class="o">=</span><span class="p">(</span><a class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray"><span class="n">bounds_map_wgs84</span></a><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="p">,</span> <a class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray"><span class="n">bounds_map_wgs84</span></a><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="p">)</span><span class="p">,</span><span class="w">
+</span>        <span class="n">scale</span><span class="o">=</span><span class="p">(</span><span class="p">(</span><a class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray"><span class="n">bounds_map_wgs84</span></a><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">-</span><a class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray"><span class="n">bounds_map_wgs84</span></a><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="p">)</span><span class="o">/</span><a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="tuple"><span class="n">bg_map</span><span class="o">.</span><span class="n">shape</span></a><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="p">,</span><span class="w">
+</span>               <span class="p">(</span><a class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray"><span class="n">bounds_map_wgs84</span></a><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">-</span><a class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray"><span class="n">bounds_map_wgs84</span></a><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="p">)</span><span class="o">/</span><a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="tuple"><span class="n">bg_map</span><span class="o">.</span><span class="n">shape</span></a><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="p">)</span><span class="p">,</span><span class="w">
+</span>        <span class="p">)</span><span class="w">
+</span><span class="w">
+</span><span class="c1"># add the points of interest as a points layer, using some of the features for</span><span class="w">
+</span><span class="c1"># coloring</span><span class="w">
+</span><a class="sphx-glr-backref-module-napari-layers sphx-glr-backref-type-py-class sphx-glr-backref-instance reference internal" href="../api/napari.layers.Points.html#napari.layers.Points" title="napari.layers.Points"><span class="n">points_layer</span></a> <span class="o">=</span> <a class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-method reference internal" href="../api/napari.Viewer.html#napari.Viewer.add_points" title="napari.Viewer.add_points"><span class="n">viewer</span><span class="o">.</span><span class="n">add_points</span></a><span class="p">(</span><span class="w">
+</span>    <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="p">[</span><span class="s1">'</span><span class="s1">lat</span><span class="s1">'</span><span class="p">,</span><span class="s1">'</span><span class="s1">lon</span><span class="s1">'</span><span class="p">]</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(</span><span class="p">)</span><span class="p">,</span><span class="w">
+</span>    <span class="n">features</span><span class="o">=</span><span class="n">df</span><span class="p">,</span><span class="w">
+</span>    <span class="n">border_color</span><span class="o">=</span><span class="s1">'</span><span class="s1">nature</span><span class="s1">'</span><span class="p">,</span><span class="w">
+</span>    <span class="n">border_color_cycle</span><span class="o">=</span><span class="p">[</span><span class="s1">'</span><span class="s1">blue</span><span class="s1">'</span><span class="p">,</span> <span class="s1">'</span><span class="s1">green</span><span class="s1">'</span><span class="p">]</span><span class="p">,</span><span class="w">
+</span>    <span class="n">border_width</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span><span class="w">
+</span>    <span class="n">face_color</span><span class="o">=</span><span class="s1">'</span><span class="s1">stars</span><span class="s1">'</span><span class="p">,</span><span class="w">
+</span>    <span class="n">face_colormap</span><span class="o">=</span><span class="s1">'</span><span class="s1">reds</span><span class="s1">'</span><span class="p">,</span><span class="w">
+</span>    <span class="n">size</span><span class="o">=</span><span class="mf">0.002</span><span class="p">,</span><span class="w">
+</span>    <span class="n">name</span><span class="o">=</span><span class="s1">'</span><span class="s1">POI</span><span class="s1">'</span><span class="p">,</span><span class="w">
+</span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span><span class="k">if</span> <a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="str"><span class="vm">__name__</span></a> <span class="o">==</span> <span class="s1">'</span><span class="s1">__main__</span><span class="s1">'</span><span class="p">:</span><span class="w">
+</span>    <a class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-function reference internal" href="../api/napari.html#napari.run" title="napari.run"><span class="n">napari</span><span class="o">.</span><span class="n">run</span></a><span class="p">(</span><span class="p">)</span><span class="w">
+</span></pre></div></div>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-latlon-data-with-map-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/ecc4edfcc2b0cbd91736fc45fc4e8f00/latlon-data-with-map.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">latlon-data-with-map.ipynb</span></code></a></p>
@@ -1043,8 +1041,8 @@ for ways to install additional packages from within napari.</p>
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../_static/scripts/bootstrap.js?digest=cb8930eaaf36d9849b67"></script>
-<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=cb8930eaaf36d9849b67"></script>
+  <script defer src="../_static/scripts/bootstrap.js?digest=64cc4de3f052d77215f0"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=64cc4de3f052d77215f0"></script>
 
   <footer class="napari-footer">
 <div class="bd-footer__inner bd-page-width">

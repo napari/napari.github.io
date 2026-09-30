@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 
 
@@ -13,10 +12,10 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://napari.org/stable/gallery/fourier_transform_playground.html" />
 <meta property="og:site_name" content="napari" />
-<meta property="og:description" content="Generate an image by adding arbitrary 2D sine waves and observe how the fourier transform’s real and imaginary components are affected by the changes. Threading is used to smoothly animate the waves. Tags: interactivity, gui Python (.py) Notebook (.ipynb) Download Jupyter notebook: fourier_transf..." />
+<meta property="og:description" content="Generate an image by adding arbitrary 2D sine waves and observe how the fourier transform’s real and imaginary components are affected by the changes. Threading is used to smoothly animate the waves. Tags: interactivity, gui Python (.py) Notebook (.ipynb) from time import sleep, time import numpy..." />
 <meta property="og:image" content="https://napari.org/dev/_static/opengraph_image.png" />
 <meta property="og:image:alt" content="3D segmented tribolium embryo in the napari viewer" />
-<meta name="description" content="Generate an image by adding arbitrary 2D sine waves and observe how the fourier transform’s real and imaginary components are affected by the changes. Threading is used to smoothly animate the waves. Tags: interactivity, gui Python (.py) Notebook (.ipynb) Download Jupyter notebook: fourier_transf..." />
+<meta name="description" content="Generate an image by adding arbitrary 2D sine waves and observe how the fourier transform’s real and imaginary components are affected by the changes. Threading is used to smoothly animate the waves. Tags: interactivity, gui Python (.py) Notebook (.ipynb) from time import sleep, time import numpy..." />
 <meta name="twitter:card" content="summary_large_image" />
 
     <title>Fourier transform playground &#8212; napari</title>
@@ -38,14 +37,14 @@
   </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=cb8930eaaf36d9849b67" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=cb8930eaaf36d9849b67" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=64cc4de3f052d77215f0" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=64cc4de3f052d77215f0" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d8568271" />
     <link rel="stylesheet" type="text/css" href="../_static/css/napari-sphinx-theme.css?v=3779b88c" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=fd6457a4" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=c83e6b79" />
     <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css?v=f4aeca0c" />
     <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=2082cf3c" />
     <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
@@ -53,12 +52,12 @@
     <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=d2b87285" />
   
   <!-- So that users can add custom icons -->
-  <script defer src="../_static/scripts/fontawesome.js?digest=cb8930eaaf36d9849b67"></script>
+  <script defer src="../_static/scripts/fontawesome.js?digest=64cc4de3f052d77215f0"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=cb8930eaaf36d9849b67" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=cb8930eaaf36d9849b67" />
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=64cc4de3f052d77215f0" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=64cc4de3f052d77215f0" />
 
-    <script src="../_static/documentation_options.js?v=a4878671"></script>
+    <script src="../_static/documentation_options.js?v=a267c092"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -68,7 +67,7 @@
     <script data-domain="napari.org" defer="defer" src="https://plausible.io/js/plausible.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'gallery/fourier_transform_playground';</script>
     <script>
-        DOCUMENTATION_OPTIONS.theme_version = '0.21.0';
+        DOCUMENTATION_OPTIONS.theme_version = '0.22.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
         DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'dev';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
@@ -129,7 +128,7 @@
   
     <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
 <div class="bd-header__inner bd-page-width">
-  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+  <button type="button" class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
     <span class="fa-solid fa-bars"></span>
   </button>
   
@@ -219,7 +218,7 @@
         <div class="navbar-item navbar-persistent--container">
           
 
-<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button type="button" class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
  <i class="fa-solid fa-magnifying-glass"></i>
  <span class="search-button__default-text">Search</span>
  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
@@ -265,15 +264,15 @@
         <div class="navbar-item">
 
 <div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+  <button type="button" class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
     <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
     <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
     <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
   </button>
   <ul class="dropdown-menu dropdown-menu-end">
-    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
-    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
-    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
   </ul>
 </div></div>
       
@@ -284,7 +283,7 @@
   
     <div class="navbar-persistent--mobile">
 
-<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button type="button" class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
  <i class="fa-solid fa-magnifying-glass"></i>
  <span class="search-button__default-text">Search</span>
  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
@@ -293,7 +292,7 @@
   
 
   
-    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+    <button type="button" class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
       <span class="fa-solid fa-outdent"></span>
     </button>
   
@@ -406,15 +405,15 @@
           <div class="navbar-item">
 
 <div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+  <button type="button" class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
     <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
     <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
     <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
   </button>
   <ul class="dropdown-menu dropdown-menu-end">
-    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
-    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
-    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
   </ul>
 </div></div>
         
@@ -537,7 +536,7 @@
 <li class="toctree-l4"><a class="reference internal" href="custom_key_bindings.html">Custom key bindings</a></li>
 <li class="toctree-l4"><a class="reference internal" href="custom_mouse_functions.html">Custom mouse functions</a></li>
 <li class="toctree-l4"><a class="reference internal" href="features_table_widget.html">Features table widget</a></li>
-<li class="toctree-l4 current active"><a class="current reference internal" href="#">Fourier transform playground</a></li>
+<li class="toctree-l4 current active"><a aria-current="page" class="current reference internal" href="#">Fourier transform playground</a></li>
 <li class="toctree-l4"><a class="reference internal" href="get_current_viewer.html">Get current viewer</a></li>
 <li class="toctree-l4"><a class="reference internal" href="image_custom_kernel.html">Custom image interpolation kernels</a></li>
 <li class="toctree-l4"><a class="reference internal" href="inherit_viewer_style.html">Method to get napari style in magicgui based windows</a></li>
@@ -563,7 +562,7 @@
 <li class="toctree-l4"><a class="reference internal" href="cursor_position.html">Cursor position</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cursor_ray.html">Cursor ray</a></li>
 <li class="toctree-l4"><a class="reference internal" href="drag_and_drop_python_code.html">Drag and Drop Python Code Example</a></li>
-<li class="toctree-l4 current active"><a class="current reference internal" href="#">Fourier transform playground</a></li>
+<li class="toctree-l4 current active"><a aria-current="page" class="current reference internal" href="#">Fourier transform playground</a></li>
 <li class="toctree-l4"><a class="reference internal" href="inherit_viewer_style.html">Method to get napari style in magicgui based windows</a></li>
 <li class="toctree-l4"><a class="reference internal" href="interactive_scripting.html">Interactive scripting</a></li>
 <li class="toctree-l4"><a class="reference internal" href="mouse_drag_image_warping.html">Image warping with mouse event callbacks</a></li>
@@ -853,192 +852,191 @@ by the changes. Threading is used to smoothly animate the waves.</p>
 <p><a class="reference download internal" download="" href="../_downloads/b07430d559e80c2de6ee91942bef56dd/fourier_transform_playground.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Notebook</span> <span class="pre">(.ipynb)</span></code></a></p>
 </div>
 </div>
-<img src="../_images/sphx_glr_fourier_transform_playground_001.png" srcset="../_images/sphx_glr_fourier_transform_playground_001.png" alt="fourier transform playground" class = "sphx-glr-single-img"/><div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">time</span><span class="w"> </span><span class="kn">import</span> <a href="https://docs.python.org/3/library/time.html#time.sleep" title="time.sleep" class="sphx-glr-backref-module-time sphx-glr-backref-type-py-function"><span class="n">sleep</span></a><span class="p">,</span> <a href="https://docs.python.org/3/library/time.html#time.time" title="time.time" class="sphx-glr-backref-module-time sphx-glr-backref-type-py-function"><span class="n">time</span></a>
+<img src="../_images/sphx_glr_fourier_transform_playground_001.png" srcset="../_images/sphx_glr_fourier_transform_playground_001.png" alt="fourier transform playground" class = "sphx-glr-single-img"/><div class="highlight-Python notranslate"><div class="highlight"><pre><span class="kn">from</span><span class="w"> </span><a class="sphx-glr-backref-module-time sphx-glr-backref-type-py-function reference external" href="https://docs.python.org/3/library/time.html#time.time" title="time.time"><span class="nn">time</span></a><span class="w"> </span><span class="kn">import</span> <a class="sphx-glr-backref-module-time sphx-glr-backref-type-py-function reference external" href="https://docs.python.org/3/library/time.html#time.sleep" title="time.sleep"><span class="n">sleep</span></a><span class="p">,</span> <a class="sphx-glr-backref-module-time sphx-glr-backref-type-py-function reference external" href="https://docs.python.org/3/library/time.html#time.time" title="time.time"><span class="n">time</span></a><span class="w">
+</span><span class="w">
+</span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span><span class="w">
+</span><span class="kn">from</span><span class="w"> </span><span class="nn">magicgui</span><span class="w"> </span><span class="kn">import</span> <a class="sphx-glr-backref-module-magicgui sphx-glr-backref-type-py-data reference external" href="https://pyapp-kit.github.io/magicgui/api/magic_factory/#magicgui.magic_factory" title="magicgui.magic_factory"><span class="n">magic_factory</span></a><span class="w">
+</span><span class="kn">from</span><span class="w"> </span><span class="nn">qtpy</span><span class="nn">.</span><span class="nn">QtWidgets</span><span class="w"> </span><span class="kn">import</span> <span class="n">QApplication</span><span class="w">
+</span><span class="kn">from</span><span class="w"> </span><span class="nn">scipy</span><span class="nn">.</span><span class="nn">fft</span><span class="w"> </span><span class="kn">import</span> <span class="n">fft2</span><span class="p">,</span> <span class="n">fftshift</span><span class="w">
+</span><span class="w">
+</span><span class="kn">import</span><span class="w"> </span><span class="nn">napari</span><span class="w">
+</span><span class="kn">from</span><span class="w"> </span><span class="nn">napari</span><span class="nn">.</span><span class="nn">qt</span><span class="nn">.</span><span class="nn">threading</span><span class="w"> </span><span class="kn">import</span> <a class="sphx-glr-backref-module-napari-qt sphx-glr-backref-type-py-function reference internal" href="../api/napari.qt.html#napari.qt.thread_worker" title="napari.qt.thread_worker"><span class="n">thread_worker</span></a><span class="w">
+</span><span class="w">
+</span><a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="int"><span class="n">IMAGE_SIZE</span></a> <span class="o">=</span> <span class="mi">100</span><span class="w">
+</span><a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="int"><span class="n">FPS</span></a> <span class="o">=</span> <span class="mi">20</span><span class="w">
+</span><span class="c1"># when running this example in sphinx-gallery, we need to tell the</span><span class="w">
+</span><span class="c1"># thread when the example is finished running to stop updates</span><span class="w">
+</span><a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="bool"><span class="n">FINISHED</span></a> <span class="o">=</span> <span class="kc">False</span><span class="w">
+</span><span class="w">
+</span><span class="c1"># meshgrid used to calculate the 2D sine waves</span><span class="w">
+</span><a class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray"><span class="n">x</span></a> <span class="o">=</span> <a class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.arange.html#numpy.arange" title="numpy.arange"><span class="n">np</span><span class="o">.</span><span class="n">arange</span></a><span class="p">(</span><a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="int"><span class="n">IMAGE_SIZE</span></a><span class="p">)</span> <span class="o">-</span> <a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="int"><span class="n">IMAGE_SIZE</span></a> <span class="o">/</span> <span class="mi">2</span><span class="w">
+</span><a class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray"><span class="n">X</span></a><span class="p">,</span> <a class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray"><span class="n">Y</span></a> <span class="o">=</span> <a class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.meshgrid.html#numpy.meshgrid" title="numpy.meshgrid"><span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span></a><span class="p">(</span><a class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray"><span class="n">x</span></a><span class="p">,</span> <a class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray"><span class="n">x</span></a><span class="p">)</span><span class="w">
+</span><span class="w">
+</span><span class="k">def</span><span class="w"> </span><span class="nf">wait_for_layers</span><span class="p">(</span><a class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-class sphx-glr-backref-instance reference internal" href="../api/napari.Viewer.html#napari.Viewer" title="napari.Viewer"><span class="n">viewer</span></a><span class="p">,</span> <span class="n">layer_names</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">interval</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Wait for any thread creating layers to finish.
 
-<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">magicgui</span><span class="w"> </span><span class="kn">import</span> <a href="https://pyapp-kit.github.io/magicgui/api/magic_factory/#magicgui.magic_factory" title="magicgui.magic_factory" class="sphx-glr-backref-module-magicgui sphx-glr-backref-type-py-data"><span class="n">magic_factory</span></a>
-<span class="kn">from</span><span class="w"> </span><span class="nn">qtpy.QtWidgets</span><span class="w"> </span><span class="kn">import</span> <span class="n">QApplication</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.fft</span><span class="w"> </span><span class="kn">import</span> <span class="n">fft2</span><span class="p">,</span> <span class="n">fftshift</span>
+    If we expect a different thread to be adding layers to
+    `viewer`, we can wait for them to be added based on
+    their expected names.
+    &quot;&quot;&quot;</span><span class="w">
+</span>    <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">layer_names</span><span class="p">:</span><span class="w">
+</span>        <span class="k">while</span> <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <a class="sphx-glr-backref-module-napari-components sphx-glr-backref-type-py-class sphx-glr-backref-instance reference internal" href="../api/napari.components.LayerList.html#napari.components.LayerList" title="napari.components.LayerList"><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span></a><span class="p">:</span><span class="w">
+</span>            <a class="sphx-glr-backref-module-time sphx-glr-backref-type-py-function reference external" href="https://docs.python.org/3/library/time.html#time.sleep" title="time.sleep"><span class="n">sleep</span></a><span class="p">(</span><span class="n">interval</span><span class="p">)</span><span class="w">
+</span>            <span class="n">QApplication</span><span class="o">.</span><span class="n">processEvents</span><span class="p">(</span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span>    <span class="n">QApplication</span><span class="o">.</span><span class="n">processEvents</span><span class="p">(</span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span><span class="w">
+</span><span class="k">def</span><span class="w"> </span><span class="nf">wave_2d</span><span class="p">(</span><span class="n">frequency</span><span class="p">,</span> <span class="n">angle</span><span class="p">,</span> <span class="n">phase_shift</span><span class="p">)</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Generate a 2D sine wave based on angle, frequency and phase shift.&quot;&quot;&quot;</span><span class="w">
+</span>    <span class="n">angle</span> <span class="o">=</span> <a class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ufunc.html#numpy.ufunc" title="numpy.ufunc"><span class="n">np</span><span class="o">.</span><span class="n">deg2rad</span></a><span class="p">(</span><span class="n">angle</span><span class="p">)</span><span class="w">
+</span>    <span class="n">phase_shift</span> <span class="o">=</span> <a class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ufunc.html#numpy.ufunc" title="numpy.ufunc"><span class="n">np</span><span class="o">.</span><span class="n">deg2rad</span></a><span class="p">(</span><span class="n">phase_shift</span><span class="p">)</span><span class="w">
+</span>    <span class="n">wave</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="float"><span class="n">np</span><span class="o">.</span><span class="n">pi</span></a> <span class="o">*</span> <span class="p">(</span><a class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray"><span class="n">X</span></a> <span class="o">*</span> <a class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ufunc.html#numpy.ufunc" title="numpy.ufunc"><span class="n">np</span><span class="o">.</span><span class="n">cos</span></a><span class="p">(</span><span class="n">angle</span><span class="p">)</span> <span class="o">+</span> <a class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray"><span class="n">Y</span></a> <span class="o">*</span> <a class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ufunc.html#numpy.ufunc" title="numpy.ufunc"><span class="n">np</span><span class="o">.</span><span class="n">sin</span></a><span class="p">(</span><span class="n">angle</span><span class="p">)</span><span class="p">)</span> <span class="o">*</span> <span class="n">frequency</span><span class="w">
+</span>    <span class="k">return</span> <a class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ufunc.html#numpy.ufunc" title="numpy.ufunc"><span class="n">np</span><span class="o">.</span><span class="n">sin</span></a><span class="p">(</span><span class="n">wave</span> <span class="o">+</span> <span class="n">phase_shift</span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span><span class="w">
+</span><span class="c1"># set up viewer with grid-mode enabled</span><span class="w">
+</span><span class="c1"># check if one exists to circumvent the forced napari.run() teardown at the end of this script</span><span class="w">
+</span><span class="n">existing_viewer</span> <span class="o">=</span> <a class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-function reference internal" href="../api/napari.html#napari.current_viewer" title="napari.current_viewer"><span class="n">napari</span><span class="o">.</span><span class="n">current_viewer</span></a><span class="p">(</span><span class="p">)</span><span class="w">
+</span><a class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-class sphx-glr-backref-instance reference internal" href="../api/napari.Viewer.html#napari.Viewer" title="napari.Viewer"><span class="n">viewer</span></a> <span class="o">=</span> <a class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-class reference internal" href="../api/napari.Viewer.html#napari.Viewer" title="napari.Viewer"><span class="n">napari</span><span class="o">.</span><span class="n">Viewer</span></a><span class="p">(</span><span class="p">)</span><span class="w">
+</span><a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="bool"><span class="n">viewer</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">enabled</span></a> <span class="o">=</span> <span class="kc">True</span><span class="w">
+</span><span class="w">
+</span><span class="w">
+</span><span class="k">def</span><span class="w"> </span><span class="nf">update_layer</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="o">*</span><span class="o">*</span><span class="n">kwargs</span><span class="p">)</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Update a layer in the viewer with new data.
 
-<span class="kn">import</span><span class="w"> </span><span class="nn">napari</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">napari.qt.threading</span><span class="w"> </span><span class="kn">import</span> <a href="../api/napari.qt.html#napari.qt.thread_worker" title="napari.qt.thread_worker" class="sphx-glr-backref-module-napari-qt sphx-glr-backref-type-py-function"><span class="n">thread_worker</span></a>
+    If data is None, then the layer is removed.
+    If the layer is not present, it's added to the viewer.
+    &quot;&quot;&quot;</span><span class="w">
+</span>    <span class="k">if</span> <a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="bool"><span class="n">FINISHED</span></a><span class="p">:</span><span class="w">
+</span>        <span class="k">return</span> <span class="c1"># don't update the viewer after the example has finished</span><span class="w">
+</span><span class="w">
+</span>    <span class="k">if</span> <span class="n">data</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span><span class="w">
+</span>        <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <a class="sphx-glr-backref-module-napari-components sphx-glr-backref-type-py-class sphx-glr-backref-instance reference internal" href="../api/napari.components.LayerList.html#napari.components.LayerList" title="napari.components.LayerList"><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span></a><span class="p">:</span><span class="w">
+</span>            <a class="sphx-glr-backref-module-napari-components sphx-glr-backref-type-py-method reference internal" href="../api/napari.components.LayerList.html#napari.components.LayerList.pop" title="napari.components.LayerList.pop"><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">pop</span></a><span class="p">(</span><span class="n">name</span><span class="p">)</span><span class="w">
+</span>        <a class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-method reference internal" href="../api/napari.Viewer.html#napari.Viewer.reset_view" title="napari.Viewer.reset_view"><span class="n">viewer</span><span class="o">.</span><span class="n">reset_view</span></a><span class="p">(</span><span class="p">)</span><span class="w">
+</span>    <span class="k">elif</span> <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <a class="sphx-glr-backref-module-napari-components sphx-glr-backref-type-py-class sphx-glr-backref-instance reference internal" href="../api/napari.components.LayerList.html#napari.components.LayerList" title="napari.components.LayerList"><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span></a><span class="p">:</span><span class="w">
+</span>        <a class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-method reference internal" href="../api/napari.Viewer.html#napari.Viewer.add_image" title="napari.Viewer.add_image"><span class="n">viewer</span><span class="o">.</span><span class="n">add_image</span></a><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">interpolation2d</span><span class="o">=</span><span class="s1">'</span><span class="s1">spline36</span><span class="s1">'</span><span class="p">,</span> <span class="o">*</span><span class="o">*</span><span class="n">kwargs</span><span class="p">)</span><span class="w">
+</span>        <a class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-method reference internal" href="../api/napari.Viewer.html#napari.Viewer.reset_view" title="napari.Viewer.reset_view"><span class="n">viewer</span><span class="o">.</span><span class="n">reset_view</span></a><span class="p">(</span><span class="p">)</span><span class="w">
+</span>    <span class="k">else</span><span class="p">:</span><span class="w">
+</span>        <a class="sphx-glr-backref-module-napari-components sphx-glr-backref-type-py-class sphx-glr-backref-instance reference internal" href="../api/napari.components.LayerList.html#napari.components.LayerList" title="napari.components.LayerList"><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span></a><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="w">
+</span><span class="w">
+</span><span class="w">
+</span><span class="k">def</span><span class="w"> </span><span class="nf">combine_and_set_data</span><span class="p">(</span><span class="n">wave_args</span><span class="p">)</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Merge 2D waves, calculate the FT and update the viewer.
 
-<a href="https://docs.python.org/3/builtins/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">IMAGE_SIZE</span></a> <span class="o">=</span> <span class="mi">100</span>
-<a href="https://docs.python.org/3/builtins/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">FPS</span></a> <span class="o">=</span> <span class="mi">20</span>
-<span class="c1"># when running this example in sphinx-gallery, we need to tell the</span>
-<span class="c1"># thread when the example is finished running to stop updates</span>
-<a href="https://docs.python.org/3/builtins/functions.html#bool" title="builtins.bool" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">FINISHED</span></a> <span class="o">=</span> <span class="kc">False</span>
+    The wave phases are offset by the current time multiplied by an
+    arbitrary speed value; this generates an animated wave if called repeatedly.
+    &quot;&quot;&quot;</span><span class="w">
+</span>    <span class="k">if</span> <span class="ow">not</span> <span class="n">wave_args</span><span class="p">:</span><span class="w">
+</span>        <span class="c1"># this happens on yielding from the thread, no need to update anything</span><span class="w">
+</span>        <span class="k">return</span><span class="w">
+</span><span class="w">
+</span>    <span class="n">t</span> <span class="o">=</span> <a class="sphx-glr-backref-module-time sphx-glr-backref-type-py-function reference external" href="https://docs.python.org/3/library/time.html#time.time" title="time.time"><span class="n">time</span></a><span class="p">(</span><span class="p">)</span><span class="w">
+</span>    <span class="n">waves</span> <span class="o">=</span> <span class="p">{</span><span class="w">
+</span>        <span class="n">wave_id</span><span class="p">:</span> <span class="n">wave_2d</span><span class="p">(</span><span class="n">frequency</span><span class="p">,</span> <span class="n">angle</span><span class="p">,</span> <span class="n">phase_shift</span> <span class="o">+</span> <span class="n">t</span> <span class="o">*</span> <span class="n">speed</span> <span class="o">*</span> <span class="mi">100</span><span class="p">)</span> <span class="k">if</span> <span class="n">frequency</span> <span class="k">else</span> <span class="kc">None</span><span class="w">
+</span>        <span class="k">for</span> <span class="n">wave_id</span><span class="p">,</span> <span class="p">(</span><span class="n">frequency</span><span class="p">,</span> <span class="n">angle</span><span class="p">,</span> <span class="n">phase_shift</span><span class="p">,</span> <span class="n">speed</span><span class="p">)</span> <span class="ow">in</span> <span class="n">wave_args</span><span class="o">.</span><span class="n">items</span><span class="p">(</span><span class="p">)</span><span class="w">
+</span>    <span class="p">}</span><span class="w">
+</span><span class="w">
+</span>    <span class="n">to_add</span> <span class="o">=</span> <span class="p">[</span><span class="n">d</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">waves</span><span class="o">.</span><span class="n">values</span><span class="p">(</span><span class="p">)</span> <span class="k">if</span> <span class="n">d</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">]</span><span class="w">
+</span>    <span class="k">if</span> <span class="n">to_add</span><span class="p">:</span><span class="w">
+</span>        <span class="n">mean</span> <span class="o">=</span> <a class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.mean.html#numpy.mean" title="numpy.mean"><span class="n">np</span><span class="o">.</span><span class="n">mean</span></a><span class="p">(</span><span class="n">to_add</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="w">
+</span>        <span class="n">ft</span> <span class="o">=</span> <span class="n">fftshift</span><span class="p">(</span><span class="n">fft2</span><span class="p">(</span><span class="n">mean</span><span class="p">)</span><span class="p">)</span><span class="w">
+</span>        <span class="n">power_spectrum</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">ft</span><span class="p">)</span><span class="w">
+</span>        <span class="n">phase</span> <span class="o">=</span> <a class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.angle.html#numpy.angle" title="numpy.angle"><span class="n">np</span><span class="o">.</span><span class="n">angle</span></a><span class="p">(</span><span class="n">ft</span><span class="p">)</span> <span class="o">*</span> <span class="n">power_spectrum</span><span class="w">
+</span>        <span class="n">power_spectrum</span> <span class="o">=</span> <a class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ufunc.html#numpy.ufunc" title="numpy.ufunc"><span class="n">np</span><span class="o">.</span><span class="n">log10</span></a><span class="p">(</span><span class="n">power_spectrum</span> <span class="o">+</span> <span class="mi">10</span><span class="p">)</span><span class="w">
+</span>    <span class="k">else</span><span class="p">:</span><span class="w">
+</span>        <span class="n">mean</span> <span class="o">=</span> <span class="n">power_spectrum</span> <span class="o">=</span> <span class="n">phase</span> <span class="o">=</span> <span class="kc">None</span><span class="w">
+</span><span class="w">
+</span>    <span class="c1"># for visualisation, it's clearer to use:</span><span class="w">
+</span>    <span class="c1"># phase * ps instead of phase</span><span class="w">
+</span>    <span class="c1"># and log10(ps + 1) instead of ps</span><span class="w">
+</span>    <span class="n">update_layer</span><span class="p">(</span><span class="s1">'</span><span class="s1">phase * power_spectrum</span><span class="s1">'</span><span class="p">,</span> <span class="n">phase</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="p">(</span><span class="s1">'</span><span class="s1">blue</span><span class="s1">'</span><span class="p">,</span> <span class="s1">'</span><span class="s1">black</span><span class="s1">'</span><span class="p">,</span> <span class="s1">'</span><span class="s1">red</span><span class="s1">'</span><span class="p">)</span><span class="p">)</span><span class="w">
+</span>    <span class="n">update_layer</span><span class="p">(</span><span class="s1">'</span><span class="s1">log10(power_spectrum + 1)</span><span class="s1">'</span><span class="p">,</span> <span class="n">power_spectrum</span><span class="p">)</span><span class="w">
+</span>    <span class="n">update_layer</span><span class="p">(</span><span class="s1">'</span><span class="s1">mean</span><span class="s1">'</span><span class="p">,</span> <span class="n">mean</span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span>    <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">waves</span><span class="o">.</span><span class="n">items</span><span class="p">(</span><span class="p">)</span><span class="p">:</span><span class="w">
+</span>        <span class="n">update_layer</span><span class="p">(</span><span class="sa">f</span><span class="s1">'</span><span class="s1">wave </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">'</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span><span class="w">
+</span><span class="nd">&#64;thread_worker</span><span class="p">(</span><span class="n">connect</span><span class="o">=</span><span class="p">{</span><span class="s1">'</span><span class="s1">yielded</span><span class="s1">'</span><span class="p">:</span> <span class="n">combine_and_set_data</span><span class="p">}</span><span class="p">)</span><span class="w">
+</span><span class="k">def</span><span class="w"> </span><span class="nf">update_viewer</span><span class="p">(</span><span class="p">)</span><span class="p">:</span><span class="w">
+</span>    <span class="c1"># keep track of each wave in a dictionary by id, this way we can modify/remove</span><span class="w">
+</span>    <span class="c1"># existing waves or add new ones</span><span class="w">
+</span>    <span class="n">wave_args</span> <span class="o">=</span> <span class="p">{</span><span class="p">}</span><span class="w">
+</span>    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span><span class="w">
+</span>        <a class="sphx-glr-backref-module-time sphx-glr-backref-type-py-function reference external" href="https://docs.python.org/3/library/time.html#time.sleep" title="time.sleep"><span class="n">sleep</span></a><span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="int"><span class="n">FPS</span></a><span class="p">)</span><span class="w">
+</span>        <span class="c1"># see https://napari.org/stable/guides/threading.html#full-two-way-communication</span><span class="w">
+</span>        <span class="c1"># this receives new_params from thread.send() and yields the current</span><span class="w">
+</span>        <span class="c1"># wave_args for the `yielded` callback (one yield per frame)</span><span class="w">
+</span>        <span class="n">new_params</span> <span class="o">=</span> <span class="k">yield</span> <span class="n">wave_args</span><span class="w">
+</span>        <span class="k">if</span> <span class="n">new_params</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span><span class="w">
+</span>            <span class="c1"># note that these come from thread.send() in moving_wave()!</span><span class="w">
+</span>            <span class="n">wave_id</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span> <span class="o">=</span> <span class="n">new_params</span><span class="w">
+</span>            <span class="n">wave_args</span><span class="p">[</span><span class="n">wave_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">args</span><span class="w">
+</span><span class="w">
+</span><span class="w">
+</span><span class="c1"># start the thread responsible for updating the viewer</span><span class="w">
+</span><a class="sphx-glr-backref-module-napari-_qt-qthreading sphx-glr-backref-type-py-class sphx-glr-backref-instance reference internal" href="../api/napari.qt.threading.GeneratorWorker.html#napari.qt.threading.GeneratorWorker" title="napari._qt.qthreading.GeneratorWorker"><span class="n">thread</span></a> <span class="o">=</span> <span class="n">update_viewer</span><span class="p">(</span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span><span class="c1"># wait until the worker has yielded once to ensure the viewer is ready to receive updates</span><span class="w">
+</span><a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="bool"><span class="n">worker_primed</span></a> <span class="o">=</span> <span class="kc">False</span><span class="w">
+</span><span class="w">
+</span><span class="w">
+</span><span class="k">def</span><span class="w"> </span><span class="nf">_on_first_yield</span><span class="p">(</span><span class="n">_value</span><span class="p">)</span><span class="p">:</span><span class="w">
+</span>    <span class="k">global</span> <a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="bool"><span class="n">worker_primed</span></a><span class="w">
+</span>    <a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="bool"><span class="n">worker_primed</span></a> <span class="o">=</span> <span class="kc">True</span><span class="w">
+</span>    <a class="sphx-glr-backref-module-napari-_qt-qthreading sphx-glr-backref-type-py-class sphx-glr-backref-instance reference internal" href="../api/napari.qt.threading.GeneratorWorker.html#napari.qt.threading.GeneratorWorker" title="napari._qt.qthreading.GeneratorWorker"><span class="n">thread</span></a><span class="o">.</span><span class="n">yielded</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span><span class="n">_on_first_yield</span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span><span class="w">
+</span><a class="sphx-glr-backref-module-napari-_qt-qthreading sphx-glr-backref-type-py-class sphx-glr-backref-instance reference internal" href="../api/napari.qt.threading.GeneratorWorker.html#napari.qt.threading.GeneratorWorker" title="napari._qt.qthreading.GeneratorWorker"><span class="n">thread</span></a><span class="o">.</span><span class="n">yielded</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">_on_first_yield</span><span class="p">)</span><span class="w">
+</span><span class="k">while</span> <span class="ow">not</span> <a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="bool"><span class="n">worker_primed</span></a><span class="p">:</span><span class="w">
+</span>    <span class="n">QApplication</span><span class="o">.</span><span class="n">processEvents</span><span class="p">(</span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span><span class="w">
+</span><span class="nd">&#64;magic_factory</span><span class="p">(</span><span class="w">
+</span>    <span class="n">auto_call</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="w">
+</span>    <span class="n">frequency</span><span class="o">=</span><span class="p">{</span><span class="s1">'</span><span class="s1">widget_type</span><span class="s1">'</span><span class="p">:</span> <span class="s1">'</span><span class="s1">FloatSlider</span><span class="s1">'</span><span class="p">,</span> <span class="s1">'</span><span class="s1">min</span><span class="s1">'</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">'</span><span class="s1">max</span><span class="s1">'</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">'</span><span class="s1">step</span><span class="s1">'</span><span class="p">:</span> <span class="mf">0.01</span><span class="p">}</span><span class="p">,</span><span class="w">
+</span>    <span class="n">angle</span><span class="o">=</span><span class="p">{</span><span class="s1">'</span><span class="s1">widget_type</span><span class="s1">'</span><span class="p">:</span> <span class="s1">'</span><span class="s1">Slider</span><span class="s1">'</span><span class="p">,</span> <span class="s1">'</span><span class="s1">min</span><span class="s1">'</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">'</span><span class="s1">max</span><span class="s1">'</span><span class="p">:</span> <span class="mi">180</span><span class="p">}</span><span class="p">,</span><span class="w">
+</span>    <span class="n">phase_shift</span><span class="o">=</span><span class="p">{</span><span class="s1">'</span><span class="s1">widget_type</span><span class="s1">'</span><span class="p">:</span> <span class="s1">'</span><span class="s1">Slider</span><span class="s1">'</span><span class="p">,</span> <span class="s1">'</span><span class="s1">min</span><span class="s1">'</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">'</span><span class="s1">max</span><span class="s1">'</span><span class="p">:</span> <span class="mi">180</span><span class="p">}</span><span class="p">,</span><span class="w">
+</span>    <span class="n">speed</span><span class="o">=</span><span class="p">{</span><span class="s1">'</span><span class="s1">widget_type</span><span class="s1">'</span><span class="p">:</span> <span class="s1">'</span><span class="s1">FloatSlider</span><span class="s1">'</span><span class="p">,</span> <span class="s1">'</span><span class="s1">min</span><span class="s1">'</span><span class="p">:</span> <span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="s1">'</span><span class="s1">max</span><span class="s1">'</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span> <span class="s1">'</span><span class="s1">step</span><span class="s1">'</span><span class="p">:</span> <span class="mf">0.1</span><span class="p">}</span><span class="p">,</span><span class="w">
+</span><span class="p">)</span><span class="w">
+</span><span class="k">def</span><span class="w"> </span><a class="sphx-glr-backref-module-magicgui-type_map-_magicgui sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://pyapp-kit.github.io/magicgui/api/magic_factory/#magicgui.type_map._magicgui.MagicFactory" title="magicgui.type_map._magicgui.MagicFactory"><span class="nf">moving_wave</span></a><span class="p">(</span><span class="w">
+</span>    <span class="n">wave_id</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span><span class="w">
+</span>    <span class="n">frequency</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">,</span><span class="w">
+</span>    <span class="n">angle</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span><span class="w">
+</span>    <span class="n">phase_shift</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span><span class="w">
+</span>    <span class="n">speed</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span><span class="w">
+</span>    <span class="n">run</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="w">
+</span><span class="p">)</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Send new parameters to the listening thread to update the 2D waves.
 
-<span class="c1"># meshgrid used to calculate the 2D sine waves</span>
-<a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">x</span></a> <span class="o">=</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.arange.html#numpy.arange" title="numpy.arange" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">arange</span></a><span class="p">(</span><a href="https://docs.python.org/3/builtins/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">IMAGE_SIZE</span></a><span class="p">)</span> <span class="o">-</span> <a href="https://docs.python.org/3/builtins/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">IMAGE_SIZE</span></a> <span class="o">/</span> <span class="mi">2</span>
-<a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">Y</span></a> <span class="o">=</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.meshgrid.html#numpy.meshgrid" title="numpy.meshgrid" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span></a><span class="p">(</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">x</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">x</span></a><span class="p">)</span>
-
-<span class="k">def</span><span class="w"> </span><span class="nf">wait_for_layers</span><span class="p">(</span><a href="../api/napari.Viewer.html#napari.Viewer" title="napari.Viewer" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">viewer</span></a><span class="p">,</span> <span class="n">layer_names</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">interval</span><span class="o">=</span><span class="mf">0.1</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">"""Wait for any thread creating layers to finish.</span>
-
-<span class="sd">    If we expect a different thread to be adding layers to</span>
-<span class="sd">    `viewer`, we can wait for them to be added based on</span>
-<span class="sd">    their expected names.</span>
-<span class="sd">    """</span>
-    <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">layer_names</span><span class="p">:</span>
-        <span class="k">while</span> <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <a href="../api/napari.components.LayerList.html#napari.components.LayerList" title="napari.components.LayerList" class="sphx-glr-backref-module-napari-components sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span></a><span class="p">:</span>
-            <a href="https://docs.python.org/3/library/time.html#time.sleep" title="time.sleep" class="sphx-glr-backref-module-time sphx-glr-backref-type-py-function"><span class="n">sleep</span></a><span class="p">(</span><span class="n">interval</span><span class="p">)</span>
-            <span class="n">QApplication</span><span class="o">.</span><span class="n">processEvents</span><span class="p">()</span>
-
-    <span class="n">QApplication</span><span class="o">.</span><span class="n">processEvents</span><span class="p">()</span>
-
-
-<span class="k">def</span><span class="w"> </span><span class="nf">wave_2d</span><span class="p">(</span><span class="n">frequency</span><span class="p">,</span> <span class="n">angle</span><span class="p">,</span> <span class="n">phase_shift</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">"""Generate a 2D sine wave based on angle, frequency and phase shift."""</span>
-    <span class="n">angle</span> <span class="o">=</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ufunc.html#numpy.ufunc" title="numpy.ufunc" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">np</span><span class="o">.</span><span class="n">deg2rad</span></a><span class="p">(</span><span class="n">angle</span><span class="p">)</span>
-    <span class="n">phase_shift</span> <span class="o">=</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ufunc.html#numpy.ufunc" title="numpy.ufunc" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">np</span><span class="o">.</span><span class="n">deg2rad</span></a><span class="p">(</span><span class="n">phase_shift</span><span class="p">)</span>
-    <span class="n">wave</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <a href="https://docs.python.org/3/builtins/functions.html#float" title="builtins.float" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">np</span><span class="o">.</span><span class="n">pi</span></a> <span class="o">*</span> <span class="p">(</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X</span></a> <span class="o">*</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ufunc.html#numpy.ufunc" title="numpy.ufunc" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">np</span><span class="o">.</span><span class="n">cos</span></a><span class="p">(</span><span class="n">angle</span><span class="p">)</span> <span class="o">+</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">Y</span></a> <span class="o">*</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ufunc.html#numpy.ufunc" title="numpy.ufunc" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">np</span><span class="o">.</span><span class="n">sin</span></a><span class="p">(</span><span class="n">angle</span><span class="p">))</span> <span class="o">*</span> <span class="n">frequency</span>
-    <span class="k">return</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ufunc.html#numpy.ufunc" title="numpy.ufunc" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">np</span><span class="o">.</span><span class="n">sin</span></a><span class="p">(</span><span class="n">wave</span> <span class="o">+</span> <span class="n">phase_shift</span><span class="p">)</span>
-
-
-<span class="c1"># set up viewer with grid-mode enabled</span>
-<span class="c1"># check if one exists to circumvent the forced napari.run() teardown at the end of this script</span>
-<span class="n">existing_viewer</span> <span class="o">=</span> <a href="../api/napari.html#napari.current_viewer" title="napari.current_viewer" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-function"><span class="n">napari</span><span class="o">.</span><span class="n">current_viewer</span></a><span class="p">()</span>
-<a href="../api/napari.Viewer.html#napari.Viewer" title="napari.Viewer" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">viewer</span></a> <span class="o">=</span> <a href="../api/napari.Viewer.html#napari.Viewer" title="napari.Viewer" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-class"><span class="n">napari</span><span class="o">.</span><span class="n">Viewer</span></a><span class="p">()</span>
-<a href="https://docs.python.org/3/builtins/functions.html#bool" title="builtins.bool" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">viewer</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">enabled</span></a> <span class="o">=</span> <span class="kc">True</span>
-
-
-<span class="k">def</span><span class="w"> </span><span class="nf">update_layer</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">"""Update a layer in the viewer with new data.</span>
-
-<span class="sd">    If data is None, then the layer is removed.</span>
-<span class="sd">    If the layer is not present, it's added to the viewer.</span>
-<span class="sd">    """</span>
-    <span class="k">if</span> <a href="https://docs.python.org/3/builtins/functions.html#bool" title="builtins.bool" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">FINISHED</span></a><span class="p">:</span>
-        <span class="k">return</span> <span class="c1"># don't update the viewer after the example has finished</span>
-
-    <span class="k">if</span> <span class="n">data</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <a href="../api/napari.components.LayerList.html#napari.components.LayerList" title="napari.components.LayerList" class="sphx-glr-backref-module-napari-components sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span></a><span class="p">:</span>
-            <a href="../api/napari.components.LayerList.html#napari.components.LayerList.pop" title="napari.components.LayerList.pop" class="sphx-glr-backref-module-napari-components sphx-glr-backref-type-py-method"><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">pop</span></a><span class="p">(</span><span class="n">name</span><span class="p">)</span>
-        <a href="../api/napari.Viewer.html#napari.Viewer.reset_view" title="napari.Viewer.reset_view" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-method"><span class="n">viewer</span><span class="o">.</span><span class="n">reset_view</span></a><span class="p">()</span>
-    <span class="k">elif</span> <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <a href="../api/napari.components.LayerList.html#napari.components.LayerList" title="napari.components.LayerList" class="sphx-glr-backref-module-napari-components sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span></a><span class="p">:</span>
-        <a href="../api/napari.Viewer.html#napari.Viewer.add_image" title="napari.Viewer.add_image" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-method"><span class="n">viewer</span><span class="o">.</span><span class="n">add_image</span></a><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">interpolation2d</span><span class="o">=</span><span class="s1">'spline36'</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-        <a href="../api/napari.Viewer.html#napari.Viewer.reset_view" title="napari.Viewer.reset_view" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-method"><span class="n">viewer</span><span class="o">.</span><span class="n">reset_view</span></a><span class="p">()</span>
-    <span class="k">else</span><span class="p">:</span>
-        <a href="../api/napari.components.LayerList.html#napari.components.LayerList" title="napari.components.LayerList" class="sphx-glr-backref-module-napari-components sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span></a><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span>
-
-
-<span class="k">def</span><span class="w"> </span><span class="nf">combine_and_set_data</span><span class="p">(</span><span class="n">wave_args</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">"""Merge 2D waves, calculate the FT and update the viewer.</span>
-
-<span class="sd">    The wave phases are offset by the current time multiplied by an</span>
-<span class="sd">    arbitrary speed value; this generates an animated wave if called repeatedly.</span>
-<span class="sd">    """</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">wave_args</span><span class="p">:</span>
-        <span class="c1"># this happens on yielding from the thread, no need to update anything</span>
-        <span class="k">return</span>
-
-    <span class="n">t</span> <span class="o">=</span> <a href="https://docs.python.org/3/library/time.html#time.time" title="time.time" class="sphx-glr-backref-module-time sphx-glr-backref-type-py-function"><span class="n">time</span></a><span class="p">()</span>
-    <span class="n">waves</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="n">wave_id</span><span class="p">:</span> <span class="n">wave_2d</span><span class="p">(</span><span class="n">frequency</span><span class="p">,</span> <span class="n">angle</span><span class="p">,</span> <span class="n">phase_shift</span> <span class="o">+</span> <span class="n">t</span> <span class="o">*</span> <span class="n">speed</span> <span class="o">*</span> <span class="mi">100</span><span class="p">)</span> <span class="k">if</span> <span class="n">frequency</span> <span class="k">else</span> <span class="kc">None</span>
-        <span class="k">for</span> <span class="n">wave_id</span><span class="p">,</span> <span class="p">(</span><span class="n">frequency</span><span class="p">,</span> <span class="n">angle</span><span class="p">,</span> <span class="n">phase_shift</span><span class="p">,</span> <span class="n">speed</span><span class="p">)</span> <span class="ow">in</span> <span class="n">wave_args</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
-    <span class="p">}</span>
-
-    <span class="n">to_add</span> <span class="o">=</span> <span class="p">[</span><span class="n">d</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">waves</span><span class="o">.</span><span class="n">values</span><span class="p">()</span> <span class="k">if</span> <span class="n">d</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">]</span>
-    <span class="k">if</span> <span class="n">to_add</span><span class="p">:</span>
-        <span class="n">mean</span> <span class="o">=</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.mean.html#numpy.mean" title="numpy.mean" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">mean</span></a><span class="p">(</span><span class="n">to_add</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-        <span class="n">ft</span> <span class="o">=</span> <span class="n">fftshift</span><span class="p">(</span><span class="n">fft2</span><span class="p">(</span><span class="n">mean</span><span class="p">))</span>
-        <span class="n">power_spectrum</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">ft</span><span class="p">)</span>
-        <span class="n">phase</span> <span class="o">=</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.angle.html#numpy.angle" title="numpy.angle" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">angle</span></a><span class="p">(</span><span class="n">ft</span><span class="p">)</span> <span class="o">*</span> <span class="n">power_spectrum</span>
-        <span class="n">power_spectrum</span> <span class="o">=</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ufunc.html#numpy.ufunc" title="numpy.ufunc" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">np</span><span class="o">.</span><span class="n">log10</span></a><span class="p">(</span><span class="n">power_spectrum</span> <span class="o">+</span> <span class="mi">10</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">mean</span> <span class="o">=</span> <span class="n">power_spectrum</span> <span class="o">=</span> <span class="n">phase</span> <span class="o">=</span> <span class="kc">None</span>
-
-    <span class="c1"># for visualisation, it's clearer to use:</span>
-    <span class="c1"># phase * ps instead of phase</span>
-    <span class="c1"># and log10(ps + 1) instead of ps</span>
-    <span class="n">update_layer</span><span class="p">(</span><span class="s1">'phase * power_spectrum'</span><span class="p">,</span> <span class="n">phase</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="p">(</span><span class="s1">'blue'</span><span class="p">,</span> <span class="s1">'black'</span><span class="p">,</span> <span class="s1">'red'</span><span class="p">))</span>
-    <span class="n">update_layer</span><span class="p">(</span><span class="s1">'log10(power_spectrum + 1)'</span><span class="p">,</span> <span class="n">power_spectrum</span><span class="p">)</span>
-    <span class="n">update_layer</span><span class="p">(</span><span class="s1">'mean'</span><span class="p">,</span> <span class="n">mean</span><span class="p">)</span>
-
-    <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">waves</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-        <span class="n">update_layer</span><span class="p">(</span><span class="sa">f</span><span class="s1">'wave </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">'</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
-
-
-<span class="nd">@thread_worker</span><span class="p">(</span><span class="n">connect</span><span class="o">=</span><span class="p">{</span><span class="s1">'yielded'</span><span class="p">:</span> <span class="n">combine_and_set_data</span><span class="p">})</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">update_viewer</span><span class="p">():</span>
-    <span class="c1"># keep track of each wave in a dictionary by id, this way we can modify/remove</span>
-    <span class="c1"># existing waves or add new ones</span>
-    <span class="n">wave_args</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
-        <a href="https://docs.python.org/3/library/time.html#time.sleep" title="time.sleep" class="sphx-glr-backref-module-time sphx-glr-backref-type-py-function"><span class="n">sleep</span></a><span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <a href="https://docs.python.org/3/builtins/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">FPS</span></a><span class="p">)</span>
-        <span class="c1"># see https://napari.org/stable/guides/threading.html#full-two-way-communication</span>
-        <span class="c1"># this receives new_params from thread.send() and yields the current</span>
-        <span class="c1"># wave_args for the `yielded` callback (one yield per frame)</span>
-        <span class="n">new_params</span> <span class="o">=</span> <span class="k">yield</span> <span class="n">wave_args</span>
-        <span class="k">if</span> <span class="n">new_params</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="c1"># note that these come from thread.send() in moving_wave()!</span>
-            <span class="n">wave_id</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span> <span class="o">=</span> <span class="n">new_params</span>
-            <span class="n">wave_args</span><span class="p">[</span><span class="n">wave_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">args</span>
-
-
-<span class="c1"># start the thread responsible for updating the viewer</span>
-<span class="n">thread</span> <span class="o">=</span> <span class="n">update_viewer</span><span class="p">()</span>
-
-<span class="c1"># wait until the worker has yielded once to ensure the viewer is ready to receive updates</span>
-<a href="https://docs.python.org/3/builtins/functions.html#bool" title="builtins.bool" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">worker_primed</span></a> <span class="o">=</span> <span class="kc">False</span>
-
-
-<span class="k">def</span><span class="w"> </span><span class="nf">_on_first_yield</span><span class="p">(</span><span class="n">_value</span><span class="p">):</span>
-    <span class="k">global</span> <a href="https://docs.python.org/3/builtins/functions.html#bool" title="builtins.bool" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">worker_primed</span></a>
-    <a href="https://docs.python.org/3/builtins/functions.html#bool" title="builtins.bool" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">worker_primed</span></a> <span class="o">=</span> <span class="kc">True</span>
-    <span class="n">thread</span><span class="o">.</span><span class="n">yielded</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span><span class="n">_on_first_yield</span><span class="p">)</span>
-
-
-<span class="n">thread</span><span class="o">.</span><span class="n">yielded</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">_on_first_yield</span><span class="p">)</span>
-<span class="k">while</span> <span class="ow">not</span> <a href="https://docs.python.org/3/builtins/functions.html#bool" title="builtins.bool" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">worker_primed</span></a><span class="p">:</span>
-    <span class="n">QApplication</span><span class="o">.</span><span class="n">processEvents</span><span class="p">()</span>
-
-
-<span class="nd">@magic_factory</span><span class="p">(</span>
-    <span class="n">auto_call</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-    <span class="n">frequency</span><span class="o">=</span><span class="p">{</span><span class="s1">'widget_type'</span><span class="p">:</span> <span class="s1">'FloatSlider'</span><span class="p">,</span> <span class="s1">'min'</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">'max'</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">'step'</span><span class="p">:</span> <span class="mf">0.01</span><span class="p">},</span>
-    <span class="n">angle</span><span class="o">=</span><span class="p">{</span><span class="s1">'widget_type'</span><span class="p">:</span> <span class="s1">'Slider'</span><span class="p">,</span> <span class="s1">'min'</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">'max'</span><span class="p">:</span> <span class="mi">180</span><span class="p">},</span>
-    <span class="n">phase_shift</span><span class="o">=</span><span class="p">{</span><span class="s1">'widget_type'</span><span class="p">:</span> <span class="s1">'Slider'</span><span class="p">,</span> <span class="s1">'min'</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">'max'</span><span class="p">:</span> <span class="mi">180</span><span class="p">},</span>
-    <span class="n">speed</span><span class="o">=</span><span class="p">{</span><span class="s1">'widget_type'</span><span class="p">:</span> <span class="s1">'FloatSlider'</span><span class="p">,</span> <span class="s1">'min'</span><span class="p">:</span> <span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="s1">'max'</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span> <span class="s1">'step'</span><span class="p">:</span> <span class="mf">0.1</span><span class="p">},</span>
-<span class="p">)</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">moving_wave</span><span class="p">(</span>
-    <span class="n">wave_id</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
-    <span class="n">frequency</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">,</span>
-    <span class="n">angle</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
-    <span class="n">phase_shift</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
-    <span class="n">speed</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
-    <span class="n">run</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-<span class="p">):</span>
-<span class="w">    </span><span class="sd">"""Send new parameters to the listening thread to update the 2D waves.</span>
-
-<span class="sd">    The `run` checkbox can be disabled to stop sending values to the thread</span>
-<span class="sd">    while changing parameters.</span>
-<span class="sd">    """</span>
-    <span class="k">if</span> <span class="n">run</span><span class="p">:</span>
-        <span class="n">thread</span><span class="o">.</span><span class="n">send</span><span class="p">((</span><span class="n">wave_id</span><span class="p">,</span> <span class="n">frequency</span><span class="p">,</span> <span class="n">angle</span><span class="p">,</span> <span class="n">phase_shift</span><span class="p">,</span> <span class="n">speed</span><span class="p">))</span>
-
-
-<a href="https://pyapp-kit.github.io/magicgui/api/widgets/FunctionGui/#magicgui.widgets.FunctionGui" title="magicgui.widgets.FunctionGui" class="sphx-glr-backref-module-magicgui-widgets sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">wdg</span></a> <span class="o">=</span> <a href="https://pyapp-kit.github.io/magicgui/api/magic_factory/#magicgui.type_map._magicgui.MagicFactory" title="magicgui.type_map._magicgui.MagicFactory" class="sphx-glr-backref-module-magicgui-type_map-_magicgui sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">moving_wave</span></a><span class="p">()</span>
-
-<span class="c1"># add the widget to the window and run it once</span>
-<a href="../api/napari.components.ViewerModel.html#napari.components.ViewerModel.window" title="napari.components.ViewerModel.window" class="sphx-glr-backref-module-napari-components sphx-glr-backref-type-py-attribute"><span class="n">viewer</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">add_dock_widget</span></a><span class="p">(</span><a href="https://pyapp-kit.github.io/magicgui/api/widgets/FunctionGui/#magicgui.widgets.FunctionGui" title="magicgui.widgets.FunctionGui" class="sphx-glr-backref-module-magicgui-widgets sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">wdg</span></a><span class="p">,</span> <span class="n">area</span><span class="o">=</span><span class="s1">'bottom'</span><span class="p">)</span>
-
-<a href="https://pyapp-kit.github.io/magicgui/api/widgets/FunctionGui/#magicgui.widgets.FunctionGui" title="magicgui.widgets.FunctionGui" class="sphx-glr-backref-module-magicgui-widgets sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">wdg</span></a><span class="p">()</span>
-
-<span class="c1"># wait for the layers to be added before running the viewer</span>
-<span class="n">wait_for_layers</span><span class="p">(</span><a href="../api/napari.Viewer.html#napari.Viewer" title="napari.Viewer" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">viewer</span></a><span class="p">,</span> <span class="p">[</span><span class="s1">'wave 0'</span><span class="p">])</span>
-<a href="../api/napari.Viewer.html#napari.Viewer.fit_to_view" title="napari.Viewer.fit_to_view" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-method"><span class="n">viewer</span><span class="o">.</span><span class="n">fit_to_view</span></a><span class="p">()</span>
-
-<span class="c1"># Only tear the animation thread down when this script is the main script and</span>
-<span class="c1"># owns the napari event loop. Drag and drop would otherwise result in the</span>
-<span class="c1"># thread being torn down while the viewer is running.</span>
-<span class="k">if</span> <span class="n">existing_viewer</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-    <a href="../api/napari.html#napari.run" title="napari.run" class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-function"><span class="n">napari</span><span class="o">.</span><span class="n">run</span></a><span class="p">()</span>
-    <span class="n">thread</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
-    <a href="https://docs.python.org/3/builtins/functions.html#bool" title="builtins.bool" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">FINISHED</span></a> <span class="o">=</span> <span class="kc">True</span>
-</pre></div>
-</div>
+    The `run` checkbox can be disabled to stop sending values to the thread
+    while changing parameters.
+    &quot;&quot;&quot;</span><span class="w">
+</span>    <span class="k">if</span> <span class="n">run</span><span class="p">:</span><span class="w">
+</span>        <a class="sphx-glr-backref-module-napari-_qt-qthreading sphx-glr-backref-type-py-class sphx-glr-backref-instance reference internal" href="../api/napari.qt.threading.GeneratorWorker.html#napari.qt.threading.GeneratorWorker" title="napari._qt.qthreading.GeneratorWorker"><span class="n">thread</span></a><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="p">(</span><span class="n">wave_id</span><span class="p">,</span> <span class="n">frequency</span><span class="p">,</span> <span class="n">angle</span><span class="p">,</span> <span class="n">phase_shift</span><span class="p">,</span> <span class="n">speed</span><span class="p">)</span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span><span class="w">
+</span><a class="sphx-glr-backref-module-magicgui-widgets sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://pyapp-kit.github.io/magicgui/api/widgets/FunctionGui/#magicgui.widgets.FunctionGui" title="magicgui.widgets.FunctionGui"><span class="n">wdg</span></a> <span class="o">=</span> <a class="sphx-glr-backref-module-magicgui-type_map-_magicgui sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://pyapp-kit.github.io/magicgui/api/magic_factory/#magicgui.type_map._magicgui.MagicFactory" title="magicgui.type_map._magicgui.MagicFactory"><span class="n">moving_wave</span></a><span class="p">(</span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span><span class="c1"># add the widget to the window and run it once</span><span class="w">
+</span><a class="sphx-glr-backref-module-napari-components sphx-glr-backref-type-py-attribute reference internal" href="../api/napari.components.ViewerModel.html#napari.components.ViewerModel.window" title="napari.components.ViewerModel.window"><span class="n">viewer</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">add_dock_widget</span></a><span class="p">(</span><a class="sphx-glr-backref-module-magicgui-widgets sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://pyapp-kit.github.io/magicgui/api/widgets/FunctionGui/#magicgui.widgets.FunctionGui" title="magicgui.widgets.FunctionGui"><span class="n">wdg</span></a><span class="p">,</span> <span class="n">area</span><span class="o">=</span><span class="s1">'</span><span class="s1">bottom</span><span class="s1">'</span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span><a class="sphx-glr-backref-module-magicgui-widgets sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://pyapp-kit.github.io/magicgui/api/widgets/FunctionGui/#magicgui.widgets.FunctionGui" title="magicgui.widgets.FunctionGui"><span class="n">wdg</span></a><span class="p">(</span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span><span class="c1"># wait for the layers to be added before running the viewer</span><span class="w">
+</span><span class="n">wait_for_layers</span><span class="p">(</span><a class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-class sphx-glr-backref-instance reference internal" href="../api/napari.Viewer.html#napari.Viewer" title="napari.Viewer"><span class="n">viewer</span></a><span class="p">,</span> <span class="p">[</span><span class="s1">'</span><span class="s1">wave 0</span><span class="s1">'</span><span class="p">]</span><span class="p">)</span><span class="w">
+</span><a class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-method reference internal" href="../api/napari.Viewer.html#napari.Viewer.fit_to_view" title="napari.Viewer.fit_to_view"><span class="n">viewer</span><span class="o">.</span><span class="n">fit_to_view</span></a><span class="p">(</span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span><span class="c1"># Only tear the animation thread down when this script is the main script and</span><span class="w">
+</span><span class="c1"># owns the napari event loop. Drag and drop would otherwise result in the</span><span class="w">
+</span><span class="c1"># thread being torn down while the viewer is running.</span><span class="w">
+</span><span class="k">if</span> <span class="n">existing_viewer</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span><span class="w">
+</span>    <a class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-function reference internal" href="../api/napari.html#napari.run" title="napari.run"><span class="n">napari</span><span class="o">.</span><span class="n">run</span></a><span class="p">(</span><span class="p">)</span><span class="w">
+</span>    <a class="sphx-glr-backref-module-napari-_qt-qthreading sphx-glr-backref-type-py-class sphx-glr-backref-instance reference internal" href="../api/napari.qt.threading.GeneratorWorker.html#napari.qt.threading.GeneratorWorker" title="napari._qt.qthreading.GeneratorWorker"><span class="n">thread</span></a><span class="o">.</span><span class="n">quit</span><span class="p">(</span><span class="p">)</span><span class="w">
+</span>    <a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="bool"><span class="n">FINISHED</span></a> <span class="o">=</span> <span class="kc">True</span><span class="w">
+</span></pre></div></div>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-fourier-transform-playground-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/b07430d559e80c2de6ee91942bef56dd/fourier_transform_playground.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">fourier_transform_playground.ipynb</span></code></a></p>
@@ -1121,8 +1119,8 @@ by the changes. Threading is used to smoothly animate the waves.</p>
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../_static/scripts/bootstrap.js?digest=cb8930eaaf36d9849b67"></script>
-<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=cb8930eaaf36d9849b67"></script>
+  <script defer src="../_static/scripts/bootstrap.js?digest=64cc4de3f052d77215f0"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=64cc4de3f052d77215f0"></script>
 
   <footer class="napari-footer">
 <div class="bd-footer__inner bd-page-width">

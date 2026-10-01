@@ -45,7 +45,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=64cc4de3f052d77215f0" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=64cc4de3f052d77215f0" />
 
-    <script src="../../../_static/documentation_options.js?v=38bb5ad9"></script>
+    <script src="../../../_static/documentation_options.js?v=076d3e54"></script>
     <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -1729,88 +1729,78 @@ window.runMermaid = runMermaid;</script>
     <span class="k">def</span><span class="w"> </span><span class="nf">_calc_status_from_cursor</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span> <span class="o">|</span> <span class="n">Dict</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Calculate coordinates and status info from cursor position.</span>
+
+<span class="sd">        General logic:</span>
+<span class="sd">        - restrict info to only layers inside the hovered grid viewbox</span>
+<span class="sd">        - restrict info to only selected layers, if any</span>
+<span class="sd">        - if only one is shown, show more detailed info</span>
+<span class="sd">        """</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">mouse_over_canvas</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">None</span>
-        <span class="n">coord2val</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="n">coord_str</span> <span class="o">=</span> <span class="s1">''</span>
-        <span class="n">status_str</span> <span class="o">=</span> <span class="s1">''</span>
-        <span class="n">tooltip_text</span> <span class="o">=</span> <span class="s1">''</span>
+
         <span class="n">selection</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">selection</span>
-        <span class="n">active</span> <span class="o">=</span> <span class="n">selection</span><span class="o">.</span><span class="n">active</span>
-        <span class="c1"># TODO: this doesn't work well yet with grid mode (and is broken by wide borders too)</span>
-
-        <span class="c1"># Compute the tooltip first since it is always needed.</span>
-        <span class="k">if</span> <span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">tooltip</span><span class="o">.</span><span class="n">visible</span>
-            <span class="ow">and</span> <span class="n">active</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
-            <span class="ow">and</span> <span class="n">active</span><span class="o">.</span><span class="n">_slicing_state</span><span class="o">.</span><span class="n">_loaded</span>
-        <span class="p">):</span>
-            <span class="n">tooltip_text</span> <span class="o">=</span> <span class="n">active</span><span class="o">.</span><span class="n">_get_tooltip_text</span><span class="p">(</span>
-                <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">position</span><span class="p">),</span>
-                <span class="n">view_direction</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">_view_direction</span><span class="p">,</span>
-                <span class="n">dims_displayed</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">displayed</span><span class="p">),</span>
-                <span class="n">world</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">valid_layers</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Layer</span><span class="p">]</span>
+        <span class="n">layers_in_viewbox</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">contents_at</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">viewbox</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">),</span>
+                <span class="n">reverse</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">stride</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span>
             <span class="p">)</span>
+        <span class="p">]</span>
+        <span class="n">valid_layers</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">layer</span>
+            <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="n">layers_in_viewbox</span>
+            <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="n">selection</span> <span class="ow">or</span> <span class="n">layer</span> <span class="ow">in</span> <span class="n">selection</span><span class="p">)</span>
+            <span class="ow">and</span> <span class="n">layer</span><span class="o">.</span><span class="n">_slicing_state</span><span class="o">.</span><span class="n">_loaded</span>
+        <span class="p">]</span>
 
-        <span class="c1"># If there is an active layer and a single selection, calculate status using "the classic way".</span>
-        <span class="c1"># Then return the status and the tooltip.</span>
-        <span class="k">if</span> <span class="p">(</span>
-            <span class="n">active</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
-            <span class="ow">and</span> <span class="n">active</span><span class="o">.</span><span class="n">_slicing_state</span><span class="o">.</span><span class="n">_loaded</span>
-            <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">selection</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span>
-        <span class="p">):</span>
-            <span class="n">status</span> <span class="o">=</span> <span class="n">active</span><span class="o">.</span><span class="n">get_status</span><span class="p">(</span>
+        <span class="c1"># if showing status for a single layer, we give more info (old version)</span>
+        <span class="c1"># and set the tooltip text</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">valid_layers</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">tooltip</span><span class="o">.</span><span class="n">visible</span><span class="p">:</span>
+                <span class="n">tooltip_text</span> <span class="o">=</span> <span class="n">valid_layers</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">_get_tooltip_text</span><span class="p">(</span>
+                    <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">position</span><span class="p">),</span>
+                    <span class="n">view_direction</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">_view_direction</span><span class="p">,</span>
+                    <span class="n">dims_displayed</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">displayed</span><span class="p">),</span>
+                    <span class="n">world</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">tooltip_text</span> <span class="o">=</span> <span class="s1">''</span>
+
+            <span class="n">status</span> <span class="o">=</span> <span class="n">valid_layers</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">get_status</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">position</span><span class="p">,</span>
                 <span class="n">view_direction</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">_view_direction</span><span class="p">,</span>
                 <span class="n">dims_displayed</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">displayed</span><span class="p">),</span>
                 <span class="n">world</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
             <span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">status</span><span class="p">[</span><span class="s1">'value'</span><span class="p">]</span> <span class="o">==</span> <span class="s1">''</span><span class="p">:</span>
+                <span class="c1"># 'coordinates' is the one used by the status bar itself</span>
+                <span class="n">status</span><span class="p">[</span><span class="s1">'coordinates'</span><span class="p">]</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">status</span><span class="p">[</span><span class="s2">"coords"</span><span class="p">]</span><span class="si">}</span><span class="s1">: [empty]'</span>
             <span class="k">return</span> <span class="n">status</span><span class="p">,</span> <span class="n">tooltip_text</span>
 
-        <span class="c1"># Otherwise, return the layer status of multiple selected layers</span>
-        <span class="c1"># or gridded layers as well as the tooltip.</span>
-        <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
-            <span class="k">if</span> <span class="p">(</span>
-                <span class="ow">not</span> <span class="n">layer</span><span class="o">.</span><span class="n">visible</span>
-                <span class="ow">or</span> <span class="n">layer</span><span class="o">.</span><span class="n">opacity</span> <span class="o">==</span> <span class="mi">0</span>
-                <span class="ow">or</span> <span class="ow">not</span> <span class="n">layer</span><span class="o">.</span><span class="n">_slicing_state</span><span class="o">.</span><span class="n">_loaded</span>
-                <span class="ow">or</span> <span class="p">(</span><span class="n">layer</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">selection</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">enabled</span><span class="p">)</span>
-            <span class="p">):</span>
-                <span class="k">continue</span>
+        <span class="c1"># for multiple layers, combine the statuses</span>
+        <span class="n">statuses</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">coords</span> <span class="o">=</span> <span class="s1">''</span>
+        <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="n">valid_layers</span><span class="p">:</span>
             <span class="n">status</span> <span class="o">=</span> <span class="n">layer</span><span class="o">.</span><span class="n">get_status</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">position</span><span class="p">,</span>
                 <span class="n">view_direction</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">_view_direction</span><span class="p">,</span>
                 <span class="n">dims_displayed</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">displayed</span><span class="p">),</span>
                 <span class="n">world</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
             <span class="p">)</span>
-            <span class="n">separator</span> <span class="o">=</span> <span class="s1">'    '</span>
-            <span class="n">emphasis</span> <span class="o">=</span> <span class="n">separator</span> <span class="k">if</span> <span class="n">layer</span> <span class="ow">is</span> <span class="n">active</span> <span class="k">else</span> <span class="s1">''</span>
-            <span class="n">coord_str</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">status</span><span class="p">[</span><span class="s2">"coords"</span><span class="p">]</span><span class="si">}</span><span class="s1"> » '</span>
-            <span class="k">if</span> <span class="n">status</span><span class="p">[</span><span class="s1">'value'</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">''</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">coord_str</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">coord2val</span><span class="p">:</span>
-                    <span class="n">coord2val</span><span class="p">[</span><span class="n">coord_str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
-                <span class="n">coord2val</span><span class="p">[</span><span class="n">coord_str</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-                    <span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">layer</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="n">status</span><span class="p">[</span><span class="s2">"value"</span><span class="p">]</span><span class="si">}{</span><span class="n">emphasis</span><span class="si">}</span><span class="s1">'</span>
-                <span class="p">)</span>
-        <span class="k">if</span> <span class="n">coord2val</span><span class="p">:</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">enabled</span><span class="p">:</span>
-                <span class="c1"># use a single coordinate system</span>
-                <span class="n">values</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">itertools</span><span class="o">.</span><span class="n">chain</span><span class="p">(</span><span class="o">*</span><span class="n">coord2val</span><span class="o">.</span><span class="n">values</span><span class="p">()))</span>
-                <span class="n">key</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="n">coord2val</span><span class="p">))</span>  <span class="c1"># choose arbitrary coordinate</span>
-                <span class="n">coord2val</span> <span class="o">=</span> <span class="p">{</span><span class="n">key</span><span class="p">:</span> <span class="n">values</span><span class="p">}</span>
-            <span class="n">status_strs</span> <span class="o">=</span> <span class="p">[</span>
-                <span class="n">key</span> <span class="o">+</span> <span class="n">separator</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>  <span class="c1"># pyrefly: ignore [unbound-name]</span>
-                <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">values</span> <span class="ow">in</span> <span class="n">coord2val</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
-            <span class="p">]</span>
-            <span class="n">status_str</span> <span class="o">=</span> <span class="n">separator</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">status_strs</span><span class="p">)</span>  <span class="c1"># pyrefly: ignore [unbound-name]</span>
-        <span class="k">elif</span> <span class="n">coord_str</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">enabled</span><span class="p">:</span>
-            <span class="n">status_str</span> <span class="o">=</span> <span class="n">coord_str</span> <span class="o">+</span> <span class="s1">'[empty]'</span>
-        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">enabled</span><span class="p">:</span>
-            <span class="n">status_str</span> <span class="o">=</span> <span class="s1">'[empty]'</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">status_str</span> <span class="o">=</span> <span class="s1">'Ready'</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">coords</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">layer</span><span class="o">.</span><span class="n">_use_integer_coords_in_status</span><span class="p">():</span>
+                <span class="c1"># we prioritize float coords if any layer wants them</span>
+                <span class="n">coords</span> <span class="o">=</span> <span class="n">status</span><span class="p">[</span><span class="s1">'coords'</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">status</span><span class="p">[</span><span class="s1">'value'</span><span class="p">]:</span>
+                <span class="n">statuses</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">layer</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="n">status</span><span class="p">[</span><span class="s2">"value"</span><span class="p">]</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="n">status_str</span><span class="p">,</span> <span class="n">tooltip_text</span>
+        <span class="n">separator</span> <span class="o">=</span> <span class="s1">'    '</span>
+        <span class="n">values</span> <span class="o">=</span> <span class="s1">'[empty]'</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">statuses</span> <span class="k">else</span> <span class="n">separator</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">statuses</span><span class="p">)</span>
+
+        <span class="n">status_str</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">coords</span><span class="si">}</span><span class="s1"> » </span><span class="si">{</span><span class="n">values</span><span class="si">}</span><span class="s1">'</span>
+        <span class="k">return</span> <span class="n">status_str</span><span class="p">,</span> <span class="s1">''</span>
 
 <div class="viewcode-block" id="ViewerModel.update_status_from_cursor">
 <a class="viewcode-back" href="../../../api/napari.components.ViewerModel.html#napari.components.ViewerModel.update_status_from_cursor">[docs]</a>

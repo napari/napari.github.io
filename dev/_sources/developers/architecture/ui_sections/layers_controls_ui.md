@@ -375,6 +375,7 @@ graph LR
 	napari._qt.layer_controls.widgets._image --> napari._qt.layer_controls.widgets.qt_histogram_control
 	click napari._qt.layer_controls.widgets._image "https://github.com/napari/napari/tree/main/napari/_qt/layer_controls/widgets/_image/__init__.py" _blank
 	napari._qt.layer_controls.widgets._image.qt_depiction_control(napari._qt.layer_controls.widgets._image.qt_depiction_control)
+	napari._qt.layer_controls.widgets._image.qt_depiction_control --> napari._qt.layer_controls.qt_layer_controls_base
 	napari._qt.layer_controls.widgets._image.qt_depiction_control --> napari._qt.layer_controls.widgets.qt_widget_controls_base
 	napari._qt.layer_controls.widgets._image.qt_depiction_control --> napari.layers
 	click napari._qt.layer_controls.widgets._image.qt_depiction_control "https://github.com/napari/napari/tree/main/napari/_qt/layer_controls/widgets/_image/qt_depiction_control.py" _blank

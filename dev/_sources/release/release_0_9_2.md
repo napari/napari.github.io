@@ -102,8 +102,10 @@ The napari team has been working hard to improve our release process, and based 
 - TYP: add type hints in `stubgen.py` ([#9542](https://github.com/napari/napari/pull/9542))
 - TYP: add type hints in `string_encoding.py` ([#9545](https://github.com/napari/napari/pull/9545))
 - TYP: add type hints in `color_encoding.py` ([#9548](https://github.com/napari/napari/pull/9548))
+- TYP: add type hints in `_svg.py` ([#9550](https://github.com/napari/napari/pull/9550))
 - [pre-commit.ci] pre-commit autoupdate ([#9553](https://github.com/napari/napari/pull/9553))
 - Rename `RenamedEmitter` to `RenamedWarningEmitter` ([#9567](https://github.com/napari/napari/pull/9567))
+- [pre-commit.ci] pre-commit autoupdate ([#9587](https://github.com/napari/napari/pull/9587))
 
 
 ## 10 authors added to this release (alphabetical)

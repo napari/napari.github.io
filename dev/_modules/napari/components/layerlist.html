@@ -45,7 +45,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=64cc4de3f052d77215f0" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=64cc4de3f052d77215f0" />
 
-    <script src="../../../_static/documentation_options.js?v=a04a4aa9"></script>
+    <script src="../../../_static/documentation_options.js?v=38bb5ad9"></script>
     <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -903,16 +903,22 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">    Notes</span>
 <span class="sd">    -----</span>
 
-<span class="sd">    Note that ``changed`` events are only emitted when an element of the</span>
-<span class="sd">    list changes, *not* when the list itself changes (for example when items</span>
-<span class="sd">    are added or removed). For example, ``layerlist.append(layer)`` will emit</span>
-<span class="sd">    an ``inserted`` event. ``layerlist[idx] = layer`` *will* emit a ``changed``</span>
-<span class="sd">    event.</span>
+<span class="sd">    Note that ``changed`` events are only emitted when an element at a</span>
+<span class="sd">    specific index of the list is replaced, *not* when the list itself</span>
+<span class="sd">    changes (for example when items are added or removed). For example,</span>
+<span class="sd">    ``layerlist.append(layer)`` will emit an ``inserted`` event, whereas</span>
+<span class="sd">    ``layerlist[idx] = layer`` will emit a ``changed`` event.</span>
 
-<span class="sd">    However, the layerlist does not have a way of detecting when an object in</span>
+<span class="sd">    The layerlist also does not have a way of detecting when an object in</span>
 <span class="sd">    the list is modified in-place. Therefore, although</span>
 <span class="sd">    ``layerlist[idx].scale = [2, 1, 1]`` changes the *value* of the layer at</span>
-<span class="sd">    position ``idx``, a ``changed`` event will not be emitted.</span>
+<span class="sd">    position ``idx``, a ``changed`` event will not be emitted. Such changes</span>
+<span class="sd">    are instead forwarded by the layerlist: a callback connected to</span>
+<span class="sd">    ``layerlist.events`` receives the layer's own event (here ``scale``)</span>
+<span class="sd">    with an added ``index`` attribute giving the position of the layer.</span>
+<span class="sd">    If you are only interested in a specific layer, you can instead connect</span>
+<span class="sd">    directly to that layer's own events, e.g.</span>
+<span class="sd">    ``layer.events.scale.connect(callback)``.</span>
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>

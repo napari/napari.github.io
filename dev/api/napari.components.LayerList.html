@@ -55,7 +55,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=64cc4de3f052d77215f0" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=64cc4de3f052d77215f0" />
 
-    <script src="../_static/documentation_options.js?v=a04a4aa9"></script>
+    <script src="../_static/documentation_options.js?v=38bb5ad9"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -657,15 +657,21 @@ and/or removed from the set.</p></li>
 </dd>
 </dl>
 <p class="rubric">Notes</p>
-<p>Note that <code class="docutils literal notranslate"><span class="pre">changed</span></code> events are only emitted when an element of the
-list changes, <em>not</em> when the list itself changes (for example when items
-are added or removed). For example, <code class="docutils literal notranslate"><span class="pre">layerlist.append(layer)</span></code> will emit
-an <code class="docutils literal notranslate"><span class="pre">inserted</span></code> event. <code class="docutils literal notranslate"><span class="pre">layerlist[idx]</span> <span class="pre">=</span> <span class="pre">layer</span></code> <em>will</em> emit a <code class="docutils literal notranslate"><span class="pre">changed</span></code>
-event.</p>
-<p>However, the layerlist does not have a way of detecting when an object in
+<p>Note that <code class="docutils literal notranslate"><span class="pre">changed</span></code> events are only emitted when an element at a
+specific index of the list is replaced, <em>not</em> when the list itself
+changes (for example when items are added or removed). For example,
+<code class="docutils literal notranslate"><span class="pre">layerlist.append(layer)</span></code> will emit an <code class="docutils literal notranslate"><span class="pre">inserted</span></code> event, whereas
+<code class="docutils literal notranslate"><span class="pre">layerlist[idx]</span> <span class="pre">=</span> <span class="pre">layer</span></code> will emit a <code class="docutils literal notranslate"><span class="pre">changed</span></code> event.</p>
+<p>The layerlist also does not have a way of detecting when an object in
 the list is modified in-place. Therefore, although
 <code class="docutils literal notranslate"><span class="pre">layerlist[idx].scale</span> <span class="pre">=</span> <span class="pre">[2,</span> <span class="pre">1,</span> <span class="pre">1]</span></code> changes the <em>value</em> of the layer at
-position <code class="docutils literal notranslate"><span class="pre">idx</span></code>, a <code class="docutils literal notranslate"><span class="pre">changed</span></code> event will not be emitted.</p>
+position <code class="docutils literal notranslate"><span class="pre">idx</span></code>, a <code class="docutils literal notranslate"><span class="pre">changed</span></code> event will not be emitted. Such changes
+are instead forwarded by the layerlist: a callback connected to
+<code class="docutils literal notranslate"><span class="pre">layerlist.events</span></code> receives the layer’s own event (here <code class="docutils literal notranslate"><span class="pre">scale</span></code>)
+with an added <code class="docutils literal notranslate"><span class="pre">index</span></code> attribute giving the position of the layer.
+If you are only interested in a specific layer, you can instead connect
+directly to that layer’s own events, e.g.
+<code class="docutils literal notranslate"><span class="pre">layer.events.scale.connect(callback)</span></code>.</p>
 <p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">napari</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">skimage.data</span><span class="w"> </span><span class="kn">import</span> <span class="n">astronaut</span>

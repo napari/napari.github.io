@@ -34,7 +34,7 @@ To use this example, open napari and drag this file into the viewer.
  .. code-block:: none
 
 
-    <napari._qt.widgets.qt_viewer_dock_widget.QtViewerDockWidget object at 0x7f120c9c5090>
+    <napari._qt.widgets.qt_viewer_dock_widget.QtViewerDockWidget object at 0x7fac00a9d450>
 
 
 

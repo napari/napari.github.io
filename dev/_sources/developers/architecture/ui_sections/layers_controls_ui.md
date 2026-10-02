@@ -348,7 +348,6 @@ graph LR
 	napari._qt.layer_controls.qt_tracks_controls --> napari._qt.layer_controls.qt_layer_controls_base
 	napari._qt.layer_controls.qt_tracks_controls --> napari._qt.layer_controls.widgets
 	napari._qt.layer_controls.qt_tracks_controls --> napari._qt.layer_controls.widgets._tracks
-	napari._qt.layer_controls.qt_tracks_controls --> napari.layers
 	click napari._qt.layer_controls.qt_tracks_controls "https://github.com/napari/napari/tree/main/napari/_qt/layer_controls/qt_tracks_controls.py" _blank
 	napari._qt.layer_controls.qt_vectors_controls(napari._qt.layer_controls.qt_vectors_controls)
 	napari._qt.layer_controls.qt_vectors_controls --> napari._qt.layer_controls.qt_layer_controls_base

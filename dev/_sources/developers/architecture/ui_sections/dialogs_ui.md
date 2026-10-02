@@ -137,6 +137,7 @@ graph LR
 	napari._qt.widgets.qt_viewer_status_bar(napari._qt.widgets.qt_viewer_status_bar)
 	napari._qt.widgets.qt_viewer_status_bar --> napari._qt.dialogs.qt_activity_dialog
 	napari._qt.widgets.qt_viewer_status_bar --> napari._qt.qt_main_window
+	napari._qt.widgets.qt_viewer_status_bar --> napari._qt.utils
 	click napari._qt.widgets.qt_viewer_status_bar "https://github.com/napari/napari/tree/main/napari/_qt/widgets/qt_viewer_status_bar.py" _blank
 	napari._qt.widgets.qt_viewer_tour(napari._qt.widgets.qt_viewer_tour)
 	napari._qt.widgets.qt_viewer_tour --> napari._qt._qapp_model.qactions

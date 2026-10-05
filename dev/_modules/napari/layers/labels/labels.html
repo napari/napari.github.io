@@ -45,7 +45,7 @@
   <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=64cc4de3f052d77215f0" />
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=64cc4de3f052d77215f0" />
 
-    <script src="../../../../_static/documentation_options.js?v=3bc79058"></script>
+    <script src="../../../../_static/documentation_options.js?v=4cab8431"></script>
     <script src="../../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -988,6 +988,11 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        'fast' uses a simple finite difference gradient in x, y, and z. 'smooth' uses an</span>
 <span class="sd">        isotropic Sobel gradient, which is smoother but more computationally expensive.</span>
 <span class="sd">        The default value is 'fast'.</span>
+<span class="sd">    locked_data_level : int, optional</span>
+<span class="sd">        Lock the multiscale resolution level to a specific index. When set,</span>
+<span class="sd">        forces rendering at the given multiscale level instead of automatic</span>
+<span class="sd">        level selection based on the viewport. Set to ``None`` (default) to</span>
+<span class="sd">        use automatic selection.</span>
 <span class="sd">    metadata : dict</span>
 <span class="sd">        Layer metadata.</span>
 <span class="sd">    multiscale : bool</span>
@@ -1191,6 +1196,7 @@ window.runMermaid = runMermaid;</script>
         <span class="n">experimental_clipping_planes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">features</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">iso_gradient_mode</span><span class="o">=</span><span class="n">IsoCategoricalGradientMode</span><span class="o">.</span><span class="n">FAST</span><span class="o">.</span><span class="n">value</span><span class="p">,</span>
+        <span class="n">locked_data_level</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">metadata</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">multiscale</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -1308,6 +1314,9 @@ window.runMermaid = runMermaid;</script>
         <span class="bp">self</span><span class="o">.</span><span class="n">_redo_history</span><span class="p">:</span> <span class="n">deque</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="n">HistoryAtom</span><span class="p">]]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_staged_history</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">HistoryAtom</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_block_history</span><span class="p">:</span> <span class="nb">bool</span>
+
+        <span class="k">if</span> <span class="n">locked_data_level</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">locked_data_level</span> <span class="o">=</span> <span class="n">locked_data_level</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_slice_dtype</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">"""Calculate dtype of data view based on data dtype and current colormap"""</span>
@@ -1583,6 +1592,7 @@ window.runMermaid = runMermaid;</script>
         <span class="n">state</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
             <span class="p">{</span>
                 <span class="s1">'multiscale'</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">multiscale</span><span class="p">,</span>
+                <span class="s1">'locked_data_level'</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">locked_data_level</span><span class="p">,</span>
                 <span class="s1">'properties'</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="p">,</span>
                 <span class="s1">'rendering'</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">rendering</span><span class="p">,</span>
                 <span class="s1">'iso_gradient_mode'</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">iso_gradient_mode</span><span class="p">,</span>

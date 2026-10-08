@@ -45,7 +45,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=64cc4de3f052d77215f0" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=64cc4de3f052d77215f0" />
 
-    <script src="../../../_static/documentation_options.js?v=e758b3be"></script>
+    <script src="../../../_static/documentation_options.js?v=397e63d1"></script>
     <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -1811,6 +1811,72 @@ window.runMermaid = runMermaid;</script>
             <span class="bp">self</span><span class="o">.</span><span class="n">status</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tooltip</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">status</span>
         <span class="k">if</span> <span class="p">(</span><span class="n">active</span> <span class="o">:=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">selection</span><span class="o">.</span><span class="n">active</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">help</span> <span class="o">=</span> <span class="n">active</span><span class="o">.</span><span class="n">help</span></div>
+
+
+<div class="viewcode-block" id="ViewerModel.canvas_to_world">
+<a class="viewcode-back" href="../../../api/napari.components.ViewerModel.html#napari.components.ViewerModel.canvas_to_world">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">canvas_to_world</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">canvas_position</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span>
+        <span class="n">viewbox</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Convert canvas pixel position to world coordinates.</span>
+
+<span class="sd">        The position is calculated on a plane parallel to the screen and passing</span>
+<span class="sd">        through the camera center, so it is unaffected by perspective.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        canvas_position : tuple of int</span>
+<span class="sd">            (y, x) position in canvas pixels.</span>
+<span class="sd">        viewbox : tuple of int</span>
+<span class="sd">            (col, row) coordinates of the grid viewbox relative to which</span>
+<span class="sd">            to calculate the transformation. If None, use the first viewbox</span>
+<span class="sd">            or the whole canvas if the grid is disabled.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        world_position : np.ndarray</span>
+<span class="sd">            Canvas position (on the canvas plane) converted to world coordinates.</span>
+<span class="sd">        """</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">scipy.spatial.transform</span><span class="w"> </span><span class="kn">import</span> <span class="n">Rotation</span> <span class="k">as</span> <span class="n">R</span>
+
+        <span class="n">ndisplay</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">ndisplay</span>
+        <span class="n">camera</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">camera</span>
+
+        <span class="k">if</span> <span class="n">viewbox</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">viewbox</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">viewbox_size</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">viewbox_size</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">))</span>
+        <span class="n">viewbox_center</span> <span class="o">=</span> <span class="n">viewbox_size</span> <span class="o">*</span> <span class="n">viewbox</span> <span class="o">+</span> <span class="n">viewbox_size</span> <span class="o">/</span> <span class="mi">2</span>
+        <span class="n">world_center</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">camera</span><span class="o">.</span><span class="n">center</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">ndisplay</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="n">world_displayed</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">canvas_position</span><span class="p">)</span> <span class="o">-</span> <span class="n">viewbox_center</span>
+            <span class="p">)</span> <span class="o">/</span> <span class="n">camera</span><span class="o">.</span><span class="n">zoom</span> <span class="o">+</span> <span class="n">world_center</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">:]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># note that while we call napari axes "zyx", in terms of angles to</span>
+            <span class="c1"># rot conversion we need to treat them as normal xyz for internal</span>
+            <span class="c1"># consistency (zyx actually describes a different rotation order)</span>
+            <span class="n">rot</span> <span class="o">=</span> <span class="n">R</span><span class="o">.</span><span class="n">from_euler</span><span class="p">(</span><span class="s1">'xyz'</span><span class="p">,</span> <span class="n">camera</span><span class="o">.</span><span class="n">angles</span><span class="p">,</span> <span class="n">degrees</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">rot_matrix</span> <span class="o">=</span> <span class="n">rot</span><span class="o">.</span><span class="n">as_matrix</span><span class="p">()</span>
+            <span class="c1"># the depth is set to zero because we want the position at the</span>
+            <span class="c1"># plane of the camera center.</span>
+            <span class="c1"># Any modifications should be done by callers afterwards.</span>
+            <span class="n">canvas_position_3d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="o">*</span><span class="n">canvas_position</span><span class="p">])</span>
+            <span class="n">viewbox_center_3d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="o">*</span><span class="n">viewbox_center</span><span class="p">])</span>
+            <span class="n">world_displayed</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">rot_matrix</span><span class="o">.</span><span class="n">T</span>
+                <span class="o">@</span> <span class="p">(</span><span class="n">canvas_position_3d</span> <span class="o">-</span> <span class="n">viewbox_center_3d</span><span class="p">)</span>
+                <span class="o">/</span> <span class="n">camera</span><span class="o">.</span><span class="n">zoom</span>
+                <span class="o">+</span> <span class="n">world_center</span>
+            <span class="p">)</span>
+
+        <span class="c1"># embed it in the world point</span>
+        <span class="n">position_world</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">point</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">d</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">displayed</span><span class="p">):</span>
+            <span class="n">position_world</span><span class="p">[</span><span class="n">d</span><span class="p">]</span> <span class="o">=</span> <span class="n">world_displayed</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">position_world</span><span class="p">)</span></div>
 
 
     <span class="nd">@property</span>

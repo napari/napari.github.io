@@ -44,6 +44,9 @@ napari.Viewer
       ~Viewer.bind_key
    
    
+      ~Viewer.canvas_to_world
+   
+   
       ~Viewer.close
    
    

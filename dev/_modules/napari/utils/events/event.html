@@ -45,7 +45,7 @@
   <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=64cc4de3f052d77215f0" />
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=64cc4de3f052d77215f0" />
 
-    <script src="../../../../_static/documentation_options.js?v=e758b3be"></script>
+    <script src="../../../../_static/documentation_options.js?v=397e63d1"></script>
     <script src="../../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -878,6 +878,7 @@ window.runMermaid = runMermaid;</script>
 <span class="kn">from</span><span class="w"> </span><span class="nn">collections.abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Iterator</span><span class="p">,</span> <span class="n">Sequence</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">functools</span><span class="w"> </span><span class="kn">import</span> <span class="n">partial</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">TYPE_CHECKING</span><span class="p">,</span>
     <span class="n">Any</span><span class="p">,</span>
     <span class="n">Generic</span><span class="p">,</span>
     <span class="n">Literal</span><span class="p">,</span>
@@ -1118,6 +1119,7 @@ window.runMermaid = runMermaid;</script>
 
         <span class="c1"># used to detect emitter loops</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_emitting</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_source</span> <span class="o">=</span> <span class="k">lambda</span><span class="p">:</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">source</span> <span class="o">=</span> <span class="n">source</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">default_args</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">if</span> <span class="n">type_name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -1128,6 +1130,14 @@ window.runMermaid = runMermaid;</script>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_ignore_callback_errors</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>  <span class="c1"># True</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">print_callback_errors</span> <span class="o">=</span> <span class="s1">'reminders'</span>  <span class="c1"># 'reminders'</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_on_source_change</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""For the event emitters that require connecting</span>
+<span class="sd">        to other event emitters</span>
+
+<span class="sd">        For a event emitter accessing the source object to connect other possible event emitters,</span>
+<span class="sd">        there is a need to provide a function to override to reconnect to the new source object.</span>
+<span class="sd">        """</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">ignore_callback_errors</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
@@ -1187,6 +1197,7 @@ window.runMermaid = runMermaid;</script>
     <span class="nd">@source</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">source</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">s</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_source</span> <span class="o">=</span> <span class="kc">None</span> <span class="k">if</span> <span class="n">s</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">weakref</span><span class="o">.</span><span class="n">ref</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_on_source_change</span><span class="p">()</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_is_core_callback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">callback</span><span class="p">:</span> <span class="n">CallbackRef</span> <span class="o">|</span> <span class="n">Callback</span><span class="p">,</span> <span class="n">core</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">"""</span>
@@ -1667,14 +1678,14 @@ window.runMermaid = runMermaid;</script>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-        <span class="n">category</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="ne">Warning</span><span class="p">]</span> <span class="o">=</span> <span class="ne">FutureWarning</span><span class="p">,</span>
+        <span class="n">category</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="ne">Warning</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="ne">FutureWarning</span><span class="p">,</span>
         <span class="n">stacklevel</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span>
         <span class="o">*</span><span class="n">args</span><span class="p">,</span>
         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_message</span> <span class="o">=</span> <span class="n">message</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_warned</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_should_warn</span> <span class="o">=</span> <span class="n">category</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_category</span> <span class="o">=</span> <span class="n">category</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_stacklevel</span> <span class="o">=</span> <span class="n">stacklevel</span>
 
@@ -1694,7 +1705,7 @@ window.runMermaid = runMermaid;</script>
         <span class="k">return</span> <span class="n">EventEmitter</span><span class="o">.</span><span class="n">_invoke_callback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cb</span><span class="p">,</span> <span class="n">event</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_warn</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cb</span><span class="p">):</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_warned</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_should_warn</span><span class="p">:</span>
             <span class="k">return</span>
 
         <span class="c1"># don't warn about unimplemented connections</span>
@@ -1706,47 +1717,176 @@ window.runMermaid = runMermaid;</script>
         <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_message</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_category</span><span class="p">,</span> <span class="n">stacklevel</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_stacklevel</span>
         <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_warned</span> <span class="o">=</span> <span class="kc">True</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_should_warn</span> <span class="o">=</span> <span class="kc">False</span></div>
 
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">ChildrenEmitterMixin</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Mixin to provide the implementation for reemitting events based on child objects.</span>
+
+<span class="sd">    This adds machinery to connect/dicsonnect to events on child objects, based on the presence of own callbacks.</span>
+<span class="sd">    IT means that the proper event will be emitted, even if the child object attribute is set.</span>
+<span class="sd">    It uses `source_path` to find the proper event in relation to EventEmitter `source` attribute.</span>
+
+<span class="sd">    This Mixin is meant to be used with EventEmitter subclasses.</span>
+<span class="sd">    """</span>
+
+    <span class="n">source</span><span class="p">:</span> <span class="nb">object</span>
+
+    <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+
+        <span class="k">def</span><span class="w"> </span><span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Event</span><span class="p">:</span> <span class="o">...</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="o">*</span><span class="n">args</span><span class="p">,</span>
+        <span class="n">new_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">old_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="s1">'type_name'</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s1">'type_name'</span><span class="p">]</span> <span class="o">=</span> <span class="n">old_name</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">_source_path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_source_attr</span> <span class="o">=</span> <span class="n">new_path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">'.'</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_target_emitter</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[],</span> <span class="n">EventEmitter</span> <span class="o">|</span> <span class="kc">None</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="c1"># Entries correspond to path components; None means no replacement event.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_replacement_emitters</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span>
+            <span class="n">Callable</span><span class="p">[[],</span> <span class="n">EventEmitter</span> <span class="o">|</span> <span class="kc">None</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span>
+        <span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_disconnect_from</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Disconnect the target and replacement events from a path index onward."""</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_target_emitter</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">emitter</span> <span class="o">:=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_target_emitter</span><span class="p">())</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">emitter</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_trigger_reemit</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_target_emitter</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">for</span> <span class="n">reference</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_replacement_emitters</span><span class="p">[</span><span class="n">index</span><span class="p">:]:</span>
+            <span class="k">if</span> <span class="n">reference</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="p">(</span><span class="n">emitter</span> <span class="o">:=</span> <span class="n">reference</span><span class="p">())</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">emitter</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_on_parent_replaced</span><span class="p">)</span>
+        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">_replacement_emitters</span><span class="p">[</span><span class="n">index</span><span class="p">:]</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_trigger_reemit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="p">(</span><span class="n">event</span><span class="p">)</span> <span class="k">if</span> <span class="n">event</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="bp">self</span><span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_on_parent_replaced</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Reconnect and notify listeners without comparing or caching values.</span>
+
+<span class="sd">        Include the current value when readable. Event-only targets emit an</span>
+<span class="sd">        event without a value payload.</span>
+<span class="sd">        """</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_reconnect_emitter</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_trigger_reemit</span><span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_reconnect_emitter</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Preserve matching path connections and rebuild changed downstream ones.</span>
+
+<span class="sd">        Replacement events are used whenever available, including for model</span>
+<span class="sd">        fields. Without an event, only read-only properties are assumed stable.</span>
+<span class="sd">        """</span>
+        <span class="n">target</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">source</span>
+        <span class="k">if</span> <span class="n">target</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s1">'Cannot connect to renamed emitter </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_source_attr</span><span class="si">}</span><span class="s1"> because source is None'</span>
+            <span class="p">)</span>
+        <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="p">(</span><span class="n">attr</span><span class="p">,</span> <span class="n">emitter_reference</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span>
+            <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_source_path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_replacement_emitters</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="p">):</span>
+            <span class="c1"># Bases od checking identity of the event emitters</span>
+            <span class="c1"># discover from which place the path has changed, and disconnect the suffix from that point.</span>
+            <span class="n">emitter</span><span class="p">:</span> <span class="n">EventEmitter</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span>
+                <span class="nb">getattr</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="s1">'events'</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span> <span class="n">attr</span><span class="p">,</span> <span class="kc">None</span>
+            <span class="p">)</span>
+            <span class="k">if</span> <span class="n">emitter</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">emitter_reference</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">target</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="n">attr</span><span class="p">)</span>
+                <span class="k">continue</span>
+            <span class="k">if</span> <span class="n">emitter_reference</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">emitter</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="c1"># A new event has appeared; disconnect the suffix once.</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_disconnect_from</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
+                <span class="k">break</span>
+            <span class="k">if</span> <span class="n">emitter</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">emitter_reference</span><span class="p">():</span>
+                <span class="c1"># A event was replaced; disconnect the suffix once.</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_disconnect_from</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
+                <span class="k">break</span>
+            <span class="n">target</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="n">attr</span><span class="p">)</span>
+
+        <span class="n">index</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_replacement_emitters</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_source_path</span><span class="p">[</span><span class="n">index</span><span class="p">:]:</span>
+            <span class="c1"># Follow the path and connect to event emitters on the path if they exist.</span>
+            <span class="n">emitter</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="s1">'events'</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span> <span class="n">attr</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">emitter</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">emitter</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_on_parent_replaced</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_replacement_emitters</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">weakref</span><span class="o">.</span><span class="n">ref</span><span class="p">(</span><span class="n">emitter</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># it might happen that some attribute/property on path is forzen/non-settable</span>
+                <span class="c1"># then it will not have adjacent event, but also, as cannot be changed</span>
+                <span class="c1"># this is not a problem.</span>
+                <span class="c1"># but if there is no event emitter but the attribute is settable,</span>
+                <span class="c1"># then we should warn the user that the event emitter is not available.</span>
+                <span class="n">descriptor</span> <span class="o">=</span> <span class="n">inspect</span><span class="o">.</span><span class="n">getattr_static</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">target</span><span class="p">),</span> <span class="n">attr</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span>
+                    <span class="nb">isinstance</span><span class="p">(</span><span class="n">descriptor</span><span class="p">,</span> <span class="nb">property</span><span class="p">)</span>
+                    <span class="ow">and</span> <span class="n">descriptor</span><span class="o">.</span><span class="n">fset</span> <span class="ow">is</span> <span class="kc">None</span>
+                <span class="p">):</span>
+                    <span class="c1"># this is when we found a settable attribute but no event emitter,</span>
+                    <span class="c1"># the if might not catch all cases.</span>
+                    <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                        <span class="sa">f</span><span class="s1">'Cannot automatically reconnect renamed emitter '</span>
+                        <span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_source_attr</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">target</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">.</span><span class="si">{</span><span class="n">attr</span><span class="si">}</span><span class="s1"> '</span>
+                        <span class="sa">f</span><span class="s1">'has no replacement event. Call _reconnect_emitter() '</span>
+                        <span class="sa">f</span><span class="s1">'after replacing it.'</span><span class="p">,</span>
+                        <span class="ne">UserWarning</span><span class="p">,</span>
+                        <span class="n">stacklevel</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+                    <span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_replacement_emitters</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+
+            <span class="n">target</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="n">attr</span><span class="p">)</span>
+
+        <span class="n">new_emitter</span><span class="p">:</span> <span class="n">EventEmitter</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span>
+            <span class="nb">getattr</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="s1">'events'</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_source_attr</span><span class="p">,</span> <span class="kc">None</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_target_emitter</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+            <span class="ow">and</span> <span class="p">(</span><span class="n">target_emitter</span> <span class="o">:=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_target_emitter</span><span class="p">())</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+        <span class="p">):</span>
+            <span class="k">if</span> <span class="n">target_emitter</span> <span class="ow">is</span> <span class="n">new_emitter</span><span class="p">:</span>
+                <span class="k">return</span>
+            <span class="n">target_emitter</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_trigger_reemit</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">new_emitter</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">new_emitter</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_trigger_reemit</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_target_emitter</span> <span class="o">=</span> <span class="n">weakref</span><span class="o">.</span><span class="n">ref</span><span class="p">(</span><span class="n">new_emitter</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_target_emitter</span> <span class="o">=</span> <span class="kc">None</span>
 
 
 <div class="viewcode-block" id="RenamedWarningEmitter">
 <a class="viewcode-back" href="../../../../api/napari.utils.events.RenamedWarningEmitter.html#napari.utils.events.RenamedWarningEmitter">[docs]</a>
-<span class="k">class</span><span class="w"> </span><span class="nc">RenamedWarningEmitter</span><span class="p">(</span><span class="n">WarningEmitter</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">RenamedWarningEmitter</span><span class="p">(</span><span class="n">ChildrenEmitterMixin</span><span class="p">,</span> <span class="n">WarningEmitter</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Warning emitter to be used when an attribute was renamed or moved to a composition object.</span>
 <span class="sd">    It will connect to the new event once the callback is connected to the old one.</span>
 <span class="sd">    It will also warn the user that the attribute was renamed.</span>
+
+<span class="sd">    Intermediate attributes in the target path may be replaced but must</span>
+<span class="sd">    always resolve to objects while listeners are connected. Assigning None</span>
+<span class="sd">    to an intermediate attribute is not supported.</span>
 <span class="sd">    """</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span>
-        <span class="n">new_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-        <span class="o">*</span><span class="n">args</span><span class="p">,</span>
-        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-        <span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">_new_name_path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_new_name</span> <span class="o">=</span> <span class="n">new_name</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">'.'</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_connected</span> <span class="o">=</span> <span class="kc">False</span>
-
-    <span class="k">def</span><span class="w"> </span><span class="nf">_get_new_emitter</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">target</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">source</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">source</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
-            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s1">'Cannot connect to renamed emitter </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_new_name</span><span class="si">}</span><span class="s1"> because source is None'</span>
-            <span class="p">)</span>
-        <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_new_name_path</span><span class="p">:</span>
-            <span class="n">target</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="n">attr</span><span class="p">)</span>
-        <span class="n">new_emitter</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">target</span><span class="o">.</span><span class="n">events</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_new_name</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">new_emitter</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_trigger_reemit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">event</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">target</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">source</span>
+            <span class="k">for</span> <span class="n">el</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_source_path</span><span class="p">:</span>
+                <span class="n">target</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="n">el</span><span class="p">)</span>
+            <span class="bp">self</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="nb">getattr</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_source_attr</span><span class="p">))</span>
 
 <div class="viewcode-block" id="RenamedWarningEmitter.connect">
 <a class="viewcode-back" href="../../../../api/napari.utils.events.RenamedWarningEmitter.html#napari.utils.events.RenamedWarningEmitter.connect">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">connect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cb</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_connected</span><span class="p">:</span>
-            <span class="n">new_emitter</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_new_emitter</span><span class="p">()</span>
-            <span class="n">new_emitter</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_connected</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">connect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cb</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_target_emitter</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># self._target_emitter is None means that callbacks are empty, so we need to reconnect to the new event.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_reconnect_emitter</span><span class="p">()</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">cb</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
 
@@ -1754,14 +1894,116 @@ window.runMermaid = runMermaid;</script>
 <a class="viewcode-back" href="../../../../api/napari.utils.events.RenamedWarningEmitter.html#napari.utils.events.RenamedWarningEmitter.disconnect">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">disconnect</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">callback</span><span class="p">:</span> <span class="n">Callback</span> <span class="o">|</span> <span class="n">CallbackRef</span> <span class="o">|</span> <span class="nb">object</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="p">):</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span><span class="n">callback</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">callbacks</span><span class="p">:</span>
-            <span class="n">new_emitter</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_new_emitter</span><span class="p">()</span>
-            <span class="n">new_emitter</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_connected</span> <span class="o">=</span> <span class="kc">False</span></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_disconnect_from</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span></div>
 </div>
 
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">SubDependentEmitter</span><span class="p">(</span><span class="n">ChildrenEmitterMixin</span><span class="p">,</span> <span class="n">EventEmitter</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""USed by DependentEmitterMixin to connect to the child objects"""</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">DependentEmitterMixin</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Mixin implement a logic for event emitter that might</span>
+<span class="sd">    depend on multiple external attributes.</span>
+
+<span class="sd">    The attributes need to be accessible from the source object.</span>
+
+<span class="sd">    By default, thee emitted evnt will have value get from `property_name` attribute of the source object.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    sources_list : list[str]</span>
+<span class="sd">        List of attributes of the source object that the property depends on.</span>
+<span class="sd">    property_name : str</span>
+<span class="sd">        Name of the property of the source object that will be emitted when any of the attributes in sources_list change.</span>
+<span class="sd">    category : type[Warning] | None</span>
+<span class="sd">        The type of warning to emit.</span>
+<span class="sd">    message : str</span>
+<span class="sd">        The message to display in the warning.</span>
+
+
+
+<span class="sd">    """</span>
+
+    <span class="n">source</span><span class="p">:</span> <span class="n">Any</span>
+
+    <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+
+        <span class="k">def</span><span class="w"> </span><span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Event</span><span class="p">:</span> <span class="o">...</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="o">*</span><span class="n">args</span><span class="p">,</span>
+        <span class="n">sources_list</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+        <span class="n">property_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_property_name</span> <span class="o">=</span> <span class="n">property_name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_sub_emitters</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">SubDependentEmitter</span><span class="p">(</span>
+                <span class="n">source</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">source</span><span class="p">,</span>
+                <span class="n">new_path</span><span class="o">=</span><span class="n">source_path</span><span class="p">,</span>
+                <span class="n">type_name</span><span class="o">=</span><span class="n">source_path</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="k">for</span> <span class="n">source_path</span> <span class="ow">in</span> <span class="n">sources_list</span>
+        <span class="p">]</span>
+        <span class="k">for</span> <span class="n">sub_emitter</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sub_emitters</span><span class="p">:</span>
+            <span class="n">sub_emitter</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_recalculate_and_emit</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_connected</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_on_source_change</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">sub_emitter</span> <span class="ow">in</span> <span class="nb">getattr</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span> <span class="s1">'_sub_emitters'</span><span class="p">,</span> <span class="p">[]</span>
+        <span class="p">):</span>  <span class="c1"># in case __init__ hasn't finished yet</span>
+            <span class="n">sub_emitter</span><span class="o">.</span><span class="n">source</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">source</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_recalculate_and_emit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">source</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_property_name</span><span class="p">)</span>
+        <span class="bp">self</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="n">value</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">connect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cb</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_connected</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">sub_emitter</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sub_emitters</span><span class="p">:</span>
+                <span class="n">sub_emitter</span><span class="o">.</span><span class="n">_reconnect_emitter</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_connected</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">cb</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">disconnect</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">callback</span><span class="p">:</span> <span class="n">Callback</span> <span class="o">|</span> <span class="n">CallbackRef</span> <span class="o">|</span> <span class="nb">object</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span><span class="n">callback</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">callbacks</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">sub_emitter</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sub_emitters</span><span class="p">:</span>
+                <span class="n">sub_emitter</span><span class="o">.</span><span class="n">_disconnect_from</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_connected</span> <span class="o">=</span> <span class="kc">False</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">DependentEmitter</span><span class="p">(</span><span class="n">DependentEmitterMixin</span><span class="p">,</span> <span class="n">EventEmitter</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Event emitter that is able to connect to other event emitters and</span>
+<span class="sd">    emit a new event when any of the connected event emitters emit an event.</span>
+
+<span class="sd">    It is designed for a property that depends on one or more attributes of</span>
+<span class="sd">    the child object of the source object.</span>
+
+<span class="sd">    It connects to emitters of all attributes defined in `sources_list` and emits</span>
+<span class="sd">    a new event when any of the attributes change.</span>
+<span class="sd">    For each event emission the property is accessed for a new value and emitted in the new event.</span>
+
+<span class="sd">    There is no mechanism to deduplicate events, so if multiple attributes change at the same time.</span>
+<span class="sd">    """</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">DependentWarningEmitter</span><span class="p">(</span><span class="n">DependentEmitterMixin</span><span class="p">,</span> <span class="n">WarningEmitter</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Same as DependentEmitter, but similarly to `WarningEmitter`,</span>
+<span class="sd">    it emits a warning on the first connection of a callback.</span>
+
+<span class="sd">    Designed to be used with deprecated properties.</span>
+<span class="sd">    """</span>
 
 
 <div class="viewcode-block" id="EmitterGroup">

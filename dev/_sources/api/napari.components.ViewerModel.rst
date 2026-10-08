@@ -44,6 +44,9 @@ napari.components.ViewerModel
       ~ViewerModel.bind_key
    
    
+      ~ViewerModel.canvas_to_world
+   
+   
       ~ViewerModel.construct
    
    

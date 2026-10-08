@@ -45,7 +45,7 @@
   <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=64cc4de3f052d77215f0" />
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=64cc4de3f052d77215f0" />
 
-    <script src="../../../../_static/documentation_options.js?v=e758b3be"></script>
+    <script src="../../../../_static/documentation_options.js?v=397e63d1"></script>
     <script src="../../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -1033,7 +1033,7 @@ window.runMermaid = runMermaid;</script>
     <span class="n">parent</span><span class="p">:</span> <span class="n">QtPopup</span><span class="p">,</span>
     <span class="n">enum_class</span><span class="p">:</span> <span class="n">EnumMeta</span><span class="p">,</span>
     <span class="n">current_enum</span><span class="p">:</span> <span class="n">Enum</span><span class="p">,</span>
-    <span class="n">callback</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[],</span> <span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Enum</span><span class="p">],</span> <span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">str</span><span class="p">],</span> <span class="n">Any</span><span class="p">],</span>
+    <span class="n">callback</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">QEnumComboBox</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">"""Create an enum combobox widget."""</span>
     <span class="n">combo</span> <span class="o">=</span> <span class="n">QEnumComboBox</span><span class="p">(</span><span class="n">parent</span><span class="p">,</span> <span class="n">enum_class</span><span class="o">=</span><span class="n">enum_class</span><span class="p">)</span>
@@ -1157,9 +1157,9 @@ window.runMermaid = runMermaid;</script>
 <span class="w">        </span><span class="sd">"""Have Alt/Option key rotate layers with the transpose button."""</span>
         <span class="n">modifiers</span> <span class="o">=</span> <span class="n">QApplication</span><span class="o">.</span><span class="n">keyboardModifiers</span><span class="p">()</span>
         <span class="k">if</span> <span class="p">(</span>
-            <span class="n">modifiers</span> <span class="o">==</span> <span class="n">Qt</span><span class="o">.</span><span class="n">AltModifier</span>
+            <span class="n">modifiers</span> <span class="o">==</span> <span class="n">Qt</span><span class="o">.</span><span class="n">KeyboardModifier</span><span class="o">.</span><span class="n">AltModifier</span>
             <span class="ow">and</span> <span class="n">qobject</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">transposeDimsButton</span>
-            <span class="ow">and</span> <span class="n">event</span><span class="o">.</span><span class="n">type</span><span class="p">()</span> <span class="o">==</span> <span class="n">QEvent</span><span class="o">.</span><span class="n">MouseButtonPress</span>
+            <span class="ow">and</span> <span class="n">event</span><span class="o">.</span><span class="n">type</span><span class="p">()</span> <span class="o">==</span> <span class="n">QEvent</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">MouseButtonPress</span>
         <span class="p">):</span>
             <span class="n">action_manager</span><span class="o">.</span><span class="n">trigger</span><span class="p">(</span><span class="s1">'napari:rotate_layers'</span><span class="p">)</span>
             <span class="k">return</span> <span class="kc">True</span>
@@ -1441,15 +1441,14 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        value : DepthAxisOrientationStr | VerticalAxisOrientationStr | HorizontalAxisOrientationStr</span>
 <span class="sd">            New orientation value for the updated axis.</span>
 <span class="sd">        """</span>
-        <span class="n">axes</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="n">DepthAxisOrientation</span><span class="p">,</span>
-            <span class="n">VerticalAxisOrientation</span><span class="p">,</span>
-            <span class="n">HorizontalAxisOrientation</span><span class="p">,</span>
-        <span class="p">)</span>
-        <span class="n">axis_to_update</span> <span class="o">=</span> <span class="n">axes</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">orientation_type</span><span class="p">)</span>
-        <span class="n">new_orientation</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">orientation</span><span class="p">)</span>
-        <span class="n">new_orientation</span><span class="p">[</span><span class="n">axis_to_update</span><span class="p">]</span> <span class="o">=</span> <span class="n">orientation_type</span><span class="p">(</span><span class="n">orientation_value</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">orientation</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">new_orientation</span><span class="p">)</span>
+        <span class="n">depth</span><span class="p">,</span> <span class="n">vertical</span><span class="p">,</span> <span class="n">horizontal</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">orientation</span>
+        <span class="k">if</span> <span class="n">orientation_type</span> <span class="ow">is</span> <span class="n">DepthAxisOrientation</span><span class="p">:</span>
+            <span class="n">depth</span> <span class="o">=</span> <span class="n">DepthAxisOrientation</span><span class="p">(</span><span class="n">orientation_value</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">orientation_type</span> <span class="ow">is</span> <span class="n">VerticalAxisOrientation</span><span class="p">:</span>
+            <span class="n">vertical</span> <span class="o">=</span> <span class="n">VerticalAxisOrientation</span><span class="p">(</span><span class="n">orientation_value</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">horizontal</span> <span class="o">=</span> <span class="n">HorizontalAxisOrientation</span><span class="p">(</span><span class="n">orientation_value</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">orientation</span> <span class="o">=</span> <span class="p">(</span><span class="n">depth</span><span class="p">,</span> <span class="n">vertical</span><span class="p">,</span> <span class="n">horizontal</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_update_camera_angles</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">idx</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">"""Update the camera angles.</span>
@@ -1464,7 +1463,7 @@ window.runMermaid = runMermaid;</script>
 
         <span class="n">angles</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">angles</span><span class="p">)</span>
         <span class="n">angles</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">angles</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">angles</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">angles</span> <span class="o">=</span> <span class="p">(</span><span class="n">angles</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">angles</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">angles</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_update_zoom</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">"""Update the camera zoom.</span>

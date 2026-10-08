@@ -116,7 +116,7 @@ Main application settings.
 * <small>Environmental variable: `NAPARI_APPLICATION_DASK`</small>
 * <small>Type: `<class 'napari.settings._application.DaskSettings'>`</small>
 
-* <small>Default: `DaskSettings(enabled=True, cache=4.191603712)`.</small>
+* <small>Default: `DaskSettings(enabled=True, cache=4.191602688)`.</small>
 
 
 
@@ -527,84 +527,84 @@ Shortcut settings.
 
 | Action | Shortcut |
 |--------|----------|
-| napari:toggle_console_visibility | [<KeyBinding at 0x7f84dcfea9f0: Ctrl+Shift+C>] |
-| napari:toggle_ndisplay | [<KeyBinding at 0x7f84dcfeb5f0: Ctrl+Y>] |
-| napari:toggle_theme | [<KeyBinding at 0x7f84dcfea480: Ctrl+Shift+T>] |
-| napari:reset_view | [<KeyBinding at 0x7f84dcfebd40: Ctrl+R>] |
-| napari:delete_selected_layers | [<KeyBinding at 0x7f84dcfeac30: Ctrl+Delete>, <KeyBinding at 0x7f84dcfeacc0: Ctrl+Backspace>] |
-| napari:show_shortcuts | [<KeyBinding at 0x7f84dcfec6e0: Ctrl+Alt+/>] |
-| napari:increment_dims_left | [<KeyBinding at 0x7f84dcfed910: Left>] |
-| napari:increment_dims_right | [<KeyBinding at 0x7f84dcfec380: Right>] |
-| napari:focus_axes_up | [<KeyBinding at 0x7f84dcfed460: Alt+Up>] |
-| napari:focus_axes_down | [<KeyBinding at 0x7f84dcfed0d0: Alt+Down>] |
-| napari:roll_axes | [<KeyBinding at 0x7f84dcfef3b0: Ctrl+E>] |
-| napari:transpose_axes | [<KeyBinding at 0x7f84dcfef3e0: Ctrl+T>] |
-| napari:rotate_layers | [<KeyBinding at 0x7f84dcfef440: Ctrl+Alt+T>] |
-| napari:toggle_grid | [<KeyBinding at 0x7f84dcfef4d0: Ctrl+G>] |
-| napari:toggle_selected_visibility | [<KeyBinding at 0x7f84dcfef530: V>] |
-| napari:toggle_unselected_visibility | [<KeyBinding at 0x7f84dcfef590: Shift+V>] |
-| napari:select_layer_above | [<KeyBinding at 0x7f84dcfef5f0: Ctrl+Up>] |
-| napari:select_layer_below | [<KeyBinding at 0x7f84dcfef650: Ctrl+Down>] |
-| napari:show_only_layer_above | [<KeyBinding at 0x7f84dcfef6b0: Shift+Alt+Up>] |
-| napari:show_only_layer_below | [<KeyBinding at 0x7f84dcfef710: Shift+Alt+Down>] |
-| napari:hold_for_pan_zoom | [<KeyBinding at 0x7f84dcfef770: Space>] |
-| napari:activate_labels_erase_mode | [<KeyBinding at 0x7f84dcfef7d0: 1>, <KeyBinding at 0x7f84dcfef830: E>] |
-| napari:activate_labels_paint_mode | [<KeyBinding at 0x7f84dcfef890: 2>, <KeyBinding at 0x7f84dcfef8f0: P>] |
-| napari:activate_labels_polygon_mode | [<KeyBinding at 0x7f84dcfef950: 3>] |
-| napari:activate_labels_fill_mode | [<KeyBinding at 0x7f84dcfef9b0: 4>, <KeyBinding at 0x7f84dcfefa10: F>] |
-| napari:activate_labels_picker_mode | [<KeyBinding at 0x7f84dcfefa70: 5>, <KeyBinding at 0x7f84dcfefad0: L>] |
-| napari:activate_labels_pan_zoom_mode | [<KeyBinding at 0x7f84dcfefb30: 6>, <KeyBinding at 0x7f84dcfefb90: Z>] |
-| napari:activate_labels_transform_mode | [<KeyBinding at 0x7f84dcfefbf0: 7>] |
-| napari:new_label | [<KeyBinding at 0x7f84e418d790: M>] |
-| napari:swap_selected_and_background_labels | [<KeyBinding at 0x7f84e646d7c0: X>] |
-| napari:decrease_label_id | [<KeyBinding at 0x7f84dcfebb30: ->] |
-| napari:increase_label_id | [<KeyBinding at 0x7f84dcfebb60: =>] |
-| napari:decrease_brush_size | [<KeyBinding at 0x7f84dcfebfe0: [>] |
-| napari:increase_brush_size | [<KeyBinding at 0x7f84dcfeb140: ]>] |
-| napari:toggle_preserve_labels | [<KeyBinding at 0x7f84dcfefc20: B>] |
-| napari:reset_polygon | [<KeyBinding at 0x7f84dcfef200: Escape>] |
-| napari:complete_polygon | [<KeyBinding at 0x7f84dcfef260: Enter>] |
-| napari:activate_points_add_mode | [<KeyBinding at 0x7f84dcfef0e0: 2>, <KeyBinding at 0x7f84dcfef140: P>] |
-| napari:activate_points_select_mode | [<KeyBinding at 0x7f84dcfeefc0: 3>, <KeyBinding at 0x7f84dcfef020: S>] |
-| napari:activate_points_pan_zoom_mode | [<KeyBinding at 0x7f84dcfeeea0: 4>, <KeyBinding at 0x7f84dcfeef00: Z>] |
-| napari:activate_points_transform_mode | [<KeyBinding at 0x7f84dcfeed80: 5>] |
-| napari:select_all_in_slice | [<KeyBinding at 0x7f84dcfeede0: A>] |
-| napari:select_append_all_in_slice | [<KeyBinding at 0x7f84dcfeec60: Shift+A>] |
-| napari:select_all_data | [<KeyBinding at 0x7f84dcfeecc0: Ctrl+A>] |
-| napari:delete_selected_points | [<KeyBinding at 0x7f84dcfeeb40: 1>, <KeyBinding at 0x7f84dcfeeba0: Delete>, <KeyBinding at 0x7f84dcfeea20: Backspace>] |
-| napari:activate_add_rectangle_mode | [<KeyBinding at 0x7f84dcfeea80: R>] |
-| napari:activate_add_ellipse_mode | [<KeyBinding at 0x7f84dcfee900: E>] |
-| napari:activate_add_line_mode | [<KeyBinding at 0x7f84dcfee960: L>] |
-| napari:activate_add_path_mode | [<KeyBinding at 0x7f84dcfee7e0: T>] |
-| napari:activate_add_polyline_mode | [<KeyBinding at 0x7f84dcfee840: Shift+L>] |
-| napari:activate_add_polygon_mode | [<KeyBinding at 0x7f84dcfee6f0: P>] |
-| napari:activate_add_polygon_lasso_mode | [<KeyBinding at 0x7f84dcfee720: Shift+P>] |
-| napari:activate_direct_mode | [<KeyBinding at 0x7f84dcfee5a0: 4>, <KeyBinding at 0x7f84dcfee5d0: D>] |
-| napari:activate_select_mode | [<KeyBinding at 0x7f84dcfee480: 5>, <KeyBinding at 0x7f84dcfee390: S>] |
-| napari:activate_shapes_pan_zoom_mode | [<KeyBinding at 0x7f84dcfee3f0: 6>, <KeyBinding at 0x7f84dcfee270: Z>] |
-| napari:activate_shapes_transform_mode | [<KeyBinding at 0x7f84dcfee2d0: 7>] |
-| napari:activate_vertex_insert_mode | [<KeyBinding at 0x7f84dcfee150: 2>, <KeyBinding at 0x7f84dcfee1b0: I>] |
-| napari:activate_vertex_remove_mode | [<KeyBinding at 0x7f84dcfee060: 1>, <KeyBinding at 0x7f84dcfee0c0: X>] |
-| napari:copy_selected_shapes | [<KeyBinding at 0x7f84dcfedf40: Ctrl+C>] |
-| napari:paste_shape | [<KeyBinding at 0x7f84dcfee000: Ctrl+V>] |
-| napari:move_shapes_selection_to_front | [<KeyBinding at 0x7f84dcfedeb0: F>] |
-| napari:move_shapes_selection_to_back | [<KeyBinding at 0x7f84dcfedf10: B>] |
-| napari:select_shapes_in_slice | [<KeyBinding at 0x7f84dcfec050: A>, <KeyBinding at 0x7f84dcfede50: Ctrl+A>] |
-| napari:delete_selected_shapes | [<KeyBinding at 0x7f84dcfeddf0: 3>, <KeyBinding at 0x7f84dcfed1f0: Delete>, <KeyBinding at 0x7f84dcfefc50: Backspace>] |
-| napari:finish_drawing_shape | [<KeyBinding at 0x7f84dcfefce0: Enter>, <KeyBinding at 0x7f84dcfefd40: Escape>] |
-| napari:orient_plane_normal_along_x | [<KeyBinding at 0x7f84dcfefda0: X>] |
-| napari:orient_plane_normal_along_y | [<KeyBinding at 0x7f84dcfefe00: Y>] |
-| napari:orient_plane_normal_along_z | [<KeyBinding at 0x7f84dcfefe60: Z>] |
-| napari:orient_plane_normal_along_view_direction | [<KeyBinding at 0x7f84dcfefec0: O>] |
-| napari:auto_contrast_once | [<KeyBinding at 0x7f84dcfeff20: C>] |
-| napari:activate_image_pan_zoom_mode | [<KeyBinding at 0x7f84dcfeff80: 1>] |
-| napari:activate_image_transform_mode | [<KeyBinding at 0x7f84dcfeffe0: 2>] |
-| napari:activate_vectors_pan_zoom_mode | [<KeyBinding at 0x7f84dcff4b00: 1>] |
-| napari:activate_vectors_transform_mode | [<KeyBinding at 0x7f84dcff5580: 2>] |
-| napari:activate_tracks_pan_zoom_mode | [<KeyBinding at 0x7f84dcff5b20: 1>] |
-| napari:activate_tracks_transform_mode | [<KeyBinding at 0x7f84dcff6660: 2>] |
-| napari:activate_surface_pan_zoom_mode | [<KeyBinding at 0x7f84dcff4050: 1>] |
-| napari:activate_surface_transform_mode | [<KeyBinding at 0x7f84dcff40b0: 2>] |
+| napari:toggle_console_visibility | [<KeyBinding at 0x7f0af43d36e0: Ctrl+Shift+C>] |
+| napari:toggle_ndisplay | [<KeyBinding at 0x7f0af43d3440: Ctrl+Y>] |
+| napari:toggle_theme | [<KeyBinding at 0x7f0af43d1bb0: Ctrl+Shift+T>] |
+| napari:reset_view | [<KeyBinding at 0x7f0af43d20f0: Ctrl+R>] |
+| napari:delete_selected_layers | [<KeyBinding at 0x7f0af43d9490: Ctrl+Delete>, <KeyBinding at 0x7f0af43d9520: Ctrl+Backspace>] |
+| napari:show_shortcuts | [<KeyBinding at 0x7f0af43d94f0: Ctrl+Alt+/>] |
+| napari:increment_dims_left | [<KeyBinding at 0x7f0af43d9580: Left>] |
+| napari:increment_dims_right | [<KeyBinding at 0x7f0af43d95e0: Right>] |
+| napari:focus_axes_up | [<KeyBinding at 0x7f0af43d9640: Alt+Up>] |
+| napari:focus_axes_down | [<KeyBinding at 0x7f0af43d96a0: Alt+Down>] |
+| napari:roll_axes | [<KeyBinding at 0x7f0af43d9700: Ctrl+E>] |
+| napari:transpose_axes | [<KeyBinding at 0x7f0af43d9760: Ctrl+T>] |
+| napari:rotate_layers | [<KeyBinding at 0x7f0af43d97c0: Ctrl+Alt+T>] |
+| napari:toggle_grid | [<KeyBinding at 0x7f0af43d9b50: Ctrl+G>] |
+| napari:toggle_selected_visibility | [<KeyBinding at 0x7f0af43d97f0: V>] |
+| napari:toggle_unselected_visibility | [<KeyBinding at 0x7f0af43dbd10: Shift+V>] |
+| napari:select_layer_above | [<KeyBinding at 0x7f0af43dbd70: Ctrl+Up>] |
+| napari:select_layer_below | [<KeyBinding at 0x7f0af43dbdd0: Ctrl+Down>] |
+| napari:show_only_layer_above | [<KeyBinding at 0x7f0af43dbe30: Shift+Alt+Up>] |
+| napari:show_only_layer_below | [<KeyBinding at 0x7f0af43dbe90: Shift+Alt+Down>] |
+| napari:hold_for_pan_zoom | [<KeyBinding at 0x7f0af43dbef0: Space>] |
+| napari:activate_labels_erase_mode | [<KeyBinding at 0x7f0af43dbf50: 1>, <KeyBinding at 0x7f0af43dbfb0: E>] |
+| napari:activate_labels_paint_mode | [<KeyBinding at 0x7f0af43e0050: 2>, <KeyBinding at 0x7f0af43e00b0: P>] |
+| napari:activate_labels_polygon_mode | [<KeyBinding at 0x7f0af43e0110: 3>] |
+| napari:activate_labels_fill_mode | [<KeyBinding at 0x7f0af43e0170: 4>, <KeyBinding at 0x7f0af43e01d0: F>] |
+| napari:activate_labels_picker_mode | [<KeyBinding at 0x7f0af43e0230: 5>, <KeyBinding at 0x7f0af43e0290: L>] |
+| napari:activate_labels_pan_zoom_mode | [<KeyBinding at 0x7f0af43e02f0: 6>, <KeyBinding at 0x7f0af43e0350: Z>] |
+| napari:activate_labels_transform_mode | [<KeyBinding at 0x7f0af43e03b0: 7>] |
+| napari:new_label | [<KeyBinding at 0x7f0af43e0410: M>] |
+| napari:swap_selected_and_background_labels | [<KeyBinding at 0x7f0af43e0470: X>] |
+| napari:decrease_label_id | [<KeyBinding at 0x7f0af43d9250: ->] |
+| napari:increase_label_id | [<KeyBinding at 0x7f0af43d92b0: =>] |
+| napari:decrease_brush_size | [<KeyBinding at 0x7f0af43d9130: [>] |
+| napari:increase_brush_size | [<KeyBinding at 0x7f0af43d9190: ]>] |
+| napari:toggle_preserve_labels | [<KeyBinding at 0x7f0af43d9010: B>] |
+| napari:reset_polygon | [<KeyBinding at 0x7f0af43d9070: Escape>] |
+| napari:complete_polygon | [<KeyBinding at 0x7f0af43d8ef0: Enter>] |
+| napari:activate_points_add_mode | [<KeyBinding at 0x7f0af43d8f50: 2>, <KeyBinding at 0x7f0af43d8dd0: P>] |
+| napari:activate_points_select_mode | [<KeyBinding at 0x7f0af43d8e30: 3>, <KeyBinding at 0x7f0af43d8c80: S>] |
+| napari:activate_points_pan_zoom_mode | [<KeyBinding at 0x7f0af43d8d10: 4>, <KeyBinding at 0x7f0af43d8b60: Z>] |
+| napari:activate_points_transform_mode | [<KeyBinding at 0x7f0af43d8bc0: 5>] |
+| napari:select_all_in_slice | [<KeyBinding at 0x7f0af43d8a40: A>] |
+| napari:select_append_all_in_slice | [<KeyBinding at 0x7f0af43d8aa0: Shift+A>] |
+| napari:select_all_data | [<KeyBinding at 0x7f0af43d8920: Ctrl+A>] |
+| napari:delete_selected_points | [<KeyBinding at 0x7f0af43d8980: 1>, <KeyBinding at 0x7f0af43d8800: Delete>, <KeyBinding at 0x7f0af43d8860: Backspace>] |
+| napari:activate_add_rectangle_mode | [<KeyBinding at 0x7f0af43d8710: R>] |
+| napari:activate_add_ellipse_mode | [<KeyBinding at 0x7f0af43d8740: E>] |
+| napari:activate_add_line_mode | [<KeyBinding at 0x7f0af43d85c0: L>] |
+| napari:activate_add_path_mode | [<KeyBinding at 0x7f0af43d85f0: T>] |
+| napari:activate_add_polyline_mode | [<KeyBinding at 0x7f0af43d84a0: Shift+L>] |
+| napari:activate_add_polygon_mode | [<KeyBinding at 0x7f0af43d83b0: P>] |
+| napari:activate_add_polygon_lasso_mode | [<KeyBinding at 0x7f0af43d8410: Shift+P>] |
+| napari:activate_direct_mode | [<KeyBinding at 0x7f0af43d8290: 4>, <KeyBinding at 0x7f0af43d82f0: D>] |
+| napari:activate_select_mode | [<KeyBinding at 0x7f0af43d8170: 5>, <KeyBinding at 0x7f0af43d81d0: S>] |
+| napari:activate_shapes_pan_zoom_mode | [<KeyBinding at 0x7f0af43d80b0: 6>, <KeyBinding at 0x7f0af43d8110: Z>] |
+| napari:activate_shapes_transform_mode | [<KeyBinding at 0x7f0af43dae40: 7>] |
+| napari:activate_vertex_insert_mode | [<KeyBinding at 0x7f0af43d8050: 2>, <KeyBinding at 0x7f0af43d99a0: I>] |
+| napari:activate_vertex_remove_mode | [<KeyBinding at 0x7f0af43daa80: 1>, <KeyBinding at 0x7f0af43d99d0: X>] |
+| napari:copy_selected_shapes | [<KeyBinding at 0x7f0af87cf8f0: Ctrl+C>] |
+| napari:paste_shape | [<KeyBinding at 0x7f0af87ce570: Ctrl+V>] |
+| napari:move_shapes_selection_to_front | [<KeyBinding at 0x7f0af452fb60: F>] |
+| napari:move_shapes_selection_to_back | [<KeyBinding at 0x7f0af43d3bf0: B>] |
+| napari:select_shapes_in_slice | [<KeyBinding at 0x7f0af43d3ef0: A>, <KeyBinding at 0x7f0af43d3fb0: Ctrl+A>] |
+| napari:delete_selected_shapes | [<KeyBinding at 0x7f0af43d2f90: 3>, <KeyBinding at 0x7f0af433d1f0: Delete>, <KeyBinding at 0x7f0af433bd70: Backspace>] |
+| napari:finish_drawing_shape | [<KeyBinding at 0x7f0af4349b20: Enter>, <KeyBinding at 0x7f0af43e04d0: Escape>] |
+| napari:orient_plane_normal_along_x | [<KeyBinding at 0x7f0af43e0530: X>] |
+| napari:orient_plane_normal_along_y | [<KeyBinding at 0x7f0af43e0590: Y>] |
+| napari:orient_plane_normal_along_z | [<KeyBinding at 0x7f0af43e05f0: Z>] |
+| napari:orient_plane_normal_along_view_direction | [<KeyBinding at 0x7f0af43e0650: O>] |
+| napari:auto_contrast_once | [<KeyBinding at 0x7f0af43e06b0: C>] |
+| napari:activate_image_pan_zoom_mode | [<KeyBinding at 0x7f0af43e0710: 1>] |
+| napari:activate_image_transform_mode | [<KeyBinding at 0x7f0af43e0770: 2>] |
+| napari:activate_vectors_pan_zoom_mode | [<KeyBinding at 0x7f0af43e07d0: 1>] |
+| napari:activate_vectors_transform_mode | [<KeyBinding at 0x7f0af43e0830: 2>] |
+| napari:activate_tracks_pan_zoom_mode | [<KeyBinding at 0x7f0af43e0890: 1>] |
+| napari:activate_tracks_transform_mode | [<KeyBinding at 0x7f0af43e08f0: 2>] |
+| napari:activate_surface_pan_zoom_mode | [<KeyBinding at 0x7f0af43e0950: 1>] |
+| napari:activate_surface_transform_mode | [<KeyBinding at 0x7f0af43e09b0: 2>] |
 
 
 
@@ -757,7 +757,7 @@ Happens by default with multiple layers.*
 
 ##### Minimum distance threshold of shapes lasso and path tool
 
-*Value determines how many screen pixels one has to move before another vertex can be added to the polygonor path.*
+*Value determines how many screen pixels one has to move before another vertex can be added to the polygon or path.*
 
 * <small>Access programmatically with `SETTINGS.experimental.lasso_vertex_distance`.</small>
 * <small>Environmental variable: `NAPARI_EXPERIMENTAL_LASSO_VERTEX_DISTANCE`</small>

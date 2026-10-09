@@ -45,7 +45,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=64cc4de3f052d77215f0" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=64cc4de3f052d77215f0" />
 
-    <script src="../../../_static/documentation_options.js?v=feae8c0f"></script>
+    <script src="../../../_static/documentation_options.js?v=73b575fb"></script>
     <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -830,7 +830,7 @@ window.runMermaid = runMermaid;</script>
 <span class="kn">from</span><span class="w"> </span><span class="nn">collections.abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Sequence</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">datetime</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">enum</span><span class="w"> </span><span class="kn">import</span> <span class="n">auto</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">TYPE_CHECKING</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Self</span><span class="p">,</span> <span class="n">TextIO</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.events</span><span class="w"> </span><span class="kn">import</span> <span class="n">Event</span><span class="p">,</span> <span class="n">EventEmitter</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.misc</span><span class="w"> </span><span class="kn">import</span> <span class="n">StringEnum</span>
@@ -871,7 +871,7 @@ window.runMermaid = runMermaid;</script>
     <span class="n">DEBUG</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>
     <span class="n">NONE</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">as_icon</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">as_icon</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="k">return</span> <span class="p">{</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">ERROR</span><span class="p">:</span> <span class="s1">'ⓧ'</span><span class="p">,</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">WARNING</span><span class="p">:</span> <span class="s1">'⚠️'</span><span class="p">,</span>
@@ -880,22 +880,24 @@ window.runMermaid = runMermaid;</script>
             <span class="bp">self</span><span class="o">.</span><span class="n">NONE</span><span class="p">:</span> <span class="s1">''</span><span class="p">,</span>
         <span class="p">}[</span><span class="bp">self</span><span class="p">]</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="fm">__lt__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__lt__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">NotificationSeverity</span> <span class="o">|</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">name2num</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="p">)]</span> <span class="o">&lt;</span> <span class="n">name2num</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">other</span><span class="p">)]</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="fm">__le__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__le__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">NotificationSeverity</span> <span class="o">|</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">name2num</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="p">)]</span> <span class="o">&lt;=</span> <span class="n">name2num</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">other</span><span class="p">)]</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="fm">__gt__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__gt__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">NotificationSeverity</span> <span class="o">|</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">name2num</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="p">)]</span> <span class="o">&gt;</span> <span class="n">name2num</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">other</span><span class="p">)]</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="fm">__ge__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__ge__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">NotificationSeverity</span> <span class="o">|</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">name2num</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="p">)]</span> <span class="o">&gt;=</span> <span class="n">name2num</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">other</span><span class="p">)]</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
-        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">==</span> <span class="nb">str</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="nb">object</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="p">(</span><span class="n">NotificationSeverity</span><span class="p">,</span> <span class="nb">str</span><span class="p">))</span> <span class="ow">and</span> <span class="nb">str</span><span class="p">(</span>
+            <span class="bp">self</span>
+        <span class="p">)</span> <span class="o">==</span> <span class="nb">str</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="fm">__hash__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__hash__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
         <span class="k">return</span> <span class="nb">hash</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">)</span></div>
 
 
@@ -927,7 +929,7 @@ window.runMermaid = runMermaid;</script>
         <span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
         <span class="n">severity</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">NotificationSeverity</span> <span class="o">=</span> <span class="n">NotificationSeverity</span><span class="o">.</span><span class="n">WARNING</span><span class="p">,</span>
         <span class="n">actions</span><span class="p">:</span> <span class="n">ActionSequence</span> <span class="o">=</span> <span class="p">(),</span>
-        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">severity</span> <span class="o">=</span> <span class="n">NotificationSeverity</span><span class="p">(</span><span class="n">severity</span><span class="p">)</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">type_name</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">severity</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">(),</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
@@ -938,22 +940,22 @@ window.runMermaid = runMermaid;</script>
         <span class="bp">self</span><span class="o">.</span><span class="n">date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">message</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">message</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_message</span>
 
     <span class="nd">@message</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">message</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">message</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_message</span> <span class="o">=</span> <span class="n">value</span>
 
     <span class="nd">@classmethod</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">from_exception</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">exc</span><span class="p">:</span> <span class="ne">BaseException</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Notification</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">from_exception</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">exc</span><span class="p">:</span> <span class="ne">BaseException</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Notification</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">ErrorNotification</span><span class="p">(</span><span class="n">exc</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
     <span class="nd">@classmethod</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">from_warning</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">warning</span><span class="p">:</span> <span class="ne">Warning</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Notification</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">from_warning</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">warning</span><span class="p">:</span> <span class="ne">Warning</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Notification</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">WarningNotification</span><span class="p">(</span><span class="n">warning</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="k">return</span> <span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">severity</span><span class="p">)</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">message</span><span class="si">}</span><span class="s1">'</span></div>
 
 
@@ -967,13 +969,15 @@ window.runMermaid = runMermaid;</script>
 
     <span class="n">exception</span><span class="p">:</span> <span class="ne">BaseException</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exception</span><span class="p">:</span> <span class="ne">BaseException</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">exception</span><span class="p">:</span> <span class="ne">BaseException</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">msg</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">exception</span><span class="p">,</span> <span class="s1">'message'</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">exception</span><span class="p">))</span>
         <span class="n">actions</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">exception</span><span class="p">,</span> <span class="s1">'actions'</span><span class="p">,</span> <span class="p">())</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">NotificationSeverity</span><span class="o">.</span><span class="n">ERROR</span><span class="p">,</span> <span class="n">actions</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">exception</span> <span class="o">=</span> <span class="n">exception</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">as_html</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">as_html</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils._tracebacks</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_tb_formatter</span>
 
         <span class="n">fmt</span> <span class="o">=</span> <span class="n">get_tb_formatter</span><span class="p">()</span>
@@ -984,7 +988,7 @@ window.runMermaid = runMermaid;</script>
         <span class="p">)</span>
         <span class="k">return</span> <span class="n">fmt</span><span class="p">(</span><span class="n">exc_info</span><span class="p">,</span> <span class="n">as_html</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># pyrefly: ignore [bad-argument-count, bad-argument-type, unexpected-keyword]</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">as_text</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">as_text</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils._tracebacks</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_tb_formatter</span>
 
         <span class="n">fmt</span> <span class="o">=</span> <span class="n">get_tb_formatter</span><span class="p">()</span>
@@ -995,7 +999,7 @@ window.runMermaid = runMermaid;</script>
         <span class="p">)</span>
         <span class="k">return</span> <span class="n">fmt</span><span class="p">(</span><span class="n">exc_info</span><span class="p">,</span> <span class="n">as_html</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'NoColor'</span><span class="p">)</span>  <span class="c1"># pyrefly: ignore [bad-argument-count, bad-argument-type, unexpected-keyword]</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils._tracebacks</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_tb_formatter</span>
 
         <span class="n">fmt</span> <span class="o">=</span> <span class="n">get_tb_formatter</span><span class="p">()</span>
@@ -1018,7 +1022,12 @@ window.runMermaid = runMermaid;</script>
     <span class="n">warning</span><span class="p">:</span> <span class="ne">Warning</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">warning</span><span class="p">:</span> <span class="ne">Warning</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">lineno</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">warning</span><span class="p">:</span> <span class="ne">Warning</span><span class="p">,</span>
+        <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">lineno</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">msg</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">warning</span><span class="p">,</span> <span class="s1">'message'</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">warning</span><span class="p">))</span>
         <span class="n">actions</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">warning</span><span class="p">,</span> <span class="s1">'actions'</span><span class="p">,</span> <span class="p">())</span>
@@ -1027,7 +1036,7 @@ window.runMermaid = runMermaid;</script>
         <span class="bp">self</span><span class="o">.</span><span class="n">filename</span> <span class="o">=</span> <span class="n">filename</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">lineno</span> <span class="o">=</span> <span class="n">lineno</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="n">category</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">warning</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span>
         <span class="k">return</span> <span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="si">}</span><span class="s1">:</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">lineno</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="n">category</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">warning</span><span class="si">}</span><span class="s1">!'</span></div>
 
@@ -1074,16 +1083,21 @@ window.runMermaid = runMermaid;</script>
         <span class="bp">self</span><span class="o">.</span><span class="n">_originals_thread_except_hooks</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Callable</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_seen_warnings</span><span class="p">:</span> <span class="nb">set</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">type</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="fm">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Self</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">install_hooks</span><span class="p">()</span>
         <span class="k">return</span> <span class="bp">self</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="fm">__exit__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__exit__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">exc_type</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="ne">BaseException</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">exc_val</span><span class="p">:</span> <span class="ne">BaseException</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">exc_tb</span><span class="p">:</span> <span class="n">TracebackType</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">restore_hooks</span><span class="p">()</span>
 
 <div class="viewcode-block" id="NotificationManager.install_hooks">
 <a class="viewcode-back" href="../../../api/napari.utils.notifications.NotificationManager.html#napari.utils.notifications.NotificationManager.install_hooks">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">install_hooks</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">install_hooks</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Install a `sys.excepthook`, a `showwarning` hook and a</span>
 <span class="sd">        threading.excepthook to display any message in the UI,</span>
@@ -1102,7 +1116,7 @@ window.runMermaid = runMermaid;</script>
 
 <div class="viewcode-block" id="NotificationManager.restore_hooks">
 <a class="viewcode-back" href="../../../api/napari.utils.notifications.NotificationManager.html#napari.utils.notifications.NotificationManager.restore_hooks">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">restore_hooks</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">restore_hooks</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Remove hooks installed by `install_hooks` and restore previous hooks.</span>
 <span class="sd">        """</span>
@@ -1112,7 +1126,7 @@ window.runMermaid = runMermaid;</script>
         <span class="n">warnings</span><span class="o">.</span><span class="n">showwarning</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_original_showwarnings_hooks</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span></div>
 
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">dispatch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">notification</span><span class="p">:</span> <span class="n">Notification</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">dispatch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">notification</span><span class="p">:</span> <span class="n">Notification</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">records</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">notification</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">notification_ready</span><span class="p">(</span><span class="n">notification</span><span class="p">)</span>
 
@@ -1124,7 +1138,7 @@ window.runMermaid = runMermaid;</script>
             <span class="n">TracebackType</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span>
             <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span>
         <span class="p">],</span>
-    <span class="p">):</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">receive_error</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">receive_error</span><span class="p">(</span>
@@ -1133,7 +1147,7 @@ window.runMermaid = runMermaid;</script>
         <span class="n">value</span><span class="p">:</span> <span class="ne">BaseException</span><span class="p">,</span>
         <span class="n">traceback</span><span class="p">:</span> <span class="n">TracebackType</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">thread</span><span class="p">:</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="p">):</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="ne">KeyboardInterrupt</span><span class="p">):</span>
             <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s1">'Closed by KeyboardInterrupt'</span><span class="p">)</span>
 
@@ -1151,9 +1165,9 @@ window.runMermaid = runMermaid;</script>
         <span class="n">category</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="ne">Warning</span><span class="p">],</span>
         <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
         <span class="n">lineno</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
-        <span class="n">file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">line</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="p">):</span>
+        <span class="n">file</span><span class="p">:</span> <span class="n">TextIO</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">line</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">msg</span> <span class="o">=</span> <span class="n">message</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">else</span> <span class="n">message</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
         <span class="k">if</span> <span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">category</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">lineno</span><span class="p">)</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_seen_warnings</span><span class="p">:</span>
             <span class="k">return</span>
@@ -1164,7 +1178,7 @@ window.runMermaid = runMermaid;</script>
             <span class="p">)</span>
         <span class="p">)</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">receive_info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">receive_info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dispatch</span><span class="p">(</span><span class="n">Notification</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="s1">'INFO'</span><span class="p">))</span></div>
 
 
@@ -1174,7 +1188,7 @@ window.runMermaid = runMermaid;</script>
 
 <div class="viewcode-block" id="show_debug">
 <a class="viewcode-back" href="../../../api/napari.utils.notifications.html#napari.utils.notifications.show_debug">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">show_debug</span><span class="p">(</span><span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">show_debug</span><span class="p">(</span><span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Show a debug message in the notification manager.</span>
 <span class="sd">    """</span>
@@ -1186,7 +1200,7 @@ window.runMermaid = runMermaid;</script>
 
 <div class="viewcode-block" id="show_info">
 <a class="viewcode-back" href="../../../api/napari.utils.notifications.html#napari.utils.notifications.show_info">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">show_info</span><span class="p">(</span><span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">show_info</span><span class="p">(</span><span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Show an info message in the notification manager.</span>
 <span class="sd">    """</span>
@@ -1198,7 +1212,7 @@ window.runMermaid = runMermaid;</script>
 
 <div class="viewcode-block" id="show_warning">
 <a class="viewcode-back" href="../../../api/napari.utils.notifications.html#napari.utils.notifications.show_warning">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">show_warning</span><span class="p">(</span><span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">show_warning</span><span class="p">(</span><span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Show a warning in the notification manager.</span>
 <span class="sd">    """</span>
@@ -1210,7 +1224,7 @@ window.runMermaid = runMermaid;</script>
 
 <div class="viewcode-block" id="show_error">
 <a class="viewcode-back" href="../../../api/napari.utils.notifications.html#napari.utils.notifications.show_error">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">show_error</span><span class="p">(</span><span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">show_error</span><span class="p">(</span><span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Show an error in the notification manager.</span>
 <span class="sd">    """</span>
@@ -1222,7 +1236,7 @@ window.runMermaid = runMermaid;</script>
 
 <div class="viewcode-block" id="show_console_notification">
 <a class="viewcode-back" href="../../../api/napari.utils.notifications.html#napari.utils.notifications.show_console_notification">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">show_console_notification</span><span class="p">(</span><span class="n">notification</span><span class="p">:</span> <span class="n">Notification</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">show_console_notification</span><span class="p">(</span><span class="n">notification</span><span class="p">:</span> <span class="n">Notification</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Show a notification in the console.</span>
 <span class="sd">    """</span>

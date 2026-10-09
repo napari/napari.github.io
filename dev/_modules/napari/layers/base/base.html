@@ -45,7 +45,7 @@
   <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=64cc4de3f052d77215f0" />
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=64cc4de3f052d77215f0" />
 
-    <script src="../../../../_static/documentation_options.js?v=feae8c0f"></script>
+    <script src="../../../../_static/documentation_options.js?v=73b575fb"></script>
     <script src="../../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -833,7 +833,7 @@ window.runMermaid = runMermaid;</script>
 <span class="kn">from</span><span class="w"> </span><span class="nn">collections.abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Generator</span><span class="p">,</span> <span class="n">Hashable</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">,</span> <span class="n">Sequence</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">contextlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">contextmanager</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">functools</span><span class="w"> </span><span class="kn">import</span> <span class="n">cached_property</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">TYPE_CHECKING</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">ClassVar</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">TYPE_CHECKING</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">ClassVar</span><span class="p">,</span> <span class="n">Self</span><span class="p">,</span> <span class="n">TypeVar</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">magicgui</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mgui</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
@@ -925,6 +925,9 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">    None</span>
 
 <span class="sd">    """</span>
+
+
+<span class="n">LayerBound</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s1">'LayerBound'</span><span class="p">,</span> <span class="n">bound</span><span class="o">=</span><span class="s1">'Layer'</span><span class="p">)</span>
 
 
 <span class="k">class</span><span class="w"> </span><span class="nc">PostInit</span><span class="p">(</span><span class="n">ABCMeta</span><span class="p">):</span>
@@ -3246,7 +3249,7 @@ window.runMermaid = runMermaid;</script>
         <span class="k">return</span> <span class="n">save_layers</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="p">[</span><span class="bp">self</span><span class="p">],</span> <span class="n">plugin</span><span class="o">=</span><span class="n">plugin</span><span class="p">)</span></div>
 
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">__copy__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">__copy__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Self</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">"""Create a copy of this layer.</span>
 
 <span class="sd">        Returns</span>
@@ -3277,7 +3280,7 @@ window.runMermaid = runMermaid;</script>
         <span class="n">data</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
         <span class="n">meta</span><span class="p">:</span> <span class="n">Mapping</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">layer_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Layer</span><span class="p">:</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">LayerBound</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">"""Create layer from `data` of type `layer_type`.</span>
 
 <span class="sd">        Primarily intended for usage by reader plugin hooks and creating a</span>

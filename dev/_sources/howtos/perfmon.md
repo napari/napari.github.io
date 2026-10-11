@@ -18,7 +18,7 @@ The module can do several things:
 
 ## Monitoring vs. profiling
 
-[Profiling](profiling) is similar to performance monitoring. However profiling usually
+[Profiling](napari-profiling) is similar to performance monitoring. However profiling usually
 involves running an external tool to acquire timing data on every function
 in the program. Sometimes this will cause the program to run so slowly it's
 hard to use the program interactively.
@@ -31,7 +31,7 @@ interact with the app while checking performance. This document discusses only n
 performance monitoring
 features. Profiling napari might be useful as well, especially if you do not know
 the cause of the performance issue. You can find more information in
-[our profiling documentation](profiling).
+[our profiling documentation](napari-profiling).
 
 ## Enabling perfmon
 

@@ -51,10 +51,10 @@ members in various roles supported by grants. They are listed below under the
 - [Curtis Rueden](https://github.com/napari/napari/commits?author=ctrueden) - [@ctrueden](https://github.com/ctrueden)
 - [Draga Doncila Pop](https://github.com/napari/napari/commits?author=DragaDoncila) - [@DragaDoncila](https://github.com/DragaDoncila)
 - [Juan Nunez-Iglesias](https://github.com/napari/napari/commits?author=jni) - [@jni](https://github.com/jni)
-- [Kyle Harrington](https://github.com/napari/napari/commits?author=kephale) - [@kephale](https://github.com/kephale)
 
 ## Emeritus Steering Council Members
 
+- [Kyle Harrington](https://github.com/napari/napari/commits?author=kephale) - [@kephale](https://github.com/kephale)
 - [Kevin Yamauchi](https://github.com/napari/napari/commits?author=kevinyamauchi) - [@kevinyamauchi](https://github.com/kevinyamauchi)
 - [Loic Royer](https://github.com/napari/napari/commits?author=royerloic) - [@royerloic](https://github.com/royerloic)
 - [Nicholas Sofroniew](https://github.com/napari/napari/commits?author=sofroniewn) - [@sofroniewn](https://github.com/sofroniewn)

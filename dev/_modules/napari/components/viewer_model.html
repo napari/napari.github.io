@@ -45,7 +45,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=18bd87630a240e9c25be" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=18bd87630a240e9c25be" />
 
-    <script src="../../../_static/documentation_options.js?v=d9acbc5a"></script>
+    <script src="../../../_static/documentation_options.js?v=a9d0b7d5"></script>
     <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -2184,6 +2184,17 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        layer : :class:`napari.layers.Image` or list</span>
 <span class="sd">            The newly-created image layer or list of image layers.</span>
 <span class="sd">        """</span>
+        <span class="c1"># A list of only None (e.g. [None, None]) means "no colormap specified"</span>
+        <span class="c1"># for every channel, so treat it like a single None and use the</span>
+        <span class="c1"># default colormaps instead of black ones. A tuple is not handled here,</span>
+        <span class="c1"># because a tuple is used to create a single colormap.</span>
+        <span class="k">if</span> <span class="p">(</span>
+            <span class="n">channel_axis</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+            <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">colormap</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span>
+            <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">colormap</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>
+            <span class="ow">and</span> <span class="nb">all</span><span class="p">(</span><span class="n">cmap</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">for</span> <span class="n">cmap</span> <span class="ow">in</span> <span class="n">colormap</span><span class="p">)</span>
+        <span class="p">):</span>
+            <span class="n">colormap</span> <span class="o">=</span> <span class="kc">None</span>
 
         <span class="k">if</span> <span class="n">colormap</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="c1"># standardize colormap argument(s) to Colormaps, and make sure they</span>

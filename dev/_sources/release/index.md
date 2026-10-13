@@ -11,6 +11,15 @@ Each section shows the highlights from recent releases. Click on the version lin
 
 Latest features and improvements:
 
+````{dropdown} napari 0.10.0 (October 2026)
+:open:
+
+- Add grid overlay ([#7827](https://github.com/napari/napari/pull/7827))
+
+[View full release notes →](release_0_10_0)
+
+````
+
 ````{dropdown} napari 0.9.2 (September 2026)
 :open:
 

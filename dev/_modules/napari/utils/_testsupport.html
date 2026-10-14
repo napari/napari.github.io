@@ -45,7 +45,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=18bd87630a240e9c25be" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=18bd87630a240e9c25be" />
 
-    <script src="../../../_static/documentation_options.js?v=96280951"></script>
+    <script src="../../../_static/documentation_options.js?v=7dae47f1"></script>
     <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -1052,15 +1052,6 @@ window.runMermaid = runMermaid;</script>
         <span class="n">napari_settings</span><span class="o">.</span><span class="n">_clear_plugin_settings_cache</span>
     <span class="p">)</span>
     <span class="n">napari_settings</span><span class="o">.</span><span class="n">_clear_plugin_settings_cache</span><span class="p">()</span>
-
-
-<span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span><span class="p">(</span><span class="n">autouse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">_disable_qt_warnings</span><span class="p">(</span><span class="n">monkeypatch</span><span class="p">):</span>
-    <span class="k">try</span><span class="p">:</span>
-        <span class="kn">from</span><span class="w"> </span><span class="nn">napari._qt</span><span class="w"> </span><span class="kn">import</span> <span class="n">qt_main_window</span>
-    <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
-        <span class="k">return</span>
-    <span class="n">monkeypatch</span><span class="o">.</span><span class="n">setattr</span><span class="p">(</span><span class="n">qt_main_window</span><span class="p">,</span> <span class="s1">'SHOW_QT_WARNING'</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="make_napari_viewer">

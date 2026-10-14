@@ -57,7 +57,7 @@
   <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=18bd87630a240e9c25be" />
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=18bd87630a240e9c25be" />
 
-    <script src="../../_static/documentation_options.js?v=96280951"></script>
+    <script src="../../_static/documentation_options.js?v=7dae47f1"></script>
     <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -619,6 +619,64 @@ the <a class="reference external" href="https://pyrefly.org/en/docs/IDE/">code e
 <code class="docutils literal notranslate"><span class="pre">[tool.pyrefly]</span></code> configuration, but it sees your environment too — so treat editor
 suggestions as a hint and <code class="docutils literal notranslate"><span class="pre">tox</span> <span class="pre">-e</span> <span class="pre">pyrefly</span></code> as the standard.</p>
 </section>
+<section id="annotating-new-code">
+<h2>Annotating new code<a class="headerlink" href="#annotating-new-code" title="Link to this heading">#</a></h2>
+<ol class="arabic">
+<li><p><strong>Annotate the parameters and return values</strong> you are adding or changing, and leave
+unrelated types alone — a bug fix shouldn’t turn into a typing sweep. Only
+modify previous annotations if they are relevant to the contribution you are making.</p></li>
+<li><p>When feasible, <strong>add <code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">__future__</span> <span class="pre">import</span> <span class="pre">annotations</span></code></strong> at the top of any module that doesn’t
+have it yet. This makes annotations lazy, so they are not executed at runtime until required,
+in order to infer the types. Where this is not possible (see warning below), annotations
+that are not used in the code should be wrapped in quotes to avoid early evaluation.</p></li>
+<li><p><strong>Import annotation-only types under <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">TYPE_CHECKING:</span></code></strong>, so heavy imports and
+potential import cycles stay out of the runtime path. Ruff rules flag these and
+will often move them for you with pre-commit. To do this, add
+<code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">typing</span> <span class="pre">import</span> <span class="pre">TYPE_CHECKING</span></code> to the top of the file, then wrap the imports in:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">some_module</span><span class="w"> </span><span class="kn">import</span> <span class="n">SomeType</span>
+</pre></div>
+</div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Lazy evaluation of annotation breaks tools that require runtime type inspection, such as
+magicgui decorators and Pydantic models. For those, type annotations must be real imports!</p>
+</div>
+</li>
+<li><p><strong>Run <code class="docutils literal notranslate"><span class="pre">tox</span> <span class="pre">-e</span> <span class="pre">pyrefly</span></code></strong> and read the first complaint before the rest; later errors
+are often consequences of the first one.</p></li>
+<li><p><strong>If something can’t be fixed honestly</strong>, suppress it by error kind and say why, as
+described below.</p></li>
+</ol>
+</section>
+<section id="choosing-types">
+<h2>Choosing types<a class="headerlink" href="#choosing-types" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Annotate parameters and return values, not local variables.</strong> They are the contract other
+modules rely on, and locals are inferred well enough without help.</p></li>
+<li><p><strong>Parameters should accept the widest type that works; returns give back the concrete
+type you built.</strong> When psosible, take <code class="docutils literal notranslate"><span class="pre">Iterable</span></code>, <code class="docutils literal notranslate"><span class="pre">Sequence</span></code> or <code class="docutils literal notranslate"><span class="pre">Mapping</span></code> rather than <code class="docutils literal notranslate"><span class="pre">list</span></code>
+or <code class="docutils literal notranslate"><span class="pre">dict</span></code>, and hand back the <code class="docutils literal notranslate"><span class="pre">list</span></code> or <code class="docutils literal notranslate"><span class="pre">dict</span></code> you actually made.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">Any</span></code> switches off checking for everything it touches.</strong> It is sometimes the
+honest answer for a dynamic corner of the code, but it should be a decision rather
+than a way to make one error disappear.</p></li>
+<li><p><strong>Prefer narrowing to <code class="docutils literal notranslate"><span class="pre">cast()</span></code>.</strong>
+<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.cast"><code class="docutils literal notranslate"><span class="pre">typing.cast</span></code></a> only
+tells the checker to believe you, so if it is the only option left, keep it as
+narrow as you can and say in a comment what makes it safe.</p></li>
+<li><p><strong>Type arrays only with what the contract needs.</strong> The full annotation for a
+NumPy array is <code class="docutils literal notranslate"><span class="pre">np.ndarray</span></code>, for example
+<code class="docutils literal notranslate"><span class="pre">np.ndarray[tuple[int,</span> <span class="pre">...],</span> <span class="pre">np.dtype[np.float64]]</span></code>,
+which pins both the shape and the dtype. If the shape is not part of the
+contract, use <code class="docutils literal notranslate"><span class="pre">numpy.typing</span></code>’s <code class="docutils literal notranslate"><span class="pre">npt.NDArray</span></code> alias instead,
+which leaves the shape unspecified but the dtype specified, for example
+<code class="docutils literal notranslate"><span class="pre">npt.NDArray[np.float64]</span></code>. If neither shape nor dtype is part of the contract,
+use <code class="docutils literal notranslate"><span class="pre">np.ndarray</span></code> without any arguments. For docstrings, always use the runtime
+class name <code class="docutils literal notranslate"><span class="pre">np.ndarray</span></code> even where the annotation is <code class="docutils literal notranslate"><span class="pre">npt.NDArray</span></code>.
+Read more in the <a class="reference external" href="https://numpy.org/doc/stable/reference/typing.html">NumPy typing guide</a>,
+including about <code class="docutils literal notranslate"><span class="pre">npt.ArrayLike</span></code> for inputs that can be converted to arrays.</p></li>
+</ul>
+</section>
 <section id="when-the-check-complains">
 <h2>When the check complains<a class="headerlink" href="#when-the-check-complains" title="Link to this heading">#</a></h2>
 <p>Suppressing should be rare. Most types can be written honestly, and a suppression in
@@ -693,6 +751,19 @@ only that pyrefly found nothing wrong with the type it could see.</p>
 </table>
 </div>
 </section>
+<section id="where-to-read-more">
+<h2>Where to read more<a class="headerlink" href="#where-to-read-more" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://pyrefly.org/en/docs/typing-for-python-developers/">Typing for Python Developers</a>
+— pyrefly’s own five-minute tour, if type hints are new to you.</p></li>
+<li><p><a class="reference external" href="https://learn.scientific-python.org/development/guides/typing/">Static type checking</a>
+— the Scientific Python guide’s chapter, written for scientists and research
+software engineers. Its “loose vs. specific types” section is the long version of
+the “accept the widest type that works” point above.</p></li>
+<li><p><a class="reference external" href="https://mypy.readthedocs.io/en/stable/cheat_sheet_py3.html">Type hints cheat sheet</a>
+— syntax suggestions to copy. It is written for mypy, but the syntax is the same.</p></li>
+</ul>
+</section>
 </section>
 
 
@@ -743,10 +814,13 @@ only that pyrefly found nothing wrong with the type it could see.</p>
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#running-the-check">Running the check</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#annotating-new-code">Annotating new code</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#choosing-types">Choosing types</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#when-the-check-complains">When the check complains</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#modifying-the-type-checking-config">Modifying the type checking config</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-the-check-does-not-cover">What the check does not cover</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#where-things-live">Where things live</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#where-to-read-more">Where to read more</a></li>
 </ul>
   </nav></div>
 

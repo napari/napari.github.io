@@ -36,6 +36,58 @@ the [code editor integration](https://pyrefly.org/en/docs/IDE/) reads the same
 `[tool.pyrefly]` configuration, but it sees your environment too — so treat editor
 suggestions as a hint and `tox -e pyrefly` as the standard.
 
+## Annotating new code
+
+1. **Annotate the parameters and return values** you are adding or changing, and leave
+   unrelated types alone — a bug fix shouldn't turn into a typing sweep. Only
+   modify previous annotations if they are relevant to the contribution you are making.
+2. When feasible, **add `from __future__ import annotations`** at the top of any module that doesn't
+   have it yet. This makes annotations lazy, so they are not executed at runtime until required,
+   in order to infer the types. Where this is not possible (see warning below), annotations
+   that are not used in the code should be wrapped in quotes to avoid early evaluation.
+3. **Import annotation-only types under `if TYPE_CHECKING:`**, so heavy imports and
+   potential import cycles stay out of the runtime path. Ruff rules flag these and
+   will often move them for you with pre-commit. To do this, add
+   `from typing import TYPE_CHECKING` to the top of the file, then wrap the imports in:
+   ```python
+   if TYPE_CHECKING:
+       from some_module import SomeType
+   ```
+   ```{important}
+   Lazy evaluation of annotation breaks tools that require runtime type inspection, such as
+   magicgui decorators and Pydantic models. For those, type annotations must be real imports!
+   ```
+4. **Run `tox -e pyrefly`** and read the first complaint before the rest; later errors
+   are often consequences of the first one.
+5. **If something can't be fixed honestly**, suppress it by error kind and say why, as
+   described below.
+
+## Choosing types
+
+- **Annotate parameters and return values, not local variables.** They are the contract other
+  modules rely on, and locals are inferred well enough without help. 
+- **Parameters should accept the widest type that works; returns give back the concrete
+  type you built.** When psosible, take `Iterable`, `Sequence` or `Mapping` rather than `list`
+  or `dict`, and hand back the `list` or `dict` you actually made.
+- **`Any` switches off checking for everything it touches.** It is sometimes the
+  honest answer for a dynamic corner of the code, but it should be a decision rather
+  than a way to make one error disappear.
+- **Prefer narrowing to `cast()`.**
+  [`typing.cast`](https://docs.python.org/3/library/typing.html#typing.cast) only
+  tells the checker to believe you, so if it is the only option left, keep it as
+  narrow as you can and say in a comment what makes it safe.
+- **Type arrays only with what the contract needs.** The full annotation for a
+  NumPy array is `np.ndarray`, for example
+  `np.ndarray[tuple[int, ...], np.dtype[np.float64]]`,
+  which pins both the shape and the dtype. If the shape is not part of the
+  contract, use `numpy.typing`'s `npt.NDArray` alias instead,
+  which leaves the shape unspecified but the dtype specified, for example
+  `npt.NDArray[np.float64]`. If neither shape nor dtype is part of the contract,
+  use `np.ndarray` without any arguments. For docstrings, always use the runtime
+  class name `np.ndarray` even where the annotation is `npt.NDArray`.
+  Read more in the [NumPy typing guide](https://numpy.org/doc/stable/reference/typing.html),
+  including about `npt.ArrayLike` for inputs that can be converted to arrays.
+
 ## When the check complains
 
 Suppressing should be rare. Most types can be written honestly, and a suppression in
@@ -96,3 +148,14 @@ only that pyrefly found nothing wrong with the type it could see.
 | Constraints pins regeneration | `tools/compile_constraints.sh` (also run weekly by `upgrade_test_constraints.yml`) |
 | Tox environment | `[testenv:pyrefly]` in `tox.ini` |
 | CI job | `.github/workflows/test_typing.yml` |
+
+## Where to read more
+
+- [Typing for Python Developers](https://pyrefly.org/en/docs/typing-for-python-developers/)
+  — pyrefly's own five-minute tour, if type hints are new to you.
+- [Static type checking](https://learn.scientific-python.org/development/guides/typing/)
+  — the Scientific Python guide's chapter, written for scientists and research
+  software engineers. Its "loose vs. specific types" section is the long version of
+  the "accept the widest type that works" point above.
+- [Type hints cheat sheet](https://mypy.readthedocs.io/en/stable/cheat_sheet_py3.html)
+  — syntax suggestions to copy. It is written for mypy, but the syntax is the same.

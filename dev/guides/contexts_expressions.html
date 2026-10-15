@@ -839,16 +839,16 @@
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>This page is mostly aimed at developers who are interested in contributing to
-or understanding the inner workings of napari.  While the concept of expressions
+or understanding the inner workings of napari. While the concept of expressions
 <em>will</em> be relevant for plugin developers writing plugin manifests, it won’t be
 necessary for plugin devs or end-users to understand the implementation details
 described on this page.</p>
 </div>
-<p>In napari, we’d like to be able to capture the <em>concept</em> of some condition being
-<code class="docutils literal notranslate"><span class="pre">True</span></code> or <code class="docutils literal notranslate"><span class="pre">False</span></code>, <em>prior</em> to actually having the context required to evaluate
-it. For example, a plugin (or napari itself) might want to stipulate that a
-given function should only be enabled when “the active layer has at least 3
-dimensions”.</p>
+<p>In napari, we’d like to be able to capture the <em>concept</em> of some condition
+being <code class="docutils literal notranslate"><span class="pre">True</span></code> or <code class="docutils literal notranslate"><span class="pre">False</span></code>, <em>prior</em> to actually having the context required to
+evaluate it. For example, a plugin (or napari itself) might want to stipulate
+that a given function should only be enabled when “the active layer has at
+least 3 dimensions”.</p>
 <p>At runtime, in Python code, this might be captured by the expression:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">selection</span><span class="o">.</span><span class="n">active</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">ndim</span> <span class="o">&gt;=</span> <span class="mi">3</span>
 </pre></div>
@@ -862,11 +862,13 @@ with a concrete set of keys and values (the <code class="docutils literal notran
 <section id="python-expressions">
 <h2>Python expressions<a class="headerlink" href="#python-expressions" title="Link to this heading">#</a></h2>
 <p>In Python, <strong>expressions</strong> are simple combinations of <strong>values</strong> and
-<strong>operations</strong> that can be reduced to a single value. For example, <code class="docutils literal notranslate"><span class="pre">1</span> <span class="pre">&gt;</span> <span class="pre">5</span></code> is an
-expression that always reduces to the value <code class="docutils literal notranslate"><span class="pre">False</span></code> when evaluated. <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">&gt;</span> <span class="pre">5</span> <span class="pre">and</span> <span class="pre">y</span> <span class="pre">==</span> <span class="pre">'hello'</span></code> is also an expression that reduces to a boolean value; however, in
-order to evaluate that expression, we need to be able to fill in the values for
-the variable <strong>names</strong> “<code class="docutils literal notranslate"><span class="pre">x</span></code>” and “<code class="docutils literal notranslate"><span class="pre">y</span></code>”. Those values are provided by some
-<strong>context</strong> (or “namespace”), which maps the variable names to their values.</p>
+<strong>operations</strong> that can be reduced to a single value. For example, <code class="docutils literal notranslate"><span class="pre">1</span> <span class="pre">&gt;</span> <span class="pre">5</span></code> is
+an expression that always reduces to the value <code class="docutils literal notranslate"><span class="pre">False</span></code> when evaluated.
+<code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">&gt;</span> <span class="pre">5</span> <span class="pre">and</span> <span class="pre">y</span> <span class="pre">==</span> <span class="pre">'hello'</span></code> is also an expression that reduces to a boolean value;
+however, in order to evaluate that expression, we need to be able to fill in
+the values for the variable <strong>names</strong> “<code class="docutils literal notranslate"><span class="pre">x</span></code>” and “<code class="docutils literal notranslate"><span class="pre">y</span></code>”. Those values are
+provided by some <strong>context</strong> (or “namespace”), which maps the variable names to
+their values.</p>
 <p>The value of an <code class="docutils literal notranslate"><span class="pre">expression</span></code> depends on the context in which it is evaluated.</p>
 <div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="n">expression</span> <span class="o">=</span> <span class="s2">"x &gt; 5 and y == 'hello'"</span>
 
@@ -893,8 +895,8 @@ expression “without a context”, to be evaluated later.</p>
 similarities with the <code class="docutils literal notranslate"><span class="pre">body</span></code> of
 <a class="reference external" href="https://docs.python.org/3/library/ast.html#ast.Expr"><code class="docutils literal notranslate"><span class="pre">ast.Expr</span></code></a>. However, for
 the sake of evaluation safety, napari’s <code class="docutils literal notranslate"><span class="pre">Expr</span></code> only supports a subset of
-operations, omitting things like function calls, generators, comprehensions, and
-collections. It’s not important to fully understand ASTs to use napari
+operations, omitting things like function calls, generators, comprehensions,
+and collections. It’s not important to fully understand ASTs to use napari
 expressions, but for a good introduction to Python’s abstract syntax tree (AST)
 module, see <a class="reference external" href="https://greentreesnakes.readthedocs.io">https://greentreesnakes.readthedocs.io</a>.</p>
 </div>
@@ -983,12 +985,12 @@ its <code class="docutils literal notranslate"><span class="pre">eval</span></co
 </div>
 <section id="napari-context-keys">
 <h3>napari context keys<a class="headerlink" href="#napari-context-keys" title="Link to this heading">#</a></h3>
-<p>To capture napari-specific conditions, napari will declare special
-<strong>names</strong> that can be used in a napari expression. Taking the example above, a
-plugin might only want to provide a function if “the active layer has at least 3
-dimensions”. For this, napari recognizes the name <code class="docutils literal notranslate"><span class="pre">&quot;active_layer_ndim&quot;</span></code> used
-in an expression. In a plugin manifest, the plugin can provide a <em>when clause</em>
-to enable/disable a given command:</p>
+<p>To capture napari-specific conditions, napari will declare special <strong>names</strong>
+that can be used in a napari expression. Taking the example above, a plugin
+might only want to provide a function if “the active layer has at least 3
+dimensions”. For this, napari recognizes the name <code class="docutils literal notranslate"><span class="pre">&quot;active_layer_ndim&quot;</span></code> used in
+an expression. In a plugin manifest, the plugin can provide a <em>when clause</em> to
+enable/disable a given command:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">command</span><span class="p">:</span>
 <span class="w">   </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">myplugin.my_command</span>
 <span class="w">   </span><span class="nt">when</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">active_layer_ndim &gt;= 3</span>
@@ -1106,10 +1108,10 @@ specific number of dimensions in the active layer.</p>
 <p>The napari <code class="docutils literal notranslate"><span class="pre">Context</span></code> class is a subclass of
 <a class="reference external" href="https://docs.python.org/3/library/collections.html#collections.ChainMap"><code class="docutils literal notranslate"><span class="pre">collections.ChainMap</span></code></a>
 that also emits events when a key has been modified. <code class="docutils literal notranslate"><span class="pre">ChainMap</span></code> is useful here
-as it allows us to have “sub-contexts” that are children of some parent context.
-Child contexts can access all of the keys of the parent (but not vice-versa).
-For example because a <code class="docutils literal notranslate"><span class="pre">Viewer</span></code> has a <code class="docutils literal notranslate"><span class="pre">LayerList</span></code>, all of the keys in the
-<code class="docutils literal notranslate"><span class="pre">Viewer</span></code> context are available to the <code class="docutils literal notranslate"><span class="pre">LayerList</span></code> context.</p>
+as it allows us to have “sub-contexts” that are children of some parent
+context. Child contexts can access all of the keys of the parent (but not
+vice-versa). For example because a <code class="docutils literal notranslate"><span class="pre">Viewer</span></code> has a <code class="docutils literal notranslate"><span class="pre">LayerList</span></code>, all of the keys
+in the <code class="docutils literal notranslate"><span class="pre">Viewer</span></code> context are available to the <code class="docutils literal notranslate"><span class="pre">LayerList</span></code> context.</p>
 <div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.context</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_context</span>
 
 <span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">ctx</span> <span class="o">=</span> <span class="n">get_context</span><span class="p">(</span><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="p">)</span>
@@ -1151,8 +1153,8 @@ the settings:</p>
 </section>
 <section id="updating-contexts">
 <h3>Updating Contexts<a class="headerlink" href="#updating-contexts" title="Link to this heading">#</a></h3>
-<p>You may be wondering exactly how objects such as <code class="docutils literal notranslate"><span class="pre">Viewer</span></code> and <code class="docutils literal notranslate"><span class="pre">LayerList</span></code> update
-the keys in their contexts. The aforementioned
+<p>You may be wondering exactly how objects such as <code class="docutils literal notranslate"><span class="pre">Viewer</span></code> and <code class="docutils literal notranslate"><span class="pre">LayerList</span></code>
+update the keys in their contexts. The aforementioned
 <a class="reference internal" href="#contextkey-objects"><code class="docutils literal notranslate"><span class="pre">ContextNamespace</span></code></a> comes into play here again. A
 <code class="docutils literal notranslate"><span class="pre">ContextNamespace</span></code> can be instantiated, and bound to a specific <code class="docutils literal notranslate"><span class="pre">Context</span></code>
 instance.</p>
@@ -1193,7 +1195,8 @@ in <code class="docutils literal notranslate"><span class="pre">LayerListContext
 <section id="summary-a-rough-full-picture">
 <h2>Summary: A (rough) full picture<a class="headerlink" href="#summary-a-rough-full-picture" title="Link to this heading">#</a></h2>
 <ol class="arabic">
-<li><p>napari creates special context “names” using <code class="docutils literal notranslate"><span class="pre">ContextKey</span></code> and <code class="docutils literal notranslate"><span class="pre">ContextNamespace</span></code></p>
+<li><p>napari creates special context “names” using <code class="docutils literal notranslate"><span class="pre">ContextKey</span></code> and
+<code class="docutils literal notranslate"><span class="pre">ContextNamespace</span></code></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">LayerListContextKeys</span><span class="p">(</span><span class="n">ContextNamespace</span><span class="p">):</span>
     <span class="n">active_layer_type</span> <span class="o">=</span> <span class="n">ContextKey</span><span class="p">(</span>
         <span class="kc">None</span><span class="p">,</span>
@@ -1213,11 +1216,13 @@ expressions in an IDE-friendly way. For example, here we are declaratively
 populating the layer-list context menu; this is a function that will split
 the current stack into multiple layers, but it is only enabled when the
 selected image is a (non-RGB) <code class="docutils literal notranslate"><span class="pre">Image</span></code> layer.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="s1">'napari:split_stack'</span><span class="p">:</span> <span class="p">{</span>
-    <span class="s1">'description'</span><span class="p">:</span> <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s1">'Split Stack'</span><span class="p">),</span>
-    <span class="s1">'action'</span><span class="p">:</span> <span class="n">_split_stack</span><span class="p">,</span>
-    <span class="s1">'enable_when'</span><span class="p">:</span> <span class="n">LLCK</span><span class="o">.</span><span class="n">active_layer_type</span> <span class="o">==</span> <span class="s2">"image"</span><span class="p">,</span>
-    <span class="s1">'show_when'</span><span class="p">:</span> <span class="o">~</span><span class="n">LLCK</span><span class="o">.</span><span class="n">active_layer_is_rgb</span><span class="p">,</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s1">'napari:split_stack'</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">'description'</span><span class="p">:</span> <span class="n">trans</span><span class="o">.</span><span class="n">_</span><span class="p">(</span><span class="s1">'Split Stack'</span><span class="p">),</span>
+        <span class="s1">'action'</span><span class="p">:</span> <span class="n">_split_stack</span><span class="p">,</span>
+        <span class="s1">'enable_when'</span><span class="p">:</span> <span class="n">LLCK</span><span class="o">.</span><span class="n">active_layer_type</span> <span class="o">==</span> <span class="s1">'image'</span><span class="p">,</span>
+        <span class="s1">'show_when'</span><span class="p">:</span> <span class="o">~</span><span class="n">LLCK</span><span class="o">.</span><span class="n">active_layer_is_rgb</span><span class="p">,</span>
+    <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -1236,9 +1241,10 @@ image.</p>
 napari <code class="docutils literal notranslate"><span class="pre">Expr</span></code> objects internally.</p>
 </li>
 <li><p>During runtime, napari maintains and <a class="reference internal" href="#updating-contexts">updates contexts</a></p></li>
-<li><p>As these contexts are updated, they emit events that allow menus, keybindings,
-and other things to update themselves accordingly. For example, the layer-list
-context menu might update the items in the menu that are visible and/or enabled:</p>
+<li><p>As these contexts are updated, they emit events that allow menus,
+keybindings, and other things to update themselves accordingly. For example,
+the layer-list context menu might update the items in the menu that are
+visible and/or enabled:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">context_menu</span><span class="o">.</span><span class="n">update_from_context</span><span class="p">(</span><span class="n">get_context</span><span class="p">(</span><span class="n">layer_list</span><span class="p">))</span>
 </pre></div>
 </div>

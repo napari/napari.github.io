@@ -451,9 +451,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../architecture/dir_organization.html">napari directory organization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../architecture/napari_models.html">napari models and events</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../architecture/app_model.html">napari’s application model</a></li>
-
 <li class="toctree-l2"><a class="reference internal" href="../../architecture/magicgui_type_reg.html"><code class="docutils literal notranslate"><span class="pre">magicgui</span></code> type registration</a></li>
-
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../architecture/ui_sections/index.html">UI sections</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../architecture/ui_sections/application_menus_ui.html">Application menus</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../architecture/ui_sections/application_status_bar_ui.html">Application status bar</a></li>
@@ -488,7 +486,6 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../naps/8-telemetry.html">NAP-8 — Telemetry</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../naps/9-multiple-canvases.html">NAP-9 — Multiple Views</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../naps/10-migration-event-system.html">NAP-10 — Migration of the event system</a></li>
-
 <li class="toctree-l2"><a class="reference internal" href="../../../naps/template.html">NAP-X — Template and Instructions</a></li>
 </ul>
 </details></li>
@@ -596,57 +593,61 @@
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>This guide is intended for napari core contributors and is not required reading
-for regular contributors. If you’re looking for information on how to contribute
-to the documentation, see <a class="reference internal" href="index.html#contributing-docs"><span class="std std-ref">Contributing Documentation</span></a>.</p>
+for regular contributors. If you’re looking for information on how to
+contribute to the documentation, see <a class="reference internal" href="index.html#contributing-docs"><span class="std std-ref">Contributing Documentation</span></a>.</p>
 </div>
-<p>The napari documentation and website sources are spread over three repositories,
-and these are connected and used to generate the documentation and website
-through several CI workflows detailed below.</p>
+<p>The napari documentation and website sources are spread over three
+repositories, and these are connected and used to generate the documentation
+and website through several CI workflows detailed below.</p>
 <ol class="arabic">
 <li><p><a class="reference external" href="https://github.com/napari/napari"><code class="docutils literal notranslate"><span class="pre">napari/napari</span></code></a></p>
 <ul class="simple">
-<li><p><strong>Workflow file:</strong> <a class="reference external" href="https://github.com/napari/napari/blob/main/.github/workflows/build_docs.yml"><code class="docutils literal notranslate"><span class="pre">build_docs.yml</span></code></a></p>
+<li><p><strong>Workflow file:</strong>
+<a class="reference external" href="https://github.com/napari/napari/blob/main/.github/workflows/build_docs.yml"><code class="docutils literal notranslate"><span class="pre">build_docs.yml</span></code></a></p>
 <ul>
 <li><p><strong>job:</strong> <code class="docutils literal notranslate"><span class="pre">build-and-upload</span></code></p></li>
 <li><p>Pulls in sources from <code class="docutils literal notranslate"><span class="pre">napari/docs</span></code> and builds docs locally. Uploads
 artifacts to this repository (<code class="docutils literal notranslate"><span class="pre">napari/napari</span></code>).</p></li>
-<li><p>This is triggered on any push to a branch named ‘docs*’ or tag named ‘v*’,
-to <code class="docutils literal notranslate"><span class="pre">napari/napari</span></code>. The artifact can be used to check the documentation
-but is not used for docs deployment.</p></li>
+<li><p>This is triggered on any push to a branch named ‘docs*’ or tag named
+‘v*’, to <code class="docutils literal notranslate"><span class="pre">napari/napari</span></code>. The artifact can be used to check the
+documentation but is not used for docs deployment.</p></li>
 </ul>
 </li>
-<li><p><strong>Workflow file:</strong> <a class="reference external" href="https://github.com/napari/napari/blob/main/.github/workflows/deploy_docs.yml"><code class="docutils literal notranslate"><span class="pre">deploy_docs.yml</span></code></a></p>
+<li><p><strong>Workflow file:</strong>
+<a class="reference external" href="https://github.com/napari/napari/blob/main/.github/workflows/deploy_docs.yml"><code class="docutils literal notranslate"><span class="pre">deploy_docs.yml</span></code></a></p>
 <ul>
 <li><p><strong>job:</strong> <code class="docutils literal notranslate"><span class="pre">build-napari-docs</span></code></p></li>
-<li><p>Triggers <a class="reference external" href="https://github.com/napari/docs/blob/main/.github/workflows/build_and_deploy.yml"><code class="docutils literal notranslate"><span class="pre">build_and_deploy.yml</span></code></a>
+<li><p>Triggers
+<a class="reference external" href="https://github.com/napari/docs/blob/main/.github/workflows/build_and_deploy.yml"><code class="docutils literal notranslate"><span class="pre">build_and_deploy.yml</span></code></a>
 workflow at the <a class="reference external" href="https://github.com/napari/docs">napari/docs</a> repo.
 Waits for results and reports it.</p></li>
-<li><p>This is triggered on any commit to the <code class="docutils literal notranslate"><span class="pre">main</span></code> branch on
-<code class="docutils literal notranslate"><span class="pre">napari/napari</span></code> (and consequently triggers a new deployment of the
-<code class="docutils literal notranslate"><span class="pre">napari.org</span></code> website). When the commit is tagged, the <code class="docutils literal notranslate"><span class="pre">build_and_deploy.yml</span></code>
-workflow will deploy to the version folder e.g., ‘0.10.0/’.</p></li>
+<li><p>This is triggered on any commit to the <code class="docutils literal notranslate"><span class="pre">main</span></code> branch on <code class="docutils literal notranslate"><span class="pre">napari/napari</span></code>
+(and consequently triggers a new deployment of the <code class="docutils literal notranslate"><span class="pre">napari.org</span></code>
+website). When the commit is tagged, the <code class="docutils literal notranslate"><span class="pre">build_and_deploy.yml</span></code> workflow
+will deploy to the version folder e.g., ‘0.10.0/’.</p></li>
 </ul>
 </li>
 </ul>
 </li>
 <li><p><a class="reference external" href="https://github.com/napari/docs"><code class="docutils literal notranslate"><span class="pre">napari/docs</span></code></a></p>
 <ul class="simple">
-<li><p><strong>Workflow file:</strong> <a class="reference external" href="https://github.com/napari/docs/blob/main/.github/workflows/build_and_deploy.yml"><code class="docutils literal notranslate"><span class="pre">build_and_deploy.yml</span></code></a></p>
+<li><p><strong>Workflow file:</strong>
+<a class="reference external" href="https://github.com/napari/docs/blob/main/.github/workflows/build_and_deploy.yml"><code class="docutils literal notranslate"><span class="pre">build_and_deploy.yml</span></code></a></p>
 <ul>
 <li><p><strong>job:</strong> <code class="docutils literal notranslate"><span class="pre">build-and-upload</span></code></p></li>
 <li><p>Pulls in sources from <code class="docutils literal notranslate"><span class="pre">napari/napari</span></code>, builds docs, then uploads as an
 artifact named ‘html’ to this repository (<code class="docutils literal notranslate"><span class="pre">napari/docs</span></code>).</p></li>
-<li><p>This is triggered on every Pull Request and shows up as a “Build &amp; Deploy PR
-Docs / Build &amp; Upload Artifact” check on the PR.</p></li>
+<li><p>This is triggered on every Pull Request and shows up as a “Build &amp;
+Deploy PR Docs / Build &amp; Upload Artifact” check on the PR.</p></li>
 <li><p><strong>job:</strong> <code class="docutils literal notranslate"><span class="pre">deploy</span></code></p></li>
-<li><p>Downloads the artifact from the <code class="docutils literal notranslate"><span class="pre">build-and-upload</span></code> job and deploys the html
-to GitHub pages at the <code class="docutils literal notranslate"><span class="pre">gh-pages</span></code> branch of
+<li><p>Downloads the artifact from the <code class="docutils literal notranslate"><span class="pre">build-and-upload</span></code> job and deploys the
+html to GitHub pages at the <code class="docutils literal notranslate"><span class="pre">gh-pages</span></code> branch of
 <a class="reference external" href="https://github.com/napari/napari.github.io/tree/gh-pages">napari/napari.github.io</a>.</p></li>
 <li><p>Always deploys to the <code class="docutils literal notranslate"><span class="pre">dev/</span></code> folder on <code class="docutils literal notranslate"><span class="pre">napari.github.io</span></code> (version
 “dev” on the website).</p></li>
-<li><p>Deployment is triggered by any commit to the <code class="docutils literal notranslate"><span class="pre">main</span></code> branch on <code class="docutils literal notranslate"><span class="pre">napari/docs</span></code>
-(and consequently triggers a new deployment of the <code class="docutils literal notranslate"><span class="pre">napari.org</span></code>
-website.)</p></li>
+<li><p>Deployment is triggered by any commit to the <code class="docutils literal notranslate"><span class="pre">main</span></code> branch on
+<code class="docutils literal notranslate"><span class="pre">napari/docs</span></code> (and consequently triggers a new deployment of the
+<code class="docutils literal notranslate"><span class="pre">napari.org</span></code> website.)</p></li>
 </ul>
 </li>
 </ul>
@@ -669,20 +670,24 @@ including the contributing guide, are always up to date.</p></li>
 </ol>
 <section id="notes">
 <h2>Notes<a class="headerlink" href="#notes" title="Link to this heading">#</a></h2>
-<p>CircleCI is set up in both <code class="docutils literal notranslate"><span class="pre">napari/napari</span></code> and <code class="docutils literal notranslate"><span class="pre">napari/docs</span></code>, but doesn’t deploy
-documentation. It serves to test the docs build and to provide documentation
-previews for PRs. The relevant configuration files are:</p>
+<p>CircleCI is set up in both <code class="docutils literal notranslate"><span class="pre">napari/napari</span></code> and <code class="docutils literal notranslate"><span class="pre">napari/docs</span></code>, but doesn’t
+deploy documentation. It serves to test the docs build and to provide
+documentation previews for PRs. The relevant configuration files are:</p>
 <ul class="simple">
 <li><p>On <code class="docutils literal notranslate"><span class="pre">napari/napari</span></code>:</p>
 <ul>
-<li><p><a class="reference external" href="https://github.com/napari/napari/blob/main/.circleci/config.yml"><code class="docutils literal notranslate"><span class="pre">.circleci/config.yml</span></code></a>: builds documentation and stores artifact in the CircleCI platform</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/napari/blob/main/.github/workflows/circleci.yml"><code class="docutils literal notranslate"><span class="pre">.github/workflows/circleci.yml</span></code></a>: adds a link to the documentation preview to each PR.</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/blob/main/.circleci/config.yml"><code class="docutils literal notranslate"><span class="pre">.circleci/config.yml</span></code></a>:
+builds documentation and stores artifact in the CircleCI platform</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/blob/main/.github/workflows/circleci.yml"><code class="docutils literal notranslate"><span class="pre">.github/workflows/circleci.yml</span></code></a>:
+adds a link to the documentation preview to each PR.</p></li>
 </ul>
 </li>
 <li><p>On <code class="docutils literal notranslate"><span class="pre">napari/docs</span></code>:</p>
 <ul>
-<li><p><a class="reference external" href="https://github.com/napari/docs/blob/main/.circleci/config.yml"><code class="docutils literal notranslate"><span class="pre">.circleci/config.yml</span></code></a>: builds documentation and stores artifact in the CircleCI platform</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/docs/blob/main/.github/workflows/circleci.yml"><code class="docutils literal notranslate"><span class="pre">.github/workflows/circleci.yml</span></code></a>: adds a link to the documentation preview to each PR.</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/docs/blob/main/.circleci/config.yml"><code class="docutils literal notranslate"><span class="pre">.circleci/config.yml</span></code></a>:
+builds documentation and stores artifact in the CircleCI platform</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/docs/blob/main/.github/workflows/circleci.yml"><code class="docutils literal notranslate"><span class="pre">.github/workflows/circleci.yml</span></code></a>:
+adds a link to the documentation preview to each PR.</p></li>
 </ul>
 </li>
 </ul>

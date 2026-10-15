@@ -5,11 +5,12 @@
 This document details how to convert a plugin using the first generation
 `napari-plugin-engine`, to the new `npe2` format.
 
-The primary difference between the first generation and second generation plugin
-system relates to how napari *discovers* plugin functionality. In the first
-generation plugin engine, napari had to *import* plugin modules to search for
-hook implementations decorated with `@napari_hook_implementation`. In `npe2`,
-plugins declare their contributions *statically* with a [manifest file](plugin-manifest).
+The primary difference between the first generation and second generation
+plugin system relates to how napari *discovers* plugin functionality. In the
+first generation plugin engine, napari had to *import* plugin modules to search
+for hook implementations decorated with `@napari_hook_implementation`. In
+`npe2`, plugins declare their contributions *statically* with a
+[manifest file](plugin-manifest).
 
 ## Migrating using the `npe2` command line tool
 
@@ -54,7 +55,7 @@ in your currently active environment for `npe2 convert` to find it.
 
 Typically this will look something like:
 
-```
+```text
 conda activate your-env
 cd path/to/your/plugin/repository
 python -m pip install -e .
@@ -75,10 +76,10 @@ Executing `npe2 convert .` will **modify** the current directory!
 
 The `npe2 convert` command will:
 
-1. Inspect your plugin for hook implementations, and generate an npe2-compatible
-   [manifest file](plugin-manifest), called `napari.yaml`.
-1. **Modify** your `setup.cfg` to use the new `napari.manifest` entry point, and
-   include the manifest file in your package data.
+1. Inspect your plugin for hook implementations, and generate an
+   npe2-compatible [manifest file](plugin-manifest), called `napari.yaml`.
+1. **Modify** your `setup.cfg` to use the new `napari.manifest` entry point,
+   and include the manifest file in your package data.
 
 Use the `npe2 convert` command, passing a path to a plugin
 repository (here, the current directory `.`)
@@ -92,24 +93,25 @@ If you have any napari_plugin_engine imports or hook_implementation decorators, 
 ```
 
 You are encouraged to inspect the newly-generated `napari.yaml` file. Refer to
-the [manifest](plugin-manifest) and [contributions](contributions-ref) references pages
-for details on each field in the manifest.
+the [manifest](plugin-manifest) and [contributions](contributions-ref)
+references pages for details on each field in the manifest.
 
 ```{note}
 In some cases the conversion tool may not be able to completely convert your
-plugin.  Notable cases include:
+plugin. Notable cases include:
 
 - multi-layer writers using the `napari_get_writer` hook specification
-- *locally* scoped functions returned from `napari_experimental_provide_function`.
-  All [command contributions](contributions-commands)
-  must have global `python_paths`.
+- *locally* scoped functions returned from
+  `napari_experimental_provide_function`. All
+  [command contributions](contributions-commands) must have global
+  `python_paths`.
 
 Feel free to contact us on zulip or github if you need help converting!.
 ```
 
 Now, update the local package metadata by repeating:
 
-```
+```text
 > python -m pip install -e .
 ```
 
@@ -120,16 +122,18 @@ ______________________________________________________________________
 
 ## Migration Reference
 
-> *This section goes into detail on the differences between first-generation and
-> second-generation implementations. In many cases, this will be more detail than
-> you need. If you are still struggling with a specific conversion after using
-> `npe2 convert` and reading the [contributions](contributions-ref) reference and
-> [guides](plugin-contribution-guides), this section may be of help.*
+> *This section goes into detail on the differences between first-generation
+> and second-generation implementations. In many cases, this will be more
+> detail than you need. If you are still struggling with a specific conversion
+> after using `npe2 convert` and reading the [contributions](contributions-ref)
+> reference and [guides](plugin-contribution-guides), this section may be of
+> help.*
 
-Existing `napari-plugin-engine` plugins expose functionality via *hook
-implementations*. These are functions decorated to indicate they fulfil a
+Existing `napari-plugin-engine` plugins expose functionality via
+*hook implementations*. These are functions decorated to indicate they fulfil a
 *hook specification* described by napari. Though there are some exceptions,
-most *hook implementations* can be straightforwardly mapped to npe2 [contributions](contributions-ref)
+most *hook implementations* can be straightforwardly mapped to npe2
+[contributions](contributions-ref)
 
 `npe2` provides a command-line tool that will generate plugin manifests by
 inspecting exposed *hook implementations*. Below, we will walk through the
@@ -148,7 +152,7 @@ command for an `npe2` reader.
 #### napari_hook_spec
 
 ```python
-def napari_get_reader(path: Union[str, list[str]]) -> Optional[ReaderFunction]
+def napari_get_reader(path: Union[str, list[str]]) -> Optional[ReaderFunction]: ...
 ```
 
 #### npe2 contributions
@@ -183,12 +187,12 @@ presented in napari's "Save As" dialog.
 #### napari_hook_spec
 
 ```python
-def napari_write_image(path: str, data: Any, meta: dict) -> Optional[str]
-def napari_write_labels(path: str, data: Any, meta: dict) -> Optional[str]
-def napari_write_points(path: str, data: Any, meta: dict) -> Optional[str]
-def napari_write_shapes(path: str, data: Any, meta: dict) -> Optional[str]
-def napari_write_surfaces(path: str, data: Any, meta: dict) -> Optional[str]
-def napari_write_vectors(path: str, data: Any, meta: dict) -> Optional[str]
+def napari_write_image(path: str, data: Any, meta: dict) -> Optional[str]: ...
+def napari_write_labels(path: str, data: Any, meta: dict) -> Optional[str]: ...
+def napari_write_points(path: str, data: Any, meta: dict) -> Optional[str]: ...
+def napari_write_shapes(path: str, data: Any, meta: dict) -> Optional[str]: ...
+def napari_write_surfaces(path: str, data: Any, meta: dict) -> Optional[str]: ...
+def napari_write_vectors(path: str, data: Any, meta: dict) -> Optional[str]: ...
 ```
 
 #### Example npe2 contribution
@@ -236,15 +240,13 @@ has to be imported or run until a compatible writer is found.
 ```python
 def napari_get_writer(
     path: str, layer_types: list[str]
-) -> Optional[WriterFunction]
+) -> Optional[WriterFunction]: ...
 ```
 
 Where the `WriterFunction` is something like:
 
 ```python
-def writer(
-    path: str, layer_data: list[tuple[Any, dict, str]]
-    ) -> list[str]
+def writer(path: str, layer_data: list[tuple[Any, dict, str]]) -> list[str]: ...
 ```
 
 #### Example npe2 contribution
@@ -286,7 +288,7 @@ contribution. For each of these `Widget` contributions, the manifest
 ```python
 def napari_experimental_provide_dock_widget() -> Union[
     AugmentedWidget, List[AugmentedWidget]
-]
+]: ...
 ```
 
 or
@@ -294,12 +296,12 @@ or
 ```python
 def napari_experimental_provide_function() -> Union[
     FunctionType, List[FunctionType]
-]
+]: ...
 ```
 
 #### Example npe2 contribution
 
-_Dock Widget_
+##### Dock Widget
 
 ```yaml
 name: napari-animation
@@ -314,7 +316,7 @@ contributions:
       display_name: Wizard
 ```
 
-_Function widget_
+##### Function widget
 
 ```yaml
 name: my-function-plugin
@@ -338,7 +340,7 @@ individual sample data contribution.
 #### napari_hook_spec
 
 ```python
-def napari_provide_sample_data() -> Dict[str, Union[SampleData, SampleDict]]
+def napari_provide_sample_data() -> Dict[str, Union[SampleData, SampleDict]]: ...
 ```
 
 #### Example npe2 contribution
@@ -350,15 +352,16 @@ def _generate_random_data(shape=(512, 512)):
     data = np.random.rand(*shape)
     return [(data, {'name': 'random data'})]
 
+
 @napari_hook_implementation
 def napari_provide_sample_data():
     return {
         'random data': _generate_random_data,
         'random image': 'https://picsum.photos/1024',
         'sample_key': {
-            'display_name': 'Some Random Data (512 x 512)'
+            'display_name': 'Some Random Data (512 x 512)',
             'data': _generate_random_data,
-        }
+        },
     }
 ```
 
@@ -391,31 +394,32 @@ code in the plugin package!
 The theme provided by this hook:
 
 ```python
-def get_new_theme() -> Dict[str, Dict[str, Union[str, Tuple, List]]:
+def get_new_theme() -> Dict[str, Dict[str, Union[str, Tuple, List]]]:
     # specify theme(s) that should be added to napari
     themes = {
-        "super_dark": {
-            "name": "super_dark",
-            "background": "rgb(12, 12, 12)",
-            "foreground": "rgb(65, 72, 81)",
-            "primary": "rgb(90, 98, 108)",
-            "secondary": "rgb(134, 142, 147)",
-            "highlight": "rgb(106, 115, 128)",
-            "text": "rgb(240, 241, 242)",
-            "icon": "rgb(209, 210, 212)",
-            "warning": "rgb(153, 18, 31)",
-            "current": "rgb(0, 122, 204)",
-            "syntax_style": "native",
-            "console": "rgb(0, 0, 0)",
-            "canvas": "black",
+        'super_dark': {
+            'name': 'super_dark',
+            'background': 'rgb(12, 12, 12)',
+            'foreground': 'rgb(65, 72, 81)',
+            'primary': 'rgb(90, 98, 108)',
+            'secondary': 'rgb(134, 142, 147)',
+            'highlight': 'rgb(106, 115, 128)',
+            'text': 'rgb(240, 241, 242)',
+            'icon': 'rgb(209, 210, 212)',
+            'warning': 'rgb(153, 18, 31)',
+            'current': 'rgb(0, 122, 204)',
+            'syntax_style': 'native',
+            'console': 'rgb(0, 0, 0)',
+            'canvas': 'black',
         }
     }
     return themes
 ```
 
 becomes this theme contribution in the plugin manifest. Note that `type`
-indicates whether the theme is light or dark, omitted color keys inherit from that base,
-and `syntax_style` stays at the top level rather than under `colors`:
+indicates whether the theme is light or dark, omitted color keys inherit from
+that base, and `syntax_style` stays at the top level rather than under
+`colors`:
 
 ```yaml
 name: my-plugin
@@ -452,7 +456,7 @@ launches of napari, that cached manifest will be used and the plugin will
 *not* be imported immediately when napari boots.
 
 With napari v0.7.0, legacy npe1 plugins will **only** be usable through
-this adaptor; plugins relying on import-time behaviour may malfunction. 
+this adaptor; plugins relying on import-time behaviour may malfunction.
 
 ### Benefits
 
@@ -462,10 +466,10 @@ The benefits for an end-user opting in to the npe2 adaptor are:
   at launch, napari can boot *significantly* faster.
 - Plugins are imported lazily, only after one of their commands or menu items
   has been requested.
-- It will become clearer to the user which plugin has errored (if any), since it
-  will only occur when the plugin's functionality has been requested.
-- For napari, the internal codebase becomes *much* simpler since only the npe2 API
-  needs to be used.
+- It will become clearer to the user which plugin has errored (if any), since
+  it will only occur when the plugin's functionality has been requested.
+- For napari, the internal codebase becomes *much* simpler since only the npe2
+  API needs to be used.
 
 ### Caveats
 

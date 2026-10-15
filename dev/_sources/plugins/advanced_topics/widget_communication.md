@@ -2,27 +2,32 @@
 
 ## Widget communication
 
-Sometimes complex workflows require access to other docked widgets, information from other plugins, which may be created by other developers.
+Sometimes complex workflows require access to other docked widgets, information
+from other plugins, which may be created by other developers.
 
 ## Access another plugin widget with `viewer.window.add_plugin_dock_widget`
 
-If a desired plugin widget is already docked in the viewer,
-calling the `add_plugin_dock_widget` method will return the existing widget instance.
-If the desired widget is absent, it will be created and added to the viewer.
-`add_plugin_dock_widget` is the most convenient way to access a plugin widget that is required by your plugin.
+If a desired plugin widget is already docked in the viewer, calling the
+`add_plugin_dock_widget` method will return the existing widget instance. If
+the desired widget is absent, it will be created and added to the viewer.
+`add_plugin_dock_widget` is the most convenient way to access a plugin widget
+that is required by your plugin.
 
 ## Access a widget by name with `viewer.window.dock_widgets`
 
-If the goal is to access a target widget, without creating a widget, use the `dock_widgets` property.
-The `dock_widgets` property provides access to a read-only mapping of all docked widgets in the viewer. You can list available widget names with `viewer.window.dock_widgets.keys()`.
+If the goal is to access a target widget, without creating a widget, use the
+`dock_widgets` property. The `dock_widgets` property provides access to a
+read-only mapping of all docked widgets in the viewer. You can list available
+widget names with `viewer.window.dock_widgets.keys()`.
 
-This public API returns the (inner) widget, not the `QtViewerDockWidget` wrapper.
-To access the `QtViewerDockWidget` wrapper, use the `.parent()` method on the returned `QWidget`, or `.native.parent()` for a magicgui `Widget`.
-For example, to programmatically show the "Home" dock widget:
+This public API returns the (inner) widget, not the `QtViewerDockWidget`
+wrapper. To access the `QtViewerDockWidget` wrapper, use the `.parent()` method
+on the returned `QWidget`, or `.native.parent()` for a magicgui `Widget`. For
+example, to programmatically show the "Home" dock widget:
 
 ```python
-widget = viewer.window.dock_widgets["Home"]
-qt_widget = widget.native if hasattr(widget, "native") else widget
+widget = viewer.window.dock_widgets['Home']
+qt_widget = widget.native if hasattr(widget, 'native') else widget
 dock_widget = qt_widget.parent()  # Get the QtViewerDockWidget wrapper
 dock_widget.show()
 dock_widget.raise_()
@@ -37,12 +42,17 @@ This is a private API that will be removed soon.
 
 ## Widget name
 
-When a widget is added to the viewer via a plugin contribution (by using a menu or `add_plugin_dock_widget`), it is assigned a name.
-The name is created by concatenating the widget `display_name` from the plugin manifest and the plugin name in parentheses, like this: `"Widget name (plugin_name)"`. Note: this is the same name that is shown in the napari menus and the title bar of the widget.
+When a widget is added to the viewer via a plugin contribution (by using a menu
+or `add_plugin_dock_widget`), it is assigned a name. The name is created by
+concatenating the widget `display_name` from the plugin manifest and the plugin
+name in parentheses, like this: `"Widget name (plugin_name)"`. Note: this is
+the same name that is shown in the napari menus and the title bar of the
+widget.
 
 ## Shared state between widgets
 
-If you have a need for multiple widgets to share a state, you can use a shared global object.
+If you have a need for multiple widgets to share a state, you can use a shared
+global object.
 
 ```python
 from psygnal import EventedModel
@@ -67,7 +77,8 @@ def get_global_state():
     return GLOBAL_STATE
 ```
 
-If you need to be sure that state is related to a specific viewer, you can use the `viewer` as a dictionary key:
+If you need to be sure that state is related to a specific viewer, you can use
+the `viewer` as a dictionary key:
 
 ```python
 from weakref import WeakKeyDictionary
@@ -93,9 +104,11 @@ def get_global_state(viewer):
     return GLOBAL_STATE[viewer]
 ```
 
-To store state between sessions, you can enhance the `get_global_state` to load state from persistent storage, such as a drive or database.
-To get a location for storing the state, you can use the `get_settings().config_path` to have a path per napari installation.
-Or you can use [`appdirs.user_config_dir`](https://pypi.org/project/appdirs/)
+To store state between sessions, you can enhance the `get_global_state` to load
+state from persistent storage, such as a drive or database. To get a location
+for storing the state, you can use the `get_settings().config_path` to have a
+path per napari installation. Or you can use
+[`appdirs.user_config_dir`](https://pypi.org/project/appdirs/)
 
 ```python
 import logging

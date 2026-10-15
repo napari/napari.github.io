@@ -15,4 +15,5 @@ For dark mode, we use two additional colors:
 - purple: #4d485c
 - dark blue: #526a77
 
-See more details in the [napari-sphinx-theme colors page](https://napari.org/napari-sphinx-theme/colors.html).
+See more details in the
+[napari-sphinx-theme colors page](https://napari.org/napari-sphinx-theme/colors.html).

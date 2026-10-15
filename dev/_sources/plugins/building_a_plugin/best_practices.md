@@ -2,47 +2,56 @@
 
 # Best practices for plugin developers
 
-There are a number of good and bad practices that may not be immediately obvious
-when developing a plugin. This page covers some known practices that could
-affect the ability to install or use your plugin effectively.
+There are a number of good and bad practices that may not be immediately
+obvious when developing a plugin. This page covers some known practices that
+could affect the ability to install or use your plugin effectively.
 
 (best-practices-no-qt-backend)=
 
-## Don't include `napari[all]`, `PySide6`, `PyQt5` or `PyQt6` in your plugin's default dependencies.
+## Don't include `napari[all]`, `PySide6`, `PyQt5` or `PyQt6` in your plugin's default dependencies
 
-*This is important! Avoid including any form of Qt in your plugin's dependencies!*
+*This is important! Avoid including any form of Qt in your plugin's
+dependencies!*
 
 Napari supports *both* PyQt and PySide backends for Qt. It is up to the
-end-user to choose which one they want. If they installed napari with `pip install napari[all]`, then this includes `PyQt6` from PyPI as the default backend.
-If they installed via `conda install napari pyqt6`, then they'll have `PyQt6`,
-but from conda-forge instead of PyPI. Meanwhile, the napari bundle installs with PySide6.
-Users are also free to install PyQt5, or PySide6 backend.
+end-user to choose which one they want. If they installed napari with
+`pip install napari[all]`, then this includes `PyQt6` from PyPI as the default
+backend. If they installed via `conda install napari pyqt6`, then they'll have
+`PyQt6`, but from conda-forge instead of PyPI. Meanwhile, the napari bundle
+installs with PySide6. Users are also free to install PyQt5, or PySide6
+backend.
 
-Here's what can go wrong if you *also* declare one of these backends **or napari[all]**
-in the `dependencies`/`install_requires` section of your plugin metadata:
+Here's what can go wrong if you *also* declare one of these backends
+**or napari[all]** in the `dependencies`/`install_requires` section of your
+plugin metadata:
 
-- If they installed via `conda install napari pyqt6` and then they install your plugin
-  via `pip` (or vice versa) then there *will* be a binary incompatibility between the
-  conda `pyqt6` installation, and the `PyQt6` installation from PyPI. *This will very likely
-  lead to a broken environment, forcing the user to re-create their entire
-  environment and re-install napari*. This is an unfortunate consequence of
+- If they installed via `conda install napari pyqt6` and then they install your
+  plugin via `pip` (or vice versa) then there *will* be a binary
+  incompatibility between the conda `pyqt6` installation, and the `PyQt6`
+  installation from PyPI. *This will very likely lead to a broken environment,
+  forcing the user to re-create their entire environment and re-install
+  napari*. This is an unfortunate consequence of
   [package naming decisions](https://github.com/ContinuumIO/anaconda-issues/issues/1554),
   and it's not something napari can fix.
 - Alternatively, they may end up with some combination of *both* PyQt5, PyQt6,
-  and PySide6 in their environment: the Qt backend they had installed and the one your
-  plugin installed as a dependency. This will not *always* break things, but
-  it will lead to unexpected and difficult to debug problems.
-- Both of the above cases are most likely to happen with the built-in GUI napari plugin manager,
-  which will install your plugin plus the base dependencies. As a result, this frequently
-  occurs with the bundle app. Trying to fix these issues is almost impossible for GUI centric
-  users, leaving them the only recourse of re-installing.
+  and PySide6 in their environment: the Qt backend they had installed and the
+  one your plugin installed as a dependency. This will not *always* break
+  things, but it will lead to unexpected and difficult to debug problems.
+- Both of the above cases are most likely to happen with the built-in GUI
+  napari plugin manager, which will install your plugin plus the base
+  dependencies. As a result, this frequently occurs with the bundle app. Trying
+  to fix these issues is almost impossible for GUI centric users, leaving them
+  the only recourse of re-installing.
 
 ````{tip}
-1. You can still include a specific Qt backend in optional `dev` or `testing` dependencies!
-Just *don't* include a specific Qt backend (or `napari[all]`, which currently includes PyQt6)
-in your base dependencies.
-2. You can include an optional `all` dependency on `napari[all]` to mimic the simple,
-command line installation in a fresh environment. In `pyproject.toml` this would be:
+1. You can still include a specific Qt backend in optional `dev` or `testing`
+   dependencies!
+Just *don't* include a specific Qt backend (or `napari[all]`, which currently
+includes PyQt6) in your base dependencies.
+2. You can include an optional `all` dependency on `napari[all]` to mimic the
+   simple,
+command line installation in a fresh environment. In `pyproject.toml` this
+would be:
 
     ```
     [project.optional-dependencies]
@@ -61,29 +70,31 @@ command line installation in a fresh environment. In `pyproject.toml` this would
 ## Don't import from any specific Qt backend (e.g. `PyQt5`, `PyQt6`, `PySide6`, etc.) in your plugin: use `qtpy`
 
 If you use `from PyQt6 import QtCore` (or similar) in your plugin, but the
-end-user has chosen to use `PySide6` or `PyQt5` for their Qt backend — or vice versa —
-then your plugin will fail to import. Instead use `from qtpy import QtCore`.
-`qtpy` is a [Qt compatibility layer](https://github.com/spyder-ide/qtpy)
-that will import from whatever backend is installed in the environment.
+end-user has chosen to use `PySide6` or `PyQt5` for their Qt backend — or vice
+versa — then your plugin will fail to import. Instead use
+`from qtpy import QtCore`. `qtpy` is a
+[Qt compatibility layer](https://github.com/spyder-ide/qtpy) that will import
+from whatever backend is installed in the environment.
 
 ## Try not to depend on packages that require C compilation if these packages do not offer wheels
 
 ```{tip}
-This requires some awareness of how your dependencies are built and distributed...
+This requires some awareness of how your dependencies are built and
+distributed...
 
-Some python packages write a portion of their code in lower level languages like
-C or C++ and compile that code into "C Extensions" that can be called by python
-at runtime. This can *greatly* improve performance, but it means that the
-package must be compiled for *each* platform (i.e. Windows, Mac, Linux) that the
-package wants to support.  Some packages do this compilation step ahead of time,
-by distributing "[wheels](https://realpython.com/python-wheels/)" on
+Some python packages write a portion of their code in lower level languages
+like C or C++ and compile that code into "C Extensions" that can be called by
+python at runtime. This can *greatly* improve performance, but it means that
+the package must be compiled for *each* platform (i.e. Windows, Mac, Linux)
+that the package wants to support. Some packages do this compilation step ahead
+of time, by distributing "[wheels](https://realpython.com/python-wheels/)" on
 [PyPI](https://pypi.org/)... or by providing pre-compiled packages via `conda`.
 Other packages simply distribute the source code (as an "sdist") and expect the
-end-user to compile it on their own computer.  Compiling C code requires
+end-user to compile it on their own computer. Compiling C code requires
 software that is not always installed on every computer. (If you've ever tried
-to `python -m pip install` a package and had it fail with a big wall of red text saying
-something about `gcc`, then you've run into a package that doesn't distribute
-wheels, and you didn't have the software required to compile it).
+to `python -m pip install` a package and had it fail with a big wall of red
+text saying something about `gcc`, then you've run into a package that doesn't
+distribute wheels, and you didn't have the software required to compile it).
 ```
 
 As a plugin developer, if you depend on a package that uses C extensions but
@@ -104,41 +115,40 @@ will run into difficulties installing your plugin:
   package on PyPI, and click on the "Download Files" link. If the package
   offers wheels, you'll see one or more files ending in `.whl`. For example,
   [napari offers a wheel](https://pypi.org/project/napari/#files). If a package
-  *doesn't* offer a wheel, it may still be ok if it's just a pure python package
-  that doesn't have any C extensions...
+  *doesn't* offer a wheel, it may still be ok if it's just a pure python
+  package that doesn't have any C extensions...
 
 - *How do I know if one of my dependencies uses C Extensions?*
 
-  First, look for the presence of C or C++ in the "Languages" side-bar
-  of the repository. Otherwise, there's no one right way, but more often than not,
-  if a package uses C extensions, then their `setup.py` file will use the
-  [`ext_modules`
-  argument](https://docs.python.org/3.11/distutils/setupscript.html#describing-extension-modules).
+  First, look for the presence of C or C++ in the "Languages" side-bar of the
+  repository. Otherwise, there's no one right way, but more often than not, if
+  a package uses C extensions, then their `setup.py` file will use the
+  [`ext_modules` argument](https://docs.python.org/3.11/distutils/setupscript.html#describing-extension-modules).
 
 ```{admonition} What about conda?
 **conda** also distributes & installs pre-compiled packages, though they aren't
-wheels.  We encourage you to make your plugins 
-[available on conda-forge](deploying-to-conda-forge), which
-is a great way to handle binary dependencies in a reliable way. The built-in 
+wheels. We encourage you to make your plugins
+[available on conda-forge](deploying-to-conda-forge), which is a great way to
+handle binary dependencies in a reliable way. The built-in
 [napari plugin manager](https://napari.org/napari-plugin-manager) currently
-supports installing plugins from both PyPI and conda-forge, with the default matching
-the source of the napari installation.
+supports installing plugins from both PyPI and conda-forge, with the default
+matching the source of the napari installation.
 ```
 
 (best_practice_napari_type)=
 
 ## Don't require `napari` if not necessary
 
-It's good practice to not depend on `napari` if not strictly necessary.
-If you only use `napari` for type annotations, we recommend that you use strings
+It's good practice to not depend on `napari` if not strictly necessary. If you
+only use `napari` for type annotations, we recommend that you use strings
 instead of importing the types. This is called a
 [Forward reference](https://peps.python.org/pep-0484/#forward-references).
 For example, you can see in the
-[widget contribution guide](widgets-contribution-guide) that napari type annotations
-are strings and not imported.
+[widget contribution guide](widgets-contribution-guide) that napari type
+annotations are strings and not imported.
 
-If you'd like to maintain IDE type support and autocompletion, you can
-still do so by hiding the napari imports inside of a {attr}`typing.TYPE_CHECKING`
+If you'd like to maintain IDE type support and autocompletion, you can still do
+so by hiding the napari imports inside of a {attr}`typing.TYPE_CHECKING`
 clause:
 
 ```python
@@ -170,7 +180,7 @@ Don't do this:
 # my_plugin/module.py
 import json
 
-data_file = open("some_data_in_my_plugin.json")
+data_file = open('some_data_in_my_plugin.json')
 data = json.load(data_file)
 ```
 
@@ -178,11 +188,11 @@ Instead, make sure to close your resource after grabbing the data (ideally by
 using a context manager, but manually otherwise):
 
 ```py
-with open("some_data_in_my_plugin.json") as data_file:
+with open('some_data_in_my_plugin.json') as data_file:
     data = json.load(data_file)
 ```
 
-## Write extensive tests for your plugin!
+## Write extensive tests for your plugin
 
 Programmer and author Bruce Eckel famously wrote:
 
@@ -211,18 +221,17 @@ up to report test coverage, but you can test locally as well, using
 1. The report will show line-by-line what is being tested, and what is being
    missed. Continue writing tests until everything is covered! If you have
    lines that you *know* never need to be tested (like debugging code) you can
-   [exempt specific
-   lines](https://coverage.readthedocs.io/en/6.4.4/excluding.html#excluding-code-from-coverage-py)
+   [exempt specific lines](https://coverage.readthedocs.io/en/6.4.4/excluding.html#excluding-code-from-coverage-py)
    from coverage with the comment `# pragma: no cover`
-1. In the napari plugin template, coverage tests from github actions will be uploaded to codecov.io
+1. In the napari plugin template, coverage tests from github actions will be
+   uploaded to codecov.io
 
 ## Set style for additional windows in your plugin
 
-In napari plugins we strongly advise additional widgets be docked in the main napari viewer,
-but sometimes a separate window is required.
-The best practice is to use [`QDialog`](https://doc.qt.io/qt-5/qdialog.html)
-based windows with parent set to widget
-already docked in the viewer.
+In napari plugins we strongly advise additional widgets be docked in the main
+napari viewer, but sometimes a separate window is required. The best practice
+is to use [`QDialog`](https://doc.qt.io/qt-5/qdialog.html) based windows with
+parent set to widget already docked in the viewer.
 
 ```python
 from qtpy.QtWidgets import QDialog, QWidget, QSpinBox, QPushButton, QGridLayout, QLabel
@@ -264,11 +273,12 @@ class MyWidget(QWidget):
 ```
 
 If there is a particular reason that you need to use a separate window that
-inherits from `QWidget`, not `QDialog`, then you could use the `get_current_stylesheet`
-and {func}`get_stylesheet <napari.qt.get_stylesheet>` functions from the
-{mod}`napari.qt <napari.qt>` module.
+inherits from `QWidget`, not `QDialog`, then you could use the
+`get_current_stylesheet` and {func}`get_stylesheet <napari.qt.get_stylesheet>`
+functions from the {mod}`napari.qt <napari.qt>` module.
 
-Here is a `magicgui` example (but could be easily generalised to native `qt` based widgets):
+Here is a `magicgui` example (but could be easily generalised to native `qt`
+based widgets):
 
 ```python
 from magicgui import magicgui
@@ -296,7 +306,8 @@ change_style()
 
 ## Do not package your tests as a top-level package
 
-If you are using the [napari plugin template](https://github.com/napari/napari-plugin-template),
+If you are using the
+[napari plugin template](https://github.com/napari/napari-plugin-template),
 your tests are already packaged in the correct way. No further action required!
 
 ```bash
@@ -326,15 +337,18 @@ pyproject.toml
 README.md
 ```
 
-Under these circumstances, your build backend (usually `setuptools`) might include `tests` as a
-separate package that will be installed next to `my_package`!
-Most of the time, this is not wanted; e.g. do you want to do `import tests`? Probably not!
-Additionally, this unwanted behavior might cause installation issues with other projects.
+Under these circumstances, your build backend (usually `setuptools`) might
+include `tests` as a separate package that will be installed next to
+`my_package`! Most of the time, this is not wanted; e.g. do you want to do
+`import tests`? Probably not! Additionally, this unwanted behavior might cause
+installation issues with other projects.
 
-Ideally, you could change your project structure to follow the recommended skeleton followed in
-the napari plugin template. Howevever, if that's unfeasible, you can fix this in the project metadata files.
+Ideally, you could change your project structure to follow the recommended
+skeleton followed in the napari plugin template. Howevever, if that's
+unfeasible, you can fix this in the project metadata files.
 
-You need to explicitly _exclude_ the top-level `tests` directory from the packaged contents:
+You need to explicitly *exclude* the top-level `tests` directory from the
+packaged contents:
 
 ```toml
 # pyproject.toml
@@ -349,34 +363,37 @@ exclude =
 # setup.py
 ...
 setup(
-    ...
-    packages=find_packages(exclude=("tests", "tests.*")),
-    ...
+    ...,
+    packages=find_packages(exclude=('tests', 'tests.*')),
 )
 ```
 
-Note this also applies to other top-level directories, like `test`, `_tests`, `testing`, etc.
+Note this also applies to other top-level directories, like `test`, `_tests`,
+`testing`, etc.
 
 You can find more information in the
 [package discovery documentation for `setuptools`](https://setuptools.pypa.io/en/latest/userguide/package_discovery.html).
 
 ## License issues when including code from 3rd parties
 
-Plugins will often depend on 3rd party packages beyond `napari` itself.
-These dependencies are usually included in the project metadata in `pyproject.toml`.
-However, sometimes developers might include code from 3rd parties directly in their project.
-Sometimes it will be just a little snippet, maybe slightly modified to suit the project needs.
-Some other times, a whole project will be included entirely (vendoring).
+Plugins will often depend on 3rd party packages beyond `napari` itself. These
+dependencies are usually included in the project metadata in `pyproject.toml`.
+However, sometimes developers might include code from 3rd parties directly in
+their project. Sometimes it will be just a little snippet, maybe slightly
+modified to suit the project needs. Some other times, a whole project will be
+included entirely (vendoring).
 
-This constitutes an act of source code redistribution, which is usually covered by many licensing schemes.
-Most of the time, this means you need to explicitly include the vendored project license in the source.
-This is the case for Apache, BSD and MIT-style licenses.
-Do note that some projects might NOT allow redistribution without explicit approval.
-Others will prevent it entirely... Be mindful and check the requirements before distributing your package!
+This constitutes an act of source code redistribution, which is usually covered
+by many licensing schemes. Most of the time, this means you need to explicitly
+include the vendored project license in the source. This is the case for
+Apache, BSD and MIT-style licenses. Do note that some projects might NOT allow
+redistribution without explicit approval. Others will prevent it entirely... Be
+mindful and check the requirements before distributing your package!
 
 ```{note}
-If you are vendoring other projects, please add an acknowledgement in your README.
-The license details in your project metadata should also include this information!
+If you are vendoring other projects, please add an acknowledgement in your
+README. The license details in your project metadata should also include this
+information!
 ```
 
 ## Don't import heavy dependencies at the top of your module
@@ -398,28 +415,31 @@ import numpy as np
 from qtpy.QtWidgets import QWidget
 from my_heavy_dependency_like_tensorflow import something_amazing
 
+
 class MyWidget(QWidget):
     def do_something_amazing(self):
         return something_amazing()
+
 
 class FastWidget(QWidget):
     def do_something_fast(self):
         return np.zeros((10, 10))
 ```
 
-In this case, only `MyWidget` requires the heavy dependency, but with the import
-at the top-level, `FastWidget` will also be affected by the slow import time of
-`my_heavy_dependency_like_tensorflow`.
+In this case, only `MyWidget` requires the heavy dependency, but with the
+import at the top-level, `FastWidget` will also be affected by the slow import
+time of `my_heavy_dependency_like_tensorflow`.
 
-This can deteriorate the end-user experience, and make napari feel sluggish. Best
-practice is to delay heavy imports until right before they are used. The
-following slight modification will help other bits of your plugin,
-like `FastWidget`, load much faster:
+This can deteriorate the end-user experience, and make napari feel sluggish.
+Best practice is to delay heavy imports until right before they are used. The
+following slight modification will help other bits of your plugin, like
+`FastWidget`, load much faster:
 
 ```py
 # mypackage/napari_plugin.py
 import numpy as np
 from qtpy.QtWidgets import QWidget
+
 
 class MyWidget(QWidget):
     def do_something_amazing(self):

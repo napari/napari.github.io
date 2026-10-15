@@ -3,8 +3,9 @@
 # Getting started
 
 The following documents will give you an overview of how to install and use
-napari. For more detailed use-cases, check out the [napari tutorials](tutorials)
-or [How-to guides](how-tos).
+napari. For more detailed use-cases, check out the
+[napari tutorials](tutorials) or
+[How-to guides](how-tos).
 
 ````{grid}
 ```{grid-item-card} Quick start

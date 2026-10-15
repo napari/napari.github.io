@@ -839,19 +839,21 @@
 <section id="introduction">
 <h2>Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h2>
 <p>Like most applications with a graphical user interface (GUI), napari operates
-within an <strong>event loop</strong> that waits for and responds to user interaction ‘events’.
-Events could be a mouse click, slider movement or a keypress, and usually correspond
-to some specific action taken by the user (e.g. “user moved the gamma slider”).
-These actions add events to the queue and the event loop handles them one at a time
-by executing functions that are connected to each event.</p>
+within an <strong>event loop</strong> that waits for and responds to user interaction
+‘events’. Events could be a mouse click, slider movement or a keypress, and
+usually correspond to some specific action taken by the user (e.g. “user moved
+the gamma slider”). These actions add events to the queue and the event loop
+handles them one at a time by executing functions that are connected to each
+event.</p>
 <p>If you’re coming from a background of scripting or working with python in an
 interactive console, thinking in terms of the “event loop” can feel a bit
-strange at times. Often we write code in a very procedural way: “Step 1: do this,
-Step 2: do that, etc …”. With napari and other GUI programs however, usually you
-connect events to “callback” functions, which essentially specifies; “If this event
-happens, then call this function”. Next you start the event loop and hope you
-connected everything correctly! Indeed, much of the napari source code is
-dedicated to creating and handling events: search the codebase for
+strange at times. Often we write code in a very procedural way: “Step 1: do
+this, Step 2: do that, etc …”. With napari and other GUI programs however,
+usually you connect events to “callback” functions, which essentially
+specifies; “If this event happens, then call this function”. Next you start the
+event loop and hope you connected everything correctly! Indeed, much of the
+napari source code is dedicated to creating and handling events: search the
+codebase for
 <a class="reference external" href="https://github.com/search?q=repo%3Anapari%2Fnapari+%22.emit%28%22&amp;type=code"><code class="docutils literal notranslate"><span class="pre">.emit(</span></code></a>
 and
 <a class="reference external" href="https://github.com/search?q=repo%3Anapari%2Fnapari+%22.connect%28%22&amp;type=code"><code class="docutils literal notranslate"><span class="pre">.connect(</span></code></a>
@@ -864,16 +866,17 @@ the behavior of napari.</p>
 <h2>Starting the event loop<a class="headerlink" href="#starting-the-event-loop" title="Link to this heading">#</a></h2>
 <section id="in-ipython-or-jupyter-notebook">
 <h3>In IPython or Jupyter Notebook<a class="headerlink" href="#in-ipython-or-jupyter-notebook" title="Link to this heading">#</a></h3>
-<p>Simply creating a viewer (e.g., with <code class="docutils literal notranslate"><span class="pre">viewer</span> <span class="pre">=</span> <span class="pre">napari.Viewer()</span></code>) will start the event
-loop. napari will then detect if you are running an IPython or Jupyter shell, and
-will automatically use the
-<a class="reference external" href="https://ipython.readthedocs.io/en/stable/config/eventloops.html#integrating-with-gui-event-loops">IPython GUI event loop</a>. This prevents <em>blocking</em> of the Python
-interpreter, allowing you to continue executing code in your interactive environment.
-Note that this was not always the case - prior to
-<a class="reference external" href="https://github.com/napari/napari/releases/tag/v0.4.7">version 0.4.7</a> you needed to
-manually call <code class="docutils literal notranslate"><span class="pre">%gui</span> <span class="pre">qt</span></code> first to prevent blocking.</p>
+<p>Simply creating a viewer (e.g., with <code class="docutils literal notranslate"><span class="pre">viewer</span> <span class="pre">=</span> <span class="pre">napari.Viewer()</span></code>) will start the
+event loop. napari will then detect if you are running an IPython or Jupyter
+shell, and will automatically use the
+<a class="reference external" href="https://ipython.readthedocs.io/en/stable/config/eventloops.html#integrating-with-gui-event-loops">IPython GUI event loop</a>.
+This prevents <em>blocking</em> of the Python interpreter, allowing you to continue
+executing code in your interactive environment. Note that this was not always
+the case - prior to
+<a class="reference external" href="https://github.com/napari/napari/releases/tag/v0.4.7">version 0.4.7</a> you
+needed to manually call <code class="docutils literal notranslate"><span class="pre">%gui</span> <span class="pre">qt</span></code> first to prevent blocking.</p>
 <p>Example:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="kn">import</span><span class="w"> </span><span class="nn">napari</span>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="kn">import</span><span class="w"> </span><span class="nn">napari</span>
 
 <span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">Viewer</span><span class="p">()</span>  <span class="c1"># Viewer will show in a new window</span>
 
@@ -894,8 +897,8 @@ event loop for you in IPython, then you can disable it with:</p>
 </section>
 <section id="in-a-script">
 <h3>In a script<a class="headerlink" href="#in-a-script" title="Link to this heading">#</a></h3>
-<p>Outside of interactve Python environments, you must tell napari when to
-“start the event loop” by using <a class="reference internal" href="../api/napari.html#napari.run" title="napari.run"><code class="xref py py-func docutils literal notranslate"><span class="pre">napari.run()</span></code></a>. This will <em>block</em> execution of
+<p>Outside of interactve Python environments, you must tell napari when to “start
+the event loop” by using <a class="reference internal" href="../api/napari.html#napari.run" title="napari.run"><code class="xref py py-func docutils literal notranslate"><span class="pre">napari.run()</span></code></a>. This will <em>block</em> execution of
 your script at that point, show the viewer, and wait for any user interaction.
 When the last napari viewer closes, execution of the script will proceed.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">napari</span>
@@ -927,14 +930,14 @@ like this (in pseudo-code):</p>
             <span class="n">process_event</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Actions taken by the user add events to the queue and the event loop handles them one
-at a time.</p>
+<p>Actions taken by the user add events to the queue and the event loop handles
+them one at a time.</p>
 </section>
 <section id="qt-applications-event-loops-and-widgets">
 <h2>Qt applications, event loops, and widgets<a class="headerlink" href="#qt-applications-event-loops-and-widgets" title="Link to this heading">#</a></h2>
 <p>Currently, napari uses Qt as its GUI backend, and the main loop handling events
-in napari is the <a class="reference external" href="https://wiki.qt.io/Threads_Events_QObjects#Events_and_the_event_loop">Qt
-EventLoop</a>.</p>
+in napari is the
+<a class="reference external" href="https://wiki.qt.io/Threads_Events_QObjects#Events_and_the_event_loop">Qt EventLoop</a>.</p>
 <p>A deep dive into the Qt event loop is beyond the scope of this document, but
 it’s worth being aware of two critical steps in the “lifetime” of a Qt
 Application:</p>
@@ -957,7 +960,8 @@ application’s event loop:</p>
 </div>
 </li>
 </ol>
-<p>If you would like to create your own widgets in napari see <a class="reference internal" href="../howtos/extending/magicgui.html#creating-widgets"><span class="std std-ref">Creating widgets</span></a>.</p>
+<p>If you would like to create your own widgets in napari see
+<a class="reference internal" href="../howtos/extending/magicgui.html#creating-widgets"><span class="std std-ref">Creating widgets</span></a>.</p>
 <section id="napari-s-qapplication">
 <h3>napari’s <code class="docutils literal notranslate"><span class="pre">QApplication</span></code><a class="headerlink" href="#napari-s-qapplication" title="Link to this heading">#</a></h3>
 <p>In napari, the initial step of creating the <code class="docutils literal notranslate"><span class="pre">QApplication</span></code> is handled by
@@ -972,9 +976,9 @@ automatically behind the scenes when you create a viewer with
 <span class="n">napari</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>  <span class="c1"># This will call `app.exec_()` and start the event loop.</span>
 </pre></div>
 </div>
-<p>Now that you have an understanding of how napari creates the event loop, you may
-wish to learn more about <a class="reference internal" href="../howtos/extending/connecting_events.html#connecting-events"><span class="std std-ref">hooking up your own callbacks</span></a>
-to specific events.</p>
+<p>Now that you have an understanding of how napari creates the event loop, you
+may wish to learn more about
+<a class="reference internal" href="../howtos/extending/connecting_events.html#connecting-events"><span class="std std-ref">hooking up your own callbacks</span></a> to specific events.</p>
 </section>
 </section>
 </section>

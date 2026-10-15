@@ -565,44 +565,53 @@
                   
   <section class="tex2jax_ignore mathjax_ignore" id="best-practices-for-plugin-developers">
 <span id="best-practices"></span><h1>Best practices for plugin developers<a class="headerlink" href="#best-practices-for-plugin-developers" title="Link to this heading">#</a></h1>
-<p>There are a number of good and bad practices that may not be immediately obvious
-when developing a plugin. This page covers some known practices that could
-affect the ability to install or use your plugin effectively.</p>
+<p>There are a number of good and bad practices that may not be immediately
+obvious when developing a plugin. This page covers some known practices that
+could affect the ability to install or use your plugin effectively.</p>
 <section id="don-t-include-napari-all-pyside6-pyqt5-or-pyqt6-in-your-plugin-s-default-dependencies">
-<span id="best-practices-no-qt-backend"></span><h2>Don’t include <code class="docutils literal notranslate"><span class="pre">napari[all]</span></code>, <code class="docutils literal notranslate"><span class="pre">PySide6</span></code>, <code class="docutils literal notranslate"><span class="pre">PyQt5</span></code> or <code class="docutils literal notranslate"><span class="pre">PyQt6</span></code> in your plugin’s default dependencies.<a class="headerlink" href="#don-t-include-napari-all-pyside6-pyqt5-or-pyqt6-in-your-plugin-s-default-dependencies" title="Link to this heading">#</a></h2>
-<p><em>This is important! Avoid including any form of Qt in your plugin’s dependencies!</em></p>
+<span id="best-practices-no-qt-backend"></span><h2>Don’t include <code class="docutils literal notranslate"><span class="pre">napari[all]</span></code>, <code class="docutils literal notranslate"><span class="pre">PySide6</span></code>, <code class="docutils literal notranslate"><span class="pre">PyQt5</span></code> or <code class="docutils literal notranslate"><span class="pre">PyQt6</span></code> in your plugin’s default dependencies<a class="headerlink" href="#don-t-include-napari-all-pyside6-pyqt5-or-pyqt6-in-your-plugin-s-default-dependencies" title="Link to this heading">#</a></h2>
+<p><em>This is important! Avoid including any form of Qt in your plugin’s
+dependencies!</em></p>
 <p>Napari supports <em>both</em> PyQt and PySide backends for Qt. It is up to the
-end-user to choose which one they want. If they installed napari with <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">napari[all]</span></code>, then this includes <code class="docutils literal notranslate"><span class="pre">PyQt6</span></code> from PyPI as the default backend.
-If they installed via <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">install</span> <span class="pre">napari</span> <span class="pre">pyqt6</span></code>, then they’ll have <code class="docutils literal notranslate"><span class="pre">PyQt6</span></code>,
-but from conda-forge instead of PyPI. Meanwhile, the napari bundle installs with PySide6.
-Users are also free to install PyQt5, or PySide6 backend.</p>
-<p>Here’s what can go wrong if you <em>also</em> declare one of these backends <strong>or napari[all]</strong>
-in the <code class="docutils literal notranslate"><span class="pre">dependencies</span></code>/<code class="docutils literal notranslate"><span class="pre">install_requires</span></code> section of your plugin metadata:</p>
+end-user to choose which one they want. If they installed napari with
+<code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">napari[all]</span></code>, then this includes <code class="docutils literal notranslate"><span class="pre">PyQt6</span></code> from PyPI as the default
+backend. If they installed via <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">install</span> <span class="pre">napari</span> <span class="pre">pyqt6</span></code>, then they’ll have
+<code class="docutils literal notranslate"><span class="pre">PyQt6</span></code>, but from conda-forge instead of PyPI. Meanwhile, the napari bundle
+installs with PySide6. Users are also free to install PyQt5, or PySide6
+backend.</p>
+<p>Here’s what can go wrong if you <em>also</em> declare one of these backends
+<strong>or napari[all]</strong> in the <code class="docutils literal notranslate"><span class="pre">dependencies</span></code>/<code class="docutils literal notranslate"><span class="pre">install_requires</span></code> section of your
+plugin metadata:</p>
 <ul class="simple">
-<li><p>If they installed via <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">install</span> <span class="pre">napari</span> <span class="pre">pyqt6</span></code> and then they install your plugin
-via <code class="docutils literal notranslate"><span class="pre">pip</span></code> (or vice versa) then there <em>will</em> be a binary incompatibility between the
-conda <code class="docutils literal notranslate"><span class="pre">pyqt6</span></code> installation, and the <code class="docutils literal notranslate"><span class="pre">PyQt6</span></code> installation from PyPI. <em>This will very likely
-lead to a broken environment, forcing the user to re-create their entire
-environment and re-install napari</em>. This is an unfortunate consequence of
+<li><p>If they installed via <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">install</span> <span class="pre">napari</span> <span class="pre">pyqt6</span></code> and then they install your
+plugin via <code class="docutils literal notranslate"><span class="pre">pip</span></code> (or vice versa) then there <em>will</em> be a binary
+incompatibility between the conda <code class="docutils literal notranslate"><span class="pre">pyqt6</span></code> installation, and the <code class="docutils literal notranslate"><span class="pre">PyQt6</span></code>
+installation from PyPI. <em>This will very likely lead to a broken environment,
+forcing the user to re-create their entire environment and re-install
+napari</em>. This is an unfortunate consequence of
 <a class="reference external" href="https://github.com/ContinuumIO/anaconda-issues/issues/1554">package naming decisions</a>,
 and it’s not something napari can fix.</p></li>
 <li><p>Alternatively, they may end up with some combination of <em>both</em> PyQt5, PyQt6,
-and PySide6 in their environment: the Qt backend they had installed and the one your
-plugin installed as a dependency. This will not <em>always</em> break things, but
-it will lead to unexpected and difficult to debug problems.</p></li>
-<li><p>Both of the above cases are most likely to happen with the built-in GUI napari plugin manager,
-which will install your plugin plus the base dependencies. As a result, this frequently
-occurs with the bundle app. Trying to fix these issues is almost impossible for GUI centric
-users, leaving them the only recourse of re-installing.</p></li>
+and PySide6 in their environment: the Qt backend they had installed and the
+one your plugin installed as a dependency. This will not <em>always</em> break
+things, but it will lead to unexpected and difficult to debug problems.</p></li>
+<li><p>Both of the above cases are most likely to happen with the built-in GUI
+napari plugin manager, which will install your plugin plus the base
+dependencies. As a result, this frequently occurs with the bundle app. Trying
+to fix these issues is almost impossible for GUI centric users, leaving them
+the only recourse of re-installing.</p></li>
 </ul>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <ol class="arabic">
-<li><p>You can still include a specific Qt backend in optional <code class="docutils literal notranslate"><span class="pre">dev</span></code> or <code class="docutils literal notranslate"><span class="pre">testing</span></code> dependencies!
-Just <em>don’t</em> include a specific Qt backend (or <code class="docutils literal notranslate"><span class="pre">napari[all]</span></code>, which currently includes PyQt6)
-in your base dependencies.</p></li>
-<li><p>You can include an optional <code class="docutils literal notranslate"><span class="pre">all</span></code> dependency on <code class="docutils literal notranslate"><span class="pre">napari[all]</span></code> to mimic the simple,
-command line installation in a fresh environment. In <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code> this would be:</p>
+<li><p>You can still include a specific Qt backend in optional <code class="docutils literal notranslate"><span class="pre">dev</span></code> or <code class="docutils literal notranslate"><span class="pre">testing</span></code>
+dependencies!
+Just <em>don’t</em> include a specific Qt backend (or <code class="docutils literal notranslate"><span class="pre">napari[all]</span></code>, which currently
+includes PyQt6) in your base dependencies.</p></li>
+<li><p>You can include an optional <code class="docutils literal notranslate"><span class="pre">all</span></code> dependency on <code class="docutils literal notranslate"><span class="pre">napari[all]</span></code> to mimic the
+simple,
+command line installation in a fresh environment. In <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code> this
+would be:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">project</span><span class="o">.</span><span class="n">optional</span><span class="o">-</span><span class="n">dependencies</span><span class="p">]</span>
 <span class="nb">all</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"napari[all]"</span><span class="p">]</span>
 </pre></div>
@@ -620,29 +629,31 @@ dependency.</p>
 <section id="don-t-import-from-any-specific-qt-backend-e-g-pyqt5-pyqt6-pyside6-etc-in-your-plugin-use-qtpy">
 <h2>Don’t import from any specific Qt backend (e.g. <code class="docutils literal notranslate"><span class="pre">PyQt5</span></code>, <code class="docutils literal notranslate"><span class="pre">PyQt6</span></code>, <code class="docutils literal notranslate"><span class="pre">PySide6</span></code>, etc.) in your plugin: use <code class="docutils literal notranslate"><span class="pre">qtpy</span></code><a class="headerlink" href="#don-t-import-from-any-specific-qt-backend-e-g-pyqt5-pyqt6-pyside6-etc-in-your-plugin-use-qtpy" title="Link to this heading">#</a></h2>
 <p>If you use <code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">PyQt6</span> <span class="pre">import</span> <span class="pre">QtCore</span></code> (or similar) in your plugin, but the
-end-user has chosen to use <code class="docutils literal notranslate"><span class="pre">PySide6</span></code> or <code class="docutils literal notranslate"><span class="pre">PyQt5</span></code> for their Qt backend — or vice versa —
-then your plugin will fail to import. Instead use <code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">qtpy</span> <span class="pre">import</span> <span class="pre">QtCore</span></code>.
-<code class="docutils literal notranslate"><span class="pre">qtpy</span></code> is a <a class="reference external" href="https://github.com/spyder-ide/qtpy">Qt compatibility layer</a>
-that will import from whatever backend is installed in the environment.</p>
+end-user has chosen to use <code class="docutils literal notranslate"><span class="pre">PySide6</span></code> or <code class="docutils literal notranslate"><span class="pre">PyQt5</span></code> for their Qt backend — or vice
+versa — then your plugin will fail to import. Instead use
+<code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">qtpy</span> <span class="pre">import</span> <span class="pre">QtCore</span></code>. <code class="docutils literal notranslate"><span class="pre">qtpy</span></code> is a
+<a class="reference external" href="https://github.com/spyder-ide/qtpy">Qt compatibility layer</a> that will import
+from whatever backend is installed in the environment.</p>
 </section>
 <section id="try-not-to-depend-on-packages-that-require-c-compilation-if-these-packages-do-not-offer-wheels">
 <h2>Try not to depend on packages that require C compilation if these packages do not offer wheels<a class="headerlink" href="#try-not-to-depend-on-packages-that-require-c-compilation-if-these-packages-do-not-offer-wheels" title="Link to this heading">#</a></h2>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p>This requires some awareness of how your dependencies are built and distributed…</p>
-<p>Some python packages write a portion of their code in lower level languages like
-C or C++ and compile that code into “C Extensions” that can be called by python
-at runtime. This can <em>greatly</em> improve performance, but it means that the
-package must be compiled for <em>each</em> platform (i.e. Windows, Mac, Linux) that the
-package wants to support.  Some packages do this compilation step ahead of time,
-by distributing “<a class="reference external" href="https://realpython.com/python-wheels/">wheels</a>” on
+<p>This requires some awareness of how your dependencies are built and
+distributed…</p>
+<p>Some python packages write a portion of their code in lower level languages
+like C or C++ and compile that code into “C Extensions” that can be called by
+python at runtime. This can <em>greatly</em> improve performance, but it means that
+the package must be compiled for <em>each</em> platform (i.e. Windows, Mac, Linux)
+that the package wants to support. Some packages do this compilation step ahead
+of time, by distributing “<a class="reference external" href="https://realpython.com/python-wheels/">wheels</a>” on
 <a class="reference external" href="https://pypi.org/">PyPI</a>… or by providing pre-compiled packages via <code class="docutils literal notranslate"><span class="pre">conda</span></code>.
 Other packages simply distribute the source code (as an “sdist”) and expect the
-end-user to compile it on their own computer.  Compiling C code requires
+end-user to compile it on their own computer. Compiling C code requires
 software that is not always installed on every computer. (If you’ve ever tried
-to <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">pip</span> <span class="pre">install</span></code> a package and had it fail with a big wall of red text saying
-something about <code class="docutils literal notranslate"><span class="pre">gcc</span></code>, then you’ve run into a package that doesn’t distribute
-wheels, and you didn’t have the software required to compile it).</p>
+to <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">pip</span> <span class="pre">install</span></code> a package and had it fail with a big wall of red
+text saying something about <code class="docutils literal notranslate"><span class="pre">gcc</span></code>, then you’ve run into a package that doesn’t
+distribute wheels, and you didn’t have the software required to compile it).</p>
 </div>
 <p>As a plugin developer, if you depend on a package that uses C extensions but
 doesn’t distribute a pre-compiled wheel, then it’s very likely that your users
@@ -659,39 +670,38 @@ Care?</a></p>
 package on PyPI, and click on the “Download Files” link. If the package
 offers wheels, you’ll see one or more files ending in <code class="docutils literal notranslate"><span class="pre">.whl</span></code>. For example,
 <a class="reference external" href="https://pypi.org/project/napari/#files">napari offers a wheel</a>. If a package
-<em>doesn’t</em> offer a wheel, it may still be ok if it’s just a pure python package
-that doesn’t have any C extensions…</p>
+<em>doesn’t</em> offer a wheel, it may still be ok if it’s just a pure python
+package that doesn’t have any C extensions…</p>
 </li>
 <li><p><em>How do I know if one of my dependencies uses C Extensions?</em></p>
-<p>First, look for the presence of C or C++ in the “Languages” side-bar
-of the repository. Otherwise, there’s no one right way, but more often than not,
-if a package uses C extensions, then their <code class="docutils literal notranslate"><span class="pre">setup.py</span></code> file will use the
-<a class="reference external" href="https://docs.python.org/3.11/distutils/setupscript.html#describing-extension-modules"><code class="docutils literal notranslate"><span class="pre">ext_modules</span></code>
-argument</a>.</p>
+<p>First, look for the presence of C or C++ in the “Languages” side-bar of the
+repository. Otherwise, there’s no one right way, but more often than not, if
+a package uses C extensions, then their <code class="docutils literal notranslate"><span class="pre">setup.py</span></code> file will use the
+<a class="reference external" href="https://docs.python.org/3.11/distutils/setupscript.html#describing-extension-modules"><code class="docutils literal notranslate"><span class="pre">ext_modules</span></code> argument</a>.</p>
 </li>
 </ul>
 <div class="admonition-what-about-conda admonition">
 <p class="admonition-title">What about conda?</p>
 <p><strong>conda</strong> also distributes &amp; installs pre-compiled packages, though they aren’t
-wheels.  We encourage you to make your plugins
-<a class="reference internal" href="../virtual_environment_docs/2-deploying-your-plugin.html#deploying-to-conda-forge"><span class="std std-ref">available on conda-forge</span></a>, which
-is a great way to handle binary dependencies in a reliable way. The built-in
+wheels. We encourage you to make your plugins
+<a class="reference internal" href="../virtual_environment_docs/2-deploying-your-plugin.html#deploying-to-conda-forge"><span class="std std-ref">available on conda-forge</span></a>, which is a great way to
+handle binary dependencies in a reliable way. The built-in
 <a class="reference external" href="https://napari.org/napari-plugin-manager">napari plugin manager</a> currently
-supports installing plugins from both PyPI and conda-forge, with the default matching
-the source of the napari installation.</p>
+supports installing plugins from both PyPI and conda-forge, with the default
+matching the source of the napari installation.</p>
 </div>
 </section>
 <section id="don-t-require-napari-if-not-necessary">
 <span id="best-practice-napari-type"></span><h2>Don’t require <code class="docutils literal notranslate"><span class="pre">napari</span></code> if not necessary<a class="headerlink" href="#don-t-require-napari-if-not-necessary" title="Link to this heading">#</a></h2>
-<p>It’s good practice to not depend on <code class="docutils literal notranslate"><span class="pre">napari</span></code> if not strictly necessary.
-If you only use <code class="docutils literal notranslate"><span class="pre">napari</span></code> for type annotations, we recommend that you use strings
+<p>It’s good practice to not depend on <code class="docutils literal notranslate"><span class="pre">napari</span></code> if not strictly necessary. If you
+only use <code class="docutils literal notranslate"><span class="pre">napari</span></code> for type annotations, we recommend that you use strings
 instead of importing the types. This is called a
 <a class="reference external" href="https://peps.python.org/pep-0484/#forward-references">Forward reference</a>.
 For example, you can see in the
-<a class="reference internal" href="guides.html#widgets-contribution-guide"><span class="std std-ref">widget contribution guide</span></a> that napari type annotations
-are strings and not imported.</p>
-<p>If you’d like to maintain IDE type support and autocompletion, you can
-still do so by hiding the napari imports inside of a <code class="xref py py-attr docutils literal notranslate"><span class="pre">typing.TYPE_CHECKING</span></code>
+<a class="reference internal" href="guides.html#widgets-contribution-guide"><span class="std std-ref">widget contribution guide</span></a> that napari type
+annotations are strings and not imported.</p>
+<p>If you’d like to maintain IDE type support and autocompletion, you can still do
+so by hiding the napari imports inside of a <code class="xref py py-attr docutils literal notranslate"><span class="pre">typing.TYPE_CHECKING</span></code>
 clause:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
 
@@ -718,19 +728,19 @@ state.</p>
 <div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="c1"># my_plugin/module.py</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
 
-<span class="n">data_file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">"some_data_in_my_plugin.json"</span><span class="p">)</span>
+<span class="n">data_file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">'some_data_in_my_plugin.json'</span><span class="p">)</span>
 <span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">data_file</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Instead, make sure to close your resource after grabbing the data (ideally by
 using a context manager, but manually otherwise):</p>
-<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">"some_data_in_my_plugin.json"</span><span class="p">)</span> <span class="k">as</span> <span class="n">data_file</span><span class="p">:</span>
+<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">'some_data_in_my_plugin.json'</span><span class="p">)</span> <span class="k">as</span> <span class="n">data_file</span><span class="p">:</span>
     <span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">data_file</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>
 <section id="write-extensive-tests-for-your-plugin">
-<h2>Write extensive tests for your plugin!<a class="headerlink" href="#write-extensive-tests-for-your-plugin" title="Link to this heading">#</a></h2>
+<h2>Write extensive tests for your plugin<a class="headerlink" href="#write-extensive-tests-for-your-plugin" title="Link to this heading">#</a></h2>
 <p>Programmer and author Bruce Eckel famously wrote:</p>
 <blockquote>
 <div><p>“If it’s not tested, it’s broken”</p>
@@ -753,20 +763,19 @@ up to report test coverage, but you can test locally as well, using
 <li><p>The report will show line-by-line what is being tested, and what is being
 missed. Continue writing tests until everything is covered! If you have
 lines that you <em>know</em> never need to be tested (like debugging code) you can
-<a class="reference external" href="https://coverage.readthedocs.io/en/6.4.4/excluding.html#excluding-code-from-coverage-py">exempt specific
-lines</a>
+<a class="reference external" href="https://coverage.readthedocs.io/en/6.4.4/excluding.html#excluding-code-from-coverage-py">exempt specific lines</a>
 from coverage with the comment <code class="docutils literal notranslate"><span class="pre">#</span> <span class="pre">pragma:</span> <span class="pre">no</span> <span class="pre">cover</span></code></p></li>
-<li><p>In the napari plugin template, coverage tests from github actions will be uploaded to <a class="reference external" href="http://codecov.io">codecov.io</a></p></li>
+<li><p>In the napari plugin template, coverage tests from github actions will be
+uploaded to <a class="reference external" href="http://codecov.io">codecov.io</a></p></li>
 </ol>
 </section>
 </section>
 <section id="set-style-for-additional-windows-in-your-plugin">
 <h2>Set style for additional windows in your plugin<a class="headerlink" href="#set-style-for-additional-windows-in-your-plugin" title="Link to this heading">#</a></h2>
-<p>In napari plugins we strongly advise additional widgets be docked in the main napari viewer,
-but sometimes a separate window is required.
-The best practice is to use <a class="reference external" href="https://doc.qt.io/qt-5/qdialog.html"><code class="docutils literal notranslate"><span class="pre">QDialog</span></code></a>
-based windows with parent set to widget
-already docked in the viewer.</p>
+<p>In napari plugins we strongly advise additional widgets be docked in the main
+napari viewer, but sometimes a separate window is required. The best practice
+is to use <a class="reference external" href="https://doc.qt.io/qt-5/qdialog.html"><code class="docutils literal notranslate"><span class="pre">QDialog</span></code></a> based windows with
+parent set to widget already docked in the viewer.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">qtpy.QtWidgets</span><span class="w"> </span><span class="kn">import</span> <span class="n">QDialog</span><span class="p">,</span> <span class="n">QWidget</span><span class="p">,</span> <span class="n">QSpinBox</span><span class="p">,</span> <span class="n">QPushButton</span><span class="p">,</span> <span class="n">QGridLayout</span><span class="p">,</span> <span class="n">QLabel</span>
 
 
@@ -806,10 +815,11 @@ already docked in the viewer.</p>
 </pre></div>
 </div>
 <p>If there is a particular reason that you need to use a separate window that
-inherits from <code class="docutils literal notranslate"><span class="pre">QWidget</span></code>, not <code class="docutils literal notranslate"><span class="pre">QDialog</span></code>, then you could use the <code class="docutils literal notranslate"><span class="pre">get_current_stylesheet</span></code>
-and <a class="reference internal" href="../../api/napari.qt.html#napari.qt.get_stylesheet" title="napari.qt.get_stylesheet"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_stylesheet</span></code></a> functions from the
-<a class="reference internal" href="../../api/napari.qt.html#module-napari.qt" title="napari.qt"><code class="xref py py-mod docutils literal notranslate"><span class="pre">napari.qt</span></code></a> module.</p>
-<p>Here is a <code class="docutils literal notranslate"><span class="pre">magicgui</span></code> example (but could be easily generalised to native <code class="docutils literal notranslate"><span class="pre">qt</span></code> based widgets):</p>
+inherits from <code class="docutils literal notranslate"><span class="pre">QWidget</span></code>, not <code class="docutils literal notranslate"><span class="pre">QDialog</span></code>, then you could use the
+<code class="docutils literal notranslate"><span class="pre">get_current_stylesheet</span></code> and <a class="reference internal" href="../../api/napari.qt.html#napari.qt.get_stylesheet" title="napari.qt.get_stylesheet"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_stylesheet</span></code></a>
+functions from the <a class="reference internal" href="../../api/napari.qt.html#module-napari.qt" title="napari.qt"><code class="xref py py-mod docutils literal notranslate"><span class="pre">napari.qt</span></code></a> module.</p>
+<p>Here is a <code class="docutils literal notranslate"><span class="pre">magicgui</span></code> example (but could be easily generalised to native <code class="docutils literal notranslate"><span class="pre">qt</span></code>
+based widgets):</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">magicgui</span><span class="w"> </span><span class="kn">import</span> <span class="n">magicgui</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.qt</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_current_stylesheet</span>
@@ -836,7 +846,8 @@ and <a class="reference internal" href="../../api/napari.qt.html#napari.qt.get_s
 </section>
 <section id="do-not-package-your-tests-as-a-top-level-package">
 <h2>Do not package your tests as a top-level package<a class="headerlink" href="#do-not-package-your-tests-as-a-top-level-package" title="Link to this heading">#</a></h2>
-<p>If you are using the <a class="reference external" href="https://github.com/napari/napari-plugin-template">napari plugin template</a>,
+<p>If you are using the
+<a class="reference external" href="https://github.com/napari/napari-plugin-template">napari plugin template</a>,
 your tests are already packaged in the correct way. No further action required!</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># project structure suggested by the napari plugin template</span>
 src/
@@ -862,13 +873,16 @@ pyproject.toml
 README.md
 </pre></div>
 </div>
-<p>Under these circumstances, your build backend (usually <code class="docutils literal notranslate"><span class="pre">setuptools</span></code>) might include <code class="docutils literal notranslate"><span class="pre">tests</span></code> as a
-separate package that will be installed next to <code class="docutils literal notranslate"><span class="pre">my_package</span></code>!
-Most of the time, this is not wanted; e.g. do you want to do <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">tests</span></code>? Probably not!
-Additionally, this unwanted behavior might cause installation issues with other projects.</p>
-<p>Ideally, you could change your project structure to follow the recommended skeleton followed in
-the napari plugin template. Howevever, if that’s unfeasible, you can fix this in the project metadata files.</p>
-<p>You need to explicitly <em>exclude</em> the top-level <code class="docutils literal notranslate"><span class="pre">tests</span></code> directory from the packaged contents:</p>
+<p>Under these circumstances, your build backend (usually <code class="docutils literal notranslate"><span class="pre">setuptools</span></code>) might
+include <code class="docutils literal notranslate"><span class="pre">tests</span></code> as a separate package that will be installed next to
+<code class="docutils literal notranslate"><span class="pre">my_package</span></code>! Most of the time, this is not wanted; e.g. do you want to do
+<code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">tests</span></code>? Probably not! Additionally, this unwanted behavior might cause
+installation issues with other projects.</p>
+<p>Ideally, you could change your project structure to follow the recommended
+skeleton followed in the napari plugin template. Howevever, if that’s
+unfeasible, you can fix this in the project metadata files.</p>
+<p>You need to explicitly <em>exclude</em> the top-level <code class="docutils literal notranslate"><span class="pre">tests</span></code> directory from the
+packaged contents:</p>
 <div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="c1"># pyproject.toml</span>
 <span class="p">...</span>
 <span class="k">[options.packages.find]</span>
@@ -880,32 +894,35 @@ the napari plugin template. Howevever, if that’s unfeasible, you can fix this 
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># setup.py</span>
 <span class="o">...</span>
 <span class="n">setup</span><span class="p">(</span>
-    <span class="o">...</span>
-    <span class="n">packages</span><span class="o">=</span><span class="n">find_packages</span><span class="p">(</span><span class="n">exclude</span><span class="o">=</span><span class="p">(</span><span class="s2">"tests"</span><span class="p">,</span> <span class="s2">"tests.*"</span><span class="p">)),</span>
-    <span class="o">...</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">packages</span><span class="o">=</span><span class="n">find_packages</span><span class="p">(</span><span class="n">exclude</span><span class="o">=</span><span class="p">(</span><span class="s1">'tests'</span><span class="p">,</span> <span class="s1">'tests.*'</span><span class="p">)),</span>
 <span class="p">)</span>
 </pre></div>
 </div>
-<p>Note this also applies to other top-level directories, like <code class="docutils literal notranslate"><span class="pre">test</span></code>, <code class="docutils literal notranslate"><span class="pre">_tests</span></code>, <code class="docutils literal notranslate"><span class="pre">testing</span></code>, etc.</p>
+<p>Note this also applies to other top-level directories, like <code class="docutils literal notranslate"><span class="pre">test</span></code>, <code class="docutils literal notranslate"><span class="pre">_tests</span></code>,
+<code class="docutils literal notranslate"><span class="pre">testing</span></code>, etc.</p>
 <p>You can find more information in the
 <a class="reference external" href="https://setuptools.pypa.io/en/latest/userguide/package_discovery.html">package discovery documentation for <code class="docutils literal notranslate"><span class="pre">setuptools</span></code></a>.</p>
 </section>
 <section id="license-issues-when-including-code-from-3rd-parties">
 <h2>License issues when including code from 3rd parties<a class="headerlink" href="#license-issues-when-including-code-from-3rd-parties" title="Link to this heading">#</a></h2>
-<p>Plugins will often depend on 3rd party packages beyond <code class="docutils literal notranslate"><span class="pre">napari</span></code> itself.
-These dependencies are usually included in the project metadata in <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code>.
-However, sometimes developers might include code from 3rd parties directly in their project.
-Sometimes it will be just a little snippet, maybe slightly modified to suit the project needs.
-Some other times, a whole project will be included entirely (vendoring).</p>
-<p>This constitutes an act of source code redistribution, which is usually covered by many licensing schemes.
-Most of the time, this means you need to explicitly include the vendored project license in the source.
-This is the case for Apache, BSD and MIT-style licenses.
-Do note that some projects might NOT allow redistribution without explicit approval.
-Others will prevent it entirely… Be mindful and check the requirements before distributing your package!</p>
+<p>Plugins will often depend on 3rd party packages beyond <code class="docutils literal notranslate"><span class="pre">napari</span></code> itself. These
+dependencies are usually included in the project metadata in <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code>.
+However, sometimes developers might include code from 3rd parties directly in
+their project. Sometimes it will be just a little snippet, maybe slightly
+modified to suit the project needs. Some other times, a whole project will be
+included entirely (vendoring).</p>
+<p>This constitutes an act of source code redistribution, which is usually covered
+by many licensing schemes. Most of the time, this means you need to explicitly
+include the vendored project license in the source. This is the case for
+Apache, BSD and MIT-style licenses. Do note that some projects might NOT allow
+redistribution without explicit approval. Others will prevent it entirely… Be
+mindful and check the requirements before distributing your package!</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>If you are vendoring other projects, please add an acknowledgement in your README.
-The license details in your project metadata should also include this information!</p>
+<p>If you are vendoring other projects, please add an acknowledgement in your
+README. The license details in your project metadata should also include this
+information!</p>
 </div>
 </section>
 <section id="don-t-import-heavy-dependencies-at-the-top-of-your-module">
@@ -923,25 +940,28 @@ as soon as the user tries to run any of your plugin actions.</p>
 <span class="kn">from</span><span class="w"> </span><span class="nn">qtpy.QtWidgets</span><span class="w"> </span><span class="kn">import</span> <span class="n">QWidget</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">my_heavy_dependency_like_tensorflow</span><span class="w"> </span><span class="kn">import</span> <span class="n">something_amazing</span>
 
+
 <span class="k">class</span><span class="w"> </span><span class="nc">MyWidget</span><span class="p">(</span><span class="n">QWidget</span><span class="p">):</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">do_something_amazing</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">something_amazing</span><span class="p">()</span>
+
 
 <span class="k">class</span><span class="w"> </span><span class="nc">FastWidget</span><span class="p">(</span><span class="n">QWidget</span><span class="p">):</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">do_something_fast</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
 </pre></div>
 </div>
-<p>In this case, only <code class="docutils literal notranslate"><span class="pre">MyWidget</span></code> requires the heavy dependency, but with the import
-at the top-level, <code class="docutils literal notranslate"><span class="pre">FastWidget</span></code> will also be affected by the slow import time of
-<code class="docutils literal notranslate"><span class="pre">my_heavy_dependency_like_tensorflow</span></code>.</p>
-<p>This can deteriorate the end-user experience, and make napari feel sluggish. Best
-practice is to delay heavy imports until right before they are used. The
-following slight modification will help other bits of your plugin,
-like <code class="docutils literal notranslate"><span class="pre">FastWidget</span></code>, load much faster:</p>
+<p>In this case, only <code class="docutils literal notranslate"><span class="pre">MyWidget</span></code> requires the heavy dependency, but with the
+import at the top-level, <code class="docutils literal notranslate"><span class="pre">FastWidget</span></code> will also be affected by the slow import
+time of <code class="docutils literal notranslate"><span class="pre">my_heavy_dependency_like_tensorflow</span></code>.</p>
+<p>This can deteriorate the end-user experience, and make napari feel sluggish.
+Best practice is to delay heavy imports until right before they are used. The
+following slight modification will help other bits of your plugin, like
+<code class="docutils literal notranslate"><span class="pre">FastWidget</span></code>, load much faster:</p>
 <div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="c1"># mypackage/napari_plugin.py</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">qtpy.QtWidgets</span><span class="w"> </span><span class="kn">import</span> <span class="n">QWidget</span>
+
 
 <span class="k">class</span><span class="w"> </span><span class="nc">MyWidget</span><span class="p">(</span><span class="n">QWidget</span><span class="p">):</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">do_something_amazing</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -1002,12 +1022,12 @@ like <code class="docutils literal notranslate"><span class="pre">FastWidget</sp
   </div>
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="pst-show_toc_level nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#don-t-include-napari-all-pyside6-pyqt5-or-pyqt6-in-your-plugin-s-default-dependencies">Don’t include <code class="docutils literal notranslate"><span class="pre">napari[all]</span></code>, <code class="docutils literal notranslate"><span class="pre">PySide6</span></code>, <code class="docutils literal notranslate"><span class="pre">PyQt5</span></code> or <code class="docutils literal notranslate"><span class="pre">PyQt6</span></code> in your plugin’s default dependencies.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#don-t-include-napari-all-pyside6-pyqt5-or-pyqt6-in-your-plugin-s-default-dependencies">Don’t include <code class="docutils literal notranslate"><span class="pre">napari[all]</span></code>, <code class="docutils literal notranslate"><span class="pre">PySide6</span></code>, <code class="docutils literal notranslate"><span class="pre">PyQt5</span></code> or <code class="docutils literal notranslate"><span class="pre">PyQt6</span></code> in your plugin’s default dependencies</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#don-t-import-from-any-specific-qt-backend-e-g-pyqt5-pyqt6-pyside6-etc-in-your-plugin-use-qtpy">Don’t import from any specific Qt backend (e.g. <code class="docutils literal notranslate"><span class="pre">PyQt5</span></code>, <code class="docutils literal notranslate"><span class="pre">PyQt6</span></code>, <code class="docutils literal notranslate"><span class="pre">PySide6</span></code>, etc.) in your plugin: use <code class="docutils literal notranslate"><span class="pre">qtpy</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#try-not-to-depend-on-packages-that-require-c-compilation-if-these-packages-do-not-offer-wheels">Try not to depend on packages that require C compilation if these packages do not offer wheels</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#don-t-require-napari-if-not-necessary">Don’t require <code class="docutils literal notranslate"><span class="pre">napari</span></code> if not necessary</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#don-t-leave-resources-open">Don’t leave resources open</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#write-extensive-tests-for-your-plugin">Write extensive tests for your plugin!</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#write-extensive-tests-for-your-plugin">Write extensive tests for your plugin</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-check-test-coverage">How to check test coverage?</a></li>
 </ul>
 </li>

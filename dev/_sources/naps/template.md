@@ -75,7 +75,8 @@ This section may just be a bullet list including links to any discussions
 regarding the NAP, but could also contain additional comments about that
 discussion:
 
-- This includes links to discussion forum threads or relevant GitHub discussions.
+- This includes links to discussion forum threads or relevant GitHub
+  discussions.
 
 ## References and Footnotes
 
@@ -91,5 +92,5 @@ CC0+BY [^id4].
 ## Copyright
 
 This document is dedicated to the public domain with the Creative Commons CC0
-license [^id3]. Attribution to this source is encouraged where appropriate, as per
-CC0+BY [^id4].
+license [^id3]. Attribution to this source is encouraged where appropriate, as
+per CC0+BY [^id4].

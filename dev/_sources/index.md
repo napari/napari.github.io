@@ -92,6 +92,7 @@ theme:
 
 `````
 
+<!-- rumdl-disable MD013 -->
 `````{grid} 1 2 2 2
 :gutter: 3
 
@@ -111,6 +112,8 @@ Install napari in a Python environment for the most customizable experience.
 A standalone installer for when you want napari without setting up Python first.
 ::::
 `````
+
+<!-- rumdl-enable MD013 -->
 
 ```{raw} html
 <div class="homepage-quicklinks">

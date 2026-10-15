@@ -810,9 +810,7 @@ window.runMermaid = runMermaid;</script>
 <li class="toctree-l2"><a class="reference internal" href="../developers/architecture/dir_organization.html">napari directory organization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../developers/architecture/napari_models.html">napari models and events</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../developers/architecture/app_model.html">napari’s application model</a></li>
-
 <li class="toctree-l2"><a class="reference internal" href="../developers/architecture/magicgui_type_reg.html"><code class="docutils literal notranslate"><span class="pre">magicgui</span></code> type registration</a></li>
-
 <li class="toctree-l2 has-children"><a class="reference internal" href="../developers/architecture/ui_sections/index.html">UI sections</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../developers/architecture/ui_sections/application_menus_ui.html">Application menus</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../developers/architecture/ui_sections/application_status_bar_ui.html">Application status bar</a></li>
@@ -847,7 +845,6 @@ window.runMermaid = runMermaid;</script>
 <li class="toctree-l2"><a class="reference internal" href="8-telemetry.html">NAP-8 — Telemetry</a></li>
 <li class="toctree-l2"><a class="reference internal" href="9-multiple-canvases.html">NAP-9 — Multiple Views</a></li>
 <li class="toctree-l2 current active"><a aria-current="page" class="current reference internal" href="#">NAP-10 — Migration of the event system</a></li>
-
 <li class="toctree-l2"><a class="reference internal" href="template.html">NAP-X — Template and Instructions</a></li>
 </ul>
 </details></li>
@@ -968,43 +965,53 @@ window.runMermaid = runMermaid;</script>
 </dl>
 <section id="purpose">
 <h2>Purpose<a class="headerlink" href="#purpose" title="Link to this heading">#</a></h2>
-<p>Napari currently relies on several mechanisms for propagating information throughout the application,
-including <em>Qt signals</em> and <em>slots</em>, <em>vispy</em> events, <em>napari.utils.events</em>, and <em>psygnal</em>.
-These mechanisms are used interchangeably in different parts of the codebase, despite representing different
-concepts: some notify that state has changed, while others dispatch user interactions before any state change
-has occurred. As a result, application logic becomes coupled to backend-specific APIs and contributors must
-understand multiple communication models.</p>
-<p>A key observation motivating this proposal is that not all communication in napari has the same semantics.
-State-change notifications (<em>signals</em>) and interaction dispatch (<em>events</em> being dispatched, though not in the
-traditional sense of having one targeted receiver) serve different purposes and should not necessarily share
-the same abstraction.<br>
-The goal is therefore not to replace every event with <em>psygnal</em>, but to establish a coherent application dispatch
-model with explicit semantics for signals, events, and the relationship between them. This document proposes an
-initial migration strategy rather than a fixed implementation plan. We expect to refine the design as experience
-is gained during implementation, documenting significant architectural decisions and any deviations from the
-original proposal.</p>
+<p>Napari currently relies on several mechanisms for propagating information
+throughout the application, including <em>Qt signals</em> and <em>slots</em>, <em>vispy</em> events,
+<em>napari.utils.events</em>, and <em>psygnal</em>. These mechanisms are used interchangeably
+in different parts of the codebase, despite representing different concepts:
+some notify that state has changed, while others dispatch user interactions
+before any state change has occurred. As a result, application logic becomes
+coupled to backend-specific APIs and contributors must understand multiple
+communication models.</p>
+<p>A key observation motivating this proposal is that not all communication in
+napari has the same semantics. State-change notifications (<em>signals</em>) and
+interaction dispatch (<em>events</em> being dispatched, though not in the traditional
+sense of having one targeted receiver) serve different purposes and should not
+necessarily share the same abstraction.</p>
+<p>The goal is therefore not to replace
+every event with <em>psygnal</em>, but to establish a coherent application dispatch
+model with explicit semantics for signals, events, and the relationship between
+them. This document proposes an initial migration strategy rather than a fixed
+implementation plan. We expect to refine the design as experience is gained
+during implementation, documenting significant architectural decisions and any
+deviations from the original proposal.</p>
 <p><img alt="image" src="../_images/hang_the_code.png" /></p>
 </section>
 <section id="terminology-and-concepts">
 <h2>Terminology and concepts<a class="headerlink" href="#terminology-and-concepts" title="Link to this heading">#</a></h2>
-<p>Throughout this proposal, the terms <em>event</em> and <em>signal</em> are used in their architectural sense rather than according to
-napari’s current implementation. The distinction is important because one of the goals of this migration is to
-clarify the semantics of communication throughout napari. Much of the confusion in previous discussions
-arose because the word <em>event</em> has been used to describe both user interactions (such as mouse presses) and
-state-change notifications (such as layer properties changing), despite these representing fundamentally
-different concepts.</p>
+<p>Throughout this proposal, the terms <em>event</em> and <em>signal</em> are used in their
+architectural sense rather than according to napari’s current implementation.
+The distinction is important because one of the goals of this migration is to
+clarify the semantics of communication throughout napari. Much of the confusion
+in previous discussions arose because the word <em>event</em> has been used to
+describe both user interactions (such as mouse presses) and state-change
+notifications (such as layer properties changing), despite these representing
+fundamentally different concepts.</p>
 <section id="events-in-qt-terminology">
 <h3><em>Events</em> in <em>Qt</em> terminology<a class="headerlink" href="#events-in-qt-terminology" title="Link to this heading">#</a></h3>
-<p><em>Events</em> in the sense of <em>Qt</em> are objects derived from <code class="docutils literal notranslate"><span class="pre">QEvent</span></code> (or one of its subclasses) that represent something
-that happened either inside an application or as a result of external activity that the application needs to
-respond to.<sup><a class="reference external" href="https://doc.qt.io/qt-6/eventsandfilters.html">1</a></sup>
-An event is delivered to a specific <code class="docutils literal notranslate"><span class="pre">QObject</span></code>, which acts as the intended receiver. Every <code class="docutils literal notranslate"><span class="pre">QObject</span></code> has an
-<code class="docutils literal notranslate"><span class="pre">event()</span></code> method that acts as a dispatcher: it does not normally handle the event itself, but routes it to
-the appropriate event handler such as <code class="docutils literal notranslate"><span class="pre">QObject.mousePressEvent()</span></code>, <code class="docutils literal notranslate"><span class="pre">QObject.keyPressEvent()</span></code>, or
-<code class="docutils literal notranslate"><span class="pre">QObject.paintEvent()</span></code>. An event handler is a method of a <code class="docutils literal notranslate"><span class="pre">QObject</span></code> subclass that contains the code responsible
-for responding to a particular type of event when it is delivered to that object.
-If the handler accepts the event, Qt considers it handled. This means that the event is not propagated further.
-If it is ignored, Qt may attempt to propagate the event to another object, such as a parent widget.</p>
+<p><em>Events</em> in the sense of <em>Qt</em> are objects derived from <code class="docutils literal notranslate"><span class="pre">QEvent</span></code> (or one of its
+subclasses) that represent something that happened either inside an application
+or as a result of external activity that the application needs to respond
+to.<a class="reference external" href="https://doc.qt.io/qt-6/eventsandfilters.html">1</a> An event is delivered to a specific <code class="docutils literal notranslate"><span class="pre">QObject</span></code>, which acts as the
+intended receiver. Every <code class="docutils literal notranslate"><span class="pre">QObject</span></code> has an <code class="docutils literal notranslate"><span class="pre">event()</span></code> method that acts as a
+dispatcher: it does not normally handle the event itself, but routes it to the
+appropriate event handler such as <code class="docutils literal notranslate"><span class="pre">QObject.mousePressEvent()</span></code>,
+<code class="docutils literal notranslate"><span class="pre">QObject.keyPressEvent()</span></code>, or <code class="docutils literal notranslate"><span class="pre">QObject.paintEvent()</span></code>. An event handler is a
+method of a <code class="docutils literal notranslate"><span class="pre">QObject</span></code> subclass that contains the code responsible for
+responding to a particular type of event when it is delivered to that object.
+If the handler accepts the event, Qt considers it handled. This means that the
+event is not propagated further. If it is ignored, Qt may attempt to propagate
+the event to another object, such as a parent widget.</p>
 <pre  class="mermaid">
         flowchart TD
     A[External source&lt;br/&gt;Mouse / Keyboard / Timer / Application] --&gt; B[Create QEvent object]
@@ -1034,8 +1041,7 @@ If it is ignored, Qt may attempt to propagate the event to another object, such 
 
     M --&gt; O[Qt continues event processing]
     N --&gt; O
-    </pre><br>
-A Qt event is therefore a directed message with three important properties:
+    </pre><p>A Qt event is therefore a directed message with three important properties:</p>
 <ol class="arabic simple">
 <li><p>An event has a source</p>
 <ul class="simple">
@@ -1047,7 +1053,8 @@ A Qt event is therefore a directed message with three important properties:
 <li><p>An event has a target</p>
 <ul class="simple">
 <li><p>A specific QObject</p></li>
-<li><p>Usually the widget under the mouse cursor, the widget with keyboard focus, etc.</p></li>
+<li><p>Usually the widget under the mouse cursor, the widget with keyboard
+focus, etc.</p></li>
 </ul>
 </li>
 <li><p>Dispatch chain</p>
@@ -1068,11 +1075,13 @@ A Qt event answers the question: “Something happened. Who should handle it?”
 <h3>Signals (Qt signals and slots)<a class="headerlink" href="#signals-qt-signals-and-slots" title="Link to this heading">#</a></h3>
 <p>Signals and slots are a different mechanism from events.</p>
 <ul class="simple">
-<li><p>A <strong>signal</strong> notification emitted by an object to announce that some observable state has changed.
+<li><p>A <strong>signal</strong> notification emitted by an object to announce that some
+observable state has changed.
 The emitter does not know, or need to know, which components are listening.</p></li>
-<li><p>A <strong>slot</strong> is a function (or method) that is connected to a signal and is executed when that signal is emitted. A
-slot defines the action that should happen in response to a notification. It says “Perform this action when signal
-happened”.<sup><a class="reference external" href="https://doc.qt.io/qt-6/signalsandslots.html">2</a></sup></p></li>
+<li><p>A <strong>slot</strong> is a function (or method) that is connected to a signal and is
+executed when that signal is emitted. A
+slot defines the action that should happen in response to a notification. It
+says “Perform this action when signal happened”.<a class="reference external" href="https://doc.qt.io/qt-6/signalsandslots.html">2</a></p></li>
 </ul>
 <p>The model looks like this:</p>
 <pre  class="mermaid">
@@ -1084,17 +1093,17 @@ happened”.<sup><a class="reference external" href="https://doc.qt.io/qt-6/sign
     C --&gt; D[Connected slot 1&lt;br/&gt;Callback function]
     C --&gt; E[Connected slot 2&lt;br/&gt;Callback function]
     C --&gt; F[Connected slot 3&lt;br/&gt;Callback function]
-    </pre><br>
-<p>Unlike events:</p>
+    </pre><p>Unlike events:</p>
 <ul class="simple">
 <li><p>Signals do not have a single intended receiver.</p></li>
 <li><p>Signals can have zero, one, or many receivers.</p></li>
 <li><p>Signals are connected explicitly by the developer.</p></li>
 <li><p>Signals are not dispatched through <code class="docutils literal notranslate"><span class="pre">QObject.event()</span></code>.</p></li>
 </ul>
-<p>The object emitting the signal does not need to know who is listening or what the listeners will do.</p>
+<p>The object emitting the signal does not need to know who is listening or what
+the listeners will do.</p>
 <p>Now connecting a signal to a slot would look something like this:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">button</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">save_file</span><span class="p">)</span> <span class="c1"># clicked is signal and save_file is the slot</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">button</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">save_file</span><span class="p">)</span>  <span class="c1"># clicked is signal and save_file is the slot</span>
 </pre></div>
 </div>
 <p>Now <code class="docutils literal notranslate"><span class="pre">clicked</span></code> could also have other slots connected:</p>
@@ -1107,8 +1116,7 @@ happened”.<sup><a class="reference external" href="https://doc.qt.io/qt-6/sign
     B --&gt; D[update_status slot]
 
     B --&gt; E[other connected callbacks]
-    </pre><br>
-<p>The button does not know:</p>
+    </pre><p>The button does not know:</p>
 <ul class="simple">
 <li><p>what save_file() does</p></li>
 <li><p>how many listeners exist</p></li>
@@ -1118,9 +1126,9 @@ happened”.<sup><a class="reference external" href="https://doc.qt.io/qt-6/sign
 </section>
 <section id="signal-slots-vs-events">
 <h3><em>Signal</em> / <em>slots</em> vs <em>Events</em><a class="headerlink" href="#signal-slots-vs-events" title="Link to this heading">#</a></h3>
-<p>Although both mechanisms communicate information between components, they serve different purposes.
-<em>Events</em> dispatch interactions to potential handlers, whereas <em>signals</em> notify interested observers that state has
-already changed.</p>
+<p>Although both mechanisms communicate information between components, they serve
+different purposes. <em>Events</em> dispatch interactions to potential handlers,
+whereas <em>signals</em> notify interested observers that state has already changed.</p>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
 <tr class="row-odd"><th class="head"><p></p></th>
@@ -1160,21 +1168,24 @@ already changed.</p>
 </tbody>
 </table>
 </div>
-<p>A dispatch mechanism determines how information flows between components. Both <em>events</em> and <em>signals</em> are
-dispatch mechanisms, but they have different semantics.
-<em>Event</em> dispatch determines which component should respond to an interaction, potentially allowing handlers
-to consume or propagate it. Signal dispatch broadcasts that state has changed to any interested observers.
-The remainder of this proposal uses the term dispatch model to refer to the combination of these mechanisms
-that napari exposes at the application level.</p>
+<p>A dispatch mechanism determines how information flows between components. Both
+<em>events</em> and <em>signals</em> are dispatch mechanisms, but they have different
+semantics. <em>Event</em> dispatch determines which component should respond to an
+interaction, potentially allowing handlers to consume or propagate it. Signal
+dispatch broadcasts that state has changed to any interested observers. The
+remainder of this proposal uses the term dispatch model to refer to the
+combination of these mechanisms that napari exposes at the application level.</p>
 </section>
 <section id="current-terminology-in-napari">
 <h3>Current terminology in napari<a class="headerlink" href="#current-terminology-in-napari" title="Link to this heading">#</a></h3>
-<p>By now it is perhaps already clear that napari is using terminology different from <em>Qt</em> at the moment.
-Most of the objects currently exposed through <em>napari.utils.events</em> are semantically <em>signals</em>, despite
-being called <em>events</em>.<sup><a class="reference external" href="https://napari.org/stable/guides/events_reference.html">3</a></sup> They are emitted after state has changed, support multiple connected callbacks,
-and do not participate in event propagation or acceptance. In other words, they behave much more like
-<em>Qt signals</em> than <em>Qt events</em>.
-The example below showcasing a napari event that behaves like <em>signal</em> -&gt; <em>slot</em> highlights this:</p>
+<p>By now it is perhaps already clear that napari is using terminology different
+from <em>Qt</em> at the moment. Most of the objects currently exposed through
+<em>napari.utils.events</em> are semantically <em>signals</em>, despite being called
+<em>events</em>.<a class="reference external" href="https://napari.org/stable/guides/events_reference.html">3</a> They are emitted after state has changed, support multiple
+connected callbacks, and do not participate in event propagation or acceptance.
+In other words, they behave much more like <em>Qt signals</em> than <em>Qt events</em>. The
+example below showcasing a napari event that behaves like <em>signal</em> -&gt; <em>slot</em>
+highlights this:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">layer</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">callback</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1190,17 +1201,20 @@ The example below showcasing a napari event that behaves like <em>signal</em> -&
     C --&gt;|.connect| E[Plugin reacts]
 
     C --&gt;|.connect| F[Other listeners]
-    </pre><p>So in short, In napari terminology, an “event” is usually a state-change notification, which is much closer
-to a <code class="docutils literal notranslate"><span class="pre">QSignal</span></code> than a <code class="docutils literal notranslate"><span class="pre">QEvent</span></code>.<br>
-Throughout the remainder of this proposal, the term <em>signal</em> refers to state-change notifications, while <em>event</em>
-refers to dispatching interactions that may be handled or propagated. This distinction reflects the intended
-semantics of the proposed architecture rather than the terminology used by the current implementation.</p>
+    </pre><p>So in short, In napari terminology, an “event” is usually a state-change
+notification, which is much closer to a <code class="docutils literal notranslate"><span class="pre">QSignal</span></code> than a <code class="docutils literal notranslate"><span class="pre">QEvent</span></code>.</p>
+<p>Throughout the remainder of this proposal, the term <em>signal</em> refers to
+state-change notifications, while <em>event</em> refers to dispatching interactions
+that may be handled or propagated. This distinction reflects the intended
+semantics of the proposed architecture rather than the terminology used by the
+current implementation.</p>
 </section>
 <section id="situation-in-envisioned-rendering-backend-pygfx">
 <h3>Situation in envisioned rendering backend (<em>pygfx</em>)<a class="headerlink" href="#situation-in-envisioned-rendering-backend-pygfx" title="Link to this heading">#</a></h3>
-<p>For migration, it makes sense to look at how other rendering backends deal with events. From code in
-<em>pygfx</em> it is clear that the way <em>pygfx</em> talks about events is very similar to the way <em>Qt</em> talks about it.
-This is clear from their docstring of the <code class="docutils literal notranslate"><span class="pre">Event</span></code> class<sup><a class="reference external" href="https://docs.pygfx.org/v0.3.0/_autosummary/objects/pygfx.objects.Event.html">4</a></sup>:</p>
+<p>For migration, it makes sense to look at how other rendering backends deal with
+events. From code in <em>pygfx</em> it is clear that the way <em>pygfx</em> talks about
+events is very similar to the way <em>Qt</em> talks about it. This is clear from their
+docstring of the <code class="docutils literal notranslate"><span class="pre">Event</span></code> class<a class="reference external" href="https://docs.pygfx.org/v0.3.0/_autosummary/objects/pygfx.objects.Event.html">4</a>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">Event</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">"""Event base class.</span>
 
@@ -1231,108 +1245,142 @@ This is clear from their docstring of the <code class="docutils literal notransl
 <span class="sd">    """</span>
 </pre></div>
 </div>
-<br>
-<p>Although the details differ slightly (for example, cancelled versus Qt’s accepted state), the overall dispatch
-model is conceptually very similar to Qt’s: events are dispatched to targets, may propagate, and may be consumed
-by handlers.</p>
+<p>Although the details differ slightly (for example, cancelled versus Qt’s
+accepted state), the overall dispatch model is conceptually very similar to
+Qt’s: events are dispatched to targets, may propagate, and may be consumed by
+handlers.</p>
 </section>
 </section>
 <section id="previous-discussions">
 <h2>Previous discussions<a class="headerlink" href="#previous-discussions" title="Link to this heading">#</a></h2>
-<p>The ideas presented in this proposal have been discussed in various forms over several years, motivated
-by different but closely related goals including improved developer ergonomics, stronger static typing,
-backend independence, and simplification of napari’s communication infrastructure. Although these discussions
-often focused on adopting <em>psygnal</em>, they collectively highlight a broader architectural need for a more coherent
-application dispatch model.</p>
-<p>One of the earliest discussions arose from the migration of magicgui to <em>psygnal</em> <a class="reference external" href="https://github.com/napari/napari/issues/3373">#3373</a>. That discussion
-highlighted the usability and maintainability benefits of replacing the dynamic <strong>Event</strong> objects with
-explicit, typed signals. In particular, it noted that the current <em>napari.utils.events</em> API relies heavily on
-dynamically generated event objects and <code class="docutils literal notranslate"><span class="pre">EmitterGroup</span></code>, making it difficult to discover available events,
-reason about callback signatures, provide IDE autocompletion, or perform static type checking. By contrast,
-<em>psygnal</em> provides a <em>Qt</em>-like <em>signals</em> and <em>slots</em> API with explicit signal definitions, improved typing,
-and callback signatures that are immediately visible to users and developers.<br>
-A second discussion, motivated by experiments replacing the <em>vispy</em> canvas with a <em>pygfx</em> backend
-<a class="reference external" href="https://github.com/napari/napari/issues/7373">#7373</a>, identified the event system as a key architectural obstacle to supporting multiple rendering
-backends. At present, many user interactions originate within <em>vispy</em> before being propagated into napari,
-tightly coupling application behavior to a specific rendering backend. The discussion proposed that napari
-should instead own its application-level dispatch model, with rendering backends acting as integration layers
-that translate between backend-native communication mechanisms and napari’s internal abstractions.<br>
-Building on these discussions, <a class="reference external" href="https://github.com/jacopoabramo">&#64;jacopoabramo</a> explored an initial prototype
-migration to <em>psygnal</em> in <a class="reference external" href="https://github.com/napari/napari/pull/8387">#8387</a>, following an earlier discussion
-on Zulip. The prototype was primarily motivated by improving static typing across the codebase. It demonstrated
-that replacing <code class="docutils literal notranslate"><span class="pre">EmitterGroup</span></code> with explicit <code class="docutils literal notranslate"><span class="pre">psygnal.SignalGroup</span></code> definitions could provide significantly stronger
-typing and improve IDE support, although accommodating napari’s inheritance hierarchy required additional typing
-protocols and highlighted several implementation challenges. The prototype also identified opportunities to
-simplify layer initialization, property setters, and event definitions. It was intentionally presented as an
-exploratory implementation rather than a mergeable solution, with the goal of informing future architectural
+<p>The ideas presented in this proposal have been discussed in various forms over
+several years, motivated by different but closely related goals including
+improved developer ergonomics, stronger static typing, backend independence,
+and simplification of napari’s communication infrastructure. Although these
+discussions often focused on adopting <em>psygnal</em>, they collectively highlight a
+broader architectural need for a more coherent application dispatch model.</p>
+<p>One of the earliest discussions arose from the migration of magicgui to
+<em>psygnal</em> <a class="reference external" href="https://github.com/napari/napari/issues/3373">#3373</a>. That
+discussion highlighted the usability and maintainability benefits of replacing
+the dynamic <strong>Event</strong> objects with explicit, typed signals. In particular, it
+noted that the current <em>napari.utils.events</em> API relies heavily on dynamically
+generated event objects and <code class="docutils literal notranslate"><span class="pre">EmitterGroup</span></code>, making it difficult to discover
+available events, reason about callback signatures, provide IDE autocompletion,
+or perform static type checking. By contrast, <em>psygnal</em> provides a <em>Qt</em>-like
+<em>signals</em> and <em>slots</em> API with explicit signal definitions, improved typing,
+and callback signatures that are immediately visible to users and developers.</p>
+<p>A second discussion, motivated by experiments replacing the <em>vispy</em> canvas with
+a <em>pygfx</em> backend <a class="reference external" href="https://github.com/napari/napari/issues/7373">#7373</a>,
+identified the event system as a key architectural obstacle to supporting
+multiple rendering backends. At present, many user interactions originate
+within <em>vispy</em> before being propagated into napari, tightly coupling
+application behavior to a specific rendering backend. The discussion proposed
+that napari should instead own its application-level dispatch model, with
+rendering backends acting as integration layers that translate between
+backend-native communication mechanisms and napari’s internal abstractions.</p>
+<p>Building on these discussions, <a class="reference external" href="https://github.com/jacopoabramo">&#64;jacopoabramo</a>
+explored an initial prototype migration to <em>psygnal</em> in
+<a class="reference external" href="https://github.com/napari/napari/pull/8387">#8387</a>, following an earlier
+discussion on Zulip. The prototype was primarily motivated by improving static
+typing across the codebase. It demonstrated that replacing <code class="docutils literal notranslate"><span class="pre">EmitterGroup</span></code> with
+explicit <code class="docutils literal notranslate"><span class="pre">psygnal.SignalGroup</span></code> definitions could provide significantly stronger
+typing and improve IDE support, although accommodating napari’s inheritance
+hierarchy required additional typing protocols and highlighted several
+implementation challenges. The prototype also identified opportunities to
+simplify layer initialization, property setters, and event definitions. It was
+intentionally presented as an exploratory implementation rather than a
+mergeable solution, with the goal of informing future architectural
 discussions.</p>
-<p>Finally, <a class="reference external" href="https://github.com/napari/napari/pull/8509">#8509</a> demonstrated that <em>psygnal</em>-based models can
-coexist successfully within napari by migrating overlays from napari’s custom <code class="docutils literal notranslate"><span class="pre">EventedModel</span></code> implementation
-to <code class="docutils literal notranslate"><span class="pre">psygnal.EventedModel</span></code>. Although limited in scope, this provided an initial proof of concept that parts
-of napari’s event infrastructure can be migrated incrementally without requiring an immediate, project-wide
-transition.</p>
+<p>Finally, <a class="reference external" href="https://github.com/napari/napari/pull/8509">#8509</a> demonstrated that
+<em>psygnal</em>-based models can coexist successfully within napari by migrating
+overlays from napari’s custom <code class="docutils literal notranslate"><span class="pre">EventedModel</span></code> implementation to
+<code class="docutils literal notranslate"><span class="pre">psygnal.EventedModel</span></code>. Although limited in scope, this provided an initial
+proof of concept that parts of napari’s event infrastructure can be migrated
+incrementally without requiring an immediate, project-wide transition.</p>
 </section>
+<section id="rationale">
+<h2>Rationale<a class="headerlink" href="#rationale" title="Link to this heading">#</a></h2>
+<p>The current communication infrastructure has served napari well, but it has
+become a significant source of architectural complexity. Today, napari uses
+several communication mechanisms simultaneously, including <em>Qt signals</em> and
+<em>slots</em>, <em>vispy</em> events, <em>napari.utils.events</em>, and, in some places, <em>psygnal</em>.
+These mechanisms are present throughout the codebase and represent different
+communication semantics, but there is currently no clear architectural
+distinction between them.</p>
+<p>As a result, contributors must understand multiple APIs with different
+connection patterns, callback signatures, and behaviors, while the napari
+application logic is often coupled directly to backend-specific communication
+mechanisms. A key motivation for this migration is to establish a coherent
+application dispatch model for napari with explicit semantics for different
+types of communication. In particular, napari currently uses the term <em>event</em>
+to describe both state-change notifications and user interactions, despite
+these representing fundamentally different concepts.</p>
+<p>State changes, such as a layer’s opacity changing or a layer being inserted,
+are naturally represented as <em>signals</em>: notifications that something has
+changed and that interested components may react. User interactions, such as
+mouse and keyboard input, are instead <em>events</em>: dispatched interactions that
+may require ordering, handling, propagation, or acceptance before application
+state is modified.</p>
+<p>The goal of this migration is therefore not to replace every event with
+<em>psygnal</em>, but to establish a clear separation between these concepts.
+<em>Psygnal</em> provides the foundation for napari’s internal signaling
+infrastructure, while backend-specific event systems such as those provided by
+<em>Qt</em> and <em>vispy</em> remain encapsulated where they are required. Rather than
+allowing GUI or rendering frameworks to define napari’s application-level
+communication model, napari should own the interfaces between application
+components and treat backend-specific systems as implementation details at the
+boundaries of the architecture.</p>
+<p>Beyond the architectural benefits, the current <em>napari.utils.events</em>
+implementation has several limitations when used for state-change
+notifications. These notifications are represented by dynamically constructed
+<code class="docutils literal notranslate"><span class="pre">Event</span></code> objects whose available attributes are determined at runtime, making
+them difficult to inspect, document, and type. Similarly, <code class="docutils literal notranslate"><span class="pre">EmitterGroups</span></code> are
+created dynamically, limiting IDE autocompletion and static analysis.</p>
+<p>In practice, many of these notifications have simple, well-defined signatures
+(for example, “opacity changed” or “layer inserted”), yet the current
+implementation obscures this information behind a generic event object.
+<em>Psygnal</em> provides a more explicit and familiar signaling model. Signals
+declare the values they emit, callback signatures are directly visible, and
+static type checkers and IDEs can infer the expected interfaces. Many
+contributors are already familiar with the <em>Qt signals</em> and <em>slots</em> model, and
+<em>psygnal</em> provides similar semantics in pure Python while remaining independent
+of any particular GUI framework.</p>
+<p>Finally, establishing a consistent application-level communication model will
+simplify the internal architecture and reduce the maintenance burden of
+supporting multiple overlapping abstractions. It will make communication
+pathways easier to reason about, improve static typing and documentation, and
+provide a clearer foundation for future work such as additional rendering
+backends. While the migration represents a substantial effort, it provides an
+opportunity to modernize one of napari’s core infrastructure components while
+preserving the semantics required by both state notifications and user
+interaction dispatch. Please see below for a more concise display of the
+problems with the current communication model.</p>
 </section>
-<section class="tex2jax_ignore mathjax_ignore" id="rationale">
-<h1>Rationale<a class="headerlink" href="#rationale" title="Link to this heading">#</a></h1>
-<p>The current communication infrastructure has served napari well, but it has become a significant source of
-architectural complexity. Today, napari uses several communication mechanisms simultaneously, including <em>Qt
-signals</em> and <em>slots</em>, <em>vispy</em> events, <em>napari.utils.events</em>, and, in some places, <em>psygnal</em>. These mechanisms
-are present throughout the codebase and represent different communication semantics, but there is currently no
-clear architectural distinction between them.<br>
-As a result, contributors must understand multiple APIs with different connection patterns, callback signatures, and
-behaviors, while the napari application logic is often coupled directly to backend-specific communication mechanisms.
-A key motivation for this migration is to establish a coherent application dispatch model for napari with explicit
-semantics for different types of communication. In particular, napari currently uses the term <em>event</em> to describe
-both state-change notifications and user interactions, despite these representing fundamentally different concepts.<br>
-State changes, such as a layer’s opacity changing or a layer being inserted, are naturally represented as <em>signals</em>:
-notifications that something has changed and that interested components may react. User interactions, such as mouse
-and keyboard input, are instead <em>events</em>: dispatched interactions that may require ordering, handling, propagation,
-or acceptance before application state is modified.<br>
-The goal of this migration is therefore not to replace every event with <em>psygnal</em>, but to establish a clear
-separation between these concepts. <em>Psygnal</em> provides the foundation for napari’s internal signaling infrastructure,
-while backend-specific event systems such as those provided by <em>Qt</em> and <em>vispy</em> remain encapsulated where they are
-required. Rather than allowing GUI or rendering frameworks to define napari’s application-level communication model,
-napari should own the interfaces between application components and treat backend-specific systems as implementation
-details at the boundaries of the architecture.<br>
-Beyond the architectural benefits, the current <em>napari.utils.events</em> implementation has several limitations when used
-for state-change notifications. These notifications are represented by dynamically constructed <code class="docutils literal notranslate"><span class="pre">Event</span></code> objects
-whose available attributes are determined at runtime, making them difficult to inspect, document, and type.
-Similarly, <code class="docutils literal notranslate"><span class="pre">EmitterGroups</span></code> are created dynamically, limiting IDE autocompletion and static analysis.<br>
-In practice, many of these notifications have simple, well-defined signatures (for example, “opacity changed”
-or “layer inserted”), yet the current implementation obscures this information behind a generic event object.
-<em>Psygnal</em> provides a more explicit and familiar signaling model. Signals declare the values they emit, callback
-signatures are directly visible, and static type checkers and IDEs can infer the expected interfaces.
-Many contributors are already familiar with the <em>Qt signals</em> and <em>slots</em> model, and <em>psygnal</em> provides similar
-semantics in pure Python while remaining independent of any particular GUI framework.<br>
-Finally, establishing a consistent application-level communication model will simplify the internal architecture
-and reduce the maintenance burden of supporting multiple overlapping abstractions. It will make communication
-pathways easier to reason about, improve static typing and documentation, and provide a clearer foundation for
-future work such as additional rendering backends.
-While the migration represents a substantial effort, it provides an opportunity to modernize one of napari’s core
-infrastructure components while preserving the semantics required by both state notifications and user
-interaction dispatch.
-Please see below for a more concise display of the problems with the current communication model.</p>
 <section id="the-problem-with-the-current-communication-model">
 <h2>The problem with the current communication model<a class="headerlink" href="#the-problem-with-the-current-communication-model" title="Link to this heading">#</a></h2>
-<p>Napari currently uses several different mechanisms to communicate between components throughout the codebase:</p>
+<p>Napari currently uses several different mechanisms to communicate between
+components throughout the codebase:</p>
 <ul class="simple">
 <li><p>the custom <em>napari.utils.events</em> framework (derived from <em>VisPy</em>)</p></li>
 <li><p><em>Vispy’s</em> event system</p></li>
 <li><p><em>Qt signals</em> and <em>slots</em></p></li>
 <li><p><em>psygnal</em> (currently used by overlays)</p></li>
 </ul>
-<p>These mechanisms are used in different parts of the codebase time and represent different communication semantics.
-As a result, different parts of napari communicate using different abstractions, making the flow of information
-through the application difficult to reason about.<br>
-This has several consequences.</p>
+<p>These mechanisms are used in different parts of the codebase time and represent
+different communication semantics. As a result, different parts of napari
+communicate using different abstractions, making the flow of information
+through the application difficult to reason about.</p>
+<p>This has several consequences.</p>
 <section id="tight-coupling-to-backend-libraries">
 <h3>Tight coupling to backend libraries<a class="headerlink" href="#tight-coupling-to-backend-libraries" title="Link to this heading">#</a></h3>
-<p>Much of napari’s internal communication is coupled directly to <em>Qt</em> or <em>vispy</em> because napari application code
-frequently interacts with their native communication mechanisms. This makes it difficult to separate application
-logic from GUI and rendering concerns and complicates support for alternative backends.<br>
-Ideally, backend-specific communication should remain an implementation detail, with napari exposing a consistent
-application-level dispatch model regardless of which GUI or rendering backend is being used.</p>
+<p>Much of napari’s internal communication is coupled directly to <em>Qt</em> or <em>vispy</em>
+because napari application code frequently interacts with their native
+communication mechanisms. This makes it difficult to separate application logic
+from GUI and rendering concerns and complicates support for alternative
+backends.</p>
+<p>Ideally, backend-specific communication should remain an implementation detail,
+with napari exposing a consistent application-level dispatch model regardless
+of which GUI or rendering backend is being used.</p>
 </section>
 <section id="multiple-programming-models">
 <h3>Multiple programming models<a class="headerlink" href="#multiple-programming-models" title="Link to this heading">#</a></h3>
@@ -1343,14 +1391,16 @@ application-level dispatch model regardless of which GUI or rendering backend is
 <li><p><em>napari.utils.events</em></p></li>
 <li><p><em>psygnal</em></p></li>
 </ul>
-<p>Each has different semantics, callback signatures, connection mechanisms, and lifecycle rules. This increases the
-cognitive load for contributors, makes APIs less consistent, and complicates the development of reusable
-infrastructure.</p>
+<p>Each has different semantics, callback signatures, connection mechanisms, and
+lifecycle rules. This increases the cognitive load for contributors, makes APIs
+less consistent, and complicates the development of reusable infrastructure.</p>
 </section>
 <section id="dynamic-event-definitions">
 <h3>Dynamic event definitions<a class="headerlink" href="#dynamic-event-definitions" title="Link to this heading">#</a></h3>
-<p>Many state-change notifications are represented using dynamically constructed <code class="docutils literal notranslate"><span class="pre">Event</span></code> objects and <code class="docutils literal notranslate"><span class="pre">EmitterGroup</span></code>s.</p>
-<p>The information carried by these events is determined at runtime, making it difficult to:</p>
+<p>Many state-change notifications are represented using dynamically constructed
+<code class="docutils literal notranslate"><span class="pre">Event</span></code> objects and <code class="docutils literal notranslate"><span class="pre">EmitterGroup</span></code>s.</p>
+<p>The information carried by these events is determined at runtime, making it
+difficult to:</p>
 <ul class="simple">
 <li><p>discover available notifications</p></li>
 <li><p>understand callback signatures</p></li>
@@ -1358,56 +1408,64 @@ infrastructure.</p>
 <li><p>perform static type checking</p></li>
 <li><p>generate accurate documentation</p></li>
 </ul>
-<p>Although many notifications have simple, well-defined interfaces (for example, “opacity changed” or “layer inserted”),
-these interfaces are hidden behind generic event objects.</p>
+<p>Although many notifications have simple, well-defined interfaces (for example,
+“opacity changed” or “layer inserted”), these interfaces are hidden behind
+generic event objects.</p>
 </section>
 <section id="threading">
 <h3>Threading<a class="headerlink" href="#threading" title="Link to this heading">#</a></h3>
-<p>Napari already contains components that execute across multiple threads, including computational workloads and
-GUI-related components. Threading behaviour is currently influenced by the communication mechanisms provided by
-backend libraries. For example, <em>Qt</em> imposes thread-affinity requirements for GUI objects, while rendering backends
-have their own communication models.<br>
-Although these constraints cannot be removed, they should remain encapsulated within backend integration layers
-wherever possible. Napari components should not need to understand backend-specific threading behavior simply
-to communicate with one another.<br>
-Furthermore, users / developers would benefit from improved communication of propagating events to the main thread.</p>
+<p>Napari already contains components that execute across multiple threads,
+including computational workloads and GUI-related components. Threading
+behaviour is currently influenced by the communication mechanisms provided by
+backend libraries. For example, <em>Qt</em> imposes thread-affinity requirements for
+GUI objects, while rendering backends have their own communication models.</p>
+<p>Although these constraints cannot be removed, they should remain encapsulated
+within backend integration layers wherever possible. Napari components should
+not need to understand backend-specific threading behavior simply to
+communicate with one another.</p>
+<p>Furthermore, users / developers would benefit from improved communication of
+propagating events to the main thread.</p>
 </section>
 </section>
 <section id="proposed-design-principles">
 <h2>Proposed design principles<a class="headerlink" href="#proposed-design-principles" title="Link to this heading">#</a></h2>
-<p>The following principles are intended to guide the migration. They describe the desired architecture rather than
-prescribing every implementation detail. Where practical considerations require deviations from these principles,
-those decisions should be documented.</p>
+<p>The following principles are intended to guide the migration. They describe the
+desired architecture rather than prescribing every implementation detail. Where
+practical considerations require deviations from these principles, those
+decisions should be documented.</p>
 <section id="one-application-dispatch-model">
 <h3>1. One application dispatch model<a class="headerlink" href="#one-application-dispatch-model" title="Link to this heading">#</a></h3>
-<p>Napari should expose a single, coherent application dispatch model for communication between internal components.
-Backend libraries such as <em>Qt</em> and <em>vispy</em> will continue to use their native communication mechanisms internally,
-but these should remain implementation details encapsulated within napari-owned integration layers.
-Application code should communicate using napari’s dispatch model rather than directly depending on
-backend-specific APIs.</p>
+<p>Napari should expose a single, coherent application dispatch model for
+communication between internal components. Backend libraries such as <em>Qt</em> and
+<em>vispy</em> will continue to use their native communication mechanisms internally,
+but these should remain implementation details encapsulated within napari-owned
+integration layers. Application code should communicate using napari’s dispatch
+model rather than directly depending on backend-specific APIs.</p>
 </section>
 <section id="distinguish-signals-from-events">
 <h3>2. Distinguish signals from events<a class="headerlink" href="#distinguish-signals-from-events" title="Link to this heading">#</a></h3>
-<p>The migration should make a clear architectural distinction between <strong>signals</strong> and <strong>events</strong>.
-<strong>Signals</strong> represent <strong>state-change notifications</strong>. For example:</p>
+<p>The migration should make a clear architectural distinction between <strong>signals</strong>
+and <strong>events</strong>. <strong>Signals</strong> represent <strong>state-change notifications</strong>. For
+example:</p>
 <ul class="simple">
 <li><p>layer opacity changed</p></li>
 <li><p>layer inserted</p></li>
 <li><p>camera zoom changed</p></li>
 </ul>
-<p><strong>Events</strong> represent interactions that are being dispatched before application state changes.
-For example:</p>
+<p><strong>Events</strong> represent interactions that are being dispatched before application
+state changes. For example:</p>
 <ul class="simple">
 <li><p>mouse press</p></li>
 <li><p>mouse drag</p></li>
 <li><p>key press</p></li>
 </ul>
-<p><strong>Signals</strong> and events have different semantics and should not be forced into the same abstraction.</p>
+<p><strong>Signals</strong> and events have different semantics and should not be forced into
+the same abstraction.</p>
 </section>
 <section id="use-explicit-typed-signals">
 <h3>3. Use explicit, typed signals<a class="headerlink" href="#use-explicit-typed-signals" title="Link to this heading">#</a></h3>
-<p>State-change notifications should be represented using explicit <strong>psygnal signals</strong>.
-For example:</p>
+<p>State-change notifications should be represented using explicit
+<strong>psygnal signals</strong>. For example:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">opacity</span> <span class="o">=</span> <span class="n">Signal</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
 <span class="n">layer_inserted</span> <span class="o">=</span> <span class="n">Signal</span><span class="p">(</span><span class="n">Layer</span><span class="p">)</span>
 <span class="n">camera_zoom</span> <span class="o">=</span> <span class="n">Signal</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
@@ -1429,69 +1487,81 @@ For example:</p>
 </section>
 <section id="separate-dispatch-semantics-from-payloads">
 <h3>4. Separate dispatch semantics from payloads<a class="headerlink" href="#separate-dispatch-semantics-from-payloads" title="Link to this heading">#</a></h3>
-<p>The mechanism used to dispatch information should be independent of the objects representing that information.
-Signals should emit typed values or domain objects. <em>Events</em> should carry well-defined payload types describing
-the interaction being dispatched.
-For example, an interaction event might carry a typed <code class="docutils literal notranslate"><span class="pre">MouseEvent</span></code> object containing position, button, modifiers,
-and other interaction-specific information.
-Separating dispatch semantics from payload representation makes communication easier to understand while avoiding
-the limitations of dynamically populated event objects.</p>
+<p>The mechanism used to dispatch information should be independent of the objects
+representing that information. Signals should emit typed values or domain
+objects. <em>Events</em> should carry well-defined payload types describing the
+interaction being dispatched. For example, an interaction event might carry a
+typed <code class="docutils literal notranslate"><span class="pre">MouseEvent</span></code> object containing position, button, modifiers, and other
+interaction-specific information. Separating dispatch semantics from payload
+representation makes communication easier to understand while avoiding the
+limitations of dynamically populated event objects.</p>
 </section>
 <section id="encapsulate-backend-communication">
 <h3>5. Encapsulate backend communication<a class="headerlink" href="#encapsulate-backend-communication" title="Link to this heading">#</a></h3>
-<p><em>Qt</em>, <em>Vispy</em>, and future rendering or GUI backends should continue to use the communication mechanisms that are
-most appropriate for those frameworks. Rather than replacing these mechanisms, napari should encapsulate them within
-backend integration layers.
-This keeps backend-specific communication localized while exposing a consistent application-level API to the rest
-of napari and to plugins.</p>
+<p><em>Qt</em>, <em>Vispy</em>, and future rendering or GUI backends should continue to use the
+communication mechanisms that are most appropriate for those frameworks. Rather
+than replacing these mechanisms, napari should encapsulate them within backend
+integration layers. This keeps backend-specific communication localized while
+exposing a consistent application-level API to the rest of napari and to
+plugins.</p>
 </section>
 <section id="preserve-behaviour-before-improving-apis">
 <h3>6. Preserve behaviour before improving APIs<a class="headerlink" href="#preserve-behaviour-before-improving-apis" title="Link to this heading">#</a></h3>
-<p>The migration should prioritize behavioral compatibility over immediate API redesign.
-Existing semantics—including callback ordering, event propagation, lifecycle behaviour, and plugin
-expectations—should be preserved wherever practical.
-API improvements should be introduced incrementally through well-defined deprecation cycles.</p>
+<p>The migration should prioritize behavioral compatibility over immediate API
+redesign. Existing semantics—including callback ordering, event propagation,
+lifecycle behaviour, and plugin expectations—should be preserved wherever
+practical. API improvements should be introduced incrementally through
+well-defined deprecation cycles.</p>
 </section>
 <section id="make-threading-behaviour-explicit">
 <h3>7. Make threading behaviour explicit<a class="headerlink" href="#make-threading-behaviour-explicit" title="Link to this heading">#</a></h3>
-<p>Backend-specific threading constraints should remain encapsulated wherever possible.
-Where application-level communication crosses thread boundaries, the semantics should be clearly documented.
-This proposal does not attempt to redefine how backend frameworks manage threads, but it should establish clear
-guidance for how signals, events, and backend integrations interact with existing threading models.</p>
+<p>Backend-specific threading constraints should remain encapsulated wherever
+possible. Where application-level communication crosses thread boundaries, the
+semantics should be clearly documented. This proposal does not attempt to
+redefine how backend frameworks manage threads, but it should establish clear
+guidance for how signals, events, and backend integrations interact with
+existing threading models.</p>
 </section>
 <section id="minimise-custom-infrastructure">
 <h3>8. Minimise custom infrastructure<a class="headerlink" href="#minimise-custom-infrastructure" title="Link to this heading">#</a></h3>
-<p>Where appropriate, the migration should favour standard <em>psygnal</em> abstractions over custom napari infrastructure.
-State-change notifications should primarily use <code class="docutils literal notranslate"><span class="pre">Signal</span></code> and <code class="docutils literal notranslate"><span class="pre">SignalGroup</span></code>, avoiding additional napari-specific
-abstractions unless they provide clear architectural benefits.
-Interaction events may require richer dispatch semantics than <em>psygnal</em> alone provides, but these should be
-implemented using the smallest amount of custom infrastructure necessary.</p>
+<p>Where appropriate, the migration should favour standard <em>psygnal</em> abstractions
+over custom napari infrastructure. State-change notifications should primarily
+use <code class="docutils literal notranslate"><span class="pre">Signal</span></code> and <code class="docutils literal notranslate"><span class="pre">SignalGroup</span></code>, avoiding additional napari-specific
+abstractions unless they provide clear architectural benefits. Interaction
+events may require richer dispatch semantics than <em>psygnal</em> alone provides, but
+these should be implemented using the smallest amount of custom infrastructure
+necessary.</p>
 </section>
 <section id="design-for-long-term-maintainability">
 <h3>9. Design for long-term maintainability<a class="headerlink" href="#design-for-long-term-maintainability" title="Link to this heading">#</a></h3>
-<p>The communication infrastructure is fundamental to napari’s architecture and plugin ecosystem.
-The migration should favour simple, explicit, and well-documented abstractions that can evolve over time without
-requiring repeated ecosystem-wide API changes.
-A successful design should make it easier to support future rendering backends, improve tooling and documentation,
-and reduce the long-term maintenance burden of the communication infrastructure.</p>
+<p>The communication infrastructure is fundamental to napari’s architecture and
+plugin ecosystem. The migration should favour simple, explicit, and
+well-documented abstractions that can evolve over time without requiring
+repeated ecosystem-wide API changes. A successful design should make it easier
+to support future rendering backends, improve tooling and documentation, and
+reduce the long-term maintenance burden of the communication infrastructure.</p>
 </section>
 </section>
 <section id="proposed-architecture">
 <h2>Proposed architecture<a class="headerlink" href="#proposed-architecture" title="Link to this heading">#</a></h2>
-<p>The proposed architecture establishes a single application communication model for napari while recognizing that
-different kinds of communication have different semantics. State-change notifications should be represented
-using <em>psygnal</em> signals, while interaction events (such as mouse and keyboard input) should continue to be
-treated as events with richer dispatch semantics. Rather than attempting to replace every communication mechanism
-with <em>psygnal</em>, the goal is to ensure that napari owns the application-level interfaces through which signals and
-events flow.<br>
-Backend libraries, including <em>Qt</em>, <em>Vispy</em>, and future rendering or GUI frameworks, will continue to use their
-native communication mechanisms internally. Backend-specific communication should remain encapsulated within
-backend integration layers maintained by napari. These integration layers expose stable napari interfaces
-without leaking backend implementation details into the rest of the application.
-Application components—including models, viewer state, controllers, plugins, and backend integrations—should
-therefore communicate through explicit napari-owned signals and events rather than directly depending on
-backend-specific APIs.
-Conceptually, the architecture becomes:</p>
+<p>The proposed architecture establishes a single application communication model
+for napari while recognizing that different kinds of communication have
+different semantics. State-change notifications should be represented using
+<em>psygnal</em> signals, while interaction events (such as mouse and keyboard input)
+should continue to be treated as events with richer dispatch semantics. Rather
+than attempting to replace every communication mechanism with <em>psygnal</em>, the
+goal is to ensure that napari owns the application-level interfaces through
+which signals and events flow.</p>
+<p>Backend libraries, including <em>Qt</em>, <em>Vispy</em>, and future rendering or GUI
+frameworks, will continue to use their native communication mechanisms
+internally. Backend-specific communication should remain encapsulated within
+backend integration layers maintained by napari. These integration layers
+expose stable napari interfaces without leaking backend implementation details
+into the rest of the application. Application components—including models,
+viewer state, controllers, plugins, and backend integrations—should therefore
+communicate through explicit napari-owned signals and events rather than
+directly depending on backend-specific APIs. Conceptually, the architecture
+becomes:</p>
 <pre  class="mermaid">
         flowchart TB
 
@@ -1545,44 +1615,56 @@ Conceptually, the architecture becomes:</p>
     Controllers --&gt; Renderer
     </pre><p>Under this architecture:</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">psygnal.Signal</span></code> and <code class="docutils literal notranslate"><span class="pre">SignalGroup</span></code> become the primary mechanism for state-change notifications.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">psygnal.Signal</span></code> and <code class="docutils literal notranslate"><span class="pre">SignalGroup</span></code> become the primary mechanism for
+state-change notifications.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">EmitterGroup</span></code> is gradually replaced by explicit <code class="docutils literal notranslate"><span class="pre">SignalGroup</span></code> definitions.</p></li>
-<li><p>State changes emit typed values directly (for example, <code class="docutils literal notranslate"><span class="pre">Signal(float)</span></code> for opacity changes).</p></li>
-<li><p>Rich interaction events (for example mouse and keyboard input) remain event objects with well-defined
+<li><p>State changes emit typed values directly (for example, <code class="docutils literal notranslate"><span class="pre">Signal(float)</span></code> for
+opacity changes).</p></li>
+<li><p>Rich interaction events (for example mouse and keyboard input) remain event
+objects with well-defined
 semantics, including propagation and acceptance where appropriate.</p></li>
-<li><p>Backend integrations remain responsible for translating between backend-specific communication mechanisms
+<li><p>Backend integrations remain responsible for translating between
+backend-specific communication mechanisms
 and napari’s application interfaces.</p></li>
-<li><p><em>Qt</em> communication remains <em>Qt</em> communication where appropriate, and similarly for <em>vispy</em> and future rendering
-backends, avoiding unnecessary translation for high-frequency internal operations.</p></li>
+<li><p><em>Qt</em> communication remains <em>Qt</em> communication where appropriate, and
+similarly for <em>vispy</em> and future rendering
+backends, avoiding unnecessary translation for high-frequency internal
+operations.</p></li>
 </ul>
-<p>This architecture separates application behavior from backend implementation details while recognizing that backend
-frameworks will continue to manage their own communication internally. Supporting a new rendering or GUI backend
-therefore becomes primarily a matter of implementing a new backend integration layer rather than introducing
-another communication model throughout the application.</p>
+<p>This architecture separates application behavior from backend implementation
+details while recognizing that backend frameworks will continue to manage their
+own communication internally. Supporting a new rendering or GUI backend
+therefore becomes primarily a matter of implementing a new backend integration
+layer rather than introducing another communication model throughout the
+application.</p>
 </section>
 <section id="migration-strategy">
 <h2>Migration strategy<a class="headerlink" href="#migration-strategy" title="Link to this heading">#</a></h2>
-<p>The migration should be incremental, allowing the communication model to evolve while maintaining behavioral
-compatibility wherever practical. Replacing the existing infrastructure in a single step would introduce a large,
-difficult-to-review change with a high risk of regressions across models, rendering, GUI components, and plugins.
-Instead, the migration should proceed in small, independently reviewable stages, with compatibility maintained
-throughout the transition.<br>
-Where possible, new APIs should be introduced before legacy APIs are deprecated, allowing contributors and
-plugin authors to migrate gradually.</p>
+<p>The migration should be incremental, allowing the communication model to evolve
+while maintaining behavioral compatibility wherever practical. Replacing the
+existing infrastructure in a single step would introduce a large,
+difficult-to-review change with a high risk of regressions across models,
+rendering, GUI components, and plugins. Instead, the migration should proceed
+in small, independently reviewable stages, with compatibility maintained
+throughout the transition.</p>
+<p>Where possible, new APIs should be introduced before legacy APIs are
+deprecated, allowing contributors and plugin authors to migrate gradually.</p>
 <section id="backward-compatibility">
 <h3>Backward compatibility<a class="headerlink" href="#backward-compatibility" title="Link to this heading">#</a></h3>
-<p>A compatibility layer should be introduced before significant internal migration begins.
-The compatibility layer should allow the existing <em>napari.utils.events</em> API to coexist with the new signaling
-infrastructure. Possible mechanisms include:</p>
+<p>A compatibility layer should be introduced before significant internal
+migration begins. The compatibility layer should allow the existing
+<em>napari.utils.events</em> API to coexist with the new signaling infrastructure.
+Possible mechanisms include:</p>
 <ul class="simple">
 <li><p>re-emitting <em>psygnal</em> signals through existing <code class="docutils literal notranslate"><span class="pre">EmitterGroup</span></code> interfaces</p></li>
 <li><p>temporarily supporting both callback styles</p></li>
 <li><p>wrapping legacy <code class="docutils literal notranslate"><span class="pre">Event</span></code> objects where necessary</p></li>
 <li><p>emitting deprecation warnings for legacy APIs</p></li>
 </ul>
-<p>The exact implementation remains an open design question and should be informed by experience from earlier
-migrations, including the overlays migration.
-The compatibility layer is intended only as migration infrastructure and should eventually be removed.</p>
+<p>The exact implementation remains an open design question and should be informed
+by experience from earlier migrations, including the overlays migration. The
+compatibility layer is intended only as migration infrastructure and should
+eventually be removed.</p>
 </section>
 <section id="proposed-migration-phases">
 <h3>Proposed migration phases<a class="headerlink" href="#proposed-migration-phases" title="Link to this heading">#</a></h3>
@@ -1597,8 +1679,8 @@ The compatibility layer is intended only as migration infrastructure and should 
 <li><p>migration utilities</p></li>
 <li><p>any additional functionality required from <em>psygnal</em></p></li>
 </ul>
-<p>The success criterion for this phase is that new components can adopt the new communication model without
-breaking existing code.</p>
+<p>The success criterion for this phase is that new components can adopt the new
+communication model without breaking existing code.</p>
 </section>
 <section id="internal-state-models">
 <h4>2 Internal state models<a class="headerlink" href="#internal-state-models" title="Link to this heading">#</a></h4>
@@ -1613,9 +1695,10 @@ Likely candidates include:</p>
 <li><p>other internal state models</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">Layer</span></code> after planned refactor</p></li>
 </ul>
-<p>These components are relatively self-contained and primarily emit state-change notifications, making them good
-early candidates for migration.
-Where appropriate, <code class="docutils literal notranslate"><span class="pre">psygnal.EventedModel</span></code> should replace napari’s custom implementation.</p>
+<p>These components are relatively self-contained and primarily emit state-change
+notifications, making them good early candidates for migration. Where
+appropriate, <code class="docutils literal notranslate"><span class="pre">psygnal.EventedModel</span></code> should replace napari’s custom
+implementation.</p>
 </section>
 <section id="state-change-consumers">
 <h4>3 State change consumers<a class="headerlink" href="#state-change-consumers" title="Link to this heading">#</a></h4>
@@ -1629,25 +1712,30 @@ This includes:</p>
 <li><p><em>Qt</em> widgets</p></li>
 <li><p>plugin-facing APIs</p></li>
 </ul>
-<p>At this stage, the majority of application state changes should be communicated through explicit typed signals.</p>
+<p>At this stage, the majority of application state changes should be communicated
+through explicit typed signals.</p>
 <p>*With regards to what is meant with controllers here, controller should:</p>
 <ul class="simple">
-<li><p>listen to events of rendering backend and GUI frontend and tell the napari models what changed.</p></li>
-<li><p>based on changes to the napari models tell the rendering backend / GUI frontend what to draw / update.
-In this respect something like the <code class="docutils literal notranslate"><span class="pre">LayerControls</span></code> can be seen as a controller and also everything that inherits
-the VispyBaseLayer as it translates between napari models and vispy.</p></li>
+<li><p>listen to events of rendering backend and GUI frontend and tell the napari
+models what changed.</p></li>
+<li><p>based on changes to the napari models tell the rendering backend / GUI
+frontend what to draw / update.
+In this respect something like the <code class="docutils literal notranslate"><span class="pre">LayerControls</span></code> can be seen as a controller
+and also everything that inherits the VispyBaseLayer as it translates between
+napari models and vispy.</p></li>
 </ul>
 </section>
 <section id="backend-integration">
 <h4>4 Backend integration<a class="headerlink" href="#backend-integration" title="Link to this heading">#</a></h4>
-<p>Review communication at the boundaries between napari and backend frameworks. Rather than replacing <em>Qt</em> or <em>vispy</em>
-communication internally, this phase focuses on ensuring that backend-specific communication remains encapsulated
-within well-defined integration layers.
-Particular attention should be paid to high-frequency interaction events, such as mouse movement and dragging,
-where unnecessary abstraction could introduce measurable overhead. Any proposed changes should therefore be
-benchmarked before adoption.
-Exactly how interaction events should be represented remains an open design question and should be informed
-by experimentation.</p>
+<p>Review communication at the boundaries between napari and backend frameworks.
+Rather than replacing <em>Qt</em> or <em>vispy</em> communication internally, this phase
+focuses on ensuring that backend-specific communication remains encapsulated
+within well-defined integration layers. Particular attention should be paid to
+high-frequency interaction events, such as mouse movement and dragging, where
+unnecessary abstraction could introduce measurable overhead. Any proposed
+changes should therefore be benchmarked before adoption. Exactly how
+interaction events should be represented remains an open design question and
+should be informed by experimentation.</p>
 </section>
 <section id="deprecation-and-cleanup">
 <h4>5 Deprecation and cleanup<a class="headerlink" href="#deprecation-and-cleanup" title="Link to this heading">#</a></h4>
@@ -1658,8 +1746,8 @@ by experimentation.</p>
 <li><p>deprecate legacy APIs</p></li>
 <li><p>remove obsolete compatibility infrastructure</p></li>
 </ul>
-<p>The length of the deprecation period should depend on the complexity of the compatibility layer and the impact
-on plugins.</p>
+<p>The length of the deprecation period should depend on the complexity of the
+compatibility layer and the impact on plugins.</p>
 </section>
 </section>
 </section>
@@ -1671,28 +1759,37 @@ on plugins.</p>
 <li><p>the final compatibility strategy between <code class="docutils literal notranslate"><span class="pre">EmitterGroup</span></code> and <code class="docutils literal notranslate"><span class="pre">SignalGroup</span></code></p></li>
 <li><p>the appropriate representation of interaction events</p></li>
 <li><p>the semantics of event propagation and event acceptance</p></li>
-<li><p>whether rich interaction events should use existing backend event objects or napari-defined event types</p></li>
+<li><p>whether rich interaction events should use existing backend event objects or
+napari-defined event types</p></li>
 <li><p>how backend integration layers should be structured</p></li>
 <li><p>performance characteristics of high-frequency event dispatch</p></li>
 <li><p>whether additional functionality is required from <em>psygnal</em></p></li>
 </ul>
-<p>These questions should be resolved incrementally as experience is gained during the migration.</p>
+<p>These questions should be resolved incrementally as experience is gained during
+the migration.</p>
 </section>
 <section id="success-criteria">
 <h2>Success criteria<a class="headerlink" href="#success-criteria" title="Link to this heading">#</a></h2>
 <p>The migration will be considered successful when:</p>
 <ul class="simple">
-<li><p>napari exposes a single, coherent application communication model with clearly defined semantics for both
+<li><p>napari exposes a single, coherent application communication model with
+clearly defined semantics for both
 signals and events</p></li>
 <li><p>state-change notifications use explicit, typed <em>psygnal</em> signals</p></li>
-<li><p>interaction events have well-defined dispatch semantics independent of individual backend implementations</p></li>
-<li><p>backend-specific communication remains encapsulated within napari-owned integration layers</p></li>
-<li><p>Napari application logic no longer depends directly on backend communication APIs</p></li>
-<li><p>event and signal interfaces are explicit, discoverable, and statically analysable</p></li>
+<li><p>interaction events have well-defined dispatch semantics independent of
+individual backend implementations</p></li>
+<li><p>backend-specific communication remains encapsulated within napari-owned
+integration layers</p></li>
+<li><p>Napari application logic no longer depends directly on backend communication
+APIs</p></li>
+<li><p>event and signal interfaces are explicit, discoverable, and statically
+analysable</p></li>
 <li><p>plugin authors have a documented migration path</p></li>
-<li><p>the legacy <em>napari.utils.events</em> infrastructure is fully replaced through incremental changes.</p></li>
+<li><p>the legacy <em>napari.utils.events</em> infrastructure is fully replaced through
+incremental changes.</p></li>
 <li><p>threading expectations and backend responsibilities are clearly documented</p></li>
-<li><p>adding a new rendering or GUI backend does not require introducing another application communication model.</p></li>
+<li><p>adding a new rendering or GUI backend does not require introducing another
+application communication model.</p></li>
 </ul>
 </section>
 <section id="references-and-footnotes">
@@ -1704,14 +1801,15 @@ CC0+BY <a class="footnote-reference brackets" href="#id4" id="id2" role="doc-not
 <section id="changelog">
 <h2>Changelog<a class="headerlink" href="#changelog" title="Link to this heading">#</a></h2>
 <ol class="arabic simple">
-<li><p><a class="reference external" href="https://github.com/napari/docs/pull/1086">#1086</a> Introduces initial version of the document</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/docs/pull/1086">#1086</a> Introduces initial version
+of the document</p></li>
 </ol>
 </section>
 <section id="copyright">
 <h2>Copyright<a class="headerlink" href="#copyright" title="Link to this heading">#</a></h2>
 <p>This document is dedicated to the public domain with the Creative Commons CC0
-license <a class="footnote-reference brackets" href="#id3" id="id5" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>. Attribution to this source is encouraged where appropriate, as per
-CC0+BY <a class="footnote-reference brackets" href="#id4" id="id6" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>.</p>
+license <a class="footnote-reference brackets" href="#id3" id="id5" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>. Attribution to this source is encouraged where appropriate, as
+per CC0+BY <a class="footnote-reference brackets" href="#id4" id="id6" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>.</p>
 </section>
 </section>
 <aside class="footnote-list brackets">
@@ -1775,7 +1873,6 @@ CC0+BY <a class="footnote-reference brackets" href="#id4" id="id6" role="doc-not
   </div>
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="pst-show_toc_level nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">NAP-10 — Migration of the event system</a><ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#purpose">Purpose</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#terminology-and-concepts">Terminology and concepts</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#events-in-qt-terminology"><em>Events</em> in <em>Qt</em> terminology</a></li>
@@ -1786,9 +1883,7 @@ CC0+BY <a class="footnote-reference brackets" href="#id4" id="id6" role="doc-not
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#previous-discussions">Previous discussions</a></li>
-</ul>
-</li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#rationale">Rationale</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rationale">Rationale</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-problem-with-the-current-communication-model">The problem with the current communication model</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tight-coupling-to-backend-libraries">Tight coupling to backend libraries</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#multiple-programming-models">Multiple programming models</a></li>
@@ -1827,9 +1922,6 @@ CC0+BY <a class="footnote-reference brackets" href="#id4" id="id6" role="doc-not
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#changelog">Changelog</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#copyright">Copyright</a></li>
 </ul>
-</li>
-</ul>
-
   </nav></div>
 
   <div class="sidebar-secondary-item">

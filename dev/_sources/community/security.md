@@ -32,8 +32,8 @@ Owners should meet the following criteria:
 
 ### Authentication and review
 
-Request to become an owner are made via the private `#auth-security` Zulip channel
-and are reviewed by the current owners and the Steering Council.
+Request to become an owner are made via the private `#auth-security` Zulip
+channel and are reviewed by the current owners and the Steering Council.
 
 Ownership designations are reviewed annually, typically at the same time
 as the [core team reaffirmation](napari-governance) process (reviewed every
@@ -53,9 +53,9 @@ for requesting and granting temporary owner access.
 
 ### How to request
 
-Requests for temporary owner access or other elevated permissions should be made
-in the private `#auth-security` channel on the [napari Zulip](https://napari.zulipchat.com).
-Requests should include:
+Requests for temporary owner access or other elevated permissions should be
+made in the private `#auth-security` channel on the
+[napari Zulip](https://napari.zulipchat.com). Requests should include:
 
 - **Who** is requesting the access.
 - **Why** the access is needed (what task requires elevated permissions).

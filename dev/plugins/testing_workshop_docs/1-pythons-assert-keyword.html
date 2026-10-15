@@ -12,10 +12,10 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://napari.org/stable/plugins/testing_workshop_docs/1-pythons-assert-keyword.html" />
 <meta property="og:site_name" content="napari" />
-<meta property="og:description" content="This tutorial defines the assert keyword in Python and shows how it can be used to write test cases for a simple function. Other lessons in this tutorial:: 1: This lesson (Python’s assert keyword), 2: Pytest testing framework, 3: Readers and fixtures, 4: Test coverage, Resource links: Testing res..." />
+<meta property="og:description" content="This tutorial defines the assert keyword in Python and shows how it can be used to write test cases for a simple function. Other lessons in this tutorial: 1: This lesson (Python’s assert keyword), 2: Pytest testing framework, 3: Readers and fixtures, 4: Test coverage, Resource links: Testing reso..." />
 <meta property="og:image" content="https://napari.org/dev/_static/opengraph_image.png" />
 <meta property="og:image:alt" content="3D segmented tribolium embryo in the napari viewer" />
-<meta name="description" content="This tutorial defines the assert keyword in Python and shows how it can be used to write test cases for a simple function. Other lessons in this tutorial:: 1: This lesson (Python’s assert keyword), 2: Pytest testing framework, 3: Readers and fixtures, 4: Test coverage, Resource links: Testing res..." />
+<meta name="description" content="This tutorial defines the assert keyword in Python and shows how it can be used to write test cases for a simple function. Other lessons in this tutorial: 1: This lesson (Python’s assert keyword), 2: Pytest testing framework, 3: Readers and fixtures, 4: Test coverage, Resource links: Testing reso..." />
 <meta name="twitter:card" content="summary_large_image" />
 
     <title>1: Python’s assert keyword &#8212; napari</title>
@@ -568,9 +568,10 @@
                   
   <section class="tex2jax_ignore mathjax_ignore" id="python-s-assert-keyword">
 <span id="plugin-testing-workshop-assert"></span><h1>1: Python’s assert keyword<a class="headerlink" href="#python-s-assert-keyword" title="Link to this heading">#</a></h1>
-<p>This tutorial defines the assert keyword in Python and shows how it can be used to write test cases for a simple function.</p>
+<p>This tutorial defines the assert keyword in Python and shows how it can be used
+to write test cases for a simple function.</p>
 <section id="other-lessons-in-this-tutorial">
-<h2>Other lessons in this tutorial:<a class="headerlink" href="#other-lessons-in-this-tutorial" title="Link to this heading">#</a></h2>
+<h2>Other lessons in this tutorial<a class="headerlink" href="#other-lessons-in-this-tutorial" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p>1: This lesson (Python’s assert keyword)</p></li>
 <li><p>2: <a class="reference internal" href="2-pytest-testing-frameworks.html#plugin-testing-workshop-pytest"><span class="std std-ref">Pytest testing framework</span></a></p></li>
@@ -579,24 +580,32 @@
 <li><p>Resource links: <a class="reference internal" href="testing-resources.html#plugin-testing-resources"><span class="std std-ref">Testing resources</span></a></p></li>
 </ul>
 <section id="this-lesson-covers">
-<h3>This lesson covers:<a class="headerlink" href="#this-lesson-covers" title="Link to this heading">#</a></h3>
+<h3>This lesson covers<a class="headerlink" href="#this-lesson-covers" title="Link to this heading">#</a></h3>
 <p><a class="reference internal" href="#assert-keyword">Assert keyword</a>
 <a class="reference internal" href="#test-for-the-pass-case">Test for Pass</a>
 <a class="reference internal" href="#test-for-the-fail-case">Test for Fail</a></p>
 </section>
 <section id="resources">
 <h3>Resources<a class="headerlink" href="#resources" title="Link to this heading">#</a></h3>
-<p>The example plugin and all the tests discussed in this lesson are available in <a class="reference external" href="https://github.com/DragaDoncila/plugin-tests">this GitHub repository</a>.</p>
+<p>The example plugin and all the tests discussed in this lesson are available in
+<a class="reference external" href="https://github.com/DragaDoncila/plugin-tests">this GitHub repository</a>.</p>
 </section>
 </section>
 <section id="assert-keyword">
 <h2>Assert keyword<a class="headerlink" href="#assert-keyword" title="Link to this heading">#</a></h2>
-<p>The key to testing in Python is the <a class="reference external" href="https://realpython.com/python-assert-statement/">assert</a> keyword. We <em>assert</em> a Boolean expression is true and create an error message that appears when that expression is false.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="o">&lt;</span><span class="n">Boolean</span> <span class="n">expression</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">&lt;</span><span class="n">error</span> <span class="n">message</span><span class="o">&gt;</span>
+<p>The key to testing in Python is the
+<a class="reference external" href="https://realpython.com/python-assert-statement/">assert</a> keyword. We <em>assert</em>
+a Boolean expression is true and create an error message that appears when that
+expression is false.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="n">condition</span><span class="p">,</span> <span class="s1">'error message'</span>
 </pre></div>
 </div>
-<p>If it is true, code execution continues as though the assert statement doesn’t exist. If the Boolean expression is false, an <code class="docutils literal notranslate"><span class="pre">AssertionError</span></code> is thrown, an exception raised, and the error message displayed.</p>
-<p>Here is a simple function, <code class="docutils literal notranslate"><span class="pre">get_grade_from_mark</span></code>. It takes a mark (score) from zero to 100. If the mark (score) is more than 50, the grade is <code class="docutils literal notranslate"><span class="pre">Pass</span></code>; if it’s less than 50, the grade is <code class="docutils literal notranslate"><span class="pre">Fail</span></code>.</p>
+<p>If it is true, code execution continues as though the assert statement doesn’t
+exist. If the Boolean expression is false, an <code class="docutils literal notranslate"><span class="pre">AssertionError</span></code> is thrown, an
+exception raised, and the error message displayed.</p>
+<p>Here is a simple function, <code class="docutils literal notranslate"><span class="pre">get_grade_from_mark</span></code>. It takes a mark (score) from
+zero to 100. If the mark (score) is more than 50, the grade is <code class="docutils literal notranslate"><span class="pre">Pass</span></code>; if it’s
+less than 50, the grade is <code class="docutils literal notranslate"><span class="pre">Fail</span></code>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">get_grade_from_mark</span><span class="p">(</span><span class="n">mark</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">mark</span> <span class="o">&gt;</span> <span class="mi">50</span><span class="p">:</span>
         <span class="k">return</span> <span class="s1">'Pass'</span>
@@ -604,33 +613,42 @@
         <span class="k">return</span> <span class="s1">'Fail'</span>
 </pre></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">get_grade_from_mark</span></code> can be tested by writing two test functions. The first one is for when the mark is &gt; 50.</p>
+<p><code class="docutils literal notranslate"><span class="pre">get_grade_from_mark</span></code> can be tested by writing two test functions. The first
+one is for when the mark is &gt; 50.</p>
 </section>
 <section id="test-for-the-pass-case">
 <h2>Test for the Pass case<a class="headerlink" href="#test-for-the-pass-case" title="Link to this heading">#</a></h2>
-<p>When the mark is &gt; 50, call <code class="docutils literal notranslate"><span class="pre">get_grade_from_mark</span></code> and assert that the grade is what we expect (either <code class="docutils literal notranslate"><span class="pre">Pass</span></code> or <code class="docutils literal notranslate"><span class="pre">Fail</span></code>). When testing the passing case, test that the grade is <code class="docutils literal notranslate"><span class="pre">Pass</span></code>. If it’s not <code class="docutils literal notranslate"><span class="pre">Pass</span></code>, the best practice is to write a helpful error message like, <code class="docutils literal notranslate"><span class="pre">&quot;Expected</span> <span class="pre">{mark}</span> <span class="pre">to</span> <span class="pre">pass</span> <span class="pre">but</span> <span class="pre">result</span> <span class="pre">was</span> <span class="pre">{grade}.&quot;</span></code></p>
+<p>When the mark is &gt; 50, call <code class="docutils literal notranslate"><span class="pre">get_grade_from_mark</span></code> and assert that the grade is
+what we expect (either <code class="docutils literal notranslate"><span class="pre">Pass</span></code> or <code class="docutils literal notranslate"><span class="pre">Fail</span></code>). When testing the passing case, test
+that the grade is <code class="docutils literal notranslate"><span class="pre">Pass</span></code>. If it’s not <code class="docutils literal notranslate"><span class="pre">Pass</span></code>, the best practice is to write a
+helpful error message like, <code class="docutils literal notranslate"><span class="pre">&quot;Expected</span> <span class="pre">{mark}</span> <span class="pre">to</span> <span class="pre">pass</span> <span class="pre">but</span> <span class="pre">result</span> <span class="pre">was</span> <span class="pre">{grade}.&quot;</span></code></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">test_get_grade_pass</span><span class="p">(</span><span class="n">mark</span><span class="p">):</span>
-    <span class="n">grade</span> <span class="o">=</span> <span class="n">get_grade_from_mark</span><span class="p">(</span><span class="n">mark</span><span class="p">):</span>
-    <span class="k">assert</span> <span class="n">grade</span> <span class="o">==</span> <span class="s2">"Pass"</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"Expected </span><span class="si">{</span><span class="n">mark</span><span class="si">}</span><span class="s2"> to pass, but result was</span><span class="si">{</span><span class="n">grade</span><span class="si">}</span><span class="s2">"</span>
+    <span class="n">grade</span> <span class="o">=</span> <span class="n">get_grade_from_mark</span><span class="p">(</span><span class="n">mark</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">grade</span> <span class="o">==</span> <span class="s1">'Pass'</span><span class="p">,</span> <span class="sa">f</span><span class="s1">'Expected </span><span class="si">{</span><span class="n">mark</span><span class="si">}</span><span class="s1"> to pass, but result was</span><span class="si">{</span><span class="n">grade</span><span class="si">}</span><span class="s1">'</span>
 </pre></div>
 </div>
 </section>
 <section id="test-for-the-fail-case">
 <h2>Test for the Fail case<a class="headerlink" href="#test-for-the-fail-case" title="Link to this heading">#</a></h2>
-<p>Test the same thing for <code class="docutils literal notranslate"><span class="pre">Fail</span></code> to test all options. Everything is almost the same, so copy and paste and change a few words to create the second test.</p>
+<p>Test the same thing for <code class="docutils literal notranslate"><span class="pre">Fail</span></code> to test all options. Everything is almost the
+same, so copy and paste and change a few words to create the second test.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">test_get_grade_fail</span><span class="p">(</span><span class="n">mark</span><span class="p">):</span>
-    <span class="n">grade</span> <span class="o">=</span> <span class="n">get_grade_from_mark</span><span class="p">(</span><span class="n">mark</span><span class="p">):</span>
-    <span class="k">assert</span> <span class="n">grade</span> <span class="o">==</span> <span class="s2">"Fail"</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"Expected </span><span class="si">{</span><span class="n">mark</span><span class="si">}</span><span class="s2"> to fail, but result was</span><span class="si">{</span><span class="n">grade</span><span class="si">}</span><span class="s2">"</span>
+    <span class="n">grade</span> <span class="o">=</span> <span class="n">get_grade_from_mark</span><span class="p">(</span><span class="n">mark</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">grade</span> <span class="o">==</span> <span class="s1">'Fail'</span><span class="p">,</span> <span class="sa">f</span><span class="s1">'Expected </span><span class="si">{</span><span class="n">mark</span><span class="si">}</span><span class="s1"> to fail, but result was</span><span class="si">{</span><span class="n">grade</span><span class="si">}</span><span class="s1">'</span>
 </pre></div>
 </div>
-<p>We can now write code to run both of the functions with expected values. For example, we expect 65 to pass and 43 to fail. After running both functions, if no exception has been raised we print “All passing.”</p>
+<p>We can now write code to run both of the functions with expected values. For
+example, we expect 65 to pass and 43 to fail. After running both functions, if
+no exception has been raised we print “All passing.”</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">'__main__'</span><span class="p">:</span>
     <span class="n">test_get_grade_pass</span><span class="p">(</span><span class="mi">65</span><span class="p">)</span>
     <span class="n">test_get_grade_fail</span><span class="p">(</span><span class="mi">43</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="s1">'All passing.'</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>We can place all this code in a Python file, e.g. <a class="reference external" href="https://github.com/DragaDoncila/plugin-tests/blob/main/example_func.py">example_test.py</a>, and run it from the command line.</p>
+<p>We can place all this code in a Python file, e.g.
+<a class="reference external" href="https://github.com/DragaDoncila/plugin-tests/blob/main/example_func.py">example_test.py</a>,
+and run it from the command line.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp gp-VirtualEnv">(napari-env)</span> <span class="gp">user@directory % </span>python<span class="w"> </span>example_test.py
 <span class="go">All passing.</span>
 </pre></div>
@@ -642,7 +660,9 @@
     <span class="nb">print</span><span class="p">(</span><span class="s1">'All passing.'</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>If we assert that 70 fails, the <code class="docutils literal notranslate"><span class="pre">AssertionError</span></code>, “Expected something to fail, but the result was pass.” would be thrown, which is correct. It would look like this:</p>
+<p>If we assert that 70 fails, the <code class="docutils literal notranslate"><span class="pre">AssertionError</span></code>, “Expected something to fail,
+but the result was pass.” would be thrown, which is correct. It would look like
+this:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp gp-VirtualEnv">(napari-env)</span> <span class="gp">user@directory % </span>python<span class="w"> </span>example_func.py
 <span class="go">Traceback (most recent call last):</span>
 <span class="go">File “/Users/user/directory/example_test.py” line 20, in &lt;module&gt; test_get_grade_fail(70)</span>
@@ -652,8 +672,14 @@
 </pre></div>
 </div>
 <p>Note that when the assertion fails, a traceback occurs.</p>
-<p>This example is a simple way to demonstrate the use of the assert keyword, but it’s not particularly useful for testing a larger codebase. This test function has to be called explicitly to test different marks. There’s not much detail when the code is running. We just get <code class="docutils literal notranslate"><span class="pre">“All</span> <span class="pre">passing.”</span></code> and there’s no information about other tests when one of the tests fails.</p>
-<p>Making testing more convenient is where <a class="reference internal" href="2-pytest-testing-frameworks.html#plugin-testing-workshop-pytest"><span class="std std-ref">testing frameworks</span></a>, like <a class="reference external" href="https://docs.pytest.org/">pytest</a> come in.</p>
+<p>This example is a simple way to demonstrate the use of the assert keyword, but
+it’s not particularly useful for testing a larger codebase. This test function
+has to be called explicitly to test different marks. There’s not much detail
+when the code is running. We just get <code class="docutils literal notranslate"><span class="pre">“All</span> <span class="pre">passing.”</span></code> and there’s no
+information about other tests when one of the tests fails.</p>
+<p>Making testing more convenient is where
+<a class="reference internal" href="2-pytest-testing-frameworks.html#plugin-testing-workshop-pytest"><span class="std std-ref">testing frameworks</span></a>, like
+<a class="reference external" href="https://docs.pytest.org/">pytest</a> come in.</p>
 </section>
 </section>
 
@@ -704,8 +730,8 @@
   </div>
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="pst-show_toc_level nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#other-lessons-in-this-tutorial">Other lessons in this tutorial:</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#this-lesson-covers">This lesson covers:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#other-lessons-in-this-tutorial">Other lessons in this tutorial</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#this-lesson-covers">This lesson covers</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#resources">Resources</a></li>
 </ul>
 </li>

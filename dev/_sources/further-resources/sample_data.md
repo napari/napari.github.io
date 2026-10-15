@@ -2,9 +2,13 @@
 
 Public sample image databases across various imaging modalities.
 
-For more OME-Zarr datasets, check out the [OME-NGFF Data Resources](https://ngff.openmicroscopy.org/data) page, which lists publicly available OME-Zarr datasets for testing and exploration.
+For more OME-Zarr datasets, check out the
+[OME-NGFF Data Resources](https://ngff.openmicroscopy.org/data) page, which
+lists publicly available OME-Zarr datasets for testing and exploration.
 
-If you come across image databases that are missing from the list below, create an issue or submit a pull request on [napari/docs](https://github.com/napari/docs) to help us expand it.
+If you come across image databases that are missing from the list below, create
+an issue or submit a pull request on
+[napari/docs](https://github.com/napari/docs) to help us expand it.
 
 | **Database** | **Description** |
 | ------------ | --------------- |

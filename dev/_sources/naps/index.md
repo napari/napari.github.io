@@ -10,8 +10,6 @@ NAPs document any major changes or proposals to the napari project.
 ```
 
 ```{toctree}
----
-hidden:
----
+:hidden:
 template
 ```

@@ -5,14 +5,13 @@
 In this tutorial, we'll step through the fundamental concepts for building a
 **bare minimum** napari plugin from scratch.
 
-At the end, we'll point you to the [napari-plugin-template
-repository][napari_plugin_template] that helps automate the creation of new plugins, and adds a number
-of conveniences for testing, maintaining, and deploying your plugin.
+At the end, we'll point you to the
+[napari-plugin-template repository][napari_plugin_template] that helps automate
+the creation of new plugins, and adds a number of conveniences for testing,
+maintaining, and deploying your plugin.
 
 ```{admonition} new plugin format!
----
-class: important
----
+:class: important
 This page describes the creation of a plugin targeting `npe2`, the second
 generation plugin engine.
 ```
@@ -25,7 +24,8 @@ recommended**). If you are new to virtual environments, we recommend
 [installing miniconda][miniconda] and [creating a new environment with
 python][python_env].
 
-Even though plugins don't necessarily need to list `napari` as a direct dependency, and
+Even though plugins don't necessarily need to list `napari` as a direct
+dependency, and
 [should not depend on a specific Qt backend](best-practices-no-qt-backend),
 you will need a working installation of napari in your active Python
 environment to use and test your plugin.
@@ -43,7 +43,9 @@ Napari plugins are just Python packages. *Minimally*, they must:
 
 ## 1. Create a new directory
 
-Let's create a new folder called `napari-hello` for your plugin files, and navigate into it. We'll use a `src` layout for the Python package, which is now the recommended practice.
+Let's create a new folder called `napari-hello` for your plugin files, and
+navigate into it. We'll use a `src` layout for the Python package, which is now
+the recommended practice.
 
 ```sh
 mkdir napari-hello
@@ -90,14 +92,12 @@ Your project should now look like this:
 ```
 
 ````{admonition} **napari-hello** vs **napari_hello**
----
-class: tip
----
-You might notice that we used a **dash** in our top level folder, and an 
-**underscore** in the inner folder. This is the Python convention: *distribution 
-packages* use dashes, while Python *files* and *modules* use underscores. Our 
-*package* is named `napari-hello`, and it includes a single top-level module, 
-called `napari_hello`.
+:class: tip
+You might notice that we used a **dash** in our top level folder, and an
+**underscore** in the inner folder. This is the Python convention:
+*distribution packages* use dashes, while Python *files* and *modules* use
+underscores. Our *package* is named `napari-hello`, and it includes a single
+top-level module, called `napari_hello`.
 
 You would *install* this package with
 ```sh
@@ -116,19 +116,18 @@ Next, we will populate `pyproject.toml`.
 
 ```{note}
 `pyproject.toml` is a standard file (introduced in
-[PEP518](https://peps.python.org/pep-0518/), May 2016) that tells
-the Python package installer [pip](https://pip.pypa.io/en/stable/) how to
-build your package. For more background, see
+[PEP518](https://peps.python.org/pep-0518/), May 2016) that tells the Python
+package installer [pip](https://pip.pypa.io/en/stable/) how to build your
+package. For more background, see
 [Clarifying PEP 518](https://snarky.ca/clarifying-pep-518/) and
 [What the heck is pyproject.toml?](https://snarky.ca/what-the-heck-is-pyproject-toml/).
 ```
 
-We provide the bare minimum package metadata (name and version),
-along with a [PyPI classifier](https://pypi.org/classifiers/) that identifies
-the package as a napari plugin.
-Here, we declare we want to use [setuptools](https://setuptools.pypa.io/en/latest/)
-for packaging our plugin. We also need to tell setuptools to look for the package
-in the `src` directory.
+We provide the bare minimum package metadata (name and version), along with a
+[PyPI classifier](https://pypi.org/classifiers/) that identifies the package as
+a napari plugin. Here, we declare we want to use
+[setuptools](https://setuptools.pypa.io/en/latest/) for packaging our plugin.
+We also need to tell setuptools to look for the package in the `src` directory.
 Paste the following text into `pyproject.toml`:
 
 ```toml
@@ -148,14 +147,14 @@ where = ["src"]
 
 ```
 
-There is a *lot* more than can go in the package metadata.
-See the [setuptools quickstart](https://setuptools.pypa.io/en/latest/userguide/quickstart.html)
+There is a *lot* more than can go in the package metadata. See the
+[setuptools quickstart](https://setuptools.pypa.io/en/latest/userguide/quickstart.html)
 for more.
 
 ## 3. Implement the plugin
 
-So far, we've done nothing napari-specific. Let's create the actual plugin and add
-some Python code. We're going to add a
+So far, we've done nothing napari-specific. Let's create the actual plugin and
+add some Python code. We're going to add a
 [Widget contribution](contributions-widgets)
 with a single button that shows a "Hello, world!" message when clicked.
 
@@ -177,16 +176,16 @@ autogeneration capabilities to turn this function into a widget)*
 
 ### Add a `napari.yaml` manifest
 
-If you haven't already, create an empty [plugin manifest](plugin-manifest) file at
-`src/napari_hello/napari.yaml`. We will use this file to tell napari:
+If you haven't already, create an empty [plugin manifest](plugin-manifest) file
+at `src/napari_hello/napari.yaml`. We will use this file to tell napari:
 
-1. That our plugin contributes a [**command**](contributions-commands)
-   (we give the command an ID of `napari-hello.say_hi`. It must start with our plugin
+1. That our plugin contributes a [**command**](contributions-commands) (we give
+   the command an ID of `napari-hello.say_hi`. It must start with our plugin
    name, and be unique).
-1. The location of the function that executes the command (the `python_name`, pointing
-   to the `show_hello_message` function in the `napari_hello` module).
-1. That our plugin contributes a [**widget**](contributions-widgets),
-   and that we'd like napari to **autogenerate** the widget from the command signature
+1. The location of the function that executes the command (the `python_name`,
+   pointing to the `show_hello_message` function in the `napari_hello` module).
+1. That our plugin contributes a [**widget**](contributions-widgets), and that
+   we'd like napari to **autogenerate** the widget from the command signature
    (so we don't need to deal with any GUI code).
 
 Add the following text to `napari.yaml`:
@@ -217,22 +216,23 @@ Lastly, we need to make a few changes to `pyproject.toml`.
 
 1. Because we are directly using the `napari.utils.notifications` API in our,
    `show_hello_message` function, we need to add `napari` to our package
-   **`install_requires`**. (You should add *all* of your required package dependencies
-   here. Assume nothing about your user's environment! Not even napari.)
+   **`install_requires`**. (You should add *all* of your required package
+   dependencies here. Assume nothing about your user's environment! Not even
+   napari.)
 
-1. We need to instruct setuptools to *include* that `napari.yaml` file
-   when it bundles our package for distribution, by adding
-   **`include-package-data = True`** to the `[tool.setuptools]` section and pointing
-   `package-data` to all `yaml` files.
+1. We need to instruct setuptools to *include* that `napari.yaml` file when it
+   bundles our package for distribution, by adding
+   **`include-package-data = True`** to the `[tool.setuptools]` section and
+   pointing `package-data` to all `yaml` files.
 
-1. In order for napari to find our plugin when it's installed, we need to
-   add an **entry point** for `napari.manifest` in the `[project.entry-points]` section.
-   This tells napari to look for our plugin manifest in the `napari.yaml`
-   file we added to the `napari_hello` module.
+1. In order for napari to find our plugin when it's installed, we need to add
+   an **entry point** for `napari.manifest` in the `[project.entry-points]`
+   section. This tells napari to look for our plugin manifest in the
+   `napari.yaml` file we added to the `napari_hello` module.
 
    ```{tip}
-   Entry points are a standard Python mechanism for an installed distribution to
-   advertise components it provides to be discovered and used by other code.
+   Entry points are a standard Python mechanism for an installed distribution
+   to advertise components it provides to be discovered and used by other code.
 
    See the [Entry points specification][entry_points] for details.
    ```
@@ -266,16 +266,18 @@ napari-hello = "napari_hello:napari.yaml"
 
 ```
 
-## 4. Install your plugin and try it out!
+## 4. Install your plugin and try it out
 
-With that, we're ready to go. Let's install our package in the environment
-and then run napari. Note: we're using `python -m pip install -e .` here to install our
-package (in the current working directory) in ["editable" mode][editable_mode].
-This means that changes we make to our package during development will be
-detected when we re-run napari, without having to run `python -m pip install` again.
-In a fresh environment, when you try to run napari, there will be no Qt bindings
-installed. To do so, you can install the default Qt bindings with
-`pip install napari[pyqt]`. Importantly, your plugin should not depend on a specific Qt backend, read about plugin [Best Practices](best-practices) to learn more.
+With that, we're ready to go. Let's install our package in the environment and
+then run napari. Note: we're using `python -m pip install -e .` here to install
+our package (in the current working directory) in
+["editable" mode][editable_mode]. This means that changes we make to our
+package during development will be detected when we re-run napari, without
+having to run `python -m pip install` again. In a fresh environment, when you
+try to run napari, there will be no Qt bindings installed. To do so, you can
+install the default Qt bindings with `pip install napari[pyqt]`. Importantly,
+your plugin should not depend on a specific Qt backend, read about plugin
+[Best Practices](best-practices) to learn more.
 
 ```sh
 python -m pip install -e .
@@ -304,6 +306,7 @@ However, you may wish to automate distribution of your plugin using Github,
 see below and the [Publishing](plugin-deploy) guide for more details.
 
 (napari-plugin-template)=
+
 ## Get going quickly with the napari plugin template
 
 Now that you've learned all of the critical steps for creating a plugin,
@@ -327,8 +330,9 @@ of available contributions and their fields in the
 [Contributions Reference](contributions-ref), and learn more about each
 specific contribution type in the [Guides](plugin-contribution-guides).
 
-Review the [Best Practices](best-practices) when developing plugins and,
-when you're ready to share your plugin, see [Testing and Publishing](plugin-test-deploy).
+Review the [Best Practices](best-practices) when developing plugins and, when
+you're ready to share your plugin, see
+[Testing and Publishing](plugin-test-deploy).
 
 [editable_mode]: https://pip.pypa.io/en/stable/cli/pip_install/#editable-installs
 [entry_points]: https://packaging.python.org/en/latest/specifications/entry-points/

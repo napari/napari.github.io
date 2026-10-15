@@ -2,11 +2,17 @@
 
 # Annotating segmentation with text and bounding boxes
 
-In this tutorial, we will use napari to view and annotate a segmentation with bounding boxes and text labels. Here we perform a segmentation by setting an intensity threshold with Otsu's method, but this same approach could also be used to visualize the results of other image processing algorithms such as [object detection with neural networks](https://www.tensorflow.org/lite/examples/object_detection/overview).
+In this tutorial, we will use napari to view and annotate a segmentation with
+bounding boxes and text labels. Here we perform a segmentation by setting an
+intensity threshold with Otsu's method, but this same approach could also be
+used to visualize the results of other image processing algorithms such as
+[object detection with neural networks](https://www.tensorflow.org/lite/examples/object_detection/overview).
 
 ![napari viewer showing eight roughly circular shapes. The shapes are classified according to circularity and have bounding boxes automatically generated around them showing a circularity parameter and an integer for a label.](../_static/images/annotated_bbox.png)
 
-The completed code is shown below and also can be found in the napari examples directory ([`annotate_segmentation_with_text.py`](https://github.com/napari/napari/blob/main/examples/annotate_segmentation_with_text.py)).
+The completed code is shown below and also can be found in the napari examples
+directory
+([`annotate_segmentation_with_text.py`](https://github.com/napari/napari/blob/main/examples/annotate_segmentation_with_text.py)).
 
 ```python
 """
@@ -138,7 +144,14 @@ napari.run()
 
 ## Segmentation
 
-We start by defining a function to perform segmentation of an image based on intensity. Based on the [skimage segmentation example](https://scikit-image.org/docs/stable/auto_examples/applications/plot_thresholding_guide.html), we determine the threshold intensity that separates the foreground and background pixels using [Otsu's method](https://en.wikipedia.org/wiki/Otsu%27s_method). We then perform some cleanup and generate a label image where each discrete region is given a unique integer index.
+We start by defining a function to perform segmentation of an image based on
+intensity. Based on the
+[skimage segmentation example](https://scikit-image.org/docs/stable/auto_examples/applications/plot_thresholding_guide.html),
+we determine the threshold intensity that separates the foreground and
+background pixels using
+[Otsu's method](https://en.wikipedia.org/wiki/Otsu%27s_method). We then perform
+some cleanup and generate a label image where each discrete region is given a
+unique integer index.
 
 ```python
 def segment(image):
@@ -189,7 +202,10 @@ napari.run()
 
 ## Analyzing the segmentation
 
-Next, we use [`regionprops_table`](https://scikit-image.org/docs/dev/api/skimage.measure.html#skimage.measure.regionprops_table) from skimage to quantify some parameters of each detection object (e.g., area and perimeter).
+Next, we use
+[`regionprops_table`](https://scikit-image.org/docs/dev/api/skimage.measure.html#skimage.measure.regionprops_table)
+from skimage to quantify some parameters of each detection object (e.g., area
+and perimeter).
 
 ```python
 # create the features dictionary
@@ -198,7 +214,14 @@ features = regionprops_table(
 )
 ```
 
-Conveniently, `regionprops_table()` returns a dictionary that can be used as input for a napari layer's features table, so we will be able to use it directly. If we inspect the values of features, we see each key is the name of the feature and the values are arrays with an element containing the feature value for each shape. Note that the bounding boxes have been output as `bbox-0`, `bbox-1`, `bbox-1`, `bbox-2`, `bbox-3` which correspond with the `min_row`, `min_column`, `max_row`, and `max_column` of each bounding box, respectively.
+Conveniently, `regionprops_table()` returns a dictionary that can be used as
+input for a napari layer's features table, so we will be able to use it
+directly. If we inspect the values of features, we see each key is the name of
+the feature and the values are arrays with an element containing the feature
+value for each shape. Note that the bounding boxes have been output as
+`bbox-0`, `bbox-1`, `bbox-1`, `bbox-2`, `bbox-3` which correspond with the
+`min_row`, `min_column`, `max_row`, and `max_column` of each bounding box,
+respectively.
 
 ```python
 {
@@ -223,7 +246,9 @@ Conveniently, `regionprops_table()` returns a dictionary that can be used as inp
 }
 ```
 
-Since we know the coins are circular, we want to calculate the circularity of each detected region. We define a function `circularity()` to determine the circularity of each region.
+Since we know the coins are circular, we want to calculate the circularity of
+each detected region. We define a function `circularity()` to determine the
+circularity of each region.
 
 ```python
 def circularity(perimeter, area):
@@ -252,7 +277,11 @@ We can then calculate the circularity of each region and save it as a feature.
 features['circularity'] = circularity(features['perimeter'], features['area'])
 ```
 
-We will use a napari shapes layer to visualize the bounding box of the segmentation. The napari shapes layer requires each shape to be defined by the coordinates of corner. Since regionprops returns the bounding box as a tuple of `(min_row, min_column, max_row, max_column)` we define a function `make_bbox()` to convert the regionprops bounding box to the napari shapes format.
+We will use a napari shapes layer to visualize the bounding box of the
+segmentation. The napari shapes layer requires each shape to be defined by the
+coordinates of corner. Since regionprops returns the bounding box as a tuple of
+`(min_row, min_column, max_row, max_column)` we define a function `make_bbox()`
+to convert the regionprops bounding box to the napari shapes format.
 
 ```python
 def make_bbox(bbox_extents):
@@ -282,7 +311,9 @@ def make_bbox(bbox_extents):
     return bbox_rect
 ```
 
-Finally, we can use an list comprehension to pass the bounding box extents to `make_bbox()` and calculate the bounding box corners required by the `Shapes` layer.
+Finally, we can use an list comprehension to pass the bounding box extents to
+`make_bbox()` and calculate the bounding box corners required by the `Shapes`
+layer.
 
 ```python
 # create the bounding box rectangles
@@ -291,9 +322,12 @@ bbox_rects = make_bbox([features[f'bbox-{i}'] for i in range(4)])
 
 ## Visualizing the segmentation results
 
-Now that we have performed out analysis, we can visualize the results in napari. To do so, we will utilize 3 napari layer types: (1) Image, (2) Labels, and (3) Shapes.
+Now that we have performed out analysis, we can visualize the results in
+napari. To do so, we will utilize 3 napari layer types: (1) Image, (2) Labels,
+and (3) Shapes.
 
-As we saw above in the segmentation section, we can visualize the original image and the resulting label images as follows:
+As we saw above in the segmentation section, we can visualize the original
+image and the resulting label images as follows:
 
 ```python
 # initialise viewer with coins image
@@ -305,37 +339,52 @@ label_layer = viewer.add_labels(label_image, name='segmentation')
 napari.run()
 ```
 
-Next, we will use the Shapes layer to overlay the bounding boxes for each detected object as well as display the calculated circularity. The code for creating the Shapes layer is listed here and each keyword argument is explained below.
+Next, we will use the Shapes layer to overlay the bounding boxes for each
+detected object as well as display the calculated circularity. The code for
+creating the Shapes layer is listed here and each keyword argument is explained
+below.
 
 ```python
-    shapes_layer = viewer.add_shapes(
-        bbox_rects,
-        face_color='transparent',
-        edge_color='green',
-        name='bounding box'
-    )
+shapes_layer = viewer.add_shapes(
+    bbox_rects,
+    face_color='transparent',
+    edge_color='green',
+    name='bounding box',
+)
 ```
 
 ![napari viewer showing eight roughly circular shapes, each colored differently. Each shape has a bounding box automatically generated around it.](../_static/images/segmentation_bbox.png)
 
-The first positional argument (`bbox_rects`) contains the bounding boxes we created above. We specified that the face of each bounding box has no color (`face_color='transparent'`) and the edges of the bounding box are green (`edge_color='green'`). Finally, the name of the layer displayed in the layer list in the napari GUI is `bounding box` (`name='bounding box'`).
+The first positional argument (`bbox_rects`) contains the bounding boxes we
+created above. We specified that the face of each bounding box has no color
+(`face_color='transparent'`) and the edges of the bounding box are green
+(`edge_color='green'`). Finally, the name of the layer displayed in the layer
+list in the napari GUI is `bounding box` (`name='bounding box'`).
 
 ## Annotating shapes with text
 
-We can further annotate our analysis by using text to display features of each segmentation. The code to create a shapes layer with text is pasted here and explained below.
+We can further annotate our analysis by using text to display features of each
+segmentation. The code to create a shapes layer with text is pasted here and
+explained below.
 
 ```python
-    shapes_layer = viewer.add_shapes(
-        bbox_rects,
-        face_color='transparent',
-        edge_color='green',
-        features=features,
-        text=text_parameters,
-        name='bounding box'
-    )
+shapes_layer = viewer.add_shapes(
+    bbox_rects,
+    face_color='transparent',
+    edge_color='green',
+    features=features,
+    text=text_parameters,
+    name='bounding box',
+)
 ```
 
-We will use `Shapes.features` to store the annotations for each bounding box. The features are defined as a table where each column is the name of the feature (i.e., label, circularity) and the values are rows where each element contains the value for the corresponding shape (i.e., index matched to the Shape data). As a reminder, we created `labels` and `circularity` above and each is a list containing where each element is feature value for the corresponding (i.e., index matched) shape.
+We will use `Shapes.features` to store the annotations for each bounding box.
+The features are defined as a table where each column is the name of the
+feature (i.e., label, circularity) and the values are rows where each element
+contains the value for the corresponding shape (i.e., index matched to the
+Shape data). As a reminder, we created `labels` and `circularity` above and
+each is a list containing where each element is feature value for the
+corresponding (i.e., index matched) shape.
 
 ```python
 # create the features table
@@ -345,7 +394,9 @@ features = {
 }
 ```
 
-Each bounding box can be annotated with text drawn from the layer `features`. To specify the text and display properties of the text, we pass a dictionary with the text parameters (`text_parameters`). We define `text_parameters` as:
+Each bounding box can be annotated with text drawn from the layer `features`.
+To specify the text and display properties of the text, we pass a dictionary
+with the text parameters (`text_parameters`). We define `text_parameters` as:
 
 ```python
 text_parameters = {
@@ -357,16 +408,31 @@ text_parameters = {
 }
 ```
 
-The `string` key specifies pattern for the text to be displayed. If `string` is set to the name of a `feature` column, the value for that feature will be displayed. napari text also accepts f-string-like syntax, as used here. napari will substitute each pair of curly braces(`{}`) with the values from the feature specified inside of the curly braces. For numbers, the precision can be specified in the same style as f-strings. Additionally, napari recognizes standard special characters such as `\n` for new line.
+The `string` key specifies pattern for the text to be displayed. If `string` is
+set to the name of a `feature` column, the value for that feature will be
+displayed. napari text also accepts f-string-like syntax, as used here. napari
+will substitute each pair of curly braces(`{}`) with the values from the
+feature specified inside of the curly braces. For numbers, the precision can be
+specified in the same style as f-strings. Additionally, napari recognizes
+standard special characters such as `\n` for new line.
 
-As an example, if a given object has a `label=1` and `circularity=0.8322940`, the resulting text string would be:
+As an example, if a given object has a `label=1` and `circularity=0.8322940`,
+the resulting text string would be:
 
-```
+```text
 label: 1
 circ: 0.83
 ```
 
-We set the text to green (`'color': 'green'`) with a font size of 12 (`'size': 12`). We specify that the text will be anchored in the upper left hand corner of the bounding box (`'anchor': 'upper_left'`). The valid anchors are: `'upper_right'`, `'upper_left'`, `'lower_right'`, `'lower_left'`, and `'center'`. We then offset the text from the anchor in order to make sure it does not overlap with the bounding box edge (`'translation': [-3, 0]`). The translation is relative to the anchor point. The first dimension is the vertical axis on the canvas (negative is "up") and the second dimension is along the horizontal axis of the canvas.
+We set the text to green (`'color': 'green'`) with a font size of 12
+(`'size': 12`). We specify that the text will be anchored in the upper left
+hand corner of the bounding box (`'anchor': 'upper_left'`). The valid anchors
+are: `'upper_right'`, `'upper_left'`, `'lower_right'`, `'lower_left'`, and
+`'center'`. We then offset the text from the anchor in order to make sure it
+does not overlap with the bounding box edge (`'translation': [-3, 0]`). The
+translation is relative to the anchor point. The first dimension is the
+vertical axis on the canvas (negative is "up") and the second dimension is
+along the horizontal axis of the canvas.
 
 All together, the visualization code is:
 
@@ -406,6 +472,7 @@ napari.run()
 
 ## Summary
 
-In this tutorial, we have used napari to view and annotate segmentation results.
+In this tutorial, we have used napari to view and annotate segmentation
+results.
 
 ![napari viewer showing eight roughly circular shapes. The shapes are classified according to circularity and have bounding boxes automatically generated around them showing a circularity parameter and an integer for a label.](../_static/images/annotated_bbox.png)

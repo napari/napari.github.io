@@ -2,8 +2,11 @@
 
 ## Setting up a development installation
 
-In order to make changes to `napari`, you will need to [fork](https://docs.github.com/en/get-started/exploring-projects-on-github/contributing-to-a-project) the
-[repository](https://github.com/napari/napari). If you are not familiar with `git`, we recommend reading up on [this guide](https://docs.github.com/en/get-started/using-git/about-git#basic-git-commands).
+In order to make changes to `napari`, you will need to
+[fork](https://docs.github.com/en/get-started/exploring-projects-on-github/contributing-to-a-project)
+the [repository](https://github.com/napari/napari). If you are not familiar
+with `git`, we recommend reading up on
+[this guide](https://docs.github.com/en/get-started/using-git/about-git#basic-git-commands).
 
 1. Clone the forked repository to your local machine and change directories:
 
@@ -46,19 +49,19 @@ In order to make changes to `napari`, you will need to [fork](https://docs.githu
    development environment.
    ```
 
-1. Install the package in editable mode, along with all of the developer tools (`dev`)
-   and optionally a Qt backend (`pyqt`, `pyside`).
+1. Install the package in editable mode, along with all of the developer tools
+   (`dev`) and optionally a Qt backend (`pyqt`, `pyside`).
 
    ```{note}
-   If you only want to use napari and do not wish to develop napari itself,
-   you can install napari on most macOS, Linux and
-   Windows systems with Python {{ python_version_range }}
-   by following the steps on the
+   If you only want to use napari and do not wish to develop napari itself, you
+   can install napari on most macOS, Linux and Windows systems with Python {{
+   python_version_range }} by following the steps on the
    [instructions page](install-python-package).
    ```
 
-   napari supports different Qt backends and Qt versions. In this step, choose one of the following
-   commands to install the developer tools and your preferred Qt backend.
+   napari supports different Qt backends and Qt versions. In this step, choose
+   one of the following commands to install the developer tools and your
+   preferred Qt backend.
 
    For PyQt6, the default Qt backend, use:
 
@@ -73,54 +76,58 @@ In order to make changes to `napari`, you will need to [fork](https://docs.githu
    ```
 
    If you wish to install the developer tools only, use the following. Choose
-   this option if you wish to install your Qt backend separately, such as if you already have
-   a Qt backend installed or if you use an experimental backend like PySide6:
+   this option if you wish to install your Qt backend separately, such as if
+   you already have a Qt backend installed or if you use an experimental
+   backend like PySide6:
 
    ```sh
    pip install -e . --group dev  # (quotes only needed for zsh shell)
    ```
 
-   Note that in this last case you will need to install your Qt backend separately.
+   Note that in this last case you will need to install your Qt backend
+   separately.
 
    ```{note}
-   In all of the above cases, you may wish to include the `optional` extra (optional dependency),
-   in addition to `dev`, by using `pip install -e ".[optional]" --group dev`, for example.
-   The `optional` extra (optional dependency) includes `numba` and other performance packages that are
-   included with the typical end-user `napari[all]` installation.
+   In all of the above cases, you may wish to include the `optional` extra
+   (optional dependency), in addition to `dev`, by using
+   `pip install -e ".[optional]" --group dev`, for example. The `optional`
+   extra (optional dependency) includes `numba` and other performance packages
+   that are included with the typical end-user `napari[all]` installation.
    ```
 
-1. We use [`prek`](https://prek.j178.dev/) to format and lint code. 
-   The `prek` is rust implementation of [`pre-commit`](https://pre-commit.com/)
-   and is faster than the python implementation.
-   Full list of used hooks can be found in pre-commit configuration file 
+1. We use [`prek`](https://prek.j178.dev/) to format and lint code. The `prek`
+   is rust implementation of [`pre-commit`](https://pre-commit.com/) and is
+   faster than the python implementation. Full list of used hooks can be found
+   in pre-commit configuration file
    [`.pre-commit-config.yaml`](https://github.com/napari/napari/blob/main/.pre-commit-config.yaml)
-   in the root of the repository.
-   The most important hooks are formatting with
+   in the root of the repository. The most important hooks are formatting with
    [`ruff-format`](https://docs.astral.sh/ruff/formatter/) and lint with
-   [`ruff-check`](https://docs.astral.sh/ruff/linter/).
-   To enable it to be executed on creation of every commit, reduce CI usage and reduce the number of test errors,
-   install `prek` as pre-commit hook by running the following command in your environment:
+   [`ruff-check`](https://docs.astral.sh/ruff/linter/). To enable it to be
+   executed on creation of every commit, reduce CI usage and reduce the number
+   of test errors, install `prek` as pre-commit hook by running the following
+   command in your environment:
 
    ```sh
    prek install
    ```
 
-   Upon committing, your code will be formatted according to our [`ruff-format`
-   configuration](https://github.com/napari/napari/blob/main/pyproject.toml).
+   Upon committing, your code will be formatted according to our
+   [`ruff-format` configuration](https://github.com/napari/napari/blob/main/pyproject.toml).
 
-   Code will also be linted to enforce the stylistic and logistical rules specified
-   in the `[tool.ruff]` section of
+   Code will also be linted to enforce the stylistic and logistical rules
+   specified in the `[tool.ruff]` section of
    [our `pyproject.toml` file](https://github.com/napari/napari/blob/main/pyproject.toml).
    For information on any specific `ruff` error code, see the
    [Ruff Rules](https://docs.astral.sh/ruff/rules/). You may also wish to refer
    to the [PEP 8 style guide](https://peps.python.org/pep-0008/).
 
    If you wish to tell the linter to ignore a specific line use the `# noqa`
-   comment along with the specific error code (e.g. `import sys  # noqa: E402`) but
-   please do not ignore errors lightly.
+   comment along with the specific error code (e.g. `import sys  # noqa: E402`)
+   but please do not ignore errors lightly.
 
    ```{note}
-   To run `prek` manually, without creating a commit, you can run `prek run --all-files`.
+   To run `prek` manually, without creating a commit, you can run
+   `prek run --all-files`.
    ```
 
 Now you are all set to start developing with napari.

@@ -3,13 +3,16 @@
 # Contributing guide
 
 We welcome your contributions! Here you will find a guide to the contribution
-workflow and tips for contributing to napari.
-If you are looking for an overview of all the repositories in the napari organization, see the [repository map](napari-repositories).
-If you are looking to learn more about the napari code base, see the [napari architecture guide](architecture-index).
+workflow and tips for contributing to napari. If you are looking for an
+overview of all the repositories in the napari organization, see the
+[repository map](napari-repositories). If you are looking to learn more about
+the napari code base, see the [napari architecture guide](architecture-index).
 Please [contact](contact) us if you have any queries.
 
 ```{note}
-To contribute to our blog, the [Island Dispatch](https://napari.org/island-dispatch), check out https://github.com/napari/island-dispatch.
+To contribute to our blog, the
+[Island Dispatch](https://napari.org/island-dispatch), check out
+<https://github.com/napari/island-dispatch>.
 ```
 
 ```{important}
@@ -19,10 +22,14 @@ also our [policy on AI contributions](ai-contributions).
 
 ## Contributing workflow
 
-napari development occurs primarily on GitHub. If you are new to GitHub we recommend checking out the detailed [Github Docs](https://docs.github.com/en).
+napari development occurs primarily on GitHub. If you are new to GitHub we
+recommend checking out the detailed [Github Docs](https://docs.github.com/en).
 
 ```{tip}
-We highly recommend installing the [Refined GitHub](https://github.com/refined-github/refined-github) browser extension. It adds additional features to the GitHub web interface that make reviewing issues and pull requests *much* easier.
+We highly recommend installing the
+[Refined GitHub](https://github.com/refined-github/refined-github) browser
+extension. It adds additional features to the GitHub web interface that make
+reviewing issues and pull requests *much* easier.
 ```
 
 ### Set up a local development environment
@@ -33,7 +40,8 @@ set up a [napari development installation](dev-installation).
 ### Make changes and submit a pull request
 
 You can then use git to save your changes and open a
-[pull-request](https://docs.github.com/en/get-started/exploring-projects-on-github/contributing-to-a-project) (PR) via the following steps:
+[pull-request](https://docs.github.com/en/get-started/exploring-projects-on-github/contributing-to-a-project)
+(PR) via the following steps:
 
 1. Make and save your changes:
 
@@ -57,37 +65,42 @@ git add my-file-or-directory
 git commit -m "my message"
 ```
 
-Each commit you make must have a [GitHub-registered email](https://github.com/settings/emails)
-as the `author`. You can read more [here](https://docs.github.com/en/account-and-profile/setting-up-and-managing-your-personal-account-on-github/managing-email-preferences/setting-your-commit-email-address).
+Each commit you make must have a
+[GitHub-registered email](https://github.com/settings/emails) as the `author`.
+You can read more
+[in GitHub's documentation on setting your commit email address](https://docs.github.com/en/account-and-profile/setting-up-and-managing-your-personal-account-on-github/managing-email-preferences/setting-your-commit-email-address).
 
 To set it, use `git config --global user.email your-address@example.com`.
 
 2. Share your changes:
 
 To push the local changes in your new feature branch to your
-[forked](https://docs.github.com/en/get-started/exploring-projects-on-github/contributing-to-a-project#forking-a-repository) repository:
+[forked](https://docs.github.com/en/get-started/exploring-projects-on-github/contributing-to-a-project#forking-a-repository)
+repository:
 
 ```sh
 git push -u origin your-branch-name
 ```
 
-Note we are pushing to the remote named 'origin' above. If you have followed the
-[development installation instructions](dev-installation), 'origin' would be the name
-of the remote of your forked repository. If you are unsure
-of the name of your remotes, you can use the following command to check and
-ensure you are pushing to the correct remote:
+Note we are pushing to the remote named 'origin' above. If you have followed
+the [development installation instructions](dev-installation), 'origin' would
+be the name of the remote of your forked repository. If you are unsure of the
+name of your remotes, you can use the following command to check and ensure you
+are pushing to the correct remote:
 
 ```sh
 git remote -vv
 ```
 
 You can then make a
-[PR](https://docs.github.com/en/get-started/exploring-projects-on-github/contributing-to-a-project#making-a-pull-request) to `napari`'s `main` branch.
+[PR](https://docs.github.com/en/get-started/exploring-projects-on-github/contributing-to-a-project#making-a-pull-request)
+to `napari`'s `main` branch.
 
 ### Respond to pull request review
 
 Continuous integration will provide initial feedback on your PR by running the
-tests and code quality checks. Please correct any errors found by the automated tests.
+tests and code quality checks. Please correct any errors found by the automated
+tests.
 
 Core team members and community members will review your suggested changes and
 provide feedback. Your next step would be to make any necessary updates to
@@ -95,7 +108,8 @@ your PR.
 
 ### Acceptance of the pull request
 
-After a core team member approves your PR, the PR will be merged into the main codebase.
+After a core team member approves your PR, the PR will be merged into the main
+codebase.
 
 ## Contribution guides
 
@@ -144,16 +158,17 @@ Please also consider documenting any major features/changes in our
 
 #### Deprecation Warnings
 
-When deprecating a feature, use `FutureWarning` instead of `DeprecationWarning`.
-`DeprecationWarning` is
+When deprecating a feature, use `FutureWarning` instead of
+`DeprecationWarning`. `DeprecationWarning` is
 [silenced by Python's default warning filters](https://docs.python.org/3/library/warnings.html#warning-categories),
 making it invisible to library users.
 
 **In the code**, always pass `stacklevel=2` to `warnings.warn()` so the warning
 points to the caller's location rather than inside napari's internals.
 
-In the docstring below the short summary, use the [`.. deprecated::` directive](https://numpydoc.readthedocs.io/en/latest/format.html#deprecation-warning) alongside any related
-`.. versionadded::` notes:
+In the docstring below the short summary, use the
+[`.. deprecated::` directive](https://numpydoc.readthedocs.io/en/latest/format.html#deprecation-warning)
+alongside any related `.. versionadded::` notes:
 
 ```rst
 .. deprecated:: X.Y.Z
@@ -166,22 +181,25 @@ We use unit tests, integration tests, and functional tests to ensure that
 napari works as intended. Writing tests for new code is a critical part of
 keeping napari maintainable as it grows.
 
-We have dedicated documentation on [testing](napari-testing) that we recommend you
-read as you're working on your first contribution.
+We have dedicated documentation on [testing](napari-testing) that we recommend
+you read as you're working on your first contribution.
 
 ### Performance
 
-Performance related PRs should include a benchmark in order to clearly depict the
-use-case that is being optimized for. Ideally PRs that add a new feature should
-also include benchmarks to show the new feature is not too slow but this is less vital.
-[](napari-benchmarks) provides more information on benchmarking. If you find
-poor performance, [profiling](napari-profiling) and [performance monitoring](napari-perfmon) can help
-identify the cause and where to optimize.
+Performance related PRs should include a benchmark in order to clearly depict
+the use-case that is being optimized for. Ideally PRs that add a new feature
+should also include benchmarks to show the new feature is not too slow but this
+is less vital. [](napari-benchmarks) provides more information on benchmarking.
+If you find poor performance, [profiling](napari-profiling) and
+[performance monitoring](napari-perfmon) can help identify the cause and where
+to optimize.
 
 ### Automation and CI
 
-We use GitHub Actions to automate our continuous integration and project workflows.
-The [`CONTRIBUTING.md` doc in the `.github` directory](https://github.com/napari/napari/blob/main/.github/CONTRIBUTING.md)
+We use GitHub Actions to automate our continuous integration and project
+workflows. The
+[`CONTRIBUTING.md` doc in the `.github` directory](https://github.com/napari/napari/blob/main/.github/CONTRIBUTING.md)
 highlights basics about the GitHub Actions used in the project.
 
-We also automate [deployment of our documentation and website](https://napari.org/stable/developers/contributing/documentation/docs_deployment.html).
+We also automate
+[deployment of our documentation and website](https://napari.org/stable/developers/contributing/documentation/docs_deployment.html).

@@ -2,20 +2,21 @@
 
 # Profiling
 
-Profiling provides information about the
-total time of execution of each function when performing a specific task or workflow.
-It produces a complete call graph that
-simplifies understanding the call relationship between functions. It is useful for
-identifying which functions are taking most of the runtime and causing bottlenecks.
+Profiling provides information about the total time of execution of each
+function when performing a specific task or workflow. It produces a complete
+call graph that simplifies understanding the call relationship between
+functions. It is useful for identifying which functions are taking most of the
+runtime and causing bottlenecks.
 
-[Performance monitoring](napari-perfmon), unlike profiling provides information about the
-timing of events or specific functions each time it is called. It can be useful when
-profiling identifies a common function to be slow, but
-as this function gets called from many places so it's hard to know where to optimize.
-Performance monitoring is able to tell you at which points during execution it is
-called and how long it took each time. This is also helpful in differentiating
-functions that are only slow in the first call versus functions that are consistently
-slow. See [performance monitoring](napari-perfmon) for more details.
+[Performance monitoring](napari-perfmon), unlike profiling provides information
+about the timing of events or specific functions each time it is called. It can
+be useful when profiling identifies a common function to be slow, but as this
+function gets called from many places so it's hard to know where to optimize.
+Performance monitoring is able to tell you at which points during execution it
+is called and how long it took each time. This is also helpful in
+differentiating functions that are only slow in the first call versus functions
+that are consistently slow. See [performance monitoring](napari-perfmon) for
+more details.
 
 ![A section of an example call graph showing the functions called in napari's layerlist and some of their profile statistics such as call count and cumulative percentage time spent.](../../images/execution_graph.png)
 
@@ -28,7 +29,7 @@ python -m cProfile path_to_script.py
 
 The output will be a table similar to this one:
 
-```
+```text
          2334264 function calls (2267576 primitive calls) in 2.242 seconds
 
    Ordered by: internal time
@@ -48,21 +49,23 @@ The output will be a table similar to this one:
 ...
 ```
 
-The format of this table is documented in the Python docs
-[here](https://docs.python.org/3/library/profile.html#instant-user-s-manual).
-Because the output for complex programs such as napari can be very long,
-we suggest piping output to `less`, or saving it to a file,
-which can be investigated later. To save the output to file use the `-o` option:
+The format of this table is documented
+[in the Python profiler documentation](https://docs.python.org/3/library/profile.html#instant-user-s-manual).
+Because the output for complex programs such as napari can be very long, we
+suggest piping output to `less`, or saving it to a file, which can be
+investigated later. To save the output to file use the `-o` option:
 
 ```bash
 python -m cProfile -o result.pstat path_to_script.py
 ```
 
-Once the file is saved, you can investigate using free tools. Some options include:
+Once the file is saved, you can investigate using free tools. Some options
+include:
 
 1. The Stat object.
 
-   You can parse the profile output using the `Stats` object from the `pstats` built-in library. For example:
+   You can parse the profile output using the `Stats` object from the `pstats`
+   built-in library. For example:
 
    ```python
    from pstats import Stats
@@ -71,28 +74,30 @@ Once the file is saved, you can investigate using free tools. Some options inclu
    stat.sort_stats('tottime').print_stats(10)
    ```
 
-   You can find more documentation about the Stats object in the Python documentation [here](https://docs.python.org/3/library/profile.html#the-stats-class).
+   You can find more documentation about the Stats object
+   [in the Python documentation](https://docs.python.org/3/library/profile.html#the-stats-class).
 
 1. Snakeviz.
 
-   Snakeviz is a third party library designed to visualize profiling output interactively.
-   You can install it with pip like any other Python library using `python -m pip install snakeviz`.
-   This will provide the `snakeviz` command, which you can call to create an in-browser
-   visualization of your profiling data. Use the command:
+   Snakeviz is a third party library designed to visualize profiling output
+   interactively. You can install it with pip like any other Python library
+   using `python -m pip install snakeviz`. This will provide the `snakeviz`
+   command, which you can call to create an in-browser visualization of your
+   profiling data. Use the command:
 
    ```bash
    snakeviz path/to/result.pstat
    ```
 
-   This should cause a new page to open in your browser with your profiling information.
-   You can read more about how to interpret this visualization on the
-   [snakeviz homepage](https://jiffyclub.github.io/snakeviz/).
+   This should cause a new page to open in your browser with your profiling
+   information. You can read more about how to interpret this visualization on
+   the [snakeviz homepage](https://jiffyclub.github.io/snakeviz/).
 
 1. gprof2dot
 
-   You can visualize the call graph with [`graphviz`](https://www.graphviz.org/),
-   a third party graph visualization library.
-   You can install graphviz with system package managers:
+   You can visualize the call graph with
+   [`graphviz`](https://www.graphviz.org/), a third party graph visualization
+   library. You can install graphviz with system package managers:
 
    - Ubuntu: `sudo apt install graphviz`
    - macOS with brew: `brew install graphviz`
@@ -102,17 +107,19 @@ Once the file is saved, you can investigate using free tools. Some options inclu
    statistics to a `.dot` graph file and use graphviz:
 
    ```bash
-   $ python -m gprof2dot -f pstats  -n 5  result.pstat -o result.dot
-   $ dot -Tpng -o result.png result.dot
+   python -m gprof2dot -f pstats  -n 5  result.pstat -o result.dot
+   dot -Tpng -o result.png result.dot
    ```
 
    If your shell supports piping, this can all be combined into one command:
 
    ```bash
-   $ python -m gprof2dot -f pstats  -n 5  result.pstat -o | dot -Tpng -o result.png
+   python -m gprof2dot -f pstats  -n 5  result.pstat -o | dot -Tpng -o result.png
    ```
 
-1. Some IDEs have built in profiling visualization tools. For example, PyCharm Professional, which is free for academics and open source maintainers, allows viewing `.pstat` files using Tools > Open CProfile snapshot.
+1. Some IDEs have built in profiling visualization tools. For example, PyCharm
+   Professional, which is free for academics and open source maintainers,
+   allows viewing `.pstat` files using Tools > Open CProfile snapshot.
 
 cProfile also allows profiling only specific parts of the code.
 You can restrict profiling to particular code sections using

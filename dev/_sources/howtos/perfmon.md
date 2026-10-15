@@ -18,19 +18,19 @@ The module can do several things:
 
 ## Monitoring vs. profiling
 
-[Profiling](napari-profiling) is similar to performance monitoring. However profiling usually
-involves running an external tool to acquire timing data on every function
-in the program. Sometimes this will cause the program to run so slowly it's
-hard to use the program interactively.
+[Profiling](napari-profiling) is similar to performance monitoring. However
+profiling usually involves running an external tool to acquire timing data on
+every function in the program. Sometimes this will cause the program to run so
+slowly it's hard to use the program interactively.
 
-Performance monitoring does not require running a separate tool to collect
-the timing information, however we do use Chrome to view the trace files.
-With performance monitoring napari can run at close to full speed in many
-cases. Performance monitoring is also more flexible as you can run napari and
-interact with the app while checking performance. This document discusses only napari's
-performance monitoring
-features. Profiling napari might be useful as well, especially if you do not know
-the cause of the performance issue. You can find more information in
+Performance monitoring does not require running a separate tool to collect the
+timing information, however we do use Chrome to view the trace files. With
+performance monitoring napari can run at close to full speed in many cases.
+Performance monitoring is also more flexible as you can run napari and interact
+with the app while checking performance. This document discusses only napari's
+performance monitoring features. Profiling napari might be useful as well,
+especially if you do not know the cause of the performance issue. You can find
+more information in
 [our profiling documentation](napari-profiling).
 
 ## Enabling perfmon
@@ -123,9 +123,7 @@ To simulate a performance problem in napari, add a `sleep()` call to the
 will make the method take at least 100 ms:
 
 ```{code-block} python
----
-emphasize-lines: 2-3
----
+:emphasize-lines: 2-3
 def paint(self, coord, new_label, refresh=True):
     import time
     time.sleep(0.1)

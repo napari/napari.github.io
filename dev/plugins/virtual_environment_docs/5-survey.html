@@ -12,10 +12,10 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://napari.org/stable/plugins/virtual_environment_docs/5-survey.html" />
 <meta property="og:site_name" content="napari" />
-<meta property="og:description" content="This guide contains questions that were submitted to our survey on testing. This guide covers:: What are the best practices to test a plugin with multiple sequential steps?, How do you test widgets, the napari viewer, graphical user interfaces, and Qt in general?, How to find the different signal..." />
+<meta property="og:description" content="This guide contains questions that were submitted to our survey on testing. This guide covers: What are the best practices to test a plugin with multiple sequential steps?, How do you test widgets, the napari viewer, graphical user interfaces, and Qt in general?, How to find the different signals..." />
 <meta property="og:image" content="https://napari.org/dev/_static/opengraph_image.png" />
 <meta property="og:image:alt" content="3D segmented tribolium embryo in the napari viewer" />
-<meta name="description" content="This guide contains questions that were submitted to our survey on testing. This guide covers:: What are the best practices to test a plugin with multiple sequential steps?, How do you test widgets, the napari viewer, graphical user interfaces, and Qt in general?, How to find the different signal..." />
+<meta name="description" content="This guide contains questions that were submitted to our survey on testing. This guide covers: What are the best practices to test a plugin with multiple sequential steps?, How do you test widgets, the napari viewer, graphical user interfaces, and Qt in general?, How to find the different signals..." />
 <meta name="twitter:card" content="summary_large_image" />
 
     <title>Survey/Q&amp;A &#8212; napari</title>
@@ -570,7 +570,7 @@
 <h1>Survey/Q&amp;A<a class="headerlink" href="#survey-q-a" title="Link to this heading">#</a></h1>
 <p>This guide contains questions that were submitted to our survey on testing.</p>
 <section id="this-guide-covers">
-<h2>This guide covers:<a class="headerlink" href="#this-guide-covers" title="Link to this heading">#</a></h2>
+<h2>This guide covers<a class="headerlink" href="#this-guide-covers" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p><a class="reference internal" href="#what-are-the-best-practices-to-test-a-plugin-with-multiple-sequential-steps">What are the best practices to test a plugin with multiple sequential steps?</a></p></li>
 <li><p><a class="reference internal" href="#how-do-you-test-widgets-the-napari-viewer-graphical-user-interfaces-and-qt-in-general">How do you test widgets, the napari viewer, graphical user interfaces, and Qt in general?</a></p></li>
@@ -584,13 +584,17 @@
 </section>
 <section id="what-are-the-best-practices-to-test-a-plugin-with-multiple-sequential-steps">
 <h2>What are the best practices to test a plugin with multiple sequential steps?<a class="headerlink" href="#what-are-the-best-practices-to-test-a-plugin-with-multiple-sequential-steps" title="Link to this heading">#</a></h2>
-<p>e.g. Is it ok to rely on the “results” of a test to run the next test or should they all be fully independent?</p>
+<p>e.g. Is it ok to rely on the “results” of a test to run the next test or should
+they all be fully independent?</p>
 <p>Answer:</p>
 <ul class="simple">
 <li><p>Ideally, aim for unit testing.</p></li>
 <li><p>Tests should not pass/fail together.</p></li>
-<li><p>Use <a class="reference external" href="https://docs.pytest.org/en/6.2.x/fixture.html">fixtures</a> to provide a test with inputs, even if you have to make them up.</p></li>
-<li><p>Use <a class="reference external" href="https://docs.python.org/3/library/unittest.mock.html">mocks (mock-ups)</a> to assert that specific calls are made, without necessarily caring about what happens after that call is made.</p></li>
+<li><p>Use <a class="reference external" href="https://docs.pytest.org/en/6.2.x/fixture.html">fixtures</a> to provide a
+test with inputs, even if you have to make them up.</p></li>
+<li><p>Use <a class="reference external" href="https://docs.python.org/3/library/unittest.mock.html">mocks (mock-ups)</a>
+to assert that specific calls are made, without necessarily caring about what
+happens after that call is made.</p></li>
 </ul>
 <p><em>This is definitely an art form. It takes time. Be patient.</em></p>
 </section>
@@ -599,48 +603,62 @@
 <p>Answer:</p>
 <ul class="simple">
 <li><p>Try not to!</p></li>
-<li><p>You should generally trust that a button click (for example) will call your callback and focus on testing that your callback does what it’s supposed to do given that it gets called following some UI interaction.</p></li>
-<li><p>However: If you have a scenario where you are actually creating a complicated widget directly in Qt, see <code class="docutils literal notranslate"><span class="pre">pytest-qt</span></code> for lots of tips, specifically <code class="docutils literal notranslate"><span class="pre">qtbot</span></code>.</p>
+<li><p>You should generally trust that a button click (for example) will call your
+callback and focus on testing that your callback does what it’s supposed to
+do given that it gets called following some UI interaction.</p></li>
+<li><p>However: If you have a scenario where you are actually creating a complicated
+widget directly in Qt, see <code class="docutils literal notranslate"><span class="pre">pytest-qt</span></code> for lots of tips, specifically
+<code class="docutils literal notranslate"><span class="pre">qtbot</span></code>.</p>
 <ul>
 <li><p><a class="reference external" href="https://pytest-qt.readthedocs.io/en/latest/intro.html">pytest-qt</a></p></li>
 <li><p><a class="reference external" href="https://pytest-qt.readthedocs.io/en/latest/reference.html?highlight=qtbot#module-pytestqt.qtbot">qtbot</a></p></li>
 </ul>
 </li>
-<li><p>Oftentimes, this comes down to knowing and/or learning the Qt API really well.</p></li>
-<li><p>Please see also the <a class="reference internal" href="../testing_workshop_docs/index.html"><span class="std std-doc">In-depth guide to plugin testing</span></a>.</p></li>
+<li><p>Oftentimes, this comes down to knowing and/or learning the Qt API really
+well.</p></li>
+<li><p>Please see also the
+<a class="reference internal" href="../testing_workshop_docs/index.html"><span class="std std-doc">In-depth guide to plugin testing</span></a>.</p></li>
 </ul>
 </section>
 <section id="how-to-find-the-different-signals-or-slots">
 <h2>How to find the different signals or slots?<a class="headerlink" href="#how-to-find-the-different-signals-or-slots" title="Link to this heading">#</a></h2>
-<p>Question: How can we find the different signals/slots we can connect callbacks to as the user interacts with the core napari interface e.g. creating/editing/deleting a <code class="docutils literal notranslate"><span class="pre">points</span></code> or <code class="docutils literal notranslate"><span class="pre">shapes</span></code> layer?</p>
+<p>Question: How can we find the different signals/slots we can connect callbacks
+to as the user interacts with the core napari interface e.g.
+creating/editing/deleting a <code class="docutils literal notranslate"><span class="pre">points</span></code> or <code class="docutils literal notranslate"><span class="pre">shapes</span></code> layer?</p>
 <p>Answer:
 <a class="reference internal" href="../../guides/events_reference.html#events-reference"><span class="std std-ref">Events reference</span></a></p>
 <p>Granted, this is a work in progress.</p>
-<p>For example, these events are emitted when the user interacts with the layer list:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">    Viewer.layers.events.inserted</span>
-<span class="go">    Viewer.layers.events.removed</span>
-<span class="go">    Viewer.layers.events.moved</span>
-<span class="go">    Viewer.layers.events.changed</span>
-<span class="go">    Viewer.layers.events.reordered</span>
+<p>For example, these events are emitted when the user interacts with the layer
+list:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>    Viewer.layers.events.inserted
+    Viewer.layers.events.removed
+    Viewer.layers.events.moved
+    Viewer.layers.events.changed
+    Viewer.layers.events.reordered
 </pre></div>
 </div>
-<p>Getting an event when the user is editing the data inside a <code class="docutils literal notranslate"><span class="pre">points</span></code> or <code class="docutils literal notranslate"><span class="pre">shapes</span></code> layer (outside of the GUI interface) is complicated, because the user will be directly editing the native array object.</p>
+<p>Getting an event when the user is editing the data inside a <code class="docutils literal notranslate"><span class="pre">points</span></code> or
+<code class="docutils literal notranslate"><span class="pre">shapes</span></code> layer (outside of the GUI interface) is complicated, because the user
+will be directly editing the native array object.</p>
 </section>
 <section id="how-do-you-avoid-github-tests-failing">
 <h2>How do you avoid github tests failing?<a class="headerlink" href="#how-do-you-avoid-github-tests-failing" title="Link to this heading">#</a></h2>
 <p>Answer:</p>
 <ul class="simple">
 <li><p>First make sure all your tests are passing locally.</p></li>
-<li><p>After that, it’s complicated. More background or context is needed to answer this question.</p></li>
+<li><p>After that, it’s complicated. More background or context is needed to answer
+this question.</p></li>
 </ul>
 </section>
 <section id="how-do-you-make-a-process-cancellable">
 <h2>How do you make a process cancellable?<a class="headerlink" href="#how-do-you-make-a-process-cancellable" title="Link to this heading">#</a></h2>
-<p>Question: How do you make a process cancellable to interrupt a method that is running in a for loop, for example?</p>
+<p>Question: How do you make a process cancellable to interrupt a method that is
+running in a for loop, for example?</p>
 <p>Answer:</p>
 <ul class="simple">
 <li><p>In single-threaded python, use <code class="docutils literal notranslate"><span class="pre">Ctrl-C</span></code></p></li>
-<li><p>In multithreaded python, there are many different patterns. Consider using a <a class="reference internal" href="../../guides/threading.html#generators-for-the-win"><span class="std std-ref">generator-based thread worker</span></a>.</p></li>
+<li><p>In multithreaded python, there are many different patterns. Consider using a
+<a class="reference internal" href="../../guides/threading.html#generators-for-the-win"><span class="std std-ref">generator-based thread worker</span></a>.</p></li>
 </ul>
 </section>
 <section id="are-there-testing-environments-in-napari">
@@ -654,7 +672,8 @@
 <li><p>The primary difference is in how plugins are discovered:</p>
 <ul>
 <li><p>npe1 used decorators, requiring module import.</p></li>
-<li><p>npe2 uses static manifests (<code class="docutils literal notranslate"><span class="pre">napari.yaml</span></code>), describing contributions without requiring import.</p></li>
+<li><p>npe2 uses static manifests (<code class="docutils literal notranslate"><span class="pre">napari.yaml</span></code>), describing contributions
+without requiring import.</p></li>
 <li><p>See also the <a class="reference internal" href="../building_a_plugin/first_plugin.html#your-first-plugin"><span class="std std-ref">Your First Plugin tutorial</span></a></p></li>
 </ul>
 </li>
@@ -670,15 +689,20 @@
 <h2>What is the optimal setup to quickly iterate in widget development?<a class="headerlink" href="#what-is-the-optimal-setup-to-quickly-iterate-in-widget-development" title="Link to this heading">#</a></h2>
 <p>Answer:</p>
 <ul class="simple">
-<li><p>Create a script that will start napari and load your widget without any UI interaction.</p></li>
-<li><p>Don’t test as a plugin. Start by directly calling <code class="docutils literal notranslate"><span class="pre">viewer.window.add_dock_widget</span></code> with a manually created widget.</p></li>
-<li><p>Familiarize yourself with the <a class="reference external" href="https://ipython.readthedocs.io/en/stable/config/extensions/autoreload.html">IPython auto-reload features</a>.</p></li>
-<li><p>Consider using <code class="docutils literal notranslate"><span class="pre">watchmedo</span></code> from <a class="reference external" href="https://github.com/gorakhargosh/watchdog">watchdog</a>.
-This will monitor a file/directory for changes, and re-run a command each time (which is why step #1 is also useful).</p></li>
+<li><p>Create a script that will start napari and load your widget without any UI
+interaction.</p></li>
+<li><p>Don’t test as a plugin. Start by directly calling
+<code class="docutils literal notranslate"><span class="pre">viewer.window.add_dock_widget</span></code> with a manually created widget.</p></li>
+<li><p>Familiarize yourself with the
+<a class="reference external" href="https://ipython.readthedocs.io/en/stable/config/extensions/autoreload.html">IPython auto-reload features</a>.</p></li>
+<li><p>Consider using <code class="docutils literal notranslate"><span class="pre">watchmedo</span></code> from
+<a class="reference external" href="https://github.com/gorakhargosh/watchdog">watchdog</a>. This will monitor a
+file/directory for changes, and re-run a command each time (which is why step
+#1 is also useful).</p></li>
 </ul>
 </section>
 <section id="other-guides-in-this-series">
-<h2>Other guides in this series:<a class="headerlink" href="#other-guides-in-this-series" title="Link to this heading">#</a></h2>
+<h2>Other guides in this series<a class="headerlink" href="#other-guides-in-this-series" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p><a class="reference internal" href="1-virtual-environments.html"><span class="std std-doc">Virtual environments</span></a></p></li>
 <li><p><a class="reference internal" href="2-deploying-your-plugin.html"><span class="std std-doc">Deploying your plugin</span></a></p></li>
@@ -736,7 +760,7 @@ This will monitor a file/directory for changes, and re-run a command each time (
   </div>
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="pst-show_toc_level nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#this-guide-covers">This guide covers:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#this-guide-covers">This guide covers</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-are-the-best-practices-to-test-a-plugin-with-multiple-sequential-steps">What are the best practices to test a plugin with multiple sequential steps?</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-do-you-test-widgets-the-napari-viewer-graphical-user-interfaces-and-qt-in-general">How do you test widgets, the napari viewer, graphical user interfaces, and Qt in general?</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-find-the-different-signals-or-slots">How to find the different signals or slots?</a></li>
@@ -745,7 +769,7 @@ This will monitor a file/directory for changes, and re-run a command each time (
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#are-there-testing-environments-in-napari">Are there testing environments in napari?</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction-to-npe2-migrating-to-new-plugin-architecture">Introduction to npe2? Migrating to new plugin architecture?</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-the-optimal-setup-to-quickly-iterate-in-widget-development">What is the optimal setup to quickly iterate in widget development?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#other-guides-in-this-series">Other guides in this series:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#other-guides-in-this-series">Other guides in this series</a></li>
 </ul>
   </nav></div>
 

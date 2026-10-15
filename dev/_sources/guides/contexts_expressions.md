@@ -4,17 +4,17 @@
 
 ```{note}
 This page is mostly aimed at developers who are interested in contributing to
-or understanding the inner workings of napari.  While the concept of expressions
+or understanding the inner workings of napari. While the concept of expressions
 *will* be relevant for plugin developers writing plugin manifests, it won't be
 necessary for plugin devs or end-users to understand the implementation details
 described on this page.
 ```
 
-In napari, we'd like to be able to capture the *concept* of some condition being
-`True` or `False`, *prior* to actually having the context required to evaluate
-it. For example, a plugin (or napari itself) might want to stipulate that a
-given function should only be enabled when "the active layer has at least 3
-dimensions".
+In napari, we'd like to be able to capture the *concept* of some condition
+being `True` or `False`, *prior* to actually having the context required to
+evaluate it. For example, a plugin (or napari itself) might want to stipulate
+that a given function should only be enabled when "the active layer has at
+least 3 dimensions".
 
 At runtime, in Python code, this might be captured by the expression:
 
@@ -33,11 +33,13 @@ with a concrete set of keys and values (the `Context`).
 ## Python expressions
 
 In Python, **expressions** are simple combinations of **values** and
-**operations** that can be reduced to a single value. For example, `1 > 5` is an
-expression that always reduces to the value `False` when evaluated. `x > 5 and y == 'hello'` is also an expression that reduces to a boolean value; however, in
-order to evaluate that expression, we need to be able to fill in the values for
-the variable **names** "`x`" and "`y`". Those values are provided by some
-**context** (or "namespace"), which maps the variable names to their values.
+**operations** that can be reduced to a single value. For example, `1 > 5` is
+an expression that always reduces to the value `False` when evaluated.
+`x > 5 and y == 'hello'` is also an expression that reduces to a boolean value;
+however, in order to evaluate that expression, we need to be able to fill in
+the values for the variable **names** "`x`" and "`y`". Those values are
+provided by some **context** (or "namespace"), which maps the variable names to
+their values.
 
 The value of an `expression` depends on the context in which it is evaluated.
 
@@ -66,10 +68,10 @@ napari's `Expr` class subclasses from
 similarities with the `body` of
 [`ast.Expr`](https://docs.python.org/3/library/ast.html#ast.Expr). However, for
 the sake of evaluation safety, napari's `Expr` only supports a subset of
-operations, omitting things like function calls, generators, comprehensions, and
-collections. It's not important to fully understand ASTs to use napari
+operations, omitting things like function calls, generators, comprehensions,
+and collections. It's not important to fully understand ASTs to use napari
 expressions, but for a good introduction to Python's abstract syntax tree (AST)
-module, see https://greentreesnakes.readthedocs.io.
+module, see <https://greentreesnakes.readthedocs.io>.
 ```
 
 A string expression can be converted to a napari `Expr` object with the
@@ -132,12 +134,12 @@ The following operators are supported:
 
 ### napari context keys
 
-To capture napari-specific conditions, napari will declare special
-**names** that can be used in a napari expression. Taking the example above, a
-plugin might only want to provide a function if “the active layer has at least 3
-dimensions”. For this, napari recognizes the name `"active_layer_ndim"` used
-in an expression. In a plugin manifest, the plugin can provide a *when clause*
-to enable/disable a given command:
+To capture napari-specific conditions, napari will declare special **names**
+that can be used in a napari expression. Taking the example above, a plugin
+might only want to provide a function if “the active layer has at least 3
+dimensions”. For this, napari recognizes the name `"active_layer_ndim"` used in
+an expression. In a plugin manifest, the plugin can provide a *when clause* to
+enable/disable a given command:
 
 ```yaml
 command:
@@ -247,10 +249,10 @@ specific number of dimensions in the active layer.
 The napari `Context` class is a subclass of
 [`collections.ChainMap`](https://docs.python.org/3/library/collections.html#collections.ChainMap)
 that also emits events when a key has been modified. `ChainMap` is useful here
-as it allows us to have "sub-contexts" that are children of some parent context.
-Child contexts can access all of the keys of the parent (but not vice-versa).
-For example because a `Viewer` has a `LayerList`, all of the keys in the
-`Viewer` context are available to the `LayerList` context.
+as it allows us to have "sub-contexts" that are children of some parent
+context. Child contexts can access all of the keys of the parent (but not
+vice-versa). For example because a `Viewer` has a `LayerList`, all of the keys
+in the `Viewer` context are available to the `LayerList` context.
 
 ```ipython
 In [1]: from napari.utils.context import get_context
@@ -297,8 +299,8 @@ Out[6]: False
 
 ### Updating Contexts
 
-You may be wondering exactly how objects such as `Viewer` and `LayerList` update
-the keys in their contexts. The aforementioned
+You may be wondering exactly how objects such as `Viewer` and `LayerList`
+update the keys in their contexts. The aforementioned
 [`ContextNamespace`](#contextkey-objects) comes into play here again. A
 `ContextNamespace` can be instantiated, and bound to a specific `Context`
 instance.
@@ -343,7 +345,8 @@ Out[12]: 1
 
 ## Summary: A (rough) full picture
 
-1. napari creates special context "names" using `ContextKey` and `ContextNamespace`
+1. napari creates special context "names" using `ContextKey` and
+   `ContextNamespace`
 
    ```python
    class LayerListContextKeys(ContextNamespace):
@@ -359,22 +362,24 @@ Out[12]: 1
        )
    ```
 
-1. _Internally_ (in napari code), we can use those objects directly to declare
+1. *Internally* (in napari code), we can use those objects directly to declare
    expressions in an IDE-friendly way. For example, here we are declaratively
    populating the layer-list context menu; this is a function that will split
    the current stack into multiple layers, but it is only enabled when the
    selected image is a (non-RGB) `Image` layer.
 
    ```python
-   'napari:split_stack': {
-       'description': trans._('Split Stack'),
-       'action': _split_stack,
-       'enable_when': LLCK.active_layer_type == "image",
-       'show_when': ~LLCK.active_layer_is_rgb,
+   {
+       'napari:split_stack': {
+           'description': trans._('Split Stack'),
+           'action': _split_stack,
+           'enable_when': LLCK.active_layer_type == 'image',
+           'show_when': ~LLCK.active_layer_is_rgb,
+       }
    }
    ```
 
-1. _Externally_ (in plugin manifests), plugin developers use the string form to
+1. *Externally* (in plugin manifests), plugin developers use the string form to
    express conditions. For example, this plugin manifest offers up a command
    (just a callable) that is only enabled when the the active layer is an RGB
    image.
@@ -391,9 +396,10 @@ Out[12]: 1
 
 1. During runtime, napari maintains and [updates contexts](#updating-contexts)
 
-1. As these contexts are updated, they emit events that allow menus, keybindings,
-   and other things to update themselves accordingly. For example, the layer-list
-   context menu might update the items in the menu that are visible and/or enabled:
+1. As these contexts are updated, they emit events that allow menus,
+   keybindings, and other things to update themselves accordingly. For example,
+   the layer-list context menu might update the items in the menu that are
+   visible and/or enabled:
 
    ```python
    context_menu.update_from_context(get_context(layer_list))

@@ -451,9 +451,7 @@
 <li class="toctree-l2"><a class="reference internal" href="dir_organization.html">napari directory organization</a></li>
 <li class="toctree-l2 current active"><a aria-current="page" class="current reference internal" href="#">napari models and events</a></li>
 <li class="toctree-l2"><a class="reference internal" href="app_model.html">napari’s application model</a></li>
-
 <li class="toctree-l2"><a class="reference internal" href="magicgui_type_reg.html"><code class="docutils literal notranslate"><span class="pre">magicgui</span></code> type registration</a></li>
-
 <li class="toctree-l2 has-children"><a class="reference internal" href="ui_sections/index.html">UI sections</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="ui_sections/application_menus_ui.html">Application menus</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ui_sections/application_status_bar_ui.html">Application status bar</a></li>
@@ -488,7 +486,6 @@
 <li class="toctree-l2"><a class="reference internal" href="../../naps/8-telemetry.html">NAP-8 — Telemetry</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../naps/9-multiple-canvases.html">NAP-9 — Multiple Views</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../naps/10-migration-event-system.html">NAP-10 — Migration of the event system</a></li>
-
 <li class="toctree-l2"><a class="reference internal" href="../../naps/template.html">NAP-X — Template and Instructions</a></li>
 </ul>
 </details></li>
@@ -597,9 +594,9 @@ understanding the inner workings of napari. This document assumes you’re
 familiar with basic usage of napari.</p>
 <p>The three main components:</p>
 <ul class="simple">
-<li><p>Python models describing components in the napari application - these are able
-to operate without the GUI interface and do not have any dependencies on user
-interface classes</p>
+<li><p>Python models describing components in the napari application - these are
+able to operate without the GUI interface and do not have any dependencies on
+user interface classes</p>
 <ul>
 <li><p>this code lives in <code class="docutils literal notranslate"><span class="pre">napari/components</span></code> (utility objects) and
 <code class="docutils literal notranslate"><span class="pre">napari/layers</span></code> (objects that contain data)</p></li>
@@ -629,11 +626,10 @@ used</p></li>
 </ul>
 <section id="python-models-and-events">
 <h2>Python models and events<a class="headerlink" href="#python-models-and-events" title="Link to this heading">#</a></h2>
-<p>Commonly, Python models in napari are classes that store information about their
-state as an attribute and are the “source of ground truth”. When these
+<p>Commonly, Python models in napari are classes that store information about
+their state as an attribute and are the “source of ground truth”. When these
 attributes are changed an “event” needs to be emitted such that relevant
-observers of the model (such as other classes) can take the appropriate
-action.</p>
+observers of the model (such as other classes) can take the appropriate action.</p>
 <p>One way this is achieved in napari is via getters and setters. Let’s take
 for example the <code class="docutils literal notranslate"><span class="pre">Dims</span></code> class with a selected few attributes:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.events</span><span class="w"> </span><span class="kn">import</span> <span class="n">EmitterGroup</span>

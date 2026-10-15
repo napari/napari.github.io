@@ -67,29 +67,30 @@ output that you generated, nobody else will want to read it either.
 Here are some concrete guidelines for using LLMs as part of your communication
 workflows.
 
-1. When writing a pull request description, **do not include anything that's
-   obvious** from looking at your changes directly (e.g., files changed, functions
-   updated, etc.). Instead, focus on the _why_ behind your changes. Don't ask an
-   LLM to generate a PR description on your behalf based on your code changes,
-   as it will simply regurgitate the information that's already there.
-2. Similarly, when responding to a pull request comment, **explain _your_
-   reasoning**. Don't prompt an LLM to re-describe what can already be seen from
-   the code.
+1. When writing a pull request description,
+   **do not include anything that's obvious** from looking at your changes
+   directly (e.g., files changed, functions updated, etc.). Instead, focus on
+   the _why_ behind your changes. Don't ask an LLM to generate a PR description
+   on your behalf based on your code changes, as it will simply regurgitate the
+   information that's already there.
+2. Similarly, when responding to a pull request comment,
+   **explain _your_ reasoning**. Don't prompt an LLM to re-describe what can
+   already be seen from the code.
 3. Verify that **everything you write is accurate**, whether or not an LLM
    generated any part of it. napari's maintainers will be unable to review your
    contributions if you misrepresent your work (e.g., misdescribing your code
    changes, their effect, or your testing process).
 4. Complete all parts of the **PR description template**. Don't simply
    overwrite the template with LLM output.
-5. **Clarity and succinctness** are much more important than perfect grammar, so
-   you shouldn't feel obliged to pass your writing through an LLM. If you do ask
-   an LLM to clean up your writing style, be sure it does _not_ make it longer
-   in the process. Demand succinctness in your prompt.
+5. **Clarity and succinctness** are much more important than perfect grammar,
+   so you shouldn't feel obliged to pass your writing through an LLM. If you do
+   ask an LLM to clean up your writing style, be sure it does _not_ make it
+   longer in the process. Demand succinctness in your prompt.
 6. Quoting an LLM answer is usually less helpful than linking to
    **relevant primary sources**, like source code or reference
    documentation. If you do need to quote an LLM
    answer in a napari conversation, put the answer in a
-   [quote block](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax#quoting-text), 
+   [quote block](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax#quoting-text),
    to clearly distinguish LLM output from your own thoughts.
 
 ## Acknowledgements

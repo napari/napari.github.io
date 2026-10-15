@@ -2,8 +2,9 @@
 
 # Technical references
 
-Technical references for the plugin system and the plugin API.
-These references can be useful for plugin developers who want to understand the plugin system in more detail.
+Technical references for the plugin system and the plugin API. These references
+can be useful for plugin developers who want to understand the plugin system in
+more detail.
 
 ````{grid}
 ```{grid-item-card} Manifest reference

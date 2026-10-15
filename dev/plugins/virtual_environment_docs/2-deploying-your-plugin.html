@@ -571,16 +571,31 @@
 <p>This guide explains some of the techniques you can use to deploy your plugin.</p>
 <section id="overview-of-pypi-and-conda">
 <h2>Overview of PyPI and conda<a class="headerlink" href="#overview-of-pypi-and-conda" title="Link to this heading">#</a></h2>
-<p>PyPI and conda are two options for how you distribute your package and allow your users to more easily find and install it. Ideally, try to deploy to both. But for now, try to at least use PyPI. You can always also provide your users with manual installation instructions (e.g. if you want them to use <code class="docutils literal notranslate"><span class="pre">conda</span></code> or have specific dependencies).</p>
+<p>PyPI and conda are two options for how you distribute your package and allow
+your users to more easily find and install it. Ideally, try to deploy to both.
+But for now, try to at least use PyPI. You can always also provide your users
+with manual installation instructions (e.g. if you want them to use <code class="docutils literal notranslate"><span class="pre">conda</span></code> or
+have specific dependencies).</p>
 <section id="building-your-package">
 <h3>Building your package<a class="headerlink" href="#building-your-package" title="Link to this heading">#</a></h3>
-<p><code class="docutils literal notranslate"><span class="pre">sdist</span></code> means source distribution. An <code class="docutils literal notranslate"><span class="pre">sdist</span></code> includes all of the files that are required to <em>build</em> your package. An <code class="docutils literal notranslate"><span class="pre">sdist</span></code> may require specific additional software (e.g. compilers) to actually build.</p>
-<p><code class="docutils literal notranslate"><span class="pre">wheel</span></code> is a prebuilt package, ready to drop into your <code class="docutils literal notranslate"><span class="pre">site-packages</span></code> directory. It includes compiled OS-specific extensions (if applicable).</p>
-<p>You are <em>strongly</em> encouraged to ship both! If the <code class="docutils literal notranslate"><span class="pre">wheel</span></code> is not present, <code class="docutils literal notranslate"><span class="pre">pip</span></code> will try to build it from the <code class="docutils literal notranslate"><span class="pre">sdist</span></code> before installation, and that may fail depending on the package. To see if a given package ships a <code class="docutils literal notranslate"><span class="pre">wheel</span></code>, check here: <a class="reference external" href="https://pypi.org/project/napari/#files">https://pypi.org/project/napari/#files</a></p>
-<p><strong>Note:</strong> This goes for dependencies too! Check all your dependencies for wheel availability.</p>
-<p><strong><a class="reference external" href="https://pypa-build.readthedocs.io/en/latest/">build</a></strong> is the recommended package builder that bundles your source code into <code class="docutils literal notranslate"><span class="pre">sdist</span></code> or <code class="docutils literal notranslate"><span class="pre">wheel</span></code> distributions. Install <code class="docutils literal notranslate"><span class="pre">build</span></code> into your local environment and then run it at the root of your package to build your package, as shown below:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">   pip install build</span>
-<span class="go">   python -m build .</span>
+<p><code class="docutils literal notranslate"><span class="pre">sdist</span></code> means source distribution. An <code class="docutils literal notranslate"><span class="pre">sdist</span></code> includes all of the files that
+are required to <em>build</em> your package. An <code class="docutils literal notranslate"><span class="pre">sdist</span></code> may require specific
+additional software (e.g. compilers) to actually build.</p>
+<p><code class="docutils literal notranslate"><span class="pre">wheel</span></code> is a prebuilt package, ready to drop into your <code class="docutils literal notranslate"><span class="pre">site-packages</span></code>
+directory. It includes compiled OS-specific extensions (if applicable).</p>
+<p>You are <em>strongly</em> encouraged to ship both! If the <code class="docutils literal notranslate"><span class="pre">wheel</span></code> is not present,
+<code class="docutils literal notranslate"><span class="pre">pip</span></code> will try to build it from the <code class="docutils literal notranslate"><span class="pre">sdist</span></code> before installation, and that may
+fail depending on the package. To see if a given package ships a <code class="docutils literal notranslate"><span class="pre">wheel</span></code>, check
+here:
+<a class="reference external" href="https://pypi.org/project/napari/#files">https://pypi.org/project/napari/#files</a></p>
+<p><strong>Note:</strong> This goes for dependencies too! Check all your dependencies for wheel
+availability.</p>
+<p><strong><a class="reference external" href="https://pypa-build.readthedocs.io/en/latest/">build</a></strong> is the recommended
+package builder that bundles your source code into <code class="docutils literal notranslate"><span class="pre">sdist</span></code> or <code class="docutils literal notranslate"><span class="pre">wheel</span></code>
+distributions. Install <code class="docutils literal notranslate"><span class="pre">build</span></code> into your local environment and then run it at
+the root of your package to build your package, as shown below:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>pip<span class="w"> </span>install<span class="w"> </span>build
+<span class="w">   </span>python<span class="w"> </span>-m<span class="w"> </span>build<span class="w"> </span>.
 </pre></div>
 </div>
 </section>
@@ -588,33 +603,40 @@
 <section id="deploying-plugins-to-pypi">
 <h2>Deploying plugins to PyPI<a class="headerlink" href="#deploying-plugins-to-pypi" title="Link to this heading">#</a></h2>
 <section id="manually-via-twine">
-<h3>Manually via <strong>twine</strong>.<a class="headerlink" href="#manually-via-twine" title="Link to this heading">#</a></h3>
-<p><a class="reference external" href="https://twine.readthedocs.io/en/latest/">twine</a> is a command line client you can use to upload your distribution to PyPI. Note that you will need to set up a PyPI account and authenticate yourself when uploading. See <a class="reference external" href="https://packaging.python.org/en/latest/tutorials/packaging-projects/">this great guide</a> for a detailed tutorial to building and sharing your first Python packages.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">    # </span>twine<span class="w"> </span>is<span class="w"> </span>a<span class="w"> </span>PyPI<span class="w"> </span>Client
-<span class="gp">    # </span>build<span class="w"> </span>is<span class="w"> </span>a<span class="w"> </span>PEP<span class="w"> </span><span class="m">517</span><span class="w"> </span>package<span class="w"> </span>builder
-<span class="gp">    $ </span>pip<span class="w"> </span>install<span class="w"> </span>twine<span class="w"> </span>build
+<h3>Manually via <strong>twine</strong><a class="headerlink" href="#manually-via-twine" title="Link to this heading">#</a></h3>
+<p><a class="reference external" href="https://twine.readthedocs.io/en/latest/">twine</a> is a command line client you
+can use to upload your distribution to PyPI. Note that you will need to set up
+a PyPI account and authenticate yourself when uploading. See
+<a class="reference external" href="https://packaging.python.org/en/latest/tutorials/packaging-projects/">this great guide</a>
+for a detailed tutorial to building and sharing your first Python packages.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="c1"># twine is a PyPI Client</span>
+<span class="w">    </span><span class="c1"># build is a PEP 517 package builder</span>
+<span class="w">    </span>pip<span class="w"> </span>install<span class="w"> </span>twine<span class="w"> </span>build
 
-<span class="gp">    # </span>create<span class="w"> </span>a<span class="w"> </span>wheel<span class="w"> </span>and<span class="w"> </span>an<span class="w"> </span>sdist
-<span class="gp">    $ </span>python<span class="w"> </span>-m<span class="w"> </span>build
+<span class="w">    </span><span class="c1"># create a wheel and an sdist</span>
+<span class="w">    </span>python<span class="w"> </span>-m<span class="w"> </span>build
 
-<span class="gp">    # </span><span class="o">(</span>Optional<span class="o">)</span><span class="w"> </span>upload<span class="w"> </span>to<span class="w"> </span><span class="nb">test</span><span class="w"> </span>PyPI
-<span class="gp">    $ </span>twine<span class="w"> </span>upload<span class="w"> </span>-r<span class="w"> </span>testpypi<span class="w"> </span>dist/*
+<span class="w">    </span><span class="c1"># (Optional) upload to test PyPI</span>
+<span class="w">    </span>twine<span class="w"> </span>upload<span class="w"> </span>-r<span class="w"> </span>testpypi<span class="w"> </span>dist/*
 
-<span class="gp">    # </span>Upload<span class="w"> </span>to<span class="w"> </span>PyPI
-<span class="gp">    $ </span>twine<span class="w"> </span>upload<span class="w"> </span>dist/*
+<span class="w">    </span><span class="c1"># Upload to PyPI</span>
+<span class="w">    </span>twine<span class="w"> </span>upload<span class="w"> </span>dist/*
 </pre></div>
 </div>
-<p><strong>Note:</strong> <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">build</span></code> is the modern alternative to <code class="docutils literal notranslate"><span class="pre">setuptools</span></code>’ <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">setup.py</span> <span class="pre">sdist</span> <span class="pre">bdist_wheel</span></code>. It calls <code class="docutils literal notranslate"><span class="pre">setuptools</span></code> behind the scenes.</p>
+<p><strong>Note:</strong> <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">build</span></code> is the modern alternative to <code class="docutils literal notranslate"><span class="pre">setuptools</span></code>’
+<code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">setup.py</span> <span class="pre">sdist</span> <span class="pre">bdist_wheel</span></code>. It calls <code class="docutils literal notranslate"><span class="pre">setuptools</span></code> behind the scenes.</p>
 </section>
 <section id="automatically-via-github-actions">
 <h3>Automatically via GitHub actions<a class="headerlink" href="#automatically-via-github-actions" title="Link to this heading">#</a></h3>
 <p>This requires either:</p>
 <ul class="simple">
-<li><p>Running <code class="docutils literal notranslate"><span class="pre">twine</span></code> as above in a workflow after setting up Python and installing it
-or</p></li>
-<li><p>Using a pre-made <a class="reference external" href="https://github.com/pypa/gh-action-pypi-publish">GitHub action</a></p></li>
+<li><p>Running <code class="docutils literal notranslate"><span class="pre">twine</span></code> as above in a workflow after setting up Python and installing
+it or</p></li>
+<li><p>Using a pre-made
+<a class="reference external" href="https://github.com/pypa/gh-action-pypi-publish">GitHub action</a></p></li>
 </ul>
-<p>Here is an example workflow that manually deploys using <code class="docutils literal notranslate"><span class="pre">twine</span></code> when tests pass and you push a tagged commit.</p>
+<p>Here is an example workflow that manually deploys using <code class="docutils literal notranslate"><span class="pre">twine</span></code> when tests pass
+and you push a tagged commit.</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1">#your-repo/.github/workflows/deploy.yaml</span>
 <span class="nt">jobs</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">deploy</span><span class="p">:</span>
@@ -642,36 +664,48 @@ or</p></li>
 <span class="w">             </span><span class="nt">TWINE_PASSWORD</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ secrets.TWINE_API_KEY }}</span>
 </pre></div>
 </div>
-<p><strong>Note:</strong> Gate this action on some criterion, e.g. a git tag as above, or <a class="reference external" href="https://docs.github.com/en/actions/writing-workflows/choosing-when-your-workflow-runs/events-that-trigger-workflows">some other criterion</a>.</p>
+<p><strong>Note:</strong> Gate this action on some criterion, e.g. a git tag as above, or
+<a class="reference external" href="https://docs.github.com/en/actions/writing-workflows/choosing-when-your-workflow-runs/events-that-trigger-workflows">some other criterion</a>.</p>
 </section>
 </section>
 <section id="deploying-to-conda-forge">
 <span id="id1"></span><h2>Deploying to conda-forge<a class="headerlink" href="#deploying-to-conda-forge" title="Link to this heading">#</a></h2>
-<p>This is only a brief guide to deploying to <code class="docutils literal notranslate"><span class="pre">conda-forge</span></code>. More information can be found in the <a class="reference external" href="https://conda-forge.org/docs/maintainer/adding_pkgs.html">conda-forge docs</a>.
-To deploy a plugin to <code class="docutils literal notranslate"><span class="pre">conda-forge</span></code>, the plugin’s build and run requirements <strong>must</strong> be available on <code class="docutils literal notranslate"><span class="pre">conda-forge</span></code> so the plugin and its dependencies may be installed.</p>
+<p>This is only a brief guide to deploying to <code class="docutils literal notranslate"><span class="pre">conda-forge</span></code>. More information can
+be found in the
+<a class="reference external" href="https://conda-forge.org/docs/maintainer/adding_pkgs.html">conda-forge docs</a>.
+To deploy a plugin to <code class="docutils literal notranslate"><span class="pre">conda-forge</span></code>, the plugin’s build and run requirements
+<strong>must</strong> be available on <code class="docutils literal notranslate"><span class="pre">conda-forge</span></code> so the plugin and its dependencies may
+be installed.</p>
 <ol class="arabic simple">
 <li><p>Fork <a class="github reference external" href="https://github.com/conda-forge/staged-recipes">conda-forge/staged-recipes</a></p></li>
 <li><p>Create a new branch</p></li>
 <li><p>Create a new folder in recipes directory (copy the existing example)</p></li>
-<li><p>Update the <strong>meta.yaml</strong> file to include your package’s build and run requirements</p></li>
+<li><p>Update the <strong>meta.yaml</strong> file to include your package’s build and run
+requirements</p></li>
 <li><p>Commit and open a PR to <a class="github reference external" href="https://github.com/conda-forge/staged-recipes">conda-forge/staged-recipes</a></p></li>
 </ol>
-<p>Once your recipe is approved and merged, the rest happens <em>automagically</em>, and your package will appear on the <a class="reference external" href="https://conda-forge.org/packages/">conda-forge package list</a>.</p>
+<p>Once your recipe is approved and merged, the rest happens <em>automagically</em>, and
+your package will appear on the
+<a class="reference external" href="https://conda-forge.org/packages/">conda-forge package list</a>.</p>
 <p>This is <strong>far</strong> easier if you already have an <code class="docutils literal notranslate"><span class="pre">sdist</span></code> published to PyPI.</p>
 <div class="important admonition">
 <p class="admonition-title">Updating your package on conda-forge</p>
-<p>By default, when a new release is detected on PyPI, conda-forge bots will automatically make a pull requests to your <code class="docutils literal notranslate"><span class="pre">conda-forge/package-name-feedstock</span></code>, and the plugin maintainer must review, make changes, if needed,  and approve the pull request.</p>
+<p>By default, when a new release is detected on PyPI, conda-forge bots will
+automatically make a pull requests to your
+<code class="docutils literal notranslate"><span class="pre">conda-forge/package-name-feedstock</span></code>, and the plugin maintainer must review,
+make changes, if needed, and approve the pull request.</p>
 </div>
 </section>
 <section id="other-topics-in-this-series">
-<h2>Other topics in this series:<a class="headerlink" href="#other-topics-in-this-series" title="Link to this heading">#</a></h2>
+<h2>Other topics in this series<a class="headerlink" href="#other-topics-in-this-series" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p><a class="reference internal" href="1-virtual-environments.html"><span class="std std-doc">Virtual environments</span></a></p></li>
 <li><p><a class="reference internal" href="3-version-management.html"><span class="std std-doc">Version management</span></a></p></li>
 <li><p><a class="reference internal" href="4-developer-tools.html"><span class="std std-doc">Developer tools</span></a></p></li>
 <li><p><a class="reference internal" href="5-survey.html"><span class="std std-doc">Survey/Q&amp;A</span></a></p></li>
 </ul>
-<p>The next topic in this series is <a class="reference internal" href="3-version-management.html"><span class="std std-doc">Version management</span></a>.</p>
+<p>The next topic in this series is
+<a class="reference internal" href="3-version-management.html"><span class="std std-doc">Version management</span></a>.</p>
 </section>
 </section>
 
@@ -727,12 +761,12 @@ To deploy a plugin to <code class="docutils literal notranslate"><span class="pr
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deploying-plugins-to-pypi">Deploying plugins to PyPI</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#manually-via-twine">Manually via <strong>twine</strong>.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#manually-via-twine">Manually via <strong>twine</strong></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#automatically-via-github-actions">Automatically via GitHub actions</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deploying-to-conda-forge">Deploying to conda-forge</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#other-topics-in-this-series">Other topics in this series:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#other-topics-in-this-series">Other topics in this series</a></li>
 </ul>
   </nav></div>
 

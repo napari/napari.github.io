@@ -7,21 +7,27 @@ communicated. It is the entry point for understanding the release process —
 the [release guide](napari-release-guide) contains the step-by-step mechanics
 for executing a release. Most required tools mentioned here are in
 [napari/napari-release-tools](https://github.com/napari/napari-release-tools).
-The release manager is is responsible for organizing, executing, and communicating with the team and community about the release process, as described in the [release guide](napari-release-guide).
+The release manager is is responsible for organizing, executing, and
+communicating with the team and community about the release process, as
+described in the [release guide](napari-release-guide).
 
 ## EffVer: (Intended) Effort Versioning
 
-As of 0.6.5, napari has officially adopted [EffVer](https://effver.org) for versioning, from the previous semantic versioning.
-While in pre-1.0 state, the current convention is `0.MACRO.MESO` and once we release v1.0.0 will henceforth be in `MACRO.MESO.MICRO` versioning.
-This is similar to previous Semantic Versioning schema of `MAJOR.MINOR.BUGFIX`, but allows features and bugfixes to live harmoniously in any version.
-Instead, the version number implies to users the amount of effort required to adopt the newest version from significant effort (`MACRO`) to no expected effort (`MICRO`).
-Our current policy permits deprecations in `MACRO` and `MESO` releases only.
+As of 0.6.5, napari has officially adopted [EffVer](https://effver.org) for
+versioning, from the previous semantic versioning. While in pre-1.0 state, the
+current convention is `0.MACRO.MESO` and once we release v1.0.0 will henceforth
+be in `MACRO.MESO.MICRO` versioning. This is similar to previous Semantic
+Versioning schema of `MAJOR.MINOR.BUGFIX`, but allows features and bugfixes to
+live harmoniously in any version. Instead, the version number implies to users
+the amount of effort required to adopt the newest version from significant
+effort (`MACRO`) to no expected effort (`MICRO`). Our current policy permits
+deprecations in `MACRO` and `MESO` releases only.
 
 ## Release cadence
 
-napari ships on a monthly cadence. Releases are declared meso (e.g.
-`0.9.0` -> `0.9.1`) or macro (e.g. `0.9.9` -> `0.10.0`) *after the fact*: we do
-not pre-plan whether the next release will be "big" or "small", so contributions
+napari ships on a monthly cadence. Releases are declared meso (e.g. `0.9.0` ->
+`0.9.1`) or macro (e.g. `0.9.9` -> `0.10.0`) *after the fact*: we do not
+pre-plan whether the next release will be "big" or "small", so contributions
 merge when they are ready rather than being rushed into a particular release.
 
 The monthly cycle is:
@@ -31,11 +37,11 @@ The monthly cycle is:
 - **release candidate** (rc) around the 15th;
 - **final release** around the 21st.
 
-We will not ship a release between December 10 and January 10, except in the case
-of large regressions. We may declare a special release (for example, one
+We will not ship a release between December 10 and January 10, except in the
+case of large regressions. We may declare a special release (for example, one
 following a large community event) from the start, explicitly outside the
-expected calendar, when there is clear value in doing so. Such releases may take
-longer to prepare, and this should be communicated clearly.
+expected calendar, when there is clear value in doing so. Such releases may
+take longer to prepare, and this should be communicated clearly.
 
 A feature or enhancement that is not ready for an upcoming release is **not** a
 reason to delay it. With a monthly cadence, it simply ships a month later.
@@ -44,7 +50,8 @@ reason to delay it. With a monthly cadence, it simply ships a month later.
 
 - **Features and enhancements** should be ready before the first release
   candidate (rc1).
-- **Documentation, bug fixes, and maintenance** may be merged during the rc phase.
+- **Documentation, bug fixes, and maintenance** may be merged during the rc
+  phase.
 
 ## Milestones
 
@@ -59,10 +66,10 @@ determined to be of the appropriate version.
 
 ### Milestone ownership
 
-Whoever adds a milestone to a pull request takes responsibility for driving that
-pull request to a mergeable point — even by pushing the required changes to the
-PR. This person is also responsible for communicating with the release manager
-about the state of the PR after the first alpha.
+Whoever adds a milestone to a pull request takes responsibility for driving
+that pull request to a mergeable point — even by pushing the required changes
+to the PR. This person is also responsible for communicating with the release
+manager about the state of the PR after the first alpha.
 
 ### Demilestoning
 
@@ -75,9 +82,9 @@ days, if there is no response or significant progress, the release manager may
 remove the milestone with a message like "This PR does not look to be ready for
 the upcoming release and is having the milestone removed."
 
-An incomplete feature or enhancement should not delay a release. The exception is
-a PR that is pending only on review, when the reviewer declares they will do it
-in a few days.
+An incomplete feature or enhancement should not delay a release. The exception
+is a PR that is pending only on review, when the reviewer declares they will do
+it in a few days.
 
 Removing a milestone from a pull request that will not be ready is nothing
 personal: it is simply a matter of the calendar, and of making sure already

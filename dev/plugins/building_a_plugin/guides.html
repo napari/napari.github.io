@@ -1468,10 +1468,10 @@ actually reads.</p>
 </section>
 <section id="the-layerdata-tuple">
 <span id="layer-data-tuples"></span><h2>The LayerData tuple<a class="headerlink" href="#the-layerdata-tuple" title="Link to this heading">#</a></h2>
-<p>When transferring data to and from plugins, napari does not pass <code class="docutils literal notranslate"><span class="pre">Layer</span></code> objects
-directly. Instead, it passes (mostly) pure-python and array-like types,
-deconstructed into a <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></a> that we refer to as a <code class="docutils literal notranslate"><span class="pre">LayerData</span></code> tuple. This type shows
-up often in plugins and is explained here.</p>
+<p>When transferring data to and from plugins, napari does not pass <code class="docutils literal notranslate"><span class="pre">Layer</span></code>
+objects directly. Instead, it passes (mostly) pure-python and array-like types,
+deconstructed into a <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></a> that we refer to as a <code class="docutils literal notranslate"><span class="pre">LayerData</span></code> tuple.
+This type shows up often in plugins and is explained here.</p>
 <p>Note that when writing your own plugin, type annotations are optional,
 except in the case of <a class="reference internal" href="../../howtos/extending/magicgui.html#magicgui-decorator"><span class="std std-ref"><code class="docutils literal notranslate"><span class="pre">magicgui</span></code> function widgets</span></a>.
 For several types related to <code class="docutils literal notranslate"><span class="pre">LayerData</span></code> tuples, napari defines a type alias
@@ -1487,10 +1487,11 @@ We describe these below.</p>
 <li><p>The <code class="docutils literal notranslate"><span class="pre">data</span></code> object that would be used for <code class="docutils literal notranslate"><span class="pre">layer.data</span></code> (such as a numpy array
 for the <code class="docutils literal notranslate"><span class="pre">Image</span></code> layer)</p></li>
 <li><p><em>(Optional).</em> A <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a> of layer attributes, suitable for passing as
-keyword arguments to the corresponding layer constructor (e.g. <code class="docutils literal notranslate"><span class="pre">{'opacity':</span> <span class="pre">0.7}</span></code>)</p></li>
-<li><p><em>(Optional).</em> A lower case <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> indicating the layer type (e.g.<code class="docutils literal notranslate"><span class="pre">'image'</span></code>,
-<code class="docutils literal notranslate"><span class="pre">'labels'</span></code>, etc…). If not provided (i.e. if the tuple is only of length 2), the
-layer type is assumed to be <code class="docutils literal notranslate"><span class="pre">'image</span></code>’.</p></li>
+keyword arguments to the corresponding layer constructor (e.g.
+<code class="docutils literal notranslate"><span class="pre">{'opacity':</span> <span class="pre">0.7}</span></code>)</p></li>
+<li><p><em>(Optional).</em> A lower case <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> indicating the layer type
+(e.g.<code class="docutils literal notranslate"><span class="pre">'image'</span></code>, <code class="docutils literal notranslate"><span class="pre">'labels'</span></code>, etc…). If not provided (i.e. if the tuple is
+only of length 2), the layer type is assumed to be <code class="docutils literal notranslate"><span class="pre">'image</span></code>’.</p></li>
 </ol>
 </section>
 <section id="formal-type-definition">
@@ -1549,10 +1550,10 @@ layer type is assumed to be <code class="docutils literal notranslate"><span cla
 </div>
 </section>
 <section id="creation-from-a-layer-instance">
-<h3>Creation from a <code class="docutils literal notranslate"><span class="pre">Layer</span></code> instance.<a class="headerlink" href="#creation-from-a-layer-instance" title="Link to this heading">#</a></h3>
-<p>Note, the <code class="xref py py-meth docutils literal notranslate"><span class="pre">as_layer_data_tuple()</span></code> method will create a layer data
-tuple from a given layer</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">colormap</span><span class="o">=</span><span class="s1">'green'</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<h3>Creation from a <code class="docutils literal notranslate"><span class="pre">Layer</span></code> instance<a class="headerlink" href="#creation-from-a-layer-instance" title="Link to this heading">#</a></h3>
+<p>Note, the <code class="xref py py-meth docutils literal notranslate"><span class="pre">as_layer_data_tuple()</span></code> method will create a
+layer data tuple from a given layer</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">colormap</span><span class="o">=</span><span class="s1">'green'</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
 
 <span class="gp">&gt;&gt;&gt; </span><span class="n">img</span><span class="o">.</span><span class="n">as_layer_data_tuple</span><span class="p">()</span>
 <span class="go">Out[7]:</span>
@@ -1589,12 +1590,13 @@ tuple from a given layer</p>
 <section id="adding-to-the-viewer">
 <h3>Adding to the viewer<a class="headerlink" href="#adding-to-the-viewer" title="Link to this heading">#</a></h3>
 <p>To add a <code class="docutils literal notranslate"><span class="pre">LayerData</span></code> tuple to the napari viewer, use :meth:<code class="docutils literal notranslate"><span class="pre">Layer.create</span></code>:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">image_layer_data</span> <span class="o">=</span> <span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="p">{</span><span class="s1">'name'</span><span class="p">:</span> <span class="s1">'My Image'</span><span class="p">,</span> <span class="s1">'colormap'</span><span class="p">:</span> <span class="s1">'red'</span><span class="p">},</span> <span class="s1">'image'</span><span class="p">)</span>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">image_layer_data</span> <span class="o">=</span> <span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="p">{</span><span class="s1">'name'</span><span class="p">:</span> <span class="s1">'My Image'</span><span class="p">,</span> <span class="s1">'colormap'</span><span class="p">:</span> <span class="s1">'red'</span><span class="p">},</span> <span class="s1">'image'</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">current_viewer</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">viewer</span><span class="o">.</span><span class="n">add_layer</span><span class="p">(</span><span class="n">napari</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Layer</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="o">*</span><span class="n">image_layer_data</span><span class="p">))</span>
 </pre></div>
 </div>
-<p>The only attribute that can’t be passed to <code class="docutils literal notranslate"><span class="pre">napari.layers.Layer.create</span></code> that is otherwise valid for a <code class="docutils literal notranslate"><span class="pre">LayerData</span></code> tuple is ‘channel_axis’.</p>
+<p>The only attribute that can’t be passed to <code class="docutils literal notranslate"><span class="pre">napari.layers.Layer.create</span></code> that is
+otherwise valid for a <code class="docutils literal notranslate"><span class="pre">LayerData</span></code> tuple is ‘channel_axis’.</p>
 </section>
 </section>
 </section>
@@ -1694,7 +1696,7 @@ tuple from a given layer</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#informal-description">Informal description</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#formal-type-definition">Formal type definition</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#examples">Examples</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#creation-from-a-layer-instance">Creation from a <code class="docutils literal notranslate"><span class="pre">Layer</span></code> instance.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#creation-from-a-layer-instance">Creation from a <code class="docutils literal notranslate"><span class="pre">Layer</span></code> instance</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-to-the-viewer">Adding to the viewer</a></li>
 </ul>
 </li>

@@ -836,18 +836,21 @@
                   
   <section class="tex2jax_ignore mathjax_ignore" id="feature-highlights">
 <span id="id1"></span><h1>Feature highlights<a class="headerlink" href="#feature-highlights" title="Link to this heading">#</a></h1>
-<p>This page highlights a few napari features that are useful in many scenarios and might be easily overlooked.
-The <a class="reference internal" href="#command-palette"><span class="std std-ref">command palette</span></a> is great to avoid clicking around menus to find <em>that</em> specific command.
-The <a class="reference internal" href="#measure-tool"><span class="std std-ref">measurement tool</span></a> allows for quick distance and area measurements.
-For layers with <code class="docutils literal notranslate"><span class="pre">features</span></code>, the <a class="reference internal" href="#features-table-widget"><span class="std std-ref">features table widget</span></a> provides a simple graphical interface for editing and interaction with the feature table.</p>
+<p>This page highlights a few napari features that are useful in many scenarios
+and might be easily overlooked. The <a class="reference internal" href="#command-palette"><span class="std std-ref">command palette</span></a> is great
+to avoid clicking around menus to find <em>that</em> specific command. The
+<a class="reference internal" href="#measure-tool"><span class="std std-ref">measurement tool</span></a> allows for quick distance and area
+measurements. For layers with <code class="docutils literal notranslate"><span class="pre">features</span></code>, the
+<a class="reference internal" href="#features-table-widget"><span class="std std-ref">features table widget</span></a> provides a simple graphical
+interface for editing and interaction with the feature table.</p>
 <section id="command-palette">
 <span id="id2"></span><h2>Command Palette<a class="headerlink" href="#command-palette" title="Link to this heading">#</a></h2>
-<p>napari has a <strong>command palette</strong> that can be opened with
-the keyboard shortcut <kbd class="kbd docutils literal notranslate">Command/Ctrl</kbd>+<kbd class="kbd docutils literal notranslate">Shift</kbd>+<kbd class="kbd docutils literal notranslate">P</kbd>. As you type
-the action’s name, the command palette will dynamically suggest matching actions.
-You can continue typing to refine suggestions or use the arrow
-keys to make a selection. Once you have the action you want highlighted, press
-<kbd class="kbd docutils literal notranslate">Enter</kbd> to run the action. <em>Added in version 0.6.0.</em></p>
+<p>napari has a <strong>command palette</strong> that can be opened with the keyboard shortcut
+<kbd class="kbd docutils literal notranslate">Command/Ctrl</kbd>+<kbd class="kbd docutils literal notranslate">Shift</kbd>+<kbd class="kbd docutils literal notranslate">P</kbd>. As you type the action’s name, the command palette
+will dynamically suggest matching actions. You can continue typing to refine
+suggestions or use the arrow keys to make a selection. Once you have the action
+you want highlighted, press <kbd class="kbd docutils literal notranslate">Enter</kbd> to run the action.
+<em>Added in version 0.6.0.</em></p>
 <figure>
   <video width="100%" controls autoplay loop muted playsinline>
     <source src="../_static/images/command-palette.webm" type="video/webm" />
@@ -862,24 +865,36 @@ keys to make a selection. Once you have the action you want highlighted, press
 </section>
 <section id="measure-distances-and-areas">
 <span id="measure-tool"></span><h2>Measure distances and areas<a class="headerlink" href="#measure-distances-and-areas" title="Link to this heading">#</a></h2>
-<p>When using a <code class="docutils literal notranslate"><span class="pre">Shapes</span></code> layer to annotate features of interest, the <strong>Shape Measurement Tool</strong> is used to obtain a live measurement of the available shapes, including perimeter and area. You can also measure distances by tracing a <code class="docutils literal notranslate"><span class="pre">Line</span></code> between two points.</p>
-<p>This tool can be enabled by clicking on <code class="docutils literal notranslate"><span class="pre">Layers-&gt;Measure-&gt;Toggle</span> <span class="pre">shape</span> <span class="pre">dimensions</span> <span class="pre">measurement</span> <span class="pre">(napari</span> <span class="pre">builtins)</span></code> while a <code class="docutils literal notranslate"><span class="pre">Shapes</span></code> layer is selected. As with all other commands, this can also be enabled using the <a class="reference internal" href="#command-palette"><span class="std std-ref">command palette</span></a> by searching for “shape measurement”.</p>
+<p>When using a <code class="docutils literal notranslate"><span class="pre">Shapes</span></code> layer to annotate features of interest, the
+<strong>Shape Measurement Tool</strong> is used to obtain a live measurement of the
+available shapes, including perimeter and area. You can also measure distances
+by tracing a <code class="docutils literal notranslate"><span class="pre">Line</span></code> between two points.</p>
+<p>This tool can be enabled by clicking on
+<code class="docutils literal notranslate"><span class="pre">Layers-&gt;Measure-&gt;Toggle</span> <span class="pre">shape</span> <span class="pre">dimensions</span> <span class="pre">measurement</span> <span class="pre">(napari</span> <span class="pre">builtins)</span></code> while
+a <code class="docutils literal notranslate"><span class="pre">Shapes</span></code> layer is selected. As with all other commands, this can also be
+enabled using the <a class="reference internal" href="#command-palette"><span class="std std-ref">command palette</span></a> by searching for “shape
+measurement”.</p>
 <p><img alt="image: Shape measurement tool enabled" src="../_images/shape-measure.png" />.</p>
-<p>The measurements are displayed on the canvas and updated live, and they are also accessible through the layer’s features table via <code class="docutils literal notranslate"><span class="pre">layer.features['_area']</span></code> and <code class="docutils literal notranslate"><span class="pre">layer.features['_perimeter']</span></code>.</p>
+<p>The measurements are displayed on the canvas and updated live, and they are
+also accessible through the layer’s features table via
+<code class="docutils literal notranslate"><span class="pre">layer.features['_area']</span></code> and <code class="docutils literal notranslate"><span class="pre">layer.features['_perimeter']</span></code>.</p>
 </section>
 <section id="features-table-widget">
 <span id="id3"></span><h2>Features table widget<a class="headerlink" href="#features-table-widget" title="Link to this heading">#</a></h2>
-<p>The <strong>Features Table Widget</strong> can be used to visualize, edit, select, or save the contents of the <code class="docutils literal notranslate"><span class="pre">features</span></code> table of any layer that supports features (e.g., <code class="docutils literal notranslate"><span class="pre">Points.features</span></code>).</p>
+<p>The <strong>Features Table Widget</strong> can be used to visualize, edit, select, or save
+the contents of the <code class="docutils literal notranslate"><span class="pre">features</span></code> table of any layer that supports features (e.g.,
+<code class="docutils literal notranslate"><span class="pre">Points.features</span></code>).</p>
 <p><img alt="image: Features Table Widget" src="../_images/features_table_widget.png" />.</p>
 <p>To open it, go to <code class="docutils literal notranslate"><span class="pre">Layer</span> <span class="pre">-&gt;</span> <span class="pre">Visualize</span> <span class="pre">-&gt;</span> <span class="pre">Features</span> <span class="pre">Table</span> <span class="pre">Widget</span></code> or press
-<kbd class="kbd docutils literal notranslate">Command/Ctrl</kbd>+<kbd class="kbd docutils literal notranslate">Shift</kbd>+<kbd class="kbd docutils literal notranslate">P</kbd> to open the <a class="reference internal" href="#command-palette"><span class="std std-ref">command palette</span></a> and search for “features”.
-To see it in action, see the <a class="reference internal" href="../gallery/features_table_widget.html#sphx-glr-gallery-features-table-widget-py"><span class="std std-ref">Features table widget</span></a> gallery example.</p>
+<kbd class="kbd docutils literal notranslate">Command/Ctrl</kbd>+<kbd class="kbd docutils literal notranslate">Shift</kbd>+<kbd class="kbd docutils literal notranslate">P</kbd> to open the <a class="reference internal" href="#command-palette"><span class="std std-ref">command palette</span></a> and
+search for “features”. To see it in action, see the
+<a class="reference internal" href="../gallery/features_table_widget.html#sphx-glr-gallery-features-table-widget-py"><span class="std std-ref">Features table widget</span></a> gallery example.</p>
 </section>
 <section id="histogram">
 <span id="histogram-feature"></span><h2>Histogram<a class="headerlink" href="#histogram" title="Link to this heading">#</a></h2>
-<p>The histogram shows the distribution of pixel values for the active image layer.
-It’s a powerful tool for understanding your data’s intensity range and making
-informed decisions when adjusting contrast limits and gamma.</p>
+<p>The histogram shows the distribution of pixel values for the active image
+layer. It’s a powerful tool for understanding your data’s intensity range and
+making informed decisions when adjusting contrast limits and gamma.</p>
 <a class="reference internal image-reference" href="../_images/histogram-overview.png"><img alt="napari histogram in layer controls" src="../_images/histogram-overview.png" style="width: 60%;" />
 </a>
 <p>Access the histogram using the button next to the contrast limits slider:</p>
@@ -897,27 +912,35 @@ samples to avoid loading everything into memory.</p>
 </section>
 <section id="running-python-scripts-with-napari">
 <h2>Running python scripts with napari<a class="headerlink" href="#running-python-scripts-with-napari" title="Link to this heading">#</a></h2>
-<p>Images and other data files are not the only thing that napari can read! You can also run any python script in napari by <a class="reference external" href="https://github.com/napari/napari/blob/main/examples/drag_and_drop_python_code.py">drag’n’dropping</a> the script onto the viewer, or by passing the script as an argument to napari. When a script is opened with napari, the first viewer instance created by the script will be replaced with the current existing viewer, if any.</p>
+<p>Images and other data files are not the only thing that napari can read! You
+can also run any python script in napari by
+<a class="reference external" href="https://github.com/napari/napari/blob/main/examples/drag_and_drop_python_code.py">drag’n’dropping</a>
+the script onto the viewer, or by passing the script as an argument to napari.
+When a script is opened with napari, the first viewer instance created by the
+script will be replaced with the current existing viewer, if any.</p>
 <p>It even works with remote files!</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>napari<span class="w"> </span>https://github.com/napari/napari/blob/main/examples/add_3D_image.py
 </pre></div>
 </div>
-<p>This feature is especially useful for quickly testing or distributing code snippets without needing to leave the viewer or touch the console.</p>
+<p>This feature is especially useful for quickly testing or distributing code
+snippets without needing to leave the viewer or touch the console.</p>
 </section>
 <section id="startup-script">
 <h2>Startup script<a class="headerlink" href="#startup-script" title="Link to this heading">#</a></h2>
-<p>Since napari 0.6.5 it is possible to provide a script that will be run every time napari starts.
-This can be done by providing a script path in Settings » Application » Startup script.
-This can be useful, for example, for adding a
+<p>Since napari 0.6.5 it is possible to provide a script that will be run every
+time napari starts. This can be done by providing a script path in Settings »
+Application » Startup script. This can be useful, for example, for adding a
 <a class="reference external" href="https://github.com/napari/napari/blob/main/examples/dev/settings_startup_script.py">custom colormap</a>
 or loading a specific plugin every time napari starts.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>This feature is intended only for users. Plugin are not allowed to modify this setting.</p>
+<p>This feature is intended only for users. Plugin are not allowed to modify this
+setting.</p>
 </div>
-<p>As with other settings, the value of this field can be overridden by setting the
-<code class="docutils literal notranslate"><span class="pre">NAPARI_APPLICATION_STARTUP_SCRIPT</span></code> environment variable to the path of the script to run at startup.
-Setting it to an empty string will disable the startup script.</p>
+<p>As with other settings, the value of this field can be overridden by setting
+the <code class="docutils literal notranslate"><span class="pre">NAPARI_APPLICATION_STARTUP_SCRIPT</span></code> environment variable to the path of the
+script to run at startup. Setting it to an empty string will disable the
+startup script.</p>
 </section>
 </section>
 

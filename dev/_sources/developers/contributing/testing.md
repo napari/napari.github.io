@@ -3,12 +3,12 @@
 # Testing
 
 ```{note}
-This section is about general testing of `napari`. Other testing related information
-can be found in:
+This section is about general testing of `napari`. Other testing related
+information can be found in:
 
 * [Plugin testing guidelines](plugin-test) - information on testing plugins.
-* [](app-model-testing)- information about testing [app-model](app-model) aspects
-  of `napari`.
+* [](app-model-testing)- information about testing [app-model](app-model)
+  aspects of `napari`.
 ```
 
 ## Overview
@@ -27,38 +27,45 @@ We use unit tests, integration tests, and functional tests to ensure that
 
 ### Testing philosophy
 
-To get the most return on investment (ROI) from our coding, we strive to test as
-much as we can with unit tests, requiring fewer integration tests, and the least number
-of functional tests as depicted in the test pyramid below from
+To get the most return on investment (ROI) from our coding, we strive to test
+as much as we can with unit tests, requiring fewer integration tests, and the
+least number of functional tests as depicted in the test pyramid below from
 [softwaretestinghelp.com](https://www.softwaretestinghelp.com/the-difference-between-unit-integration-and-functional-testing/):
 
-![Pyramid diagram depicting the relationship between time to write/execute three different types of tests and return on investment for those tests.  The pyramid is split into three sections: the bottom, largest section is Unit testing, the middle section is Integration testing and the top is Functional testing. The size of the section is proportional to the quantity of tests of that type you should write. Moving up the pyramid, tests take longer to write and have a lower return on investment.](../../_static/images/tests.png)
+![Pyramid diagram depicting the relationship between time to write/execute three different types of tests and return on investment for those tests. The pyramid is split into three sections: the bottom, largest section is Unit testing, the middle section is Integration testing and the top is Functional testing. The size of the section is proportional to the quantity of tests of that type you should write. Moving up the pyramid, tests take longer to write and have a lower return on investment.](../../_static/images/tests.png)
 
-Unit tests are at the base of the pyramid because they are the easiest to write and
-the quickest to run. The time and effort to implement and maintain tests increases
-from unit tests to integration and functional tests.
+Unit tests are at the base of the pyramid because they are the easiest to write
+and the quickest to run. The time and effort to implement and maintain tests
+increases from unit tests to integration and functional tests.
 
 (test-organization)=
 
 ## Test organization
 
-All of `napari` tests are located in folders named `_tests`. We use the [`pytest`](https://docs.pytest.org/en/stable/)
-library and test runner to execute our tests locally and in
-[continuous integration](https://en.wikipedia.org/wiki/Continuous_integration), CI.
+All of `napari` tests are located in folders named `_tests`. We use the
+[`pytest`](https://docs.pytest.org/en/stable/) library and test runner to
+execute our tests locally and in
+[continuous integration](https://en.wikipedia.org/wiki/Continuous_integration),
+CI.
 
 ### Integration and functional tests
 
-Our integration and functional tests are located in the [`napari/_tests`](https://github.com/napari/napari/tree/main/napari/_tests) folder at the top of the repository.
+Our integration and functional tests are located in the
+[`napari/_tests`](https://github.com/napari/napari/tree/main/napari/_tests)
+folder at the top of the repository.
 
 ### Unit tests
 
-To keep unit tests close to their related source code, these tests are located in module folders.
-For example, units tests for the `Image` layer are located in [`/napari/layers/image/_tests`](https://github.com/napari/napari/tree/main/napari/layers/image/_tests)
-alongside the `Image` layer's module code [`/napari/layers/image`](https://github.com/napari/napari/tree/main/napari/layers/image).
+To keep unit tests close to their related source code, these tests are located
+in module folders. For example, units tests for the `Image` layer are located
+in
+[`/napari/layers/image/_tests`](https://github.com/napari/napari/tree/main/napari/layers/image/_tests)
+alongside the `Image` layer's module code
+[`/napari/layers/image`](https://github.com/napari/napari/tree/main/napari/layers/image).
 
-napari is made up of its core library code and its GUI code. As a general practice,
-we strive to unit test as much of our core library code, models and utils, independently of
-our GUI code.
+napari is made up of its core library code and its GUI code. As a general
+practice, we strive to unit test as much of our core library code, models and
+utils, independently of our GUI code.
 
 #### Core library unit tests
 
@@ -76,9 +83,10 @@ Our GUI code have tests in the following folders:
 - [`napari/_qt`](https://github.com/napari/napari/tree/main/napari/_qt)
 - [`napari/_vispy`](https://github.com/napari/napari/tree/main/napari/_vispy)
 
-These GUI tests are ignored when we run them in the subset of our continuous integration
-workflows. Workflows that run in a "headless" environment (without a Qt backend).
-Testing of core library, or "non-GUI" code, that requires a specific GUI backend are also found in these folders.
+These GUI tests are ignored when we run them in the subset of our continuous
+integration workflows. Workflows that run in a "headless" environment (without
+a Qt backend). Testing of core library, or "non-GUI" code, that requires a
+specific GUI backend are also found in these folders.
 
 ### napari plugin tests
 
@@ -86,29 +94,30 @@ The `napari/plugins` folder contains most tests related to plugins.
 
 ### pytest fixtures
 
-Pytest fixtures are used to set up test state, such as setup and teardown, and provide frequently test data. These
-fixtures reduce repetitive code when writing and running tests. The fixtures can be found in:
+Pytest fixtures are used to set up test state, such as setup and teardown, and
+provide frequently test data. These fixtures reduce repetitive code when
+writing and running tests. The fixtures can be found in:
 
 - [`napari/conftest.py`](https://github.com/napari/napari/blob/main/napari/conftest.py) -
   available globally to all of `napari`.
 - [`napari/utils/_testsupport.py`](https://github.com/napari/napari/blob/main/napari/utils/_testsupport.py) -
-  available globally to all of `napari` **and** to all tests in the same virtual environment
-  that `napari` is in (as this `testsupport.py` file is exported).
+  available globally to all of `napari` **and** to all tests in the same
+  virtual environment that `napari` is in (as this `testsupport.py` file is
+  exported).
 
 ### `make_napari_viewer` fixture
 
-One often used fixture is `make_napari_viewer`. This fixture can take an argument `show`
-which is either `True` or `False`. In case your test depends on rendering of the viewer,
-it should be set to `True`. This is, for example, the case when testing a screenshot
-functionality. Otherwise, it is best to set the argument to `False` to prevent the viewer
-from fully rendering.
+One often used fixture is `make_napari_viewer`. This fixture can take an
+argument `show` which is either `True` or `False`. In case your test depends on
+rendering of the viewer, it should be set to `True`. This is, for example, the
+case when testing a screenshot functionality. Otherwise, it is best to set the
+argument to `False` to prevent the viewer from fully rendering.
 
 ### napari builtin plugin fixtures
 
-napari comes with a number of samples and examples builtin.
-There are also fixtures for testing these `napari` builtin plugins that provide contributions
-that come builtin with `napari`.
-These fixtures are found in
+napari comes with a number of samples and examples builtin. There are also
+fixtures for testing these `napari` builtin plugins that provide contributions
+that come builtin with `napari`. These fixtures are found in
 [`napari_builtins/_tests/conftest.py`](https://github.com/napari/napari/blob/main/napari_builtins/_tests/conftest.py)
 and are available to tests stored in
 [`napari_builtins/_tests`](https://github.com/napari/napari/tree/main/napari_builtins/_tests).
@@ -123,11 +132,12 @@ When running tests, use a
 
 ### Run GUI tests locally
 
-Since napari can run as an interactive application, some tests require showing GUI elements (such
-as testing screenshots) and window focus (such as testing drag and drop behavior).
-By default, these tests are only run during continuous integration.
-If you'd like to enable GUI element tests to run locally, you can set the environment variables
-`NAPARI_POPUP_TESTS=1`, `NAPARI_FOCUS_TESTS=1`, or `CI=1` before the `pytest` command:
+Since napari can run as an interactive application, some tests require showing
+GUI elements (such as testing screenshots) and window focus (such as testing
+drag and drop behavior). By default, these tests are only run during continuous
+integration. If you'd like to enable GUI element tests to run locally, you can
+set the environment variables `NAPARI_POPUP_TESTS=1`, `NAPARI_FOCUS_TESTS=1`,
+or `CI=1` before the `pytest` command:
 
 ```sh
 CI=1 pytest
@@ -135,15 +145,19 @@ CI=1 pytest
 
 Note: setting `CI=1` will also disable certain tests that take too long on CI.
 
-Also, if running the GUI tests that use `pyautogui` on macOS, be sure to set the Terminal app `Accessibility` permissions
-in `System Settings > Privacy & Security > Accessibility` so `pyautogui` can control the mouse, keyboard, etc.
+Also, if running the GUI tests that use `pyautogui` on macOS, be sure to set
+the Terminal app `Accessibility` permissions in
+`System Settings > Privacy & Security > Accessibility` so `pyautogui` can
+control the mouse, keyboard, etc.
 
 ### Use tox to run tests locally
 
-It is also possible to run tests locally using `tox`. We use `tox` to run test in CI.
-The main difference between running `pytest` locally or `tox` locally is that `tox` will create a virtual environment
-for each test environment, so it will take a bit more time. Though, `tox` will be more similar to the CI environment.
-The only requirement for running tests is to have `tox` in your environment.
+It is also possible to run tests locally using `tox`. We use `tox` to run test
+in CI. The main difference between running `pytest` locally or `tox` locally is
+that `tox` will create a virtual environment for each test environment, so it
+will take a bit more time. Though, `tox` will be more similar to the CI
+environment. The only requirement for running tests is to have `tox` in your
+environment.
 
 `tox` can be used to run tests for a single environment configuration too.  
 For example, to run tests using `tox` for Python 3.13 and pyqt6, enter:
@@ -158,10 +172,13 @@ To get the list of all available environment configurations that may be run:
 tox list
 ```
 
-#### Minimum requirements testing 
+#### Minimum requirements testing
 
-Tests may be run against the minimum requirements declared in the `pyproject.toml` file.
-This checks if napari will work even with outdated or minimal dependencies. If the minimal requirements test run fails, it is likely either a simple regression fix or a reason to bump the minimum requirements in the `pyproject.toml` file.
+Tests may be run against the minimum requirements declared in the
+`pyproject.toml` file. This checks if napari will work even with outdated or
+minimal dependencies. If the minimal requirements test run fails, it is likely
+either a simple regression fix or a reason to bump the minimum requirements in
+the `pyproject.toml` file.
 
 To run this test, prefix the `tox` command with `MIN_REQ=1`:
 
@@ -169,76 +186,93 @@ To run this test, prefix the `tox` command with `MIN_REQ=1`:
 MIN_REQ=1 tox -e py311-pyqt5 --recreate
 ```
 
-Unfortunately, it is impossible to test this on ARM macOS, due to the lack of pyqt5 support for this platform.
+Unfortunately, it is impossible to test this on ARM macOS, due to the lack of
+pyqt5 support for this platform.
 
-#### Running with constraints 
+#### Running with constraints
 
-To fully reproduce the CI environment, you might use our constraints files which fully specifies dependency versions.
-For example, to run tests using Python 3.13 and pyqt6 with a constraints file, enter:
+To fully reproduce the CI environment, you might use our constraints files
+which fully specifies dependency versions. For example, to run tests using
+Python 3.13 and pyqt6 with a constraints file, enter:
 
 ```sh
 UV_CONSTRAINT=resources/constraints/constraints_py313.txt tox -e py313-pyqt6
 ```
 
-Constraint usage guarantees the same version of dependencies as in the CI environment where dependencies are pinned to a specific PyPI package version.
- 
-While it usually isn’t needed to run this locally, running tests with the constraint file ensures that tests run with the exact same versions of dependencies as in napari's CI environment.
+Constraint usage guarantees the same version of dependencies as in the CI
+environment where dependencies are pinned to a specific PyPI package version.
 
-#### Running a subset of test using tox 
+While it usually isn’t needed to run this locally, running tests with the
+constraint file ensures that tests run with the exact same versions of
+dependencies as in napari's CI environment.
 
-To run a subset of tests using tox, add a directory or file after `--` and that will be passed to pytest. 
-For example, to run only tests in the `src/napari/layers/image/` file using Python 3.13 and pyqt6, enter:
+#### Running a subset of test using tox
+
+To run a subset of tests using tox, add a directory or file after `--` and that
+will be passed to pytest. For example, to run only tests in the
+`src/napari/layers/image/` file using Python 3.13 and pyqt6, enter:
 
 ```sh
 tox -e py313-pyqt6 -- src/napari/layers/image
 ```
 
-#### Use tox to create an environment for debugging 
+#### Use tox to create an environment for debugging
 
-`tox` provides a convenient way to create a virtual environment for debugging via the `devenv` command. 
-For example, to create a virtual environment for debugging using Python 3.13 and pyqt6, enter:
+`tox` provides a convenient way to create a virtual environment for debugging
+via the `devenv` command. For example, to create a virtual environment for
+debugging using Python 3.13 and pyqt6, enter:
 
 ```sh
-$ tox devenv -e py313-pyqt6
+tox devenv -e py313-pyqt6
 ```
+
 Then at the end of the output is a path to created virtual environment.
 
 ```sh
 ...
 ROOT: created development environment under [...]/napari/venv
 ```
-You can activate it in your IDE or terminal as a normal virtual environment. 
+
+You can activate it in your IDE or terminal as a normal virtual environment.
 
 #### Use tox to measure coverage
 
-You might want to locally check how your changes affect test coverage. You can run tox with coverage measurement using the following command:
+You might want to locally check how your changes affect test coverage. You can
+run tox with coverage measurement using the following command:
 
 ```sh
 TOX_TEST_RUNNER="coverage run" tox -e py314-pyqt6
 ```
 
-This command will create a coverage report in `.coverage` file. You can then generate a report using the following command:
+This command will create a coverage report in `.coverage` file. You can then
+generate a report using the following command:
 
-1. `coverage report` - to see a report in the console. It will show you the percentage of code covered by tests and the lines that are not covered.
-2. `coverage html` - to generate a report in HTML format. You can then open it in the browser and see exactly which lines are not covered by tests.
+1. `coverage report` - to see a report in the console. It will show you the
+   percentage of code covered by tests and the lines that are not covered.
+2. `coverage html` - to generate a report in HTML format. You can then open it
+   in the browser and see exactly which lines are not covered by tests.
 
 ```{note}
-We do not use `pytest-cov` as it does not measure coverage of all code, like our `make-napari-viewer` fixture. 
+We do not use `pytest-cov` as it does not measure coverage of all code, like
+our `make-napari-viewer` fixture.
 ```
 
 ```{note}
-Some parts of the code are tested only on a given platform, python version, or in the minimum requirements test, so running coverage locally might not give the same results as on CI.
+Some parts of the code are tested only on a given platform, python version, or
+in the minimum requirements test, so running coverage locally might not give
+the same results as on CI.
 ```
-
 
 ### Run tests without pop-up windows
 
-Some tests create visible napari viewers, which pop up on your monitor then quickly disappear.
-This can be annoying if you are trying to use your computer while the tests are running.
-You can avoid pop-up windows opening two different ways:
+Some tests create visible napari viewers, which pop up on your monitor then
+quickly disappear. This can be annoying if you are trying to use your computer
+while the tests are running. You can avoid pop-up windows opening two different
+ways:
 
 1. Use the `QT_QPA_PLATFORM=offscreen` environment variable with pytest or tox.
-   This tells Qt to render windows "offscreen", which is slower but will avoid the distracting pop-ups.
+   This tells Qt to render windows "offscreen", which is slower but will avoid
+   the distracting pop-ups.
 
    ```shell
    QT_QPA_PLATFORM=offscreen pytest napari
@@ -250,8 +284,8 @@ You can avoid pop-up windows opening two different ways:
    QT_QPA_PLATFORM=offscreen tox -e py313-linux-pyqt6
    ```
 
-1. If you are using Linux or WSL (Windows Subsystem for Linux), you can use the `xvfb-run` command.
-   This will run the tests in a virtual X server.
+1. If you are using Linux or WSL (Windows Subsystem for Linux), you can use the
+   `xvfb-run` command. This will run the tests in a virtual X server.
 
    ```sh
    xvfb-run pytest napari
@@ -263,12 +297,14 @@ You can avoid pop-up windows opening two different ways:
    xvfb-run tox -e py313-linux-pyqt6
    ```
 
-where the tox environment selector `py313-linux-pyqt6` must match your OS and Python version.
+where the tox environment selector `py313-linux-pyqt6` must match your OS and
+Python version.
 
 ### Tips for speeding up local testing
 
-Very often when developing new code, you don't need or want to run the entire test suite (which can take many minutes to finish).
-With `pytest`, it's easy to run a subset of your tests:
+Very often when developing new code, you don't need or want to run the entire
+test suite (which can take many minutes to finish). With `pytest`, it's easy to
+run a subset of your tests:
 
 ```sh
 # run tests in a specific subdirectory
@@ -284,12 +320,18 @@ pytest napari/components/_tests/test_add_layers.py::test_add_layers_with_plugins
 pytest napari/layers/ -k 'points and not bindings'
 ```
 
-In general, it pays to learn a few of the [tips and tricks](https://docs.pytest.org/en/latest/example/index.html) of running pytest.
+In general, it pays to learn a few of the
+[tips and tricks](https://docs.pytest.org/en/latest/example/index.html) of
+running pytest.
 
 ### Testing coverage locally
 
-We aim for good [test coverage](https://en.wikipedia.org/wiki/Code_coverage), and we use [codecov](https://app.codecov.io/gh/napari/napari)
-during continuous integration to make sure we maintain good coverage. If you'd like to test coverage locally as you develop new code, you can install [`pytest-cov`](https://github.com/pytest-dev/pytest-cov) and take advantage of a few handy commands:
+We aim for good [test coverage](https://en.wikipedia.org/wiki/Code_coverage),
+and we use [codecov](https://app.codecov.io/gh/napari/napari) during continuous
+integration to make sure we maintain good coverage. If you'd like to test
+coverage locally as you develop new code, you can install
+[`pytest-cov`](https://github.com/pytest-dev/pytest-cov) and take advantage of
+a few handy commands:
 
 ```sh
 # run the full test suite with coverage
@@ -307,13 +349,13 @@ open htmlcov/index.html  # look at the report
 ## Writing tests
 
 Writing tests for new code is a critical part of keeping napari maintainable as
-it grows. Tests are written in files with names that
-begin with `test_*` and these test files are contained in one of the `_tests` directories.
+it grows. Tests are written in files with names that begin with `test_*` and
+these test files are contained in one of the `_tests` directories.
 
 Writing tests is a learned skill. If you are starting out writing tests,
-`pytest`'s documentation provides good examples. Reading existing
-tests is also helpful for understanding how tests are written. If you have questions, ask them in our
-chat.
+`pytest`'s documentation provides good examples. Reading existing tests is also
+helpful for understanding how tests are written. If you have questions, ask
+them in our chat.
 
 ### Mocking: "Fake it till you make it"
 
@@ -330,34 +372,38 @@ mocks when testing napari, search the codebase for
 
 ### Property-based testing with Hypothesis
 
-Property-based tests allow you to test that "for any X, ..." - with a much nicer
-developer experience than using truly random data. We use Hypothesis for unit or
-integration tests where there are simple properties like `x == load(save(x))` or
-when Napari implements a function we can check against the equivalent in a trusted
-library for at least some inputs.
+Property-based tests allow you to test that "for any X, ..." - with a much
+nicer developer experience than using truly random data. We use Hypothesis for
+unit or integration tests where there are simple properties like
+`x == load(save(x))` or when Napari implements a function we can check against
+the equivalent in a trusted library for at least some inputs.
 
-See also [this paper on property-based testing in science](https://conference.scipy.org/proceedings/scipy2020/zac_hatfield-dodds.html),
+See also
+[this paper on property-based testing in science](https://conference.scipy.org/proceedings/scipy2020/zac_hatfield-dodds.html),
 [issue #2444](https://github.com/napari/napari/issues/2444), and
 [the Hypothesis documentation](https://hypothesis.readthedocs.io/en/latest/)
-(including [Numpy support](https://hypothesis.readthedocs.io/en/latest/numpy.html)).
+(including
+[Numpy support](https://hypothesis.readthedocs.io/en/latest/numpy.html)).
 
 (testing-qt)=
 
 ## Writing tests of the GUI
 
-Fixtures are used when testing the GUI. Fixtures are helpful for setting state such as setup and teardown of the GUI.
-When using fixtures with mocks, the GUI behavior can be simulated and tested.
+Fixtures are used when testing the GUI. Fixtures are helpful for setting state
+such as setup and teardown of the GUI. When using fixtures with mocks, the GUI
+behavior can be simulated and tested.
 
 ### Testing with `Qt` and `napari.Viewer`
 
-There are a couple things to keep in mind when writing a test where a `Qt` event
-loop or a {class}`~napari.Viewer` is required. The important thing is that any widgets
-you create during testing need to be cleaned up at the end of each test. We thus
-recommend that you use the following fixtures when needing a widget or
-{class}`~napari.Viewer` in a test.
+There are a couple things to keep in mind when writing a test where a `Qt`
+event loop or a {class}`~napari.Viewer` is required. The important thing is
+that any widgets you create during testing need to be cleaned up at the end of
+each test. We thus recommend that you use the following fixtures when needing a
+widget or {class}`~napari.Viewer` in a test.
 
 ```{seealso}
-Grzegorz Bokota, a napari core team member, has written an excellent blog post on
+Grzegorz Bokota, a napari core team member, has written an excellent blog post
+on
 [preventing segfaults in test suite that has Qt Tests](https://czaki.github.io/blog/2024/09/16/preventing-segfaults-in-test-suite-that-has-qt-tests/).
 ```
 
@@ -366,19 +412,21 @@ Grzegorz Bokota, a napari core team member, has written an excellent blog post o
 If you need to use any Qt related code in your test, you need to ensure that
 a `QApplication` is created. To to this we suggest you use the
 [`qapp`](https://pytest-qt.readthedocs.io/en/latest/reference.html#module-pytestqt.plugin)
-fixture from [`pytest-qt`](https://pytest-qt.readthedocs.io/en/latest/index.html),
-a napari testing dependency.
+fixture from
+[`pytest-qt`](https://pytest-qt.readthedocs.io/en/latest/index.html), a napari
+testing dependency.
 
-If you need to instantiate a Qt GUI object (e.g., a widget) for your test, we recommend
-that you use the
+If you need to instantiate a Qt GUI object (e.g., a widget) for your test, we
+recommend that you use the
 [`qtbot`](https://pytest-qt.readthedocs.io/en/latest/reference.html#pytestqt.qtbot.QtBot)
-fixture. `qtbot`, which itself depends on `qapp` , allows you to test user input
-(e.g., mouse clicks) by sending events to Qt objects.
+fixture. `qtbot`, which itself depends on `qapp` , allows you to test user
+input (e.g., mouse clicks) by sending events to Qt objects.
 
 ````{note}
-Fixtures in pytest can be a little mysterious, since it's not always
-clear where they are coming from.  The `pytest-qt` `qapp` and `qtbot` fixtures
-can be used in two ways; by adding them to the list of arguments of your test function:
+Fixtures in pytest can be a little mysterious, since it's not always clear
+where they are coming from. The `pytest-qt` `qapp` and `qtbot` fixtures can be
+used in two ways; by adding them to the list of arguments of your test
+function:
 
 ```python
 def test_something(qtbot):
@@ -397,8 +445,8 @@ def test_something():
 
 `qtbot` also provides a convenient
 [`add_widget`/`addWidget`](https://pytest-qt.readthedocs.io/en/latest/reference.html#pytestqt.qtbot.QtBot.addWidget)
-method that will ensure that the widget gets closed and properly cleaned at the end
-of the test. This can prevents segfaults when running several tests. The
+method that will ensure that the widget gets closed and properly cleaned at the
+end of the test. This can prevents segfaults when running several tests. The
 [`wait_until`/`waitUntil`](https://pytest-qt.readthedocs.io/en/latest/reference.html#pytestqt.qtbot.QtBot.waitUntil)
 method is also useful to wait for a desired condition. The example below
 adds a `QtDims` widget, plays the `Dims` and checks that the `QtDim` widget
@@ -419,14 +467,19 @@ def test_something_else(qtbot):
 
 #### `qt_viewer` and `viewer_model`
 
-Since `napari==0.5.4` we have implemented the `qt_viewer` [pytest fixture](https://docs.pytest.org/en/stable/explanation/fixtures.html) which can be used for tests that are only using the `ViewerModel` api or are only checking rendering of the viewer.
-For the current moment, it is only for internal use and is not exported to the global scope,
-as it is defined in `conftest.py` file.
+Since `napari==0.5.4` we have implemented the `qt_viewer`
+[pytest fixture](https://docs.pytest.org/en/stable/explanation/fixtures.html)
+which can be used for tests that are only using the `ViewerModel` api or are
+only checking rendering of the viewer. For the current moment, it is only for
+internal use and is not exported to the global scope, as it is defined in
+`conftest.py` file.
 
-The `qt_viewer` fixture returns the instance of the {class}`~napari.qt.QtViewer` class.
-This class does not provide the same api as the {class}`~napari.ViewerModel` class,
-but has an associated {class}`~napari.ViewerModel` instance, which can be accessed by the `viewer` attribute.
-Alternatively, you could use the `viewer_model` fixture, which returns this instance of {class}`~napari.ViewerModel` class.
+The `qt_viewer` fixture returns the instance of the
+{class}`~napari.qt.QtViewer` class. This class does not provide the same api as
+the {class}`~napari.ViewerModel` class, but has an associated
+{class}`~napari.ViewerModel` instance, which can be accessed by the `viewer`
+attribute. Alternatively, you could use the `viewer_model` fixture, which
+returns this instance of {class}`~napari.ViewerModel` class.
 
 ```python
 def test_something(qt_viewer):
@@ -444,9 +497,11 @@ def test_something(qt_viewer, viewer_model):
     assert viewer.layers[0].name == 'Image'
 ```
 
-The `qt_viewer` fixture takes care of proper teardown of all qt widgets related to the viewer,
-including hiding and clearing any references to viewer instances.
-If you need to adjust the QtViewer for a given [test file](https://docs.pytest.org/en/stable/how-to/fixtures.html#override-a-fixture-on-a-test-module-level) you can use the `qt_viewer_` fixture.
+The `qt_viewer` fixture takes care of proper teardown of all qt widgets related
+to the viewer, including hiding and clearing any references to viewer
+instances. If you need to adjust the QtViewer for a given
+[test file](https://docs.pytest.org/en/stable/how-to/fixtures.html#override-a-fixture-on-a-test-module-level)
+you can use the `qt_viewer_` fixture.
 
 ```python
 @pytest.fixture
@@ -472,12 +527,14 @@ def qt_viewer(qt_viewer_):
 #### `make_napari_viewer`
 
 For more complex test cases where we need to fully test application behaviour
-(for example, using the `viewer.window` API) we can use `make_napari_viewer` [pytest fixture](https://docs.pytest.org/en/stable/explanation/fixtures.html).
-However, the creating and teardown of the whole viewer is more fragile and slower than using just the `qt_viewer` fixture.
-This fixture is available globally and to all tests in the same environment that `napari`
-is in (see [](test-organization) for details). Thus, there is no need to import it,
-you simply include `make_napari_viewer` as a test function parameter, as shown in the
-**Examples** section below:
+(for example, using the `viewer.window` API) we can use `make_napari_viewer`
+[pytest fixture](https://docs.pytest.org/en/stable/explanation/fixtures.html).
+However, the creating and teardown of the whole viewer is more fragile and
+slower than using just the `qt_viewer` fixture. This fixture is available
+globally and to all tests in the same environment that `napari` is in (see
+[](test-organization) for details). Thus, there is no need to import it, you
+simply include `make_napari_viewer` as a test function parameter, as shown in
+the **Examples** section below:
 
 ```{eval-rst}
 .. autofunction:: napari.utils._testsupport.make_napari_viewer()
@@ -485,10 +542,13 @@ you simply include `make_napari_viewer` as a test function parameter, as shown i
 
 ### Testing `QWidget` visibility
 
-When checking that `QWidget` visibility is updated correctly, you may need to use
-[`qtbot.waitUntil`](https://pytest-qt.readthedocs.io/en/latest/reference.html#pytestqt.qtbot.QtBot.waitUntil) or
-[`qtbot.waitExposed`](https://pytest-qt.readthedocs.io/en/latest/reference.html#pytestqt.qtbot.QtBot.waitExposed) (see [](testing-qt) for details on `qtbot`).
-This is because visibility can take some time to change.
+When checking that `QWidget` visibility is updated correctly, you may need to
+use
+[`qtbot.waitUntil`](https://pytest-qt.readthedocs.io/en/latest/reference.html#pytestqt.qtbot.QtBot.waitUntil)
+or
+[`qtbot.waitExposed`](https://pytest-qt.readthedocs.io/en/latest/reference.html#pytestqt.qtbot.QtBot.waitExposed)
+(see [](testing-qt) for details on `qtbot`). This is because visibility can
+take some time to change.
 
 For example, the following code can be used to check that a widget correctly
 appears after it is created.
@@ -508,9 +568,9 @@ def test_widget_hidden(make_napari_viewer, qtbot):
     assert widget.isVisible()
 ```
 
-Note that we need to make the `viewer` visible when creating it as we are checking
-visibility. Additionally, you can set the timeout for `qtbot.waitUntil` (default is 5
-seconds).
+Note that we need to make the `viewer` visible when creating it as we are
+checking visibility. Additionally, you can set the timeout for
+`qtbot.waitUntil` (default is 5 seconds).
 
 Another function that may be useful for testing `QWidget` visibility is
 [`QWidget.isVisibleTo`](https://doc.qt.io/qt-5/qwidget.html#isVisibleTo), which
@@ -518,31 +578,36 @@ tells you if a widget is visible relative to an ancestor.
 
 ### Skipping tests with GUI elements or need window focus
 
-When you want to mark a test that should be skipped during a test run, `pytest` has
-built-in decorators that can be added before the test. For example, `@pytest.mark.skip` or `@pyteset.mark.skipif`
-can decorate a test that you want to skip:
+When you want to mark a test that should be skipped during a test run, `pytest`
+has built-in decorators that can be added before the test. For example,
+`@pytest.mark.skip` or `@pyteset.mark.skipif` can decorate a test that you want
+to skip:
 
 ```python
-@pytest.mark.skip(reason="test is causing intermittent failures")
+@pytest.mark.skip(reason='test is causing intermittent failures')
 def test_hello_world_exists():
     # test source code
+    ...
 ```
 
-You can also use custom napari decorators to skip tests that use popups or need window focus.
-These decorators are defined in `napari/_tests/utils`.
-Tests that require showing GUI elements should be marked with `skip_local_popups`.
-If a test requires window focus, it should be marked with `skip_local_focus`.
-To use these custom skip decorators, import the decorator and apply it to a test:
+You can also use custom napari decorators to skip tests that use popups or need
+window focus. These decorators are defined in `napari/_tests/utils`. Tests that
+require showing GUI elements should be marked with `skip_local_popups`. If a
+test requires window focus, it should be marked with `skip_local_focus`. To use
+these custom skip decorators, import the decorator and apply it to a test:
 
 ```python
 from napari._tests.utils import skip_local_popups
 
+
 @skip_local_popups
 def test_popup_window_after_error():
     # test source code
+    ...
 ```
 
-This is so they can be excluded and run only during continuous integration (see [](running-tests) for details).
+This is so they can be excluded and run only during continuous integration (see
+[](running-tests) for details).
 
 ## Known testing issues
 
@@ -550,12 +615,12 @@ There are several known issues with displaying GUI tests on windows in CI, and
 so certain tests have been disabled from windows in CI, see
 [#1377](https://github.com/napari/napari/pull/1377) for more discussion.
 
+### Running napari tests on Wayland
 
-### Running napari tests on Wayland 
-
-In the napari test suite we use `pyautogui` to simulate mouse and keyboard events.
-On Linux it uses `python-xlib` to implement this utility. 
-Unfortunately it might not work out of the box on Wayland (even with `xwayland` installed). We observed this with (for example) the GNOME desktop. 
+In the napari test suite we use `pyautogui` to simulate mouse and keyboard
+events. On Linux it uses `python-xlib` to implement this utility. Unfortunately
+it might not work out of the box on Wayland (even with `xwayland` installed).
+We observed this with (for example) the GNOME desktop.
 
 ```pytb
 ...
@@ -563,8 +628,10 @@ Unfortunately it might not work out of the box on Wayland (even with `xwayland` 
     raise error.DisplayConnectionError(self.display_name, r.reason)
 E   Xlib.error.DisplayConnectionError: Can't connect to display ":0": b'Authorization required, but no authorization protocol specified\n'
 ```
-Based on experiments we found that executing `xhost +SI:localuser:$USER` solves the problem. 
-It can be done automatically on startup by adding the above line to `~/.config/autostart/xhost.desktop`.
+
+Based on experiments we found that executing `xhost +SI:localuser:$USER` solves
+the problem. It can be done automatically on startup by adding the above line
+to `~/.config/autostart/xhost.desktop`.
 
 ```desktop
 [Desktop Entry]
@@ -575,4 +642,5 @@ Terminal=false
 NoDisplay=true
 ```
 
-This file also needs to be made executable with `chmod +x ~/.config/autostart/xhost.desktop`.
+This file also needs to be made executable with
+`chmod +x ~/.config/autostart/xhost.desktop`.

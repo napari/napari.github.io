@@ -43,7 +43,8 @@ How to keep napari objectively fast:
 ### Always be timing
 
 - Build timers into the software that always run.
-- If not always visible, power users and developers should be able to toggle them on.
+- If not always visible, power users and developers should be able to toggle
+  them on.
 - This gives people an ambient awareness of how long things take.
 - Allows users to report concrete performance numbers:
   - *it seemed slow* → *it ran at 10Hz*.
@@ -54,7 +55,8 @@ How to keep napari objectively fast:
 
 ### Performance system tests
 
-- Create automatic tests that time specific operations in specific known datasets.
+- Create automatic tests that time specific operations in specific known
+  datasets.
 - Time many different operations on a nice selection of different datasets.
 
 ### Performance unit tests
@@ -65,7 +67,8 @@ How to keep napari objectively fast:
 
 ### Run all tests every merge
 
-- Save results to a database maybe using [ASV](https://asv.readthedocs.io/en/stable/index.html).
+- Save results to a database maybe using
+  [ASV](https://asv.readthedocs.io/en/stable/index.html).
 - Catch a regression right when it happens and not weeks or
   months later.
 - See how new features run on large datasets no one tested.
@@ -78,11 +81,11 @@ Napari should strive to have these properties:
 
 - React to input one of two ways:
   - The full operation happens right away.
-  - The interface clearly indicates the input was received and the operation was
-    started.
+  - The interface clearly indicates the input was received and the operation
+    was started.
 - For click or keypress events the **ideal response is 100ms**.
-- For drag events or animations the **ideal refresh is 60Hz** which is 16.7ms per
-  frame.
+- For drag events or animations the **ideal refresh is 60Hz** which is 16.7ms
+  per frame.
 - The UI should never seem dead, the user should never be left wondering if
   napari has crashed.
 
@@ -91,8 +94,8 @@ Napari should strive to have these properties:
 - Modeless operations are best. They can interrupted by simply performing some
   other action. For example if imagery is loading in the background you can
   interrupt it just by navigating to somewhere else.
-- Modal operations that disable the UI should have a cancel button when possible
-  unless they are very short.
+- Modal operations that disable the UI should have a cancel button when
+  possible unless they are very short.
 - The user should never feel “trapped”.
 
 ### Progressive
@@ -117,10 +120,12 @@ Performance is never "done" for several reasons:
 
 ### New features
 
-- The objective and subjective performance of new features should be scrutinized
-  before merging to main.
-- New features should be tested on a variety of data types and sizes, including the largest data sets that are supported.
-- The new feature should scale to large datasets, or the performance limitations of the feature should be well documented.
+- The objective and subjective performance of new features should be
+  scrutinized before merging to main.
+- New features should be tested on a variety of data types and sizes, including
+  the largest data sets that are supported.
+- The new feature should scale to large datasets, or the performance
+  limitations of the feature should be well documented.
 - It can be hard to impossible to "add performance in later". The best time to
   ensure the new feature performs well is when the feature is first added.
 

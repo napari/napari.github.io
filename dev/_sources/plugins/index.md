@@ -2,23 +2,27 @@
 
 # Plugins
 
-Plugins extend napari's functionality, allowing for customization and sharing with the community.
-While you can use scripts and widgets to extend napari, plugins provide great flexibility.
-Existing plugins extend napari to add:
+Plugins extend napari's functionality, allowing for customization and sharing
+with the community. While you can use scripts and widgets to extend napari,
+plugins provide great flexibility. Existing plugins extend napari to add:
 
 - support for import and export of image and related data types.
 - support for working with specialized data formats.
-- domain specific features, including microscopy, climate, geoscience, and more.
+- domain specific features, including microscopy, climate, geoscience, and
+  more.
 
 Share and discover napari plugins on [napari hub](https://napari-hub.org),
-[PyPI](https://pypi.org/search/?q=napari), or [conda-forge](https://conda-forge.org/packages/).
-Interested in creating a plugin? [napari-plugin-template](https://github.com/napari/napari-plugin-template),
-a [copier](https://copier.readthedocs.io/en/stable/) template, bootstraps authoring
-[npe](https://github.com/napari/npe2)-based napari plugins.
+[PyPI](https://pypi.org/search/?q=napari), or
+[conda-forge](https://conda-forge.org/packages/). Interested in creating a
+plugin?
+[napari-plugin-template](https://github.com/napari/napari-plugin-template), a
+[copier](https://copier.readthedocs.io/en/stable/) template, bootstraps
+authoring [npe](https://github.com/napari/npe2)-based napari plugins.
 
 ## Plugin users
 
-Check out the user focused guides for finding, installing, and using napari plugins.
+Check out the user focused guides for finding, installing, and using napari
+plugins.
 
 ````{grid} 2
 ```{grid-item-card} Finding and installing plugins
@@ -38,7 +42,8 @@ Head over to the napari hub to search for plugins that suit your needs.
 
 ## Plugin developers
 
-Check out our plugin developer guides to start creating your own napari plugins.
+Check out our plugin developer guides to start creating your own napari
+plugins.
 
 ````{grid} 2
 ```{grid-item-card} Building a plugin
@@ -92,7 +97,9 @@ Submit issues to the [napari github repository][napari_issues].
 [napari_zulip]: https://napari.zulipchat.com/
 
 ```{warning}
-In napari 0.7.0, legacy "npe1" plugins will only work by auto-conversion to the new plugin engine, `npe2`.
-The vast majority of plugins will continue working as before. If you notice any issues with a plugin, check out the
-[Changes to the plugin engine in 0.6.0](adapted-plugin-guide) document to see if this is affecting you.
+In napari 0.7.0, legacy "npe1" plugins will only work by auto-conversion to the
+new plugin engine, `npe2`. The vast majority of plugins will continue working
+as before. If you notice any issues with a plugin, check out the
+[Changes to the plugin engine in 0.6.0](adapted-plugin-guide) document to see
+if this is affecting you.
 ```

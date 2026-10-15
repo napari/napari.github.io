@@ -838,11 +838,12 @@
 <span id="layers-vectors"></span><h1>Vectors<a class="headerlink" href="#vectors" title="Link to this heading">#</a></h1>
 <p>In this document, you will learn about the <code class="docutils literal notranslate"><span class="pre">napari</span></code> <code class="docutils literal notranslate"><span class="pre">vectors</span></code> layer, including
 how to display many vectors simultaneously and adjust their properties.</p>
-<p>For more information about layers, refer to <a class="reference internal" href="../../getting_started/layers.html#layers-glance"><span class="std std-ref">Layers at a glance</span></a>.</p>
+<p>For more information about layers, refer to
+<a class="reference internal" href="../../getting_started/layers.html#layers-glance"><span class="std std-ref">Layers at a glance</span></a>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Vector layers can be added only programmatically, i.e., in the console, or using
-a script, not from the GUI. Please refer to
+<p>Vector layers can be added only programmatically, i.e., in the console, or
+using a script, not from the GUI. Please refer to
 <a class="reference internal" href="#a-simple-example">A simple example</a> and use the code there to add a vectors
 layer first, then explore the GUI controls.</p>
 </div>
@@ -857,8 +858,8 @@ the console or from the GUI.</p>
 <section id="a-simple-example">
 <h2>A simple example<a class="headerlink" href="#a-simple-example" title="Link to this heading">#</a></h2>
 <p>You can create a new viewer with <code class="docutils literal notranslate"><span class="pre">napari.Viewer()</span></code> and add vectors using the
-<a class="reference internal" href="../../api/napari.Viewer.html#napari.Viewer.add_vectors" title="napari.Viewer.add_vectors"><code class="xref py py-meth docutils literal notranslate"><span class="pre">add_vectors()</span></code></a> method.
-In these examples we’ll mainly use <code class="docutils literal notranslate"><span class="pre">add_vectors</span></code> to overlay vectors onto an existing image.</p>
+<a class="reference internal" href="../../api/napari.Viewer.html#napari.Viewer.add_vectors" title="napari.Viewer.add_vectors"><code class="xref py py-meth docutils literal notranslate"><span class="pre">add_vectors()</span></code></a> method. In these examples we’ll mainly use
+<code class="docutils literal notranslate"><span class="pre">add_vectors</span></code> to overlay vectors onto an existing image.</p>
 <p>In this example, we will overlay vectors on the image of a photographer:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -911,43 +912,46 @@ first, then explore the editing options the GUI provides.</p>
 <ul class="simple">
 <li><p><strong>Buttons</strong></p>
 <ul>
-<li><p>Pan/zoom - <img alt="image: Pan/zoom tool" src="../../_images/pan-zoom-tool.png" /> is the default
-mode of the layer and supports panning and zooming. Press the <code class="docutils literal notranslate"><span class="pre">1</span></code> key when the
-layer is selected to use this mode.</p></li>
-<li><p>Transform - <img alt="image: Transform" src="../../_images/transform-tool.png" /> enables you to
-rotate, scale, or translate the layer. Note: at present this feature is limited to 2D viewer display mode. To reset the transformation, you can
-Option/Alt-click the transform button (a confirmation dialog will open to
-confirm the reset). Press the <code class="docutils literal notranslate"><span class="pre">2</span></code> key when the layer is selected to use this mode.</p></li>
+<li><p>Pan/zoom - <img alt="image: Pan/zoom tool" src="../../_images/pan-zoom-tool.png" />
+is the default mode of the layer and supports panning and zooming. Press
+the <code class="docutils literal notranslate"><span class="pre">1</span></code> key when the layer is selected to use this mode.</p></li>
+<li><p>Transform - <img alt="image: Transform" src="../../_images/transform-tool.png" />
+enables you to rotate, scale, or translate the layer. Note: at present this
+feature is limited to 2D viewer display mode. To reset the transformation,
+you can Option/Alt-click the transform button (a confirmation dialog will
+open to confirm the reset). Press the <code class="docutils literal notranslate"><span class="pre">2</span></code> key when the layer is selected to
+use this mode.</p></li>
 </ul>
 </li>
 <li><p><strong>Controls</strong></p>
 <ul>
-<li><p>Opacity - click and hold the circle on the opacity slider bar and adjust it to
-any value between 0.00 (clear) and 1.00 (completely opaque).</p></li>
-<li><p>Width - adjusting the width makes the vectors appear thicker or thinner. Use
-the + and - buttons on either side of the width bar to adjust width or click
-on the number in the middle of the bar and enter a value. The minimum value is
-0.10.</p></li>
+<li><p>Opacity - click and hold the circle on the opacity slider bar and adjust it
+to any value between 0.00 (clear) and 1.00 (completely opaque).</p></li>
+<li><p>Width - adjusting the width makes the vectors appear thicker or thinner.
+Use the + and - buttons on either side of the width bar to adjust width or
+click on the number in the middle of the bar and enter a value. The minimum
+value is 0.10.</p></li>
 <li><p>Length - adjusting the length makes the vector longer or shorter. Use the +
 and - buttons on either side of the length bar to adjust length or click on
 the number in the middle of the bar and enter a value. The minimum value is
 0.10.</p></li>
 <li><p>Blending - <code class="docutils literal notranslate"><span class="pre">blending</span></code> has the options of <code class="docutils literal notranslate"><span class="pre">opaque</span></code>, <code class="docutils literal notranslate"><span class="pre">translucent</span></code>,
-<code class="docutils literal notranslate"><span class="pre">translucent</span> <span class="pre">no</span> <span class="pre">depth</span></code>, <code class="docutils literal notranslate"><span class="pre">minimum</span></code>, or <code class="docutils literal notranslate"><span class="pre">additive</span></code> in the dropdown. Refer to the
-<a class="reference internal" href="../../getting_started/layers.html#blending-layers"><span class="std std-ref">Blending layers</span></a> section of <em>Layers at a glance</em> for an
-explanation of each type of blending.</p></li>
-<li><p>Edge color mode - select <code class="docutils literal notranslate"><span class="pre">direct</span></code>, <code class="docutils literal notranslate"><span class="pre">cycle</span></code>, or <code class="docutils literal notranslate"><span class="pre">colormap</span></code> from the dropdown.</p>
+<code class="docutils literal notranslate"><span class="pre">translucent</span> <span class="pre">no</span> <span class="pre">depth</span></code>, <code class="docutils literal notranslate"><span class="pre">minimum</span></code>, or <code class="docutils literal notranslate"><span class="pre">additive</span></code> in the dropdown. Refer to
+the <a class="reference internal" href="../../getting_started/layers.html#blending-layers"><span class="std std-ref">Blending layers</span></a> section of <em>Layers at a glance</em> for
+an explanation of each type of blending.</p></li>
+<li><p>Edge color mode - select <code class="docutils literal notranslate"><span class="pre">direct</span></code>, <code class="docutils literal notranslate"><span class="pre">cycle</span></code>, or <code class="docutils literal notranslate"><span class="pre">colormap</span></code> from the
+dropdown.</p>
 <ul>
 <li><p>Direct (default mode) allows each vector to be set arbitrarily.</p></li>
 <li><p>Cycle allows the color to be set via a color cycle over an attribute.</p></li>
 <li><p>Colormap allows the color to be set via a color map over an attribute.</p></li>
 </ul>
 </li>
-<li><p>Edge color - click the thumbnail next to <code class="docutils literal notranslate"><span class="pre">edge</span> <span class="pre">color:</span></code> to select or create a
-color from the palette.</p></li>
-<li><p>Out of slice - if this box is checked, <code class="docutils literal notranslate"><span class="pre">out</span> <span class="pre">of</span> <span class="pre">slice</span></code> is on or true. If this
-box is not checked, <code class="docutils literal notranslate"><span class="pre">out</span> <span class="pre">of</span> <span class="pre">slice</span></code> is off or false. If it is on or true,
-vectors slightly out of slice are rendered.</p></li>
+<li><p>Edge color - click the thumbnail next to <code class="docutils literal notranslate"><span class="pre">edge</span> <span class="pre">color:</span></code> to select or create
+a color from the palette.</p></li>
+<li><p>Out of slice - if this box is checked, <code class="docutils literal notranslate"><span class="pre">out</span> <span class="pre">of</span> <span class="pre">slice</span></code> is on or true. If
+this box is not checked, <code class="docutils literal notranslate"><span class="pre">out</span> <span class="pre">of</span> <span class="pre">slice</span></code> is off or false. If it is on or
+true, vectors slightly out of slice are rendered.</p></li>
 </ul>
 </li>
 </ul>
@@ -960,9 +964,12 @@ you should use the <code class="docutils literal notranslate"><span class="pre">
 <section id="d-rendering">
 <h3>3D rendering<a class="headerlink" href="#d-rendering" title="Link to this heading">#</a></h3>
 <p>All layers can be rendered in both 2D and 3D. One of the viewer buttons at the
-bottom of the left panel can toggle between these 2 modes.
-When in 2D, the button looks like this: <img alt="image: 2D/3D button" src="../../_images/3D-button.png" />, ready to switch to 3D mode.
-When in 3D, the button looks like this: <img alt="image: 2D/3D button" src="../../_images/2D-button.png" />, ready to switch to 2D mode.</p>
+bottom of the left panel can toggle between these 2 modes. When in 2D, the
+button looks like this:
+<img alt="image: 2D/3D button" src="../../_images/3D-button.png" />, ready to switch to
+3D mode. When in 3D, the button looks like this:
+<img alt="image: 2D/3D button" src="../../_images/2D-button.png" />, ready to switch to
+2D mode.</p>
 <p>The number of dimensions sliders will be 2 or 3 less than the total number of
 dimensions of the layer, allowing you to browse volumetric timeseries data and
 other high dimensional data. See <a class="reference internal" href="../../gallery/nD_vectors.html"><span class="doc std std-doc">nD vectors</span></a> to see shapes in
@@ -980,7 +987,8 @@ both 2D and 3D:</p>
 </section>
 <section id="arguments-of-add-vectors">
 <h2>Arguments of <code class="docutils literal notranslate"><span class="pre">add_vectors</span></code><a class="headerlink" href="#arguments-of-add-vectors" title="Link to this heading">#</a></h2>
-<p><a class="reference internal" href="../../api/napari.Viewer.html#napari.Viewer.add_vectors" title="napari.Viewer.add_vectors"><code class="xref py py-meth docutils literal notranslate"><span class="pre">add_vectors()</span></code></a> accepts the following layer-creation parameters.</p>
+<p><a class="reference internal" href="../../api/napari.Viewer.html#napari.Viewer.add_vectors" title="napari.Viewer.add_vectors"><code class="xref py py-meth docutils literal notranslate"><span class="pre">add_vectors()</span></code></a> accepts the following layer-creation
+parameters.</p>
 <div class="cell tag_hide-output docutils container">
 <div class="cell_input above-output-prompt docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">help</span><span class="p">(</span><span class="n">napari</span><span class="o">.</span><span class="n">Viewer</span><span class="o">.</span><span class="n">add_vectors</span><span class="p">)</span>
@@ -1098,9 +1106,11 @@ add_vectors(self, data=None, *, affine=None, axis_labels=None, blending='translu
 </div>
 <section id="changing-vector-length-width-and-color">
 <h3>Changing vector length, width, and color<a class="headerlink" href="#changing-vector-length-width-and-color" title="Link to this heading">#</a></h3>
-<p>Scale the length of all the vectors on a layer using the <code class="docutils literal notranslate"><span class="pre">layer.length</span></code> property.</p>
+<p>Scale the length of all the vectors on a layer using the <code class="docutils literal notranslate"><span class="pre">layer.length</span></code>
+property.</p>
 <p>Set the width of all the vectors in a layer using the <code class="docutils literal notranslate"><span class="pre">layer.width</span></code> property.</p>
-<p>Set the color of all the vectors in a layer using the <code class="docutils literal notranslate"><span class="pre">layer.edge_color</span></code> property.</p>
+<p>Set the color of all the vectors in a layer using the <code class="docutils literal notranslate"><span class="pre">layer.edge_color</span></code>
+property.</p>
 </section>
 </section>
 <section id="vectors-data">
@@ -1111,11 +1121,11 @@ dimensions, or it must be an <code class="docutils literal notranslate"><span cl
 <code class="docutils literal notranslate"><span class="pre">D</span></code> dimensions corresponds to the voxel of the location of the vector, and the
 last dimension contains the <code class="docutils literal notranslate"><span class="pre">D</span></code> values of the projection of that vector. The
 former representation is useful when you have vectors that can start in
-arbitrary positions in the canvas. The latter representation is useful when your
-vectors are defined on a grid, say corresponding to the voxels of an image, and
-you have one vector per grid.</p>
-<p>Here is an example from <a class="reference internal" href="../../gallery/add_vectors_image.html"><span class="doc std std-doc">Add vectors image</span></a> of a grid of vectors
-defined over a random image:</p>
+arbitrary positions in the canvas. The latter representation is useful when
+your vectors are defined on a grid, say corresponding to the voxels of an
+image, and you have one vector per grid.</p>
+<p>Here is an example from <a class="reference internal" href="../../gallery/add_vectors_image.html"><span class="doc std std-doc">Add vectors image</span></a> of a grid of
+vectors defined over a random image:</p>
 <p><img alt="image: add vectors overlaid on an image" src="../../_images/add_vectors_image.png" /></p>
 <p>Regardless of how the data is passed, we convert it to the <code class="docutils literal notranslate"><span class="pre">Nx2xD</span></code>
 representation internally. This representation is accessible through the

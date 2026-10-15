@@ -451,9 +451,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../developers/architecture/dir_organization.html">napari directory organization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../developers/architecture/napari_models.html">napari models and events</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../developers/architecture/app_model.html">napari’s application model</a></li>
-
 <li class="toctree-l2"><a class="reference internal" href="../developers/architecture/magicgui_type_reg.html"><code class="docutils literal notranslate"><span class="pre">magicgui</span></code> type registration</a></li>
-
 <li class="toctree-l2 has-children"><a class="reference internal" href="../developers/architecture/ui_sections/index.html">UI sections</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../developers/architecture/ui_sections/application_menus_ui.html">Application menus</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../developers/architecture/ui_sections/application_status_bar_ui.html">Application status bar</a></li>
@@ -488,7 +486,6 @@
 <li class="toctree-l2 current active"><a aria-current="page" class="current reference internal" href="#">NAP-8 — Telemetry</a></li>
 <li class="toctree-l2"><a class="reference internal" href="9-multiple-canvases.html">NAP-9 — Multiple Views</a></li>
 <li class="toctree-l2"><a class="reference internal" href="10-migration-event-system.html">NAP-10 — Migration of the event system</a></li>
-
 <li class="toctree-l2"><a class="reference internal" href="template.html">NAP-X — Template and Instructions</a></li>
 </ul>
 </details></li>
@@ -615,94 +612,107 @@
 </dl>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>This NAP has been withdrawn after polling the community, which was generally either against or uninterested in opting in.</p>
+<p>This NAP has been withdrawn after polling the community, which was generally
+either against or uninterested in opting in.</p>
 </div>
 <section id="abstract">
 <h2>Abstract<a class="headerlink" href="#abstract" title="Link to this heading">#</a></h2>
-<p>This NAP describes how telemetry would be used by the napari project and the architecture
-and solutions proposed to maximize the privacy of our users.</p>
+<p>This NAP describes how telemetry would be used by the napari project and the
+architecture and solutions proposed to maximize the privacy of our users.</p>
 </section>
 <section id="motivation-and-scope">
 <h2>Motivation and Scope<a class="headerlink" href="#motivation-and-scope" title="Link to this heading">#</a></h2>
-<p>With the growth of napari,
-the standard feedback loop through napari community meetings and napari-related events at conferences has reached its capacity.
-Also, we collect many feature requests for which we cannot find volunteers for implementation.</p>
-<p>To have the possibility of sustainable development of the project,
-we will either need to rely on paid contractors or on companies donating employee time managed by the core devs.</p>
-<p>Both scenarios require us to provide some information about the estimated number of users to prove to potential
-funders that their donation/grant will be used in a valuable way.</p>
-<p>Adding the option for monitoring plugin usage allows us to identify heavily used plugins and try
-to establish cooperation with their maintainers
-to reduce the probability that the plugin will not be ready for a new napari release.
-Such monitoring could contain not only the list of installed plugins
-but also which commands and contributions are used most often.</p>
-<p>Also collecting information about data types and their size will provide valuable information about the typical use cases of napari.</p>
-<p>Still, users need to be able to opt out of such monitoring,
-and adjust the level of detail of the information that is sent to the napari server.
-Each time when we update the collected data,
-we should inform users about the changes and provide them with the possibility to opt out of telemetry.</p>
-<p>Users could also provide a temporary agreement for sending telemetry.
-Then after a given period of time, the dialog with question will be shown again.</p>
+<p>With the growth of napari, the standard feedback loop through napari community
+meetings and napari-related events at conferences has reached its capacity.
+Also, we collect many feature requests for which we cannot find volunteers for
+implementation.</p>
+<p>To have the possibility of sustainable development of the project, we will
+either need to rely on paid contractors or on companies donating employee time
+managed by the core devs.</p>
+<p>Both scenarios require us to provide some information about the estimated
+number of users to prove to potential funders that their donation/grant will be
+used in a valuable way.</p>
+<p>Adding the option for monitoring plugin usage allows us to identify heavily
+used plugins and try to establish cooperation with their maintainers to reduce
+the probability that the plugin will not be ready for a new napari release.
+Such monitoring could contain not only the list of installed plugins but also
+which commands and contributions are used most often.</p>
+<p>Also collecting information about data types and their size will provide
+valuable information about the typical use cases of napari.</p>
+<p>Still, users need to be able to opt out of such monitoring, and adjust the
+level of detail of the information that is sent to the napari server. Each time
+when we update the collected data, we should inform users about the changes and
+provide them with the possibility to opt out of telemetry.</p>
+<p>Users could also provide a temporary agreement for sending telemetry. Then
+after a given period of time, the dialog with question will be shown again.</p>
 </section>
 <section id="detailed-description">
 <h2>Detailed Description<a class="headerlink" href="#detailed-description" title="Link to this heading">#</a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">napari-telemetry</span></code> will be a package responsible for collecting and sending telemetry data to the napari server.
-It will be installed after user confirmation.
-It will contain callbacks for data collection, and utils for storage and sending.
-Also, this package will contain utils for validating if the user has agreed to telemetry.</p>
-<p>In the main package, there is a need to add code to ask users if they want to enable telemetry.
-This code should be executed only once per environment.</p>
+<p><code class="docutils literal notranslate"><span class="pre">napari-telemetry</span></code> will be a package responsible for collecting and sending
+telemetry data to the napari server. It will be installed after user
+confirmation. It will contain callbacks for data collection, and utils for
+storage and sending. Also, this package will contain utils for validating if
+the user has agreed to telemetry.</p>
+<p>In the main package, there is a need to add code to ask users if they want to
+enable telemetry. This code should be executed only once per environment.</p>
 <p>Telemetry should contain the following ways to disable it:</p>
 <ol class="arabic simple">
 <li><p>Disable in settings</p></li>
 <li><p>Uninstall <code class="docutils literal notranslate"><span class="pre">napari-telemetry</span></code> package</p></li>
 <li><p>Environment variable <code class="docutils literal notranslate"><span class="pre">NAPARI_TELEMETRY=0</span></code></p></li>
-<li><p>System-wide disablement, e.g., via firewall filtering for hpc or other environments.</p></li>
+<li><p>System-wide disablement, e.g., via firewall filtering for hpc or other
+environments.</p></li>
 </ol>
-<p>The user should be able to adjust the telemetry level of detail. The following levels are proposed:</p>
+<p>The user should be able to adjust the telemetry level of detail. The following
+levels are proposed:</p>
 <ol class="arabic simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">none</span></code> - no telemetry is collected</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">basic</span></code> - information about the napari version, python version, OS, and CPU architecture is collected,
-and if it is the first report by the user.
-There is also a user identifier created based on computer details
-that will be regenerated each week to prevent tracking the user,
-but allow us to accurately gauge individual user numbers.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">middle</span></code> - same as in <code class="docutils literal notranslate"><span class="pre">basic</span></code> plus information about the list of installed plugins and their versions are also collected.
-We take care to not collect data about plugins that are not intended to be public,
-so we will only collect information about plugins searchable as using plugin dialog or napari hub.
-We also will not collect information about plugins that are installed in a non-stable version.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">full</span></code> - same as in <code class="docutils literal notranslate"><span class="pre">middle</span></code>
-plus collects information about plugin usage by binding to app-model and logging plugin commands used.
-Additionally basic information about data like types
-(<code class="docutils literal notranslate"><span class="pre">np.ndarray</span></code>, <code class="docutils literal notranslate"><span class="pre">dask.array</span></code>, <code class="docutils literal notranslate"><span class="pre">zarr.Array</span></code>, etc.) and its size will be collected.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">basic</span></code> - information about the napari version, python version, OS, and CPU
+architecture is collected, and if it is the first report by the user. There
+is also a user identifier created based on computer details that will be
+regenerated each week to prevent tracking the user, but allow us to
+accurately gauge individual user numbers.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">middle</span></code> - same as in <code class="docutils literal notranslate"><span class="pre">basic</span></code> plus information about the list of installed
+plugins and their versions are also collected. We take care to not collect
+data about plugins that are not intended to be public, so we will only
+collect information about plugins searchable as using plugin dialog or
+napari hub. We also will not collect information about plugins that are
+installed in a non-stable version.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">full</span></code> - same as in <code class="docutils literal notranslate"><span class="pre">middle</span></code> plus collects information about plugin usage by
+binding to app-model and logging plugin commands used. Additionally basic
+information about data like types (<code class="docutils literal notranslate"><span class="pre">np.ndarray</span></code>, <code class="docutils literal notranslate"><span class="pre">dask.array</span></code>, <code class="docutils literal notranslate"><span class="pre">zarr.Array</span></code>,
+etc.) and its size will be collected.</p></li>
 </ol>
-<p>There should be a visible indicator that telemetry is enabled (for example, on the status bar).</p>
-<p>The second part of this work should be to set up the server to collect telemetry data.
-After collecting data,
-it should provide a basic public dashboard that will allow the community to see aggregated information.</p>
+<p>There should be a visible indicator that telemetry is enabled (for example, on
+the status bar).</p>
+<p>The second part of this work should be to set up the server to collect
+telemetry data. After collecting data, it should provide a basic public
+dashboard that will allow the community to see aggregated information.</p>
 <p>We propose the following data retention policy:</p>
 <ol class="arabic simple">
 <li><p>Up to 2 weeks for logs.</p></li>
-<li><p>Up to 2 months of raw data (1 month of collection, then aggregation and time to validate aggregated data).</p></li>
+<li><p>Up to 2 months of raw data (1 month of collection, then aggregation and time
+to validate aggregated data).</p></li>
 <li><p>Infinite of aggregated data.</p></li>
 </ol>
 </section>
 <section id="privacy-assessment">
 <h2>Privacy assessment<a class="headerlink" href="#privacy-assessment" title="Link to this heading">#</a></h2>
-<p>During the preparation of this NAP, we assume that none of the collected data will be presented in
-a form that allows to identify a single user or identify a research area of user.
-We also select a set of data that will be collected to minimize the possibility of revealing sensitive data.
-However, it is impossible to guarantee that it will not be possible to identify a single user
-(for example, by checking installed plugin combinations).</p>
-<p>Because of this, we propose to not publish raw data and only show aggregated results.
-The aggregation will be performed using scripts.
-Napari core devs will access raw data only if there are errors in the aggregation process.</p>
+<p>During the preparation of this NAP, we assume that none of the collected data
+will be presented in a form that allows to identify a single user or identify a
+research area of user. We also select a set of data that will be collected to
+minimize the possibility of revealing sensitive data. However, it is impossible
+to guarantee that it will not be possible to identify a single user (for
+example, by checking installed plugin combinations).</p>
+<p>Because of this, we propose to not publish raw data and only show aggregated
+results. The aggregation will be performed using scripts. Napari core devs will
+access raw data only if there are errors in the aggregation process.</p>
 <p>We also will publish a list of endpoints for each level of telemetry,
 so the given level of telemetry could be blocked on the organization level
 (for example, by the rule on the firewall).</p>
-<p>If someone found that we are publishing some problematic data, we will remove them
-and update the aggregation process to prevent such a situation in the future.
-This NAP will be updated to reflect the current state of telemetry.</p>
+<p>If someone found that we are publishing some problematic data, we will remove
+them and update the aggregation process to prevent such a situation in the
+future. This NAP will be updated to reflect the current state of telemetry.</p>
 </section>
 <section id="related-work">
 <h2>Related Work<a class="headerlink" href="#related-work" title="Link to this heading">#</a></h2>
@@ -718,36 +728,48 @@ This NAP will be updated to reflect the current state of telemetry.</p>
 <p>The key consideration for implementation should be the low cost of maintenance.
 So the solution should be as simple as possible.
 We could either use existing solutions on the server side or implement our own.</p>
-<p>The benefit of existing solutions is that most of the work is already done.
-The downside is that it may require additional cost of maintenance.
-This cost may be caused by many features that are not needed for napari and could increase the risk of leaking data.
-Quick checks of their code revealed they are implemented in techniques that are not familiar to napari core devs.
-So, if we decide to use them, we should select an SAS solution that will be maintained by the company.</p>
+<p>The benefit of existing solutions is that most of the work is already done. The
+downside is that it may require additional cost of maintenance. This cost may
+be caused by many features that are not needed for napari and could increase
+the risk of leaking data. Quick checks of their code revealed they are
+implemented in techniques that are not familiar to napari core devs. So, if we
+decide to use them, we should select an SAS solution that will be maintained by
+the company.</p>
 <p>For now, I suggest creating a simple REST API server for collecting the data.
-It could be a simple Python FastAPI server that will store data in the SQLite database.
-Connection to server will be encrypted using HTTPS and certificate provided by LetsEncrypt.</p>
-<p>Data for aggregation should be extracted from the database using a script running on the same machine.</p>
-<p>The output of the aggregation script should be loaded to some existing visualization tool, like grafana.</p>
+It could be a simple Python FastAPI server that will store data in the SQLite
+database. Connection to server will be encrypted using HTTPS and certificate
+provided by LetsEncrypt.</p>
+<p>Data for aggregation should be extracted from the database using a script
+running on the same machine.</p>
+<p>The output of the aggregation script should be loaded to some existing
+visualization tool, like grafana.</p>
 <p>It may be nice to host raw and aggregate data on separate servers —
 then even if the data presented on the dashboard is compromised,
 the raw data will be not exposed to the world.</p>
-<p>Having both server and aggregation scripts in Python will reduce maintenance costs for napari core devs.</p>
+<p>Having both server and aggregation scripts in Python will reduce maintenance
+costs for napari core devs.</p>
 <p>We should register the <code class="docutils literal notranslate"><span class="pre">telemetry.napari.org</span></code> domain and use it for the server.
 The main page will contain this NAP and a link to the summary dashboard.</p>
-<p>The main part of the application side should be implemented in <code class="docutils literal notranslate"><span class="pre">napari-telemetry</span></code> package.
-The package should not report in stream mode, but collect data on the disk and send it in batches.
-This will reduce the risk of leaking data.
-The package should implement a utility to allow users to preview collected data before sending it to the server.</p>
+<p>The main part of the application side should be implemented in
+<code class="docutils literal notranslate"><span class="pre">napari-telemetry</span></code> package. The package should not report in stream mode, but
+collect data on the disk and send it in batches. This will reduce the risk of
+leaking data. The package should implement a utility to allow users to preview
+collected data before sending it to the server.</p>
 <p>In napari itself, the following changes should be implemented:</p>
 <ol class="arabic simple">
 <li><p>The indicator that shows the telemetry status</p></li>
 <li><p>The dialog that asks a user if they want to enable telemetry</p></li>
-<li><p>code to check if telemetry is enabled (to not load the <code class="docutils literal notranslate"><span class="pre">napari-telemetry</span></code> package if it is disabled)</p></li>
+<li><p>code to check if telemetry is enabled (to not load the <code class="docutils literal notranslate"><span class="pre">napari-telemetry</span></code>
+package if it is disabled)</p></li>
 <li><p>code required to init <code class="docutils literal notranslate"><span class="pre">napari-telemetry</span></code> package</p></li>
 </ol>
 <section id="code-for-collecting-data">
 <h3>Code for collecting data<a class="headerlink" href="#code-for-collecting-data" title="Link to this heading">#</a></h3>
-<p>The following code is a sample Python implementation of the data collecting code that would be part of <code class="docutils literal notranslate"><span class="pre">napari-telemetry</span></code>. It includes functions for assigning a unique ID to the device running <code class="docutils literal notranslate"><span class="pre">napari</span></code>, inspecting the plugin manager and viewer for information and generating the three different levels of report. Sample reports that would be generated by this code are also provided.</p>
+<p>The following code is a sample Python implementation of the data collecting
+code that would be part of <code class="docutils literal notranslate"><span class="pre">napari-telemetry</span></code>. It includes functions for
+assigning a unique ID to the device running <code class="docutils literal notranslate"><span class="pre">napari</span></code>, inspecting the plugin
+manager and viewer for information and generating the three different levels of
+report. Sample reports that would be generated by this code are also provided.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">datetime</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">hashlib</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
@@ -769,16 +791,16 @@ The package should implement a utility to allow users to preview collected data 
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">get_computer_identifier</span><span class="p">():</span>
-    <span class="n">config_dir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">appdirs</span><span class="o">.</span><span class="n">user_config_dir</span><span class="p">(</span><span class="s2">"napari"</span><span class="p">))</span>
+    <span class="n">config_dir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">appdirs</span><span class="o">.</span><span class="n">user_config_dir</span><span class="p">(</span><span class="s1">'napari'</span><span class="p">))</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">config_dir</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
         <span class="n">config_dir</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">config_file</span> <span class="o">=</span> <span class="n">config_dir</span> <span class="o">/</span> <span class="s2">"telemetry_id.txt"</span>
+    <span class="n">config_file</span> <span class="o">=</span> <span class="n">config_dir</span> <span class="o">/</span> <span class="s1">'telemetry_id.txt'</span>
     <span class="k">if</span> <span class="n">config_file</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
         <span class="k">with</span> <span class="n">config_file</span><span class="o">.</span><span class="n">open</span><span class="p">()</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">fp</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">identifier</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">())</span>
-        <span class="k">with</span> <span class="n">config_file</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">"w"</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
+        <span class="k">with</span> <span class="n">config_file</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">'w'</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
             <span class="n">fp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">identifier</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">identifier</span>
 
@@ -793,26 +815,27 @@ The package should implement a utility to allow users to preview collected data 
     <span class="n">computer_id</span> <span class="o">=</span> <span class="n">get_computer_identifier</span><span class="p">()</span>
     <span class="n">week_num</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">isocalendar</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
     <span class="n">year</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">year</span>
-    <span class="k">return</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">md5</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s2">-</span><span class="si">{</span><span class="n">week_num</span><span class="si">}</span><span class="s2">-</span><span class="si">{</span><span class="n">computer_id</span><span class="si">}</span><span class="s2">"</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">md5</span><span class="p">(</span><span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s1">-</span><span class="si">{</span><span class="n">week_num</span><span class="si">}</span><span class="s1">-</span><span class="si">{</span><span class="n">computer_id</span><span class="si">}</span><span class="s1">'</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">get_basic_information</span><span class="p">():</span>
-    <span class="n">first_report</span> <span class="o">=</span> <span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">appdirs</span><span class="o">.</span><span class="n">user_config_dir</span><span class="p">(</span><span class="s2">"napari"</span><span class="p">))</span> <span class="o">/</span> <span class="s2">"first_run.txt"</span><span class="p">)</span><span class="o">.</span><span class="n">exists</span><span class="p">()</span>
+    <span class="n">first_report</span> <span class="o">=</span> <span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">appdirs</span><span class="o">.</span><span class="n">user_config_dir</span><span class="p">(</span><span class="s1">'napari'</span><span class="p">))</span> <span class="o">/</span> <span class="s1">'first_run.txt'</span><span class="p">)</span><span class="o">.</span><span class="n">exists</span><span class="p">()</span>
     <span class="k">return</span> <span class="p">{</span>
-        <span class="s2">"napari_version"</span><span class="p">:</span> <span class="n">metadata</span><span class="o">.</span><span class="n">version</span><span class="p">(</span><span class="s2">"napari"</span><span class="p">),</span>
-        <span class="s2">"python_version"</span><span class="p">:</span> <span class="n">sys</span><span class="o">.</span><span class="n">version</span><span class="p">,</span>
-        <span class="s2">"identifier"</span><span class="p">:</span> <span class="n">get_week_identifier</span><span class="p">(),</span>
-        <span class="s2">"platform"</span><span class="p">:</span> <span class="n">sys</span><span class="o">.</span><span class="n">platform</span><span class="p">,</span>
-        <span class="s2">"cpu_architecture"</span><span class="p">:</span> <span class="n">platform</span><span class="o">.</span><span class="n">machine</span><span class="p">(),</span>
-        <span class="s2">"first_report"</span><span class="p">:</span> <span class="n">first_report</span><span class="p">,</span>
-        <span class="s2">"sys_name"</span><span class="p">:</span> <span class="n">_sys_name</span><span class="p">(),</span>
+        <span class="s1">'napari_version'</span><span class="p">:</span> <span class="n">metadata</span><span class="o">.</span><span class="n">version</span><span class="p">(</span><span class="s1">'napari'</span><span class="p">),</span>
+        <span class="s1">'python_version'</span><span class="p">:</span> <span class="n">sys</span><span class="o">.</span><span class="n">version</span><span class="p">,</span>
+        <span class="s1">'identifier'</span><span class="p">:</span> <span class="n">get_week_identifier</span><span class="p">(),</span>
+        <span class="s1">'platform'</span><span class="p">:</span> <span class="n">sys</span><span class="o">.</span><span class="n">platform</span><span class="p">,</span>
+        <span class="s1">'cpu_architecture'</span><span class="p">:</span> <span class="n">platform</span><span class="o">.</span><span class="n">machine</span><span class="p">(),</span>
+        <span class="s1">'first_report'</span><span class="p">:</span> <span class="n">first_report</span><span class="p">,</span>
+        <span class="s1">'sys_name'</span><span class="p">:</span> <span class="n">_sys_name</span><span class="p">(),</span>
     <span class="p">}</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">get_public_plugins</span><span class="p">():</span>
     <span class="n">p_sum</span> <span class="o">=</span> <span class="n">plugin_summaries</span><span class="p">()</span>
-    <span class="k">return</span> <span class="p">({</span><span class="n">normalized_name</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="s2">"name"</span><span class="p">]):</span> <span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">p_sum</span><span class="p">}</span> <span class="o">|</span>
-            <span class="p">{</span><span class="n">p</span><span class="p">[</span><span class="s2">"name"</span><span class="p">]:</span> <span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">p_sum</span><span class="p">})</span>
+    <span class="k">return</span> <span class="p">{</span><span class="n">normalized_name</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="s1">'name'</span><span class="p">]):</span> <span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">p_sum</span><span class="p">}</span> <span class="o">|</span> <span class="p">{</span>
+        <span class="n">p</span><span class="p">[</span><span class="s1">'name'</span><span class="p">]:</span> <span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">p_sum</span>
+    <span class="p">}</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">get_middle_information</span><span class="p">():</span>
@@ -824,19 +847,18 @@ The package should implement a utility to allow users to preview collected data 
 
     <span class="k">for</span> <span class="n">manifest</span> <span class="ow">in</span> <span class="n">pm</span><span class="o">.</span><span class="n">iter_manifests</span><span class="p">():</span>
         <span class="n">name</span> <span class="o">=</span> <span class="n">manifest</span><span class="o">.</span><span class="n">name</span>
-        <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">"napari"</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s1">'napari'</span><span class="p">:</span>
             <span class="k">continue</span>
         <span class="n">ver</span> <span class="o">=</span> <span class="n">manifest</span><span class="o">.</span><span class="n">package_metadata</span><span class="o">.</span><span class="n">version</span>
-        <span class="k">if</span> <span class="n">ver</span> <span class="ow">in</span> <span class="n">public_plugins</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"pypi_versions"</span><span class="p">,</span> <span class="p">[]):</span>
+        <span class="k">if</span> <span class="n">ver</span> <span class="ow">in</span> <span class="n">public_plugins</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'pypi_versions'</span><span class="p">,</span> <span class="p">[]):</span>
             <span class="c1"># skip if not public plugin/version</span>
-            <span class="n">plugin_info</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">"name"</span><span class="p">:</span> <span class="n">name</span><span class="p">,</span> <span class="s2">"version"</span><span class="p">:</span> <span class="n">ver</span><span class="p">})</span>
+            <span class="n">plugin_info</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s1">'name'</span><span class="p">:</span> <span class="n">name</span><span class="p">,</span> <span class="s1">'version'</span><span class="p">:</span> <span class="n">ver</span><span class="p">})</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">"skip"</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">ver</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">'skip'</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">ver</span><span class="p">)</span>
 
     <span class="n">base_info</span> <span class="o">=</span> <span class="n">get_basic_information</span><span class="p">()</span>
-    <span class="n">base_info</span><span class="p">[</span><span class="s2">"plugins"</span><span class="p">]</span> <span class="o">=</span> <span class="n">plugin_info</span>
+    <span class="n">base_info</span><span class="p">[</span><span class="s1">'plugins'</span><span class="p">]</span> <span class="o">=</span> <span class="n">plugin_info</span>
     <span class="k">return</span> <span class="n">base_info</span>
-
 
 
 <span class="k">class</span><span class="w"> </span><span class="nc">SizeCategory</span><span class="p">(</span><span class="n">IntEnum</span><span class="p">):</span>
@@ -858,26 +880,26 @@ The package should implement a utility to allow users to preview collected data 
 
 
 <span class="k">class</span><span class="w"> </span><span class="nc">DataSizeTypeCollector</span><span class="p">:</span>
-    <span class="n">_instances</span><span class="p">:</span> <span class="n">ClassVar</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="s2">"DataSizeTypeCollector"</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">_instances</span><span class="p">:</span> <span class="n">ClassVar</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="s1">'DataSizeTypeCollector'</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_path</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">file_path</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_instances</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Already exists </span><span class="si">{</span><span class="n">file_path</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">'Already exists </span><span class="si">{</span><span class="n">file_path</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_instances</span><span class="p">[</span><span class="n">file_path</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">file_path</span> <span class="o">=</span> <span class="n">file_path</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"week_info"</span><span class="p">:</span> <span class="n">get_week_identifier</span><span class="p">()}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'week_info'</span><span class="p">:</span> <span class="n">get_week_identifier</span><span class="p">()}</span>
         <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file_path</span><span class="p">):</span>
-            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file_path</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file_path</span><span class="p">,</span> <span class="s1">'r'</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
                 <span class="k">try</span><span class="p">:</span>
                     <span class="n">data_</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">fp</span><span class="p">)</span>
                 <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
                     <span class="k">pass</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="k">if</span> <span class="n">data_</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"week_info"</span><span class="p">)</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">"week_info"</span><span class="p">]:</span>
+                    <span class="k">if</span> <span class="n">data_</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'week_info'</span><span class="p">)</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">'week_info'</span><span class="p">]:</span>
                         <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">data_</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file_path</span><span class="p">,</span> <span class="s2">"w"</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file_path</span><span class="p">,</span> <span class="s1">'w'</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
             <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">fp</span><span class="p">)</span>
 
     <span class="nd">@classmethod</span>
@@ -890,35 +912,43 @@ The package should implement a utility to allow users to preview collected data 
     <span class="nd">@staticmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">extract_size_info_volumetric</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
         <span class="k">return</span> <span class="p">{</span>
-            <span class="s2">"size"</span><span class="p">:</span> <span class="n">data</span><span class="o">.</span><span class="n">size</span><span class="p">,</span>
-            <span class="s2">"shape"</span><span class="p">:</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span>
-            <span class="s2">"dtype"</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">dtype</span><span class="p">),</span>
-            <span class="s2">"ndim"</span><span class="p">:</span> <span class="n">data</span><span class="o">.</span><span class="n">ndim</span><span class="p">,</span>
-            <span class="s2">"size_category"</span><span class="p">:</span> <span class="n">SizeCategory</span><span class="o">.</span><span class="n">from_size</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">size</span><span class="p">)</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
-            <span class="s2">"class"</span><span class="p">:</span> <span class="n">data</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span>
+            <span class="s1">'size'</span><span class="p">:</span> <span class="n">data</span><span class="o">.</span><span class="n">size</span><span class="p">,</span>
+            <span class="s1">'shape'</span><span class="p">:</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span>
+            <span class="s1">'dtype'</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">dtype</span><span class="p">),</span>
+            <span class="s1">'ndim'</span><span class="p">:</span> <span class="n">data</span><span class="o">.</span><span class="n">ndim</span><span class="p">,</span>
+            <span class="s1">'size_category'</span><span class="p">:</span> <span class="n">SizeCategory</span><span class="o">.</span><span class="n">from_size</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">size</span><span class="p">)</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+            <span class="s1">'class'</span><span class="p">:</span> <span class="n">data</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span>
         <span class="p">}</span>
 
     <span class="nd">@staticmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">extract_size_info_spatial</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
         <span class="k">return</span> <span class="p">{</span>
-            <span class="s2">"size"</span><span class="p">:</span> <span class="n">data</span><span class="o">.</span><span class="n">size</span><span class="p">,</span>
-            <span class="s2">"shape"</span><span class="p">:</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span>
-            <span class="s2">"dtype"</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">dtype</span><span class="p">),</span>
-            <span class="s2">"ndim"</span><span class="p">:</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
-            <span class="s2">"size_category"</span><span class="p">:</span> <span class="n">SizeCategory</span><span class="o">.</span><span class="n">from_size</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
-            <span class="s2">"class"</span><span class="p">:</span> <span class="n">data</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span>
+            <span class="s1">'size'</span><span class="p">:</span> <span class="n">data</span><span class="o">.</span><span class="n">size</span><span class="p">,</span>
+            <span class="s1">'shape'</span><span class="p">:</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span>
+            <span class="s1">'dtype'</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">dtype</span><span class="p">),</span>
+            <span class="s1">'ndim'</span><span class="p">:</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+            <span class="s1">'size_category'</span><span class="p">:</span> <span class="n">SizeCategory</span><span class="o">.</span><span class="n">from_size</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+            <span class="s1">'class'</span><span class="p">:</span> <span class="n">data</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span>
         <span class="p">}</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">add_data_info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">array</span><span class="p">,</span> <span class="n">layer_name_str</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">layer_name_str</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">"labels"</span><span class="p">,</span> <span class="s2">"image"</span><span class="p">}:</span>
+        <span class="k">if</span> <span class="n">layer_name_str</span> <span class="ow">in</span> <span class="p">{</span><span class="s1">'labels'</span><span class="p">,</span> <span class="s1">'image'</span><span class="p">}:</span>
             <span class="n">size_info</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">extract_size_info_volumetric</span><span class="p">(</span><span class="n">array</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span> <span class="c1"># layer_name_str in {"points", "shapes", "vectors"}:</span>
+        <span class="k">else</span><span class="p">:</span>  <span class="c1"># layer_name_str in {"points", "shapes", "vectors"}:</span>
             <span class="n">size_info</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">extract_size_info_spatial</span><span class="p">(</span><span class="n">array</span><span class="p">)</span>
-        <span class="n">key</span> <span class="o">=</span> <span class="nb">str</span><span class="p">((</span><span class="n">layer_name_str</span><span class="p">,</span> <span class="n">size_info</span><span class="p">[</span><span class="s2">"size_category"</span><span class="p">],</span> <span class="n">size_info</span><span class="p">[</span><span class="s2">"ndim"</span><span class="p">],</span> <span class="n">size_info</span><span class="p">[</span><span class="s2">"class"</span><span class="p">],</span> <span class="n">size_info</span><span class="p">[</span><span class="s2">"dtype"</span><span class="p">]))</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span>
+            <span class="p">(</span>
+                <span class="n">layer_name_str</span><span class="p">,</span>
+                <span class="n">size_info</span><span class="p">[</span><span class="s1">'size_category'</span><span class="p">],</span>
+                <span class="n">size_info</span><span class="p">[</span><span class="s1">'ndim'</span><span class="p">],</span>
+                <span class="n">size_info</span><span class="p">[</span><span class="s1">'class'</span><span class="p">],</span>
+                <span class="n">size_info</span><span class="p">[</span><span class="s1">'dtype'</span><span class="p">],</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
         <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="s2">"count"</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="s1">'count'</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"count"</span><span class="p">:</span> <span class="mi">1</span><span class="p">}</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'count'</span><span class="p">:</span> <span class="mi">1</span><span class="p">}</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
 
@@ -926,13 +956,13 @@ The package should implement a utility to allow users to preview collected data 
 <span class="k">def</span><span class="w"> </span><span class="nf">get_full_information</span><span class="p">():</span>
     <span class="n">middle_info</span> <span class="o">=</span> <span class="n">get_middle_information</span><span class="p">()</span>
     <span class="n">data_collector</span> <span class="o">=</span> <span class="n">DataSizeTypeCollector</span><span class="o">.</span><span class="n">get_collector</span><span class="p">(</span>
-        <span class="n">Path</span><span class="p">(</span><span class="n">appdirs</span><span class="o">.</span><span class="n">user_config_dir</span><span class="p">(</span><span class="s2">"napari"</span><span class="p">))</span> <span class="o">/</span> <span class="s2">"data_size_info.json"</span>
+        <span class="n">Path</span><span class="p">(</span><span class="n">appdirs</span><span class="o">.</span><span class="n">user_config_dir</span><span class="p">(</span><span class="s1">'napari'</span><span class="p">))</span> <span class="o">/</span> <span class="s1">'data_size_info.json'</span>
     <span class="p">)</span>
     <span class="c1"># app_model = get_app_model() - there is a need to add a collection of data to app_model</span>
     <span class="k">return</span> <span class="p">{</span>
         <span class="o">**</span><span class="n">middle_info</span><span class="p">,</span>
-        <span class="s2">"data_size_info"</span><span class="p">:</span> <span class="n">data_collector</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
-        <span class="s2">"command_usage"</span><span class="p">:</span> <span class="p">{</span> <span class="c1"># it should be collected from app_model</span>
+        <span class="s1">'data_size_info'</span><span class="p">:</span> <span class="n">data_collector</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
+        <span class="s1">'command_usage'</span><span class="p">:</span> <span class="p">{</span>  <span class="c1"># it should be collected from app_model</span>
             <span class="s1">'napari:window:file:open_files_dialog'</span><span class="p">:</span> <span class="mi">50</span><span class="p">,</span>
             <span class="s1">'napari:window:file:copy_canvas_screenshot'</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
             <span class="s1">'napari:window:file:restart'</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
@@ -941,10 +971,12 @@ The package should implement a utility to allow users to preview collected data 
     <span class="p">}</span>
 </pre></div>
 </div>
-<p>The script below generates sample reports for each level of information gathered. The information about layer data is mocked so that this script can be executed independently of <code class="docutils literal notranslate"><span class="pre">napari</span></code>.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">"basic"</span><span class="p">)</span>
+<p>The script below generates sample reports for each level of information
+gathered. The information about layer data is mocked so that this script can be
+executed independently of <code class="docutils literal notranslate"><span class="pre">napari</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">'basic'</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">get_basic_information</span><span class="p">(),</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"middle"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'middle'</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">get_middle_information</span><span class="p">(),</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
 
 
@@ -952,7 +984,7 @@ The package should implement a utility to allow users to preview collected data 
 <span class="kn">import</span><span class="w"> </span><span class="nn">dask.array</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">da</span>
 
 
-<span class="n">collector_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">appdirs</span><span class="o">.</span><span class="n">user_config_dir</span><span class="p">(</span><span class="s2">"napari"</span><span class="p">))</span> <span class="o">/</span> <span class="s2">"data_size_info.json"</span>
+<span class="n">collector_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">appdirs</span><span class="o">.</span><span class="n">user_config_dir</span><span class="p">(</span><span class="s1">'napari'</span><span class="p">))</span> <span class="o">/</span> <span class="s1">'data_size_info.json'</span>
 <span class="k">if</span> <span class="n">collector_path</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
     <span class="n">collector_path</span><span class="o">.</span><span class="n">unlink</span><span class="p">()</span>
 <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">collector_path</span><span class="p">)</span> <span class="ow">in</span> <span class="n">DataSizeTypeCollector</span><span class="o">.</span><span class="n">_instances</span><span class="p">:</span>
@@ -960,17 +992,17 @@ The package should implement a utility to allow users to preview collected data 
 
 <span class="n">data_collector</span> <span class="o">=</span> <span class="n">DataSizeTypeCollector</span><span class="o">.</span><span class="n">get_collector</span><span class="p">(</span><span class="n">collector_path</span><span class="p">)</span>
 
-<span class="n">data_collector</span><span class="o">.</span><span class="n">add_data_info</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">)),</span> <span class="s2">"image"</span><span class="p">)</span>
-<span class="n">data_collector</span><span class="o">.</span><span class="n">add_data_info</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">)),</span> <span class="s2">"image"</span><span class="p">)</span>
-<span class="n">data_collector</span><span class="o">.</span><span class="n">add_data_info</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">),</span> <span class="s2">"image"</span><span class="p">)</span>
+<span class="n">data_collector</span><span class="o">.</span><span class="n">add_data_info</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">)),</span> <span class="s1">'image'</span><span class="p">)</span>
+<span class="n">data_collector</span><span class="o">.</span><span class="n">add_data_info</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">)),</span> <span class="s1">'image'</span><span class="p">)</span>
+<span class="n">data_collector</span><span class="o">.</span><span class="n">add_data_info</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">),</span> <span class="s1">'image'</span><span class="p">)</span>
 
-<span class="n">data_collector</span><span class="o">.</span><span class="n">add_data_info</span><span class="p">(</span><span class="n">da</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">)),</span> <span class="s2">"image"</span><span class="p">)</span>
+<span class="n">data_collector</span><span class="o">.</span><span class="n">add_data_info</span><span class="p">(</span><span class="n">da</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">)),</span> <span class="s1">'image'</span><span class="p">)</span>
 
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">50</span><span class="p">):</span>
-    <span class="n">data_collector</span><span class="o">.</span><span class="n">add_data_info</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">),</span> <span class="s2">"image"</span><span class="p">)</span>
-    <span class="n">data_collector</span><span class="o">.</span><span class="n">add_data_info</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">),</span> <span class="s2">"points"</span><span class="p">)</span>
+    <span class="n">data_collector</span><span class="o">.</span><span class="n">add_data_info</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">),</span> <span class="s1">'image'</span><span class="p">)</span>
+    <span class="n">data_collector</span><span class="o">.</span><span class="n">add_data_info</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">),</span> <span class="s1">'points'</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">"full"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'full'</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">get_full_information</span><span class="p">(),</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
 </pre></div>
 </div>
@@ -1074,12 +1106,12 @@ The package should implement a utility to allow users to preview collected data 
 </section>
 <section id="gdpr-compliance">
 <h2>GDPR compliance<a class="headerlink" href="#gdpr-compliance" title="Link to this heading">#</a></h2>
-<p>I’m almost sure that we will not collect data that are covered by GDPR.
-But to get a better atmosphere,
-we need to add instruction how a user could retrieve their unique identifier and set up a process
-for requests to remove data from the server.
-It is not a high probability of usage as the life span of data is short,
-but we need to be prepared for such a situation. I suggest to use e-mail for that.</p>
+<p>I’m almost sure that we will not collect data that are covered by GDPR. But to
+get a better atmosphere, we need to add instruction how a user could retrieve
+their unique identifier and set up a process for requests to remove data from
+the server. It is not a high probability of usage as the life span of data is
+short, but we need to be prepared for such a situation. I suggest to use e-mail
+for that.</p>
 </section>
 <section id="backward-compatibility">
 <h2>Backward Compatibility<a class="headerlink" href="#backward-compatibility" title="Link to this heading">#</a></h2>
@@ -1087,34 +1119,36 @@ but we need to be prepared for such a situation. I suggest to use e-mail for tha
 </section>
 <section id="future-work">
 <h2>Future Work<a class="headerlink" href="#future-work" title="Link to this heading">#</a></h2>
-<p>A nice extension may be the ability for the steering council to create a certificate of telemetry output that could be
-given to plugin maintainers to prove to supervisors that their plugin is used by the community.</p>
+<p>A nice extension may be the ability for the steering council to create a
+certificate of telemetry output that could be given to plugin maintainers to
+prove to supervisors that their plugin is used by the community.</p>
 </section>
 <section id="alternatives">
 <h2>Alternatives<a class="headerlink" href="#alternatives" title="Link to this heading">#</a></h2>
-<p>During the discussion, there is a proposal to use the same approach as used in ImageJ.</p>
-<p>This would mean, instead of implementing telemetry on the client side, we could implement it on the update server side.
-The advantage and disadvantage of such a solution is that no user could opt out of telemetry.
-Also, such a method could potentially provide information about the Python version,
-napari version, and list of installed plugins.
-All others will require a mechanism from this NAP.</p>
-<p>It will also require updates on the Napari side
-as currently we only communicate with the update server when a user opens the plugin manager.
-Also,
-to have proper information about installed plugins, we will need
-to send information about the list of installed plugins
-instead of just downloading the information about all plugins from the server.</p>
-<p>As this solution provides less information,
-it does not allow for opt-out and could cause ban-listing of the update server IP address,
-I do not recommend it.</p>
-<p>But based on talks
-that happen during the discussion, we may think about more frequent checks for updates
-to inform users that they could update their Napari or plugin version.
-For such a change, we need to update our update server to provide information per Python version
-(as some plugins could drop old Python earlier).</p>
-<p>The second alternative is use a third-party solution like <a class="reference external" href="https://plausible.io/">plausible.io</a>.
-But from my perspective,
-it is harder to adjust a set of data that is collected as these services are designed to monitor webpages.</p>
+<p>During the discussion, there is a proposal to use the same approach as used in
+ImageJ.</p>
+<p>This would mean, instead of implementing telemetry on the client side, we could
+implement it on the update server side. The advantage and disadvantage of such
+a solution is that no user could opt out of telemetry. Also, such a method
+could potentially provide information about the Python version, napari version,
+and list of installed plugins. All others will require a mechanism from this
+NAP.</p>
+<p>It will also require updates on the Napari side as currently we only
+communicate with the update server when a user opens the plugin manager. Also,
+to have proper information about installed plugins, we will need to send
+information about the list of installed plugins instead of just downloading the
+information about all plugins from the server.</p>
+<p>As this solution provides less information, it does not allow for opt-out and
+could cause ban-listing of the update server IP address, I do not recommend it.</p>
+<p>But based on talks that happen during the discussion, we may think about more
+frequent checks for updates to inform users that they could update their Napari
+or plugin version. For such a change, we need to update our update server to
+provide information per Python version (as some plugins could drop old Python
+earlier).</p>
+<p>The second alternative is use a third-party solution like
+<a class="reference external" href="https://plausible.io/">plausible.io</a>. But from my perspective, it is harder to
+adjust a set of data that is collected as these services are designed to
+monitor webpages.</p>
 </section>
 <section id="discussion">
 <h2>Discussion<a class="headerlink" href="#discussion" title="Link to this heading">#</a></h2>
@@ -1122,7 +1156,8 @@ it is harder to adjust a set of data that is collected as these services are des
 regarding the NAP, but could also contain additional comments about that
 discussion:</p>
 <ul class="simple">
-<li><p>This includes links to discussion forum threads or relevant GitHub discussions.</p></li>
+<li><p>This includes links to discussion forum threads or relevant GitHub
+discussions.</p></li>
 </ul>
 </section>
 <section id="references-and-footnotes">
@@ -1134,8 +1169,8 @@ CC0+BY <a class="footnote-reference brackets" href="#id4" id="id2" role="doc-not
 <section id="copyright">
 <h2>Copyright<a class="headerlink" href="#copyright" title="Link to this heading">#</a></h2>
 <p>This document is dedicated to the public domain with the Creative Commons CC0
-license <a class="footnote-reference brackets" href="#id3" id="id5" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>. Attribution to this source is encouraged where appropriate, as per
-CC0+BY <a class="footnote-reference brackets" href="#id4" id="id6" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>.</p>
+license <a class="footnote-reference brackets" href="#id3" id="id5" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>. Attribution to this source is encouraged where appropriate, as
+per CC0+BY <a class="footnote-reference brackets" href="#id4" id="id6" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>.</p>
 </section>
 </section>
 <aside class="footnote-list brackets">

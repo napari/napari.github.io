@@ -8,18 +8,19 @@ This page gives contributors a high-level map of the repositories in the
 The status labels are approximate and should be read as contributor guidance:
 
 - **Active**: regular feature work or frequent cross-repository coordination.
-  We welcome contributors to these repositories to help drive forward new features and improvements.
-  Contributions to these repositories are likely to be more visible, but
-  may also require more coordination with the core team and other contributors.
+  We welcome contributors to these repositories to help drive forward new
+  features and improvements. Contributions to these repositories are likely to
+  be more visible, but may also require more coordination with the core team
+  and other contributors.
 - **Maintenance**: stable and useful; bug fixes, documentation updates, and
   dependency work are usually the most common changes.
   Contributions within this scope will be attended to in a timely manner, while
   larger feature contributions may require more discussion and coordination to
   ensure they fit with the current direction and scope of the project.
-- **Early Development**: new or still changing quickly. Contributions are especially
-  welcome and can help shape the direction of these projects. These repositories
-  may be fast changing, but can be easier to contribute to since they have
-  fewer established conventions and patterns.
+- **Early Development**: new or still changing quickly. Contributions are
+  especially welcome and can help shape the direction of these projects. These
+  repositories may be fast changing, but can be easier to contribute to since
+  they have fewer established conventions and patterns.
 - **Backlog**: still relevant, but not a current priority for the core team.
   We encourage contributions to these repos to bring them up to speed and
   bring functionality to match the original vision for the project.
@@ -27,8 +28,8 @@ The status labels are approximate and should be read as contributor guidance:
 ## Core application and core plugins
 
 These are the repositories that are most central to the core napari experience.
-See [](upstream-dependencies) for libraries that are fundamental to napari functionality
-but are developed outside of the napari organization.
+See [](upstream-dependencies) for libraries that are fundamental to napari
+functionality but are developed outside of the napari organization.
 
 | Repo                                                         | Description                                                                                                      | Status      |
 | ------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------- | ----------- |
@@ -41,9 +42,9 @@ but are developed outside of the napari organization.
 ## Documentation, websites, and communication
 
 These repos shape how users and contributors discover napari, learn about it,
-and interact with project resources online. These repositories are a great place to
-contribute, even if you don't have experience with Python, since they mostly involve
-writing and design.
+and interact with project resources online. These repositories are a great
+place to contribute, even if you don't have experience with Python, since they
+mostly involve writing and design.
 
 ### Core website
 
@@ -70,9 +71,9 @@ Sibling sites and community-facing pages published alongside the main docs.
 
 ## Plugin system
 
-The plugin ecosystem is built around the `npe2` plugin engine and manifest specification.
-The repositories below are focused on supporting the plugin ecosystem,
-whether through core plugin infrastructure or development resources.
+The plugin ecosystem is built around the `npe2` plugin engine and manifest
+specification. The repositories below are focused on supporting the plugin
+ecosystem, whether through core plugin infrastructure or development resources.
 
 | Repo                                                                       | Description                                                                      | Status  |
 | -------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | ------- |
@@ -114,7 +115,8 @@ These repos support packaging, automation, and other project-level operations.
 ## Important upstream dependencies
 
 The repositories below are not in the `napari` GitHub organization, but they
-are important friends of napari that are contributed to by members of the napari community.
+are important friends of napari that are contributed to by members of the
+napari community.
 
 - [vispy/vispy](https://github.com/vispy/vispy): rendering backend and canvas
   infrastructure used by napari.
@@ -124,8 +126,8 @@ napari's needs:
 
 - [pyapp-kit/magicgui](https://github.com/pyapp-kit/magicgui): automatic widget
   generation from Python type hints, widely used in plugins and some napari UI.
-- [pyapp-kit/superqt](https://github.com/pyapp-kit/superqt): extended Qt widgets
-  used by napari and related plugins.
+- [pyapp-kit/superqt](https://github.com/pyapp-kit/superqt): extended Qt
+  widgets used by napari and related plugins.
 - [pyapp-kit/app-model](https://github.com/pyapp-kit/app-model): action and
   command model used by modern napari UI infrastructure; originally developed
   in the napari organization.
@@ -138,25 +140,43 @@ napari's needs:
 Archived repositories are included here for completeness. In most cases, new
 work should start in a different repository.
 
-- [cookiecutter-napari-plugin](https://github.com/napari/cookiecutter-napari-plugin): predecessor to `napari-plugin-template`.
-- [dummy-test-plugin](https://github.com/napari/dummy-test-plugin): testing plugin used for plugin-system development.
-- [image-types](https://github.com/napari/image-types): type-definition experiment for image-oriented Python code.
+- [cookiecutter-napari-plugin](https://github.com/napari/cookiecutter-napari-plugin):
+  predecessor to `napari-plugin-template`.
+- [dummy-test-plugin](https://github.com/napari/dummy-test-plugin): testing
+  plugin used for plugin-system development.
+- [image-types](https://github.com/napari/image-types): type-definition
+  experiment for image-oriented Python code.
 - [jupyterlab-bot](https://github.com/napari/jupyterlab-bot): historical fork.
-- [magicgui](https://github.com/napari/magicgui): mirror of the upstream `pyapp-kit/magicgui` project.
-- [napari-core](https://github.com/napari/napari-core): early core repository from before the current `napari` layout.
-- [napari-data](https://github.com/napari/napari-data): example-data repository.
-- [napari-hello-world](https://github.com/napari/napari-hello-world): example plugin repository.
+- [magicgui](https://github.com/napari/magicgui): mirror of the upstream
+  `pyapp-kit/magicgui` project.
+- [napari-core](https://github.com/napari/napari-core): early core repository
+  from before the current `napari` layout.
+- [napari-data](https://github.com/napari/napari-data): example-data
+  repository.
+- [napari-hello-world](https://github.com/napari/napari-hello-world): example
+  plugin repository.
 - [napari-io](https://github.com/napari/napari-io): early IO plugin repository.
-- [napari-language-packs](https://github.com/napari/napari-language-packs): repository for downloadable language packs for the napari UI.
-- [napari-plugin-devtools](https://github.com/napari/napari-plugin-devtools): tooling repo for plugin developers.
-- [napari-plugin-engine](https://github.com/napari/napari-plugin-engine): legacy plugin engine based on pluggy.
-- [napari-scipy2025-workshop](https://github.com/napari/napari-scipy2025-workshop): workshop-specific repository for the SciPy 2025 napari tutorial materials.
-- [napari-web-experimental](https://github.com/napari/napari-web-experimental): archived exploration of a possible web front end.
-- [napari-workshop-template](https://github.com/napari/napari-workshop-template): template for creating napari workshop websites and materials.
-- [napari-xarray](https://github.com/napari/napari-xarray): integration work for xarray-based data and labeled nD arrays in napari. Now in core napari.
-- [old-docs](https://github.com/napari/old-docs): documentation repository from an older docs system.
-- [plugin-cookiecutter](https://github.com/napari/plugin-cookiecutter): early plugin cookiecutter repository.
-- [product-heuristics-2020](https://github.com/napari/product-heuristics-2020): product-heuristics snapshot from 2020.
-- [superqt](https://github.com/napari/superqt): mirror of the upstream `pyapp-kit/superqt` project.
+- [napari-language-packs](https://github.com/napari/napari-language-packs):
+  repository for downloadable language packs for the napari UI.
+- [napari-plugin-devtools](https://github.com/napari/napari-plugin-devtools):
+  tooling repo for plugin developers.
+- [napari-plugin-engine](https://github.com/napari/napari-plugin-engine):
+  legacy plugin engine based on pluggy.
+- [napari-scipy2025-workshop](https://github.com/napari/napari-scipy2025-workshop):
+  workshop-specific repository for the SciPy 2025 napari tutorial materials.
+- [napari-web-experimental](https://github.com/napari/napari-web-experimental):
+  archived exploration of a possible web front end.
+- [napari-workshop-template](https://github.com/napari/napari-workshop-template):
+  template for creating napari workshop websites and materials.
+- [napari-xarray](https://github.com/napari/napari-xarray): integration work
+  for xarray-based data and labeled nD arrays in napari. Now in core napari.
+- [old-docs](https://github.com/napari/old-docs): documentation repository from
+  an older docs system.
+- [plugin-cookiecutter](https://github.com/napari/plugin-cookiecutter): early
+  plugin cookiecutter repository.
+- [product-heuristics-2020](https://github.com/napari/product-heuristics-2020):
+  product-heuristics snapshot from 2020.
+- [superqt](https://github.com/napari/superqt): mirror of the upstream
+  `pyapp-kit/superqt` project.
 
 ```

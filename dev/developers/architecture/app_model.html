@@ -451,9 +451,7 @@
 <li class="toctree-l2"><a class="reference internal" href="dir_organization.html">napari directory organization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="napari_models.html">napari models and events</a></li>
 <li class="toctree-l2 current active"><a aria-current="page" class="current reference internal" href="#">napari’s application model</a></li>
-
 <li class="toctree-l2"><a class="reference internal" href="magicgui_type_reg.html"><code class="docutils literal notranslate"><span class="pre">magicgui</span></code> type registration</a></li>
-
 <li class="toctree-l2 has-children"><a class="reference internal" href="ui_sections/index.html">UI sections</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="ui_sections/application_menus_ui.html">Application menus</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ui_sections/application_status_bar_ui.html">Application status bar</a></li>
@@ -488,7 +486,6 @@
 <li class="toctree-l2"><a class="reference internal" href="../../naps/8-telemetry.html">NAP-8 — Telemetry</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../naps/9-multiple-canvases.html">NAP-9 — Multiple Views</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../naps/10-migration-event-system.html">NAP-10 — Migration of the event system</a></li>
-
 <li class="toctree-l2"><a class="reference internal" href="../../naps/template.html">NAP-X — Template and Instructions</a></li>
 </ul>
 </details></li>
@@ -592,17 +589,16 @@
 <span id="app-model"></span><h1>napari’s application model<a class="headerlink" href="#napari-s-application-model" title="Link to this heading">#</a></h1>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
-<p><strong>This is currently not a part of the public napari interface but we are considering
-ways to expose execution of actions registered with <code class="docutils literal notranslate"><span class="pre">app</span></code>. This documentation will
-be updated accordingly.</strong></p>
+<p><strong>This is currently not a part of the public napari interface but we are
+considering ways to expose execution of actions registered with <code class="docutils literal notranslate"><span class="pre">app</span></code>. This
+documentation will be updated accordingly.</strong></p>
 </div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p><strong>Work in progress!</strong>
-The napari application model is currently being developed. This document is here to
-give guidance but things may change as we develop. It may link to current
-pull requests and issues which have more up to date information on specific
-areas.</p>
+<p><strong>Work in progress!</strong> The napari application model is currently being
+developed. This document is here to give guidance but things may change as we
+develop. It may link to current pull requests and issues which have more up to
+date information on specific areas.</p>
 </div>
 <section id="id1">
 <h2>App-model<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
@@ -623,11 +619,12 @@ singleton. It can be retrieved with <code class="docutils literal notranslate"><
 <a class="reference internal" href="#app-model-commands"><span class="std std-ref">commands</span></a> (the actual callable objects) that have been
 registered with the application. Accessible via <code class="docutils literal notranslate"><span class="pre">app.commands</span></code>.</p></li>
 <li><p><a class="reference external" href="https://app-model.readthedocs.io/en/latest/reference/registries/#app_model.registries.MenusRegistry" title="(in App Model v0.0.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">MenusRegistry</span></code></a>: maintains all of the
-<a class="reference internal" href="#app-model-menus"><span class="std std-ref">menus and submenus</span></a> that have been registered with the application.
-Accessible via <code class="docutils literal notranslate"><span class="pre">app.menus</span></code>.</p></li>
+<a class="reference internal" href="#app-model-menus"><span class="std std-ref">menus and submenus</span></a> that have been registered with the
+application. Accessible via <code class="docutils literal notranslate"><span class="pre">app.menus</span></code>.</p></li>
 <li><p><a class="reference external" href="https://app-model.readthedocs.io/en/latest/reference/registries/#app_model.registries.KeyBindingsRegistry" title="(in App Model v0.0.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">KeyBindingsRegistry</span></code></a>: maintains the association
 between a <a class="reference internal" href="#app-model-keybindings"><span class="std std-ref">KeyBinding</span></a> and a command ID in the
-<a class="reference external" href="https://app-model.readthedocs.io/en/latest/reference/registries/#app_model.registries.CommandsRegistry" title="(in App Model v0.0.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">CommandsRegistry</span></code></a>. Accessible via <code class="docutils literal notranslate"><span class="pre">app.keybindings</span></code>.</p></li>
+<a class="reference external" href="https://app-model.readthedocs.io/en/latest/reference/registries/#app_model.registries.CommandsRegistry" title="(in App Model v0.0.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">CommandsRegistry</span></code></a>. Accessible via
+<code class="docutils literal notranslate"><span class="pre">app.keybindings</span></code>.</p></li>
 </ul>
 <p>The <code class="docutils literal notranslate"><span class="pre">app-model</span></code>
 <a class="reference external" href="https://app-model.readthedocs.io/en/latest/getting_started/">‘Getting started’</a>
@@ -636,20 +633,22 @@ This documentation will focus on napari specific aspects.</p>
 </section>
 <section id="actions">
 <span id="app-model-actions"></span><h2><code class="docutils literal notranslate"><span class="pre">Action</span></code>s<a class="headerlink" href="#actions" title="Link to this heading">#</a></h2>
-<p>The <a class="reference external" href="https://app-model.readthedocs.io/en/latest/reference/types/#app_model.types.Action" title="(in App Model v0.0.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">app_model.types.Action</span></code></a> class is designed to easily create a high level
-‘Action’ object that is the “complete” representation of a command: a pointer
-to a callable object and optionally placement in menus, keybindings, and additional
-metadata like title, icons, tooltips etc. It subclasses
-<a class="reference external" href="https://app-model.readthedocs.io/en/latest/reference/types/#app_model.types.CommandRule" title="(in App Model v0.0.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">app_model.types.CommandRule</span></code></a> and takes <a class="reference external" href="https://app-model.readthedocs.io/en/latest/reference/types/#app_model.types.MenuRule" title="(in App Model v0.0.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">app_model.types.MenuRule</span></code></a> and
-<a class="reference external" href="https://app-model.readthedocs.io/en/latest/reference/types/#app_model.types.KeyBindingRule" title="(in App Model v0.0.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">app_model.types.KeyBindingRule</span></code></a> arguments.</p>
-<p>The following code demonstrates the definition of a <a class="reference external" href="https://app-model.readthedocs.io/en/latest/reference/types/#app_model.types.Action" title="(in App Model v0.0.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Action</span></code></a>
-comprised of a “Split RGB” command, which is to be added to a specific section (group)
-of the “layerlist context” menu, with a <code class="docutils literal notranslate"><span class="pre">Cmd+Alt+T</span></code> keybinding.</p>
+<p>The <a class="reference external" href="https://app-model.readthedocs.io/en/latest/reference/types/#app_model.types.Action" title="(in App Model v0.0.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">app_model.types.Action</span></code></a> class is designed to easily create a high
+level ‘Action’ object that is the “complete” representation of a command: a
+pointer to a callable object and optionally placement in menus, keybindings,
+and additional metadata like title, icons, tooltips etc. It subclasses
+<a class="reference external" href="https://app-model.readthedocs.io/en/latest/reference/types/#app_model.types.CommandRule" title="(in App Model v0.0.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">app_model.types.CommandRule</span></code></a> and takes
+<a class="reference external" href="https://app-model.readthedocs.io/en/latest/reference/types/#app_model.types.MenuRule" title="(in App Model v0.0.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">app_model.types.MenuRule</span></code></a> and <a class="reference external" href="https://app-model.readthedocs.io/en/latest/reference/types/#app_model.types.KeyBindingRule" title="(in App Model v0.0.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">app_model.types.KeyBindingRule</span></code></a>
+arguments.</p>
+<p>The following code demonstrates the definition of a
+<a class="reference external" href="https://app-model.readthedocs.io/en/latest/reference/types/#app_model.types.Action" title="(in App Model v0.0.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Action</span></code></a> comprised of a “Split RGB” command, which is
+to be added to a specific section (group) of the “layerlist context” menu, with
+a <code class="docutils literal notranslate"><span class="pre">Cmd+Alt+T</span></code> keybinding.</p>
 <p>Note that while strings could be used for <code class="docutils literal notranslate"><span class="pre">id</span></code>, <code class="docutils literal notranslate"><span class="pre">title</span></code>, <code class="docutils literal notranslate"><span class="pre">menus.id</span></code> and
 <code class="docutils literal notranslate"><span class="pre">keybindings.primary</span></code>, the usage of enums and constants makes refactoring and
-maintenance much easier (and provides autocompletion in an IDE!). However, there is
-currently intention to use plain strings for command <code class="docutils literal notranslate"><span class="pre">id</span></code> and <code class="docutils literal notranslate"><span class="pre">title</span></code> to simplify the
-<code class="docutils literal notranslate"><span class="pre">Action</span></code> definitions.</p>
+maintenance much easier (and provides autocompletion in an IDE!). However,
+there is currently intention to use plain strings for command <code class="docutils literal notranslate"><span class="pre">id</span></code> and <code class="docutils literal notranslate"><span class="pre">title</span></code>
+to simplify the <code class="docutils literal notranslate"><span class="pre">Action</span></code> definitions.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">app_model.types</span><span class="w"> </span><span class="kn">import</span> <span class="n">Action</span><span class="p">,</span> <span class="n">KeyMod</span><span class="p">,</span> <span class="n">KeyCode</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari._app_model.constants</span><span class="w"> </span><span class="kn">import</span> <span class="n">CommandId</span><span class="p">,</span> <span class="n">MenuId</span><span class="p">,</span> <span class="n">MenuGroup</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari._app_model.context</span><span class="w"> </span><span class="kn">import</span> <span class="n">LayerListContextKeys</span> <span class="k">as</span> <span class="n">LLCK</span>
@@ -674,12 +673,13 @@ currently intention to use plain strings for command <code class="docutils liter
 <span class="p">)</span>
 </pre></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">Action</span></code>s can be registered via <a class="reference external" href="https://app-model.readthedocs.io/en/latest/reference/#app_model.Application.register_action" title="(in App Model v0.0.0)"><code class="xref py py-func docutils literal notranslate"><span class="pre">app_model.Application.register_action()</span></code></a>. This
-is essentially a shortcut for registering objects with the following registries;
-<a class="reference external" href="https://app-model.readthedocs.io/en/latest/reference/registries/#app_model.registries.CommandsRegistry" title="(in App Model v0.0.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">CommandsRegistry</span></code></a>,
+<p><code class="docutils literal notranslate"><span class="pre">Action</span></code>s can be registered via <a class="reference external" href="https://app-model.readthedocs.io/en/latest/reference/#app_model.Application.register_action" title="(in App Model v0.0.0)"><code class="xref py py-func docutils literal notranslate"><span class="pre">app_model.Application.register_action()</span></code></a>.
+This is essentially a shortcut for registering objects with the following
+registries; <a class="reference external" href="https://app-model.readthedocs.io/en/latest/reference/registries/#app_model.registries.CommandsRegistry" title="(in App Model v0.0.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">CommandsRegistry</span></code></a>,
 <a class="reference external" href="https://app-model.readthedocs.io/en/latest/reference/registries/#app_model.registries.MenusRegistry" title="(in App Model v0.0.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">MenusRegistry</span></code></a> and
 <a class="reference external" href="https://app-model.readthedocs.io/en/latest/reference/registries/#app_model.registries.KeyBindingsRegistry" title="(in App Model v0.0.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">KeyBindingsRegistry</span></code></a>. Note that a command ID may
-currently only be registered once though this MAY change in the future if a need arises.</p>
+currently only be registered once though this MAY change in the future if a
+need arises.</p>
 <p>The code below shows how to register the <code class="docutils literal notranslate"><span class="pre">action</span></code> defined above with the napari
 singleton <code class="docutils literal notranslate"><span class="pre">app</span></code>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">napari._app_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_app_model</span>
@@ -701,24 +701,22 @@ when executing the above code:</p>
 <span id="app-model-actions-napari"></span><h3><code class="docutils literal notranslate"><span class="pre">Action</span></code>s in napari<a class="headerlink" href="#actions-in-napari" title="Link to this heading">#</a></h3>
 <p>In napari, menu bar actions are defined in
 <a class="reference external" href="https://github.com/napari/napari/tree/main/napari/_qt/_qapp_model/qactions"><code class="docutils literal notranslate"><span class="pre">napari/_qt/_qapp_model/qactions</span></code></a>,
-with one file per menu.
-While not all menu bar actions strictly require Qt, they are defined for the purpose
-of living in a menu and are thus considered ‘GUI’ actions.
-This also ensures that there is only one file defining both actions and their
-submenus.
-Note if we move to supporting more GUI backends, we may want to move these out of
-<code class="docutils literal notranslate"><span class="pre">_qt/</span></code> to a shared <code class="docutils literal notranslate"><span class="pre">gui/</span></code> folder, depending on implementation.</p>
-<p>The layer context menu actions do not require a GUI (they only require the <code class="docutils literal notranslate"><span class="pre">layerlist</span></code>)
-and thus live in
+with one file per menu. While not all menu bar actions strictly require Qt,
+they are defined for the purpose of living in a menu and are thus considered
+‘GUI’ actions. This also ensures that there is only one file defining both
+actions and their submenus. Note if we move to supporting more GUI backends, we
+may want to move these out of <code class="docutils literal notranslate"><span class="pre">_qt/</span></code> to a shared <code class="docutils literal notranslate"><span class="pre">gui/</span></code> folder, depending on
+implementation.</p>
+<p>The layer context menu actions do not require a GUI (they only require the
+<code class="docutils literal notranslate"><span class="pre">layerlist</span></code>) and thus live in
 <a class="reference external" href="https://github.com/napari/napari/tree/main/napari/_app_model/actions"><code class="docutils literal notranslate"><span class="pre">napari/_app_model/actions</span></code></a>.</p>
-<p>Non-Qt <code class="docutils literal notranslate"><span class="pre">Action</span></code>s get registered with <code class="docutils literal notranslate"><span class="pre">app</span></code> during
-initialization of the napari <code class="docutils literal notranslate"><span class="pre">app</span></code>, in <code class="docutils literal notranslate"><span class="pre">NapariApplication</span></code>’s
-<code class="xref py py-meth docutils literal notranslate"><span class="pre">__init__()</span></code>. Qt <code class="docutils literal notranslate"><span class="pre">Action</span></code>s
-get registered in
-<code class="docutils literal notranslate"><span class="pre">napari._qt._qapp_model.qactions.init_qactions</span></code>, which gets
+<p>Non-Qt <code class="docutils literal notranslate"><span class="pre">Action</span></code>s get registered with <code class="docutils literal notranslate"><span class="pre">app</span></code> during initialization of the napari
+<code class="docutils literal notranslate"><span class="pre">app</span></code>, in <code class="docutils literal notranslate"><span class="pre">NapariApplication</span></code>’s
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">__init__()</span></code>. Qt <code class="docutils literal notranslate"><span class="pre">Action</span></code>s get
+registered in <code class="docutils literal notranslate"><span class="pre">napari._qt._qapp_model.qactions.init_qactions</span></code>, which gets
 called during initialization of <code class="docutils literal notranslate"><span class="pre">_QtMainWindow</span></code>. Note this is relevant when
-considering the differences between app-model and action manager implementation,
-see <a class="reference internal" href="#app-model-action-manager-differences"><span class="std std-ref">app-model vs action manager implementation differences</span></a> for more.</p>
+considering the differences between app-model and action manager
+implementation, see <a class="reference internal" href="#app-model-action-manager-differences"><span class="std std-ref">app-model vs action manager implementation differences</span></a> for more.</p>
 </section>
 </section>
 <section id="commands">
@@ -732,28 +730,31 @@ menu item, or a keybinding).</p>
 prevent memory leakage.</p>
 </div>
 <p>All commands have a string ID (e.g. ‘<code class="docutils literal notranslate"><span class="pre">napari.window.file.open_files_dialog</span></code>’).
-The string is arbitrary, and the only real requirement is that the same command ID
-string cannot be used twice. However, to help readability and usability, we use
-the following naming conventions:</p>
+The string is arbitrary, and the only real requirement is that the same command
+ID string cannot be used twice. However, to help readability and usability, we
+use the following naming conventions:</p>
 <ul class="simple">
 <li><p>use <code class="docutils literal notranslate"><span class="pre">.</span></code> to separate words</p></li>
-<li><p>start with <code class="docutils literal notranslate"><span class="pre">napari</span></code> for builtin commands or the plugin name for plugin commands</p></li>
-<li><p>the <code class="docutils literal notranslate"><span class="pre">napari.window</span></code> prefix indicates the <code class="docutils literal notranslate"><span class="pre">napari</span></code> command is part of a GUI menu</p></li>
+<li><p>start with <code class="docutils literal notranslate"><span class="pre">napari</span></code> for builtin commands or the plugin name for plugin
+commands</p></li>
+<li><p>the <code class="docutils literal notranslate"><span class="pre">napari.window</span></code> prefix indicates the <code class="docutils literal notranslate"><span class="pre">napari</span></code> command is part of a GUI
+menu</p></li>
 <li><p>the final word should be the name of the function callback</p></li>
 </ul>
-<p><a class="reference external" href="https://app-model.readthedocs.io/en/latest/reference/types/#app_model.types.CommandRule" title="(in App Model v0.0.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">app_model.types.CommandRule</span></code></a> class (of which <a class="reference external" href="https://app-model.readthedocs.io/en/latest/reference/types/#app_model.types.Action" title="(in App Model v0.0.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Action</span></code></a>
-is a subclass) includes many fields to detail various aspects of commands.
-See <a class="reference external" href="https://app-model.readthedocs.io/en/latest/reference/types/#app_model.types.CommandRule" title="(in App Model v0.0.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">app_model.types.CommandRule</span></code></a> for details on every field.
-Notable <a class="reference external" href="https://app-model.readthedocs.io/en/latest/reference/types/#app_model.types.CommandRule" title="(in App Model v0.0.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">CommandRule</span></code></a> fields
+<p><a class="reference external" href="https://app-model.readthedocs.io/en/latest/reference/types/#app_model.types.CommandRule" title="(in App Model v0.0.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">app_model.types.CommandRule</span></code></a> class (of which
+<a class="reference external" href="https://app-model.readthedocs.io/en/latest/reference/types/#app_model.types.Action" title="(in App Model v0.0.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Action</span></code></a> is a subclass) includes many fields to detail
+various aspects of commands. See <a class="reference external" href="https://app-model.readthedocs.io/en/latest/reference/types/#app_model.types.CommandRule" title="(in App Model v0.0.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">app_model.types.CommandRule</span></code></a> for
+details on every field. Notable <a class="reference external" href="https://app-model.readthedocs.io/en/latest/reference/types/#app_model.types.CommandRule" title="(in App Model v0.0.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">CommandRule</span></code></a> fields
 are <code class="docutils literal notranslate"><span class="pre">enablement</span></code> and <code class="docutils literal notranslate"><span class="pre">toggled</span></code>, which both can take an
 <a class="reference external" href="https://app-model.readthedocs.io/en/latest/reference/expressions/#app_model.expressions.Expr" title="(in App Model v0.0.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">app_model.expressions.Expr</span></code></a>, an expression that can be evaluated, with
 context if required (see <a class="reference internal" href="../../guides/contexts_expressions.html#context-expressions"><span class="std std-ref">Contexts and Expressions in napari</span></a> for more details).
-<code class="docutils literal notranslate"><span class="pre">enablement</span></code> determines whether the command is enabled in the UI. It does not prevent
-the command from being executed via other means, e.g., via
-<code class="xref py py-meth docutils literal notranslate"><span class="pre">app_model.registries.CommandsRegistry.execute_command()</span></code>. <code class="docutils literal notranslate"><span class="pre">toggled</span></code> determines
-whether the command appears checked/toggled in GUI representations (e.g., menu or
-button). It can also take a <a class="reference external" href="https://app-model.readthedocs.io/en/latest/reference/types/#app_model.types.ToggleRule" title="(in App Model v0.0.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">app_model.types.ToggleRule</span></code></a>, which allows
-you to use a callable (instead of an expression) to determine toggle state.</p>
+<code class="docutils literal notranslate"><span class="pre">enablement</span></code> determines whether the command is enabled in the UI. It does not
+prevent the command from being executed via other means, e.g., via
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">app_model.registries.CommandsRegistry.execute_command()</span></code>. <code class="docutils literal notranslate"><span class="pre">toggled</span></code>
+determines whether the command appears checked/toggled in GUI representations
+(e.g., menu or button). It can also take a <a class="reference external" href="https://app-model.readthedocs.io/en/latest/reference/types/#app_model.types.ToggleRule" title="(in App Model v0.0.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">app_model.types.ToggleRule</span></code></a>,
+which allows you to use a callable (instead of an expression) to determine
+toggle state.</p>
 <section id="commands-should-not-be-confused-with-the-public-napari-api">
 <h3>Commands should <em>not</em> be confused with the public napari API<a class="headerlink" href="#commands-should-not-be-confused-with-the-public-napari-api" title="Link to this heading">#</a></h3>
 <p>While it is conceivable that plugins might need/want to refer to one of these
@@ -762,31 +763,32 @@ end-users would execute any of these commands by their ID. There should always
 be a “pure python” way to import a napari object and call it. For example,
 sample data is added to the <code class="docutils literal notranslate"><span class="pre">File</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">Open</span> <span class="pre">Sample</span></code> menu but you can also
 use <a class="reference internal" href="../../api/napari.Viewer.html#napari.Viewer.open_sample" title="napari.Viewer.open_sample"><code class="xref py py-meth docutils literal notranslate"><span class="pre">napari.Viewer.open_sample()</span></code></a> to open a sample data in headless mode.</p>
-<p>Commands mostly serve as a way to reference some functionality that needs to be exposed
-in the GUI.</p>
+<p>Commands mostly serve as a way to reference some functionality that needs to be
+exposed in the GUI.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Some of these command ID strings MAY be exposed externally in the future. For example,
-a plugin may wish to refer to a napari command.</p>
+<p>Some of these command ID strings MAY be exposed externally in the future. For
+example, a plugin may wish to refer to a napari command.</p>
 </div>
 </section>
 <section id="commands-in-napari">
 <h3>Commands in napari<a class="headerlink" href="#commands-in-napari" title="Link to this heading">#</a></h3>
-<p>Commands are usually defined with their Action definition or with its class,
-if it is a class method.
-See <a class="reference internal" href="#app-model-actions-napari"><span class="std std-ref">Actions in napari</span></a> for details on where <code class="docutils literal notranslate"><span class="pre">Action</span></code>s are defined in napari.</p>
+<p>Commands are usually defined with their Action definition or with its class, if
+it is a class method. See <a class="reference internal" href="#app-model-actions-napari"><span class="std std-ref">Actions in napari</span></a> for details on where
+<code class="docutils literal notranslate"><span class="pre">Action</span></code>s are defined in napari.</p>
 </section>
 </section>
 <section id="menus">
 <span id="app-model-menus"></span><h2>Menus<a class="headerlink" href="#menus" title="Link to this heading">#</a></h2>
-<p>App-model menus are not limited to the visible menus in the application menu bar, they
-can appear anywhere, such as the layerlist context menu that appears when a user
-right-clicks on the layer list. They may also be used to create a toolbar (a set
-of clickable buttons that execute a command). For example, the mode buttons in
-each of the layer controls could be represented as menus with a set of commands.</p>
-<p>One of the benefits of the abstraction provided by <code class="docutils literal notranslate"><span class="pre">app-model</span></code> is that actual Qt
-Menu objects become simple to construct:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">app_model.backends.qt</span><span class="w"> </span><span class="kn">import</span> <span class="n">QModelMenu</span>
+<p>App-model menus are not limited to the visible menus in the application menu
+bar, they can appear anywhere, such as the layerlist context menu that appears
+when a user right-clicks on the layer list. They may also be used to create a
+toolbar (a set of clickable buttons that execute a command). For example, the
+mode buttons in each of the layer controls could be represented as menus with a
+set of commands.</p>
+<p>One of the benefits of the abstraction provided by <code class="docutils literal notranslate"><span class="pre">app-model</span></code> is that actual
+Qt Menu objects become simple to construct:</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">app_model.backends.qt</span><span class="w"> </span><span class="kn">import</span> <span class="n">QModelMenu</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">napari._app_model.constants</span><span class="w"> </span><span class="kn">import</span> <span class="n">MenuId</span>
 
 <span class="go"># create a QMenu with all of the commands registered in the</span>
@@ -815,33 +817,34 @@ Menu objects become simple to construct:</p>
 </div>
 <p>To specify which menu(s) to add an Action to, use the <code class="docutils literal notranslate"><span class="pre">menus</span></code> field in
 <a class="reference external" href="https://app-model.readthedocs.io/en/latest/reference/types/#app_model.types.Action" title="(in App Model v0.0.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Action</span></code></a>. <code class="docutils literal notranslate"><span class="pre">menus</span></code> takes a list of
-<a class="reference external" href="https://app-model.readthedocs.io/en/latest/reference/types/#app_model.types.MenuRule" title="(in App Model v0.0.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">MenuRule</span></code></a>. The <code class="docutils literal notranslate"><span class="pre">id</span></code> field allows you to specify which menu
-or submenu to add the Action to. All napari menus and submenus will also have a string
-id (e.g. <code class="docutils literal notranslate"><span class="pre">'napari/file'</span></code>, or <code class="docutils literal notranslate"><span class="pre">'napari/layers/context'</span></code>), which should be declared as a
-member of the <code class="xref py py-class docutils literal notranslate"><span class="pre">MenuId</span></code> enum. Internally, an instance
-of this enum should be used instead of the string literal when referring to a menu.</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">group</span></code> and <code class="docutils literal notranslate"><span class="pre">order</span></code> fields let you control how menu items are grouped into sections,
-and how they are ordered within each section. See <a class="reference external" href="https://app-model.readthedocs.io/en/latest/reference/types/#app_model.types.MenuItemBase" title="(in App Model v0.0.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">MenuItemBase</span></code></a>
-for details on each field.</p>
+<a class="reference external" href="https://app-model.readthedocs.io/en/latest/reference/types/#app_model.types.MenuRule" title="(in App Model v0.0.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">MenuRule</span></code></a>. The <code class="docutils literal notranslate"><span class="pre">id</span></code> field allows you to specify which
+menu or submenu to add the Action to. All napari menus and submenus will also
+have a string id (e.g. <code class="docutils literal notranslate"><span class="pre">'napari/file'</span></code>, or <code class="docutils literal notranslate"><span class="pre">'napari/layers/context'</span></code>), which
+should be declared as a member of the
+<code class="xref py py-class docutils literal notranslate"><span class="pre">MenuId</span></code> enum. Internally, an instance of
+this enum should be used instead of the string literal when referring to a
+menu.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">group</span></code> and <code class="docutils literal notranslate"><span class="pre">order</span></code> fields let you control how menu items are grouped into
+sections, and how they are ordered within each section. See
+<a class="reference external" href="https://app-model.readthedocs.io/en/latest/reference/types/#app_model.types.MenuItemBase" title="(in App Model v0.0.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">MenuItemBase</span></code></a> for details on each field.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">when</span></code> field lets you control when the menu item is visible. It can take a
 <a class="reference external" href="https://app-model.readthedocs.io/en/latest/reference/expressions/#app_model.expressions.Expr" title="(in App Model v0.0.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Expr</span></code></a>, an expression that can be evaluated, with
 context if required (see <a class="reference internal" href="../../guides/contexts_expressions.html#context-expressions"><span class="std std-ref">Contexts and Expressions in napari</span></a> for more details).</p>
 <p>To add a submenu append it to the <code class="docutils literal notranslate"><span class="pre">app</span></code>’s
-<a class="reference external" href="https://app-model.readthedocs.io/en/latest/reference/registries/#app_model.registries.MenusRegistry" title="(in App Model v0.0.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">MenusRegistry</span></code></a>, e.g., via <code class="docutils literal notranslate"><span class="pre">app.menus.append_menu_items</span></code>.
-<code class="xref py py-meth docutils literal notranslate"><span class="pre">append_menu_items()</span></code> takes a tuple of the
-format (<code class="docutils literal notranslate"><span class="pre">MenuId</span></code>, [<code class="docutils literal notranslate"><span class="pre">MenuItem</span></code> or <code class="docutils literal notranslate"><span class="pre">SubmenuItem</span></code>]).</p>
+<a class="reference external" href="https://app-model.readthedocs.io/en/latest/reference/registries/#app_model.registries.MenusRegistry" title="(in App Model v0.0.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">MenusRegistry</span></code></a>, e.g., via
+<code class="docutils literal notranslate"><span class="pre">app.menus.append_menu_items</span></code>.
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">append_menu_items()</span></code> takes a tuple of
+the format (<code class="docutils literal notranslate"><span class="pre">MenuId</span></code>, [<code class="docutils literal notranslate"><span class="pre">MenuItem</span></code> or <code class="docutils literal notranslate"><span class="pre">SubmenuItem</span></code>]).</p>
 <section id="menus-in-napari">
 <h3>Menus in napari<a class="headerlink" href="#menus-in-napari" title="Link to this heading">#</a></h3>
 <p>In napari <code class="docutils literal notranslate"><span class="pre">MenuId</span></code> and <code class="docutils literal notranslate"><span class="pre">MenuGroup</span></code> enums are defined in
 <a class="reference external" href="https://github.com/napari/napari/blob/main/napari/_app_model/constants/_menus.py"><code class="docutils literal notranslate"><span class="pre">napari/_app_model/constants/_menus.py</span></code></a>.
-Menu bar menus are created during <a class="reference internal" href="../../api/napari.window.Window.html#napari.window.Window" title="napari.window.Window"><code class="xref py py-class docutils literal notranslate"><span class="pre">Window</span></code></a> initialization via
-<code class="docutils literal notranslate"><span class="pre">napari._qt._qapp_model.build_qmodel_menu</span></code>. This creates a
+Menu bar menus are created during <a class="reference internal" href="../../api/napari.window.Window.html#napari.window.Window" title="napari.window.Window"><code class="xref py py-class docutils literal notranslate"><span class="pre">Window</span></code></a> initialization
+via <code class="docutils literal notranslate"><span class="pre">napari._qt._qapp_model.build_qmodel_menu</span></code>. This creates a
 <a class="reference external" href="https://app-model.readthedocs.io/en/latest/reference/backends/qt/#app_model.backends.qt.QModelMenu" title="(in App Model v0.0.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">QModelMenu</span></code></a> (a subclass of
-<a class="reference external" href="https://doc.qt.io/qt-5/qmenu.html"><code class="docutils literal notranslate"><span class="pre">QMenu</span></code></a>) instance.
-It is the creation of the <a class="reference external" href="https://app-model.readthedocs.io/en/latest/reference/backends/qt/#app_model.backends.qt.QModelMenu" title="(in App Model v0.0.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">QModelMenu</span></code></a>
-that creates <code class="docutils literal notranslate"><span class="pre">QAction</span></code> for the
-<a class="reference external" href="https://app-model.readthedocs.io/en/latest/reference/types/#app_model.types.Action" title="(in App Model v0.0.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Action</span></code></a>
-associated with that menu.</p>
+<a class="reference external" href="https://doc.qt.io/qt-5/qmenu.html"><code class="docutils literal notranslate"><span class="pre">QMenu</span></code></a>) instance. It is the creation of
+the <a class="reference external" href="https://app-model.readthedocs.io/en/latest/reference/backends/qt/#app_model.backends.qt.QModelMenu" title="(in App Model v0.0.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">QModelMenu</span></code></a> that creates <code class="docutils literal notranslate"><span class="pre">QAction</span></code> for the
+<a class="reference external" href="https://app-model.readthedocs.io/en/latest/reference/types/#app_model.types.Action" title="(in App Model v0.0.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Action</span></code></a> associated with that menu.</p>
 <p><a class="reference external" href="https://app-model.readthedocs.io/en/latest/reference/types/#app_model.types.SubmenuItem" title="(in App Model v0.0.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">SubmenuItem</span></code></a>s are defined in
 <a class="reference external" href="https://github.com/napari/napari/blob/main/napari/_app_model/_submenus.py"><code class="docutils literal notranslate"><span class="pre">napari/_app_model/_submenus.py</span></code></a>.
 These are registered during initialization of the napari <code class="docutils literal notranslate"><span class="pre">app</span></code>, in
@@ -853,12 +856,12 @@ These are registered during initialization of the napari <code class="docutils l
 <span id="app-model-keybindings"></span><h2>Keybindings<a class="headerlink" href="#keybindings" title="Link to this heading">#</a></h2>
 <p>App-model has an extensive internal representation of
 <a class="reference external" href="https://github.com/pyapp-kit/app-model/blob/main/src/app_model/types/_keys/_key_codes.py">Key codes</a>,
-and combinations of key press events (including <em>chorded</em> key press sequences such
-as <code class="docutils literal notranslate"><span class="pre">Cmd+K</span></code> <em>followed by</em> <code class="docutils literal notranslate"><span class="pre">Cmd+M</span></code>).</p>
+and combinations of key press events (including <em>chorded</em> key press sequences
+such as <code class="docutils literal notranslate"><span class="pre">Cmd+K</span></code> <em>followed by</em> <code class="docutils literal notranslate"><span class="pre">Cmd+M</span></code>).</p>
 <p>They will provide independence from
 vispy’s key codes, and have a nice <code class="docutils literal notranslate"><span class="pre">IntEnum</span></code> API that allows for declaration of
 keybindings in a namespaced way that avoids usage of strings:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">app_model.types</span><span class="w"> </span><span class="kn">import</span> <span class="n">KeyCode</span><span class="p">,</span> <span class="n">KeyMod</span>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">app_model.types</span><span class="w"> </span><span class="kn">import</span> <span class="n">KeyCode</span><span class="p">,</span> <span class="n">KeyMod</span>
 
 <span class="gp">&gt;&gt;&gt; </span><span class="n">ctrl_m</span> <span class="o">=</span> <span class="n">KeyMod</span><span class="o">.</span><span class="n">CtrlCmd</span> <span class="o">|</span> <span class="n">KeyCode</span><span class="o">.</span><span class="n">KeyM</span>
 
@@ -867,47 +870,50 @@ keybindings in a namespaced way that avoids usage of strings:</p>
 </pre></div>
 </div>
 <p>A keybinding can be specified using the <code class="docutils literal notranslate"><span class="pre">keybindings</span></code> field in
-<a class="reference external" href="https://app-model.readthedocs.io/en/latest/reference/types/#app_model.types.Action" title="(in App Model v0.0.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Action</span></code></a>. This takes a <a class="reference external" href="https://app-model.readthedocs.io/en/latest/reference/types/#app_model.types.KeyBindingRule" title="(in App Model v0.0.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">app_model.types.KeyBindingRule</span></code></a>,
-which will let you provide keybindings for all three operating systems.</p>
+<a class="reference external" href="https://app-model.readthedocs.io/en/latest/reference/types/#app_model.types.Action" title="(in App Model v0.0.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Action</span></code></a>. This takes a
+<a class="reference external" href="https://app-model.readthedocs.io/en/latest/reference/types/#app_model.types.KeyBindingRule" title="(in App Model v0.0.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">app_model.types.KeyBindingRule</span></code></a>, which will let you provide keybindings
+for all three operating systems.</p>
 <section id="keybindings-in-napari">
 <h3>Keybindings in napari<a class="headerlink" href="#keybindings-in-napari" title="Link to this heading">#</a></h3>
 <p>App-model keybindings are currently only being used for menu bar items that
 have migrated to using app-model <code class="docutils literal notranslate"><span class="pre">Action</span></code>s.
 <a class="reference external" href="https://github.com/napari/napari/pull/6204">Pull request 6204</a>
-migrates layer and viewer actions to app-model as well as implements <a class="reference internal" href="../../naps/7-key-binding-dispatch.html#nap-7"><span class="std std-ref">NAP-7</span></a>,
-which addresses how keybindings are dispatched according to their priority, enablement,
-and potential conflicts. It also enables keybindings to be editable by the user
-at runtime (see <a class="reference external" href="https://github.com/napari/napari/issues/6600">issue 6600</a>
-for more on this). Note that it is likely that this pull request will be split into
-smaller pull requests for ease of review and better git history.</p>
+migrates layer and viewer actions to app-model as well as implements
+<a class="reference internal" href="../../naps/7-key-binding-dispatch.html#nap-7"><span class="std std-ref">NAP-7</span></a>, which addresses how keybindings are dispatched according to
+their priority, enablement, and potential conflicts. It also enables
+keybindings to be editable by the user at runtime (see
+<a class="reference external" href="https://github.com/napari/napari/issues/6600">issue 6600</a> for more on this).
+Note that it is likely that this pull request will be split into smaller pull
+requests for ease of review and better git history.</p>
 </section>
 </section>
 <section id="dependency-injection-and-result-processing">
 <span id="app-model-dep-inj-result"></span><h2>Dependency injection and result processing<a class="headerlink" href="#dependency-injection-and-result-processing" title="Link to this heading">#</a></h2>
-<p>Dependency injection allows to write functions using parameter type annotations,
-and then inject dependencies (arguments) into those functions at call time.
-Very often in a GUI application, you may wish to infer some command arguments from
-the current state of the application. For example, if you have menu item linked
-to a “close window” action, you likely want to close the <em>current</em> window.
-Dependency injection enables this by providing arguments to commands at runtime, based
-on the type annotations in the command function definition. A ‘provider’, a function
-that can be called to return an instance of a given type, is used to obtain the
-dependency to be injected.</p>
-<p>Result processing allows you to process the return value of the command function at
-execution time, based on command return type annotations.
-For example, you may wish to automatically add layer data output from a command
-to the viewer. It is performed by processors, functions that accept an instance of a
-given type and do something with it. Note that any value returned by a processor will
-be ignored, it is the ‘processor’ function side effects that perform the desired
-action (e.g., adding layer data to the viewer).</p>
+<p>Dependency injection allows to write functions using parameter type
+annotations, and then inject dependencies (arguments) into those functions at
+call time. Very often in a GUI application, you may wish to infer some command
+arguments from the current state of the application. For example, if you have
+menu item linked to a “close window” action, you likely want to close the
+<em>current</em> window. Dependency injection enables this by providing arguments to
+commands at runtime, based on the type annotations in the command function
+definition. A ‘provider’, a function that can be called to return an instance
+of a given type, is used to obtain the dependency to be injected.</p>
+<p>Result processing allows you to process the return value of the command
+function at execution time, based on command return type annotations. For
+example, you may wish to automatically add layer data output from a command to
+the viewer. It is performed by processors, functions that accept an instance of
+a given type and do something with it. Note that any value returned by a
+processor will be ignored, it is the ‘processor’ function side effects that
+perform the desired action (e.g., adding layer data to the viewer).</p>
 <p>Dependency injection and result processing are provided by the package
 <a class="reference external" href="https://ino.readthedocs.io/en/latest/">in-n-out</a> (which spun out of an
-internal napari module). App-model uses in-n-out to inject dependencies into all
-commands in the <a class="reference external" href="https://app-model.readthedocs.io/en/latest/reference/registries/#app_model.registries.CommandsRegistry" title="(in App Model v0.0.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">CommandsRegistry</span></code></a>.
-See the <a class="reference external" href="https://ino.readthedocs.io/en/latest/getting_started/">in-n-out documentation</a>
+internal napari module). App-model uses in-n-out to inject dependencies into
+all commands in the <a class="reference external" href="https://app-model.readthedocs.io/en/latest/reference/registries/#app_model.registries.CommandsRegistry" title="(in App Model v0.0.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">CommandsRegistry</span></code></a>. See the
+<a class="reference external" href="https://ino.readthedocs.io/en/latest/getting_started/">in-n-out documentation</a>
 for details on how providers and processors work.</p>
 <p>In napari, providers and processors can be registered in the <code class="docutils literal notranslate"><span class="pre">app</span></code>’s
-<code class="xref py py-attr docutils literal notranslate"><span class="pre">injection_store</span></code> attribute, which is an instance of
+<code class="xref py py-attr docutils literal notranslate"><span class="pre">injection_store</span></code> attribute, which is an instance
+of
 <a class="reference external" href="https://ino.readthedocs.io/en/latest/reference/#in_n_out.Store"><code class="docutils literal notranslate"><span class="pre">in_n_out.Store</span></code></a>.
 This <code class="docutils literal notranslate"><span class="pre">Store</span></code> is just a collection of providers and processors. Providers
 and processors in the <code class="docutils literal notranslate"><span class="pre">Store</span></code> will automatically be used when executing
@@ -915,11 +921,11 @@ and processors in the <code class="docutils literal notranslate"><span class="pr
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Injection is implemented in app-model, via the <code class="docutils literal notranslate"><span class="pre">run_injected</span></code> property of
-<code class="docutils literal notranslate"><span class="pre">_RegisteredCommand</span></code>. All commands in the <code class="docutils literal notranslate"><span class="pre">CommandsRegistry</span></code> are represented using
-the <code class="docutils literal notranslate"><span class="pre">_RegisteredCommand</span></code> type.</p>
+<code class="docutils literal notranslate"><span class="pre">_RegisteredCommand</span></code>. All commands in the <code class="docutils literal notranslate"><span class="pre">CommandsRegistry</span></code> are represented
+using the <code class="docutils literal notranslate"><span class="pre">_RegisteredCommand</span></code> type.</p>
 </div>
-<p>Below is an example of provider use in napari, which demonstrates implementation
-details.</p>
+<p>Below is an example of provider use in napari, which demonstrates
+implementation details.</p>
 <p>A user/plugin provides a function, using the <code class="docutils literal notranslate"><span class="pre">Points</span></code> annotation:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># some user provided function declares a need</span>
 <span class="c1"># for Points by using type annotations.</span>
@@ -930,13 +936,13 @@ details.</p>
 </div>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p>If a default value is provided to a function parameter, no dependency injection will
-occur. This can be used if you want to bind an object at <code class="docutils literal notranslate"><span class="pre">Action</span></code> definition time
-instead of command execution time.</p>
+<p>If a default value is provided to a function parameter, no dependency injection
+will occur. This can be used if you want to bind an object at <code class="docutils literal notranslate"><span class="pre">Action</span></code>
+definition time instead of command execution time.</p>
 </div>
-<p>Internally, napari registers a provider that returns the first Points layer of the
-current viewer, if one present (returning <code class="docutils literal notranslate"><span class="pre">None</span></code> if not). It is
-registered in the <code class="docutils literal notranslate"><span class="pre">app.injection_store</span></code> via <code class="docutils literal notranslate"><span class="pre">app.injection_store.register_provider</span></code>.
+<p>Internally, napari registers a provider that returns the first Points layer of
+the current viewer, if one present (returning <code class="docutils literal notranslate"><span class="pre">None</span></code> if not). It is registered
+in the <code class="docutils literal notranslate"><span class="pre">app.injection_store</span></code> via <code class="docutils literal notranslate"><span class="pre">app.injection_store.register_provider</span></code>.
 Processors can be registered in the same way.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">napari._app_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_app_model</span>
 
@@ -958,13 +964,13 @@ Processors can be registered in the same way.</p>
 provided objects, and therefore called <em>without</em> parameters in certain cases.
 This is particularly important in a GUI context, where a user can’t always be
 providing arguments:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">injected_func</span> <span class="o">=</span> <span class="n">get_app_model</span><span class="p">()</span><span class="o">.</span><span class="n">injection_store</span><span class="o">.</span><span class="n">inject</span><span class="p">(</span><span class="n">process_points</span><span class="p">)</span>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">injected_func</span> <span class="o">=</span> <span class="n">get_app_model</span><span class="p">()</span><span class="o">.</span><span class="n">injection_store</span><span class="o">.</span><span class="n">inject</span><span class="p">(</span><span class="n">process_points</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Note: injection doesn’t <em>inherently</em> mean that it’s always safe to call an
 injected function without parameters. In this case, we have no viewer and no
 points:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">injected_func</span><span class="p">()</span>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">injected_func</span><span class="p">()</span>
 
 <span class="go">TypeError: After injecting dependencies for NO arguments,</span>
 <span class="go">process_points() missing 1 required positional argument: 'points'</span>
@@ -972,7 +978,7 @@ points:</p>
 </div>
 <p>Our provider was context dependent. Only when we have an active viewer with a
 points layer, can it be provided:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">Viewer</span><span class="p">()</span>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">Viewer</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">viewer</span><span class="o">.</span><span class="n">add_points</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">'Some Points'</span><span class="p">)</span>
 
 <span class="gp">&gt;&gt;&gt; </span><span class="n">injected_func</span><span class="p">()</span>
@@ -986,26 +992,27 @@ plugins/users may use to request dependencies.</p>
 <section id="annotation-and-namespaces">
 <h3>Annotation and namespaces<a class="headerlink" href="#annotation-and-namespaces" title="Link to this heading">#</a></h3>
 <p>For parameter annotations to be resolved by in-n-out, the object must be in the
-“global” or “local” namespace. The “global” namespace consists of the items
-in the callback function’s <a class="reference external" href="https://docs.python.org/3/reference/datamodel.html#function.__globals__" title="(in Python v3.15)"><code class="xref py py-attr docutils literal notranslate"><span class="pre">function.__globals__</span></code></a> attribute.
-In in-n-out the “local” namespace consists of objects in the <a class="reference external" href="https://docs.python.org/3/library/typing.html#module-typing" title="(in Python v3.15)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">typing</span></code></a>
-and <a class="reference external" href="https://docs.python.org/3/library/types.html#module-types" title="(in Python v3.15)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">types</span></code></a> modules’ namespace, and objects in the
-napari <code class="xref py py-attr docutils literal notranslate"><span class="pre">injection_store</span></code>’s <code class="docutils literal notranslate"><span class="pre">namespace</span></code> attribute.
-In the napari <code class="docutils literal notranslate"><span class="pre">app</span></code>’s <code class="docutils literal notranslate"><span class="pre">Store</span></code>, some basic napari objects are added to the <code class="docutils literal notranslate"><span class="pre">namespace</span></code>
+“global” or “local” namespace. The “global” namespace consists of the items in
+the callback function’s <a class="reference external" href="https://docs.python.org/3/reference/datamodel.html#function.__globals__" title="(in Python v3.15)"><code class="xref py py-attr docutils literal notranslate"><span class="pre">function.__globals__</span></code></a> attribute. In in-n-out
+the “local” namespace consists of objects in the <a class="reference external" href="https://docs.python.org/3/library/typing.html#module-typing" title="(in Python v3.15)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">typing</span></code></a> and
+<a class="reference external" href="https://docs.python.org/3/library/types.html#module-types" title="(in Python v3.15)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">types</span></code></a> modules’ namespace, and objects in the napari
+<code class="xref py py-attr docutils literal notranslate"><span class="pre">injection_store</span></code>’s <code class="docutils literal notranslate"><span class="pre">namespace</span></code> attribute. In the
+napari <code class="docutils literal notranslate"><span class="pre">app</span></code>’s <code class="docutils literal notranslate"><span class="pre">Store</span></code>, some basic napari objects are added to the <code class="docutils literal notranslate"><span class="pre">namespace</span></code>
 attribute:</p>
 <ul class="simple">
-<li><p>all public types from the modules <a class="reference internal" href="../../api/napari.components.html#module-napari.components" title="napari.components"><code class="xref py py-mod docutils literal notranslate"><span class="pre">napari.components</span></code></a>, <a class="reference internal" href="../../api/napari.layers.html#module-napari.layers" title="napari.layers"><code class="xref py py-mod docutils literal notranslate"><span class="pre">napari.layers</span></code></a>
-and <code class="xref py py-mod docutils literal notranslate"><span class="pre">napari.viewer</span></code></p></li>
+<li><p>all public types from the modules <a class="reference internal" href="../../api/napari.components.html#module-napari.components" title="napari.components"><code class="xref py py-mod docutils literal notranslate"><span class="pre">napari.components</span></code></a>,
+<a class="reference internal" href="../../api/napari.layers.html#module-napari.layers" title="napari.layers"><code class="xref py py-mod docutils literal notranslate"><span class="pre">napari.layers</span></code></a> and <code class="xref py py-mod docutils literal notranslate"><span class="pre">napari.viewer</span></code></p></li>
 <li><p><a class="reference internal" href="../../api/napari.window.Window.html#napari.window.Window" title="napari._qt.qt_main_window.Window"><code class="xref py py-class docutils literal notranslate"><span class="pre">Window</span></code></a></p></li>
 <li><p><a class="reference internal" href="../../api/napari.qt.QtViewer.html#napari.qt.QtViewer" title="napari._qt.qt_viewer.QtViewer"><code class="xref py py-class docutils literal notranslate"><span class="pre">QtViewer</span></code></a></p></li>
 </ul>
-<p>This means that when annotating a callback function, you will not need to import
-any of the above classes for the annotation to be resolved. For other classes
-you will need to import them at the <strong>module</strong> level. Importing in any of the following
-ways will not work:</p>
+<p>This means that when annotating a callback function, you will not need to
+import any of the above classes for the annotation to be resolved. For other
+classes you will need to import them at the <strong>module</strong> level. Importing in any
+of the following ways will not work:</p>
 <ul class="simple">
 <li><p>import within <code class="docutils literal notranslate"><span class="pre">typing.TYPE_CHECKING</span></code></p></li>
-<li><p>import within an outer function, where the callback function is an inner function</p></li>
+<li><p>import within an outer function, where the callback function is an inner
+function</p></li>
 </ul>
 </section>
 <section id="providers-and-processors-in-napari">
@@ -1021,12 +1028,12 @@ They would be registered in the <code class="docutils literal notranslate"><span
 initialization of the napari <code class="docutils literal notranslate"><span class="pre">app</span></code>, in <code class="docutils literal notranslate"><span class="pre">NapariApplication</span></code>’s
 <code class="docutils literal notranslate"><span class="pre">napari._app_model._app.NapariApplication.__init__</span></code>.</p>
 <p>Providers and processors allow us to mirror behaviour enabled by
-<a class="reference internal" href="magicgui_type_reg.html#magicgui-type-registration"><span class="std std-ref"><code class="docutils literal notranslate"><span class="pre">magicgui</span></code> type registration</span></a> for widgets. Providers
-allow generalization of <code class="docutils literal notranslate"><span class="pre">magicgui</span></code> parameter annotation behaviour to all
-actions, while processors do this for return annotation behaviour.</p>
-<p>The intended users of providers/processors are end-users, plugins as well as <code class="docutils literal notranslate"><span class="pre">napari</span></code>
-internally, however it is currently only used internally.
-For a detailed discussion on this framework see
+<a class="reference internal" href="magicgui_type_reg.html#magicgui-type-registration"><span class="std std-ref"><code class="docutils literal notranslate"><span class="pre">magicgui</span></code> type registration</span></a> for widgets.
+Providers allow generalization of <code class="docutils literal notranslate"><span class="pre">magicgui</span></code> parameter annotation behaviour to
+all actions, while processors do this for return annotation behaviour.</p>
+<p>The intended users of providers/processors are end-users, plugins as well as
+<code class="docutils literal notranslate"><span class="pre">napari</span></code> internally, however it is currently only used internally. For a
+detailed discussion on this framework see
 <a class="reference external" href="https://github.com/napari/napari/issues/4532">issue 4532</a>.</p>
 </section>
 </section>
@@ -1035,11 +1042,11 @@ For a detailed discussion on this framework see
 <p>On <code class="docutils literal notranslate"><span class="pre">napari</span></code> start up, <code class="docutils literal notranslate"><span class="pre">app-model</span></code> initialization occurs in the following order:</p>
 <ol class="arabic">
 <li><p>Initialize <a class="reference internal" href="../../api/napari.Viewer.html#napari.Viewer" title="napari.viewer.Viewer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Viewer</span></code></a>, which calls
-<code class="docutils literal notranslate"><span class="pre">napari.plugins._initialize_plugins</span></code>, which registers discovered plugins
-and all their actions (non-Qt first, followed immedidately by Qt actions).
-This also results in the first call to <code class="docutils literal notranslate"><span class="pre">napari._app_model.get_app_model</span></code>.</p>
-<p>i. Instantiation of the <code class="docutils literal notranslate"><span class="pre">app-model</span></code> app results in registration of all non-GUI
-internal <code class="docutils literal notranslate"><span class="pre">napari</span></code> actions (and associated submenus). Note that the
+<code class="docutils literal notranslate"><span class="pre">napari.plugins._initialize_plugins</span></code>, which registers discovered plugins and
+all their actions (non-Qt first, followed immedidately by Qt actions). This
+also results in the first call to <code class="docutils literal notranslate"><span class="pre">napari._app_model.get_app_model</span></code>.</p>
+<p>i. Instantiation of the <code class="docutils literal notranslate"><span class="pre">app-model</span></code> app results in registration of all
+non-GUI internal <code class="docutils literal notranslate"><span class="pre">napari</span></code> actions (and associated submenus). Note that the
 <code class="docutils literal notranslate"><span class="pre">napari._app_model.get_app_model</span></code> call creates the <code class="docutils literal notranslate"><span class="pre">app</span></code> only when <em>first</em>
 called. It simply returns the existing app on all subsequent calls.</p>
 </li>
@@ -1051,43 +1058,42 @@ instantiation of <code class="docutils literal notranslate"><span class="pre">_Q
 </section>
 <section id="app-model-testing">
 <span id="id2"></span><h2><code class="docutils literal notranslate"><span class="pre">app-model</span></code> testing<a class="headerlink" href="#app-model-testing" title="Link to this heading">#</a></h2>
-<p>This section provides a guide to testing app-model aspects of napari. For general
-information on napari testing see <a class="reference internal" href="../contributing/testing.html#napari-testing"><span class="std std-ref">Testing</span></a>.</p>
+<p>This section provides a guide to testing app-model aspects of napari. For
+general information on napari testing see <a class="reference internal" href="../contributing/testing.html#napari-testing"><span class="std std-ref">Testing</span></a>.</p>
 <section id="mock-app">
 <h3>Mock app<a class="headerlink" href="#mock-app" title="Link to this heading">#</a></h3>
-<p>The <code class="xref py py-class docutils literal notranslate"><span class="pre">NapariApplication</span></code>, <code class="docutils literal notranslate"><span class="pre">app</span></code>, is a global application
-singleton. This is not ideal because changes made in a previous test will persist and
-can cause conflicts for subsequent tests, when running a suite of tests.
-Segmentation faults can also occur as a
-singleton <code class="docutils literal notranslate"><span class="pre">app</span></code> may keep a reference to an object, e.g., a
-<a class="reference internal" href="../../api/napari.window.Window.html#napari.window.Window" title="napari._qt.qt_main_window.Window"><code class="xref py py-class docutils literal notranslate"><span class="pre">Window</span></code></a>, that has
-since been cleaned up at the end of a previous test.
-Thus, we mock the <code class="docutils literal notranslate"><span class="pre">app</span></code> in a <code class="docutils literal notranslate"><span class="pre">_mock_app</span></code> fixture, and
-explicitly use it in <a class="reference internal" href="../contributing/testing.html#make-napari-viewer"><span class="std std-ref">make_napari_viewer</span></a> as well as in all tests that
+<p>The <code class="xref py py-class docutils literal notranslate"><span class="pre">NapariApplication</span></code>, <code class="docutils literal notranslate"><span class="pre">app</span></code>, is a global
+application singleton. This is not ideal because changes made in a previous
+test will persist and can cause conflicts for subsequent tests, when running a
+suite of tests. Segmentation faults can also occur as a singleton <code class="docutils literal notranslate"><span class="pre">app</span></code> may
+keep a reference to an object, e.g., a
+<a class="reference internal" href="../../api/napari.window.Window.html#napari.window.Window" title="napari._qt.qt_main_window.Window"><code class="xref py py-class docutils literal notranslate"><span class="pre">Window</span></code></a>, that has since been cleaned up at
+the end of a previous test. Thus, we mock the <code class="docutils literal notranslate"><span class="pre">app</span></code> in a <code class="docutils literal notranslate"><span class="pre">_mock_app</span></code> fixture,
+and explicitly use it in <a class="reference internal" href="../contributing/testing.html#make-napari-viewer"><span class="std std-ref">make_napari_viewer</span></a> as well as in all tests that
 use the <code class="docutils literal notranslate"><span class="pre">get_app_model</span></code> function. This way, a new instance of <code class="docutils literal notranslate"><span class="pre">app</span></code> is returned
-every time <code class="docutils literal notranslate"><span class="pre">napari._app_model.get_app_model</span></code>
-is used inside a test. This ‘test’ <code class="docutils literal notranslate"><span class="pre">app</span></code> is available for use throughout the test’s
-duration and will get cleaned up at the end.</p>
+every time <code class="docutils literal notranslate"><span class="pre">napari._app_model.get_app_model</span></code> is used inside a test. This ‘test’
+<code class="docutils literal notranslate"><span class="pre">app</span></code> is available for use throughout the test’s duration and will get cleaned
+up at the end.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Since the <code class="docutils literal notranslate"><span class="pre">_mock_app</span></code> fixture is used in <code class="docutils literal notranslate"><span class="pre">make_napari_viewer</span></code>, plugins and other
-external users that write tests using <code class="docutils literal notranslate"><span class="pre">make_napari_viewer</span></code> will also have the benefit
-of a new app for each test.</p>
+<p>Since the <code class="docutils literal notranslate"><span class="pre">_mock_app</span></code> fixture is used in <code class="docutils literal notranslate"><span class="pre">make_napari_viewer</span></code>, plugins and
+other external users that write tests using <code class="docutils literal notranslate"><span class="pre">make_napari_viewer</span></code> will also have
+the benefit of a new app for each test.</p>
 </div>
 <p>The mock <code class="docutils literal notranslate"><span class="pre">app</span></code> registers non-Qt <code class="docutils literal notranslate"><span class="pre">Action</span></code>s, providers and processors. This is
 because it was thought that these would be required for the majority of tests.
 If a plain <code class="docutils literal notranslate"><span class="pre">app</span></code> is required, it can be created by making a new
-<code class="xref py py-class docutils literal notranslate"><span class="pre">NapariApplication</span></code> instance.
-Qt items are not registered because we did not think it would be best practice to
-have Qt objects registered for every test.
-If Qt <code class="docutils literal notranslate"><span class="pre">Action</span></code>s, providers or processors are required, they can be registered by using
-the <code class="docutils literal notranslate"><span class="pre">make_napari_viewer</span></code> fixture, which will run
-<code class="docutils literal notranslate"><span class="pre">napari._qt._qapp_model.qactions.init_qactions</span></code>,
+<code class="xref py py-class docutils literal notranslate"><span class="pre">NapariApplication</span></code> instance. Qt items are not
+registered because we did not think it would be best practice to have Qt
+objects registered for every test. If Qt <code class="docutils literal notranslate"><span class="pre">Action</span></code>s, providers or processors are
+required, they can be registered by using the <code class="docutils literal notranslate"><span class="pre">make_napari_viewer</span></code> fixture,
+which will run <code class="docutils literal notranslate"><span class="pre">napari._qt._qapp_model.qactions.init_qactions</span></code>,
 <code class="docutils literal notranslate"><span class="pre">napari.plugins._initialize_plugins</span></code> as well as create a
-<a class="reference internal" href="../../api/napari.Viewer.html#napari.Viewer" title="napari.viewer.Viewer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Viewer</span></code></a>. Alternatively, manually run the required function,
-ensuring you run <code class="docutils literal notranslate"><span class="pre">cache_clear</span></code> first, to bypass the
+<a class="reference internal" href="../../api/napari.Viewer.html#napari.Viewer" title="napari.viewer.Viewer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Viewer</span></code></a>. Alternatively, manually run the required
+function, ensuring you run <code class="docutils literal notranslate"><span class="pre">cache_clear</span></code> first, to bypass the
 <a class="reference external" href="https://docs.python.org/3/library/functools.html#functools.lru_cache" title="(in Python v3.15)"><code class="xref py py-func docutils literal notranslate"><span class="pre">functools.lru_cache()</span></code></a> on these functions.</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">app</span></code> gives you access to its <a class="reference external" href="https://app-model.readthedocs.io/en/latest/reference/registries/#app_model.registries.CommandsRegistry" title="(in App Model v0.0.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">CommandsRegistry</span></code></a>,
+<p>The <code class="docutils literal notranslate"><span class="pre">app</span></code> gives you access to its
+<a class="reference external" href="https://app-model.readthedocs.io/en/latest/reference/registries/#app_model.registries.CommandsRegistry" title="(in App Model v0.0.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">CommandsRegistry</span></code></a>,
 <a class="reference external" href="https://app-model.readthedocs.io/en/latest/reference/registries/#app_model.registries.MenusRegistry" title="(in App Model v0.0.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">MenusRegistry</span></code></a> and
 <a class="reference external" href="https://app-model.readthedocs.io/en/latest/reference/registries/#app_model.registries.KeyBindingsRegistry" title="(in App Model v0.0.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">KeyBindingsRegistry</span></code></a>. Some useful methods:</p>
 <ul class="simple">
@@ -1095,19 +1101,21 @@ ensuring you run <code class="docutils literal notranslate"><span class="pre">ca
 manually execute registered commands. Note that commands can always be
 executed this way regardless of its enablement state.</p></li>
 <li><p><code class="xref py py-meth docutils literal notranslate"><span class="pre">app_model.registries.MenusRegistry.get_menu()</span></code> allows you to obtain any
-registered <a class="reference external" href="https://app-model.readthedocs.io/en/latest/reference/types/#app_model.types.MenuItem" title="(in App Model v0.0.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">app_model.types.MenuItem</span></code></a> or <a class="reference external" href="https://app-model.readthedocs.io/en/latest/reference/types/#app_model.types.SubmenuItem" title="(in App Model v0.0.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">app_model.types.SubmenuItem</span></code></a>.</p></li>
+registered <a class="reference external" href="https://app-model.readthedocs.io/en/latest/reference/types/#app_model.types.MenuItem" title="(in App Model v0.0.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">app_model.types.MenuItem</span></code></a> or
+<a class="reference external" href="https://app-model.readthedocs.io/en/latest/reference/types/#app_model.types.SubmenuItem" title="(in App Model v0.0.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">app_model.types.SubmenuItem</span></code></a>.</p></li>
 </ul>
 </section>
 <section id="id3">
 <h3>Menus<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
 <p>The <a class="reference external" href="https://app-model.readthedocs.io/en/latest/reference/backends/qt/#app_model.backends.qt.QModelMenu" title="(in App Model v0.0.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">QModelMenu</span></code></a> of menu bar items are saved as
 <a class="reference internal" href="../../api/napari.window.Window.html#napari.window.Window" title="napari._qt.qt_main_window.Window"><code class="xref py py-class docutils literal notranslate"><span class="pre">Window</span></code></a> attributes. These are useful as the
-<code class="docutils literal notranslate"><span class="pre">QAction</span></code>s of the commands in these menus can be found via
-the <a class="reference external" href="https://app-model.readthedocs.io/en/latest/reference/backends/qt/#app_model.backends.qt.QModelMenu" title="(in App Model v0.0.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">QModelMenu</span></code></a>’s
-<code class="xref py py-meth docutils literal notranslate"><span class="pre">findAction()</span></code> method. <code class="docutils literal notranslate"><span class="pre">QAction</span></code>s of submenu
-of a <a class="reference external" href="https://app-model.readthedocs.io/en/latest/reference/backends/qt/#app_model.backends.qt.QModelMenu" title="(in App Model v0.0.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">QModelMenu</span></code></a> currently cannot be found via
-<code class="xref py py-meth docutils literal notranslate"><span class="pre">findAction()</span></code>. The utility function
-<code class="docutils literal notranslate"><span class="pre">napari._qt._qapp_model._tests.utils.get_submenu_action</span></code> can be used instead.</p>
+<code class="docutils literal notranslate"><span class="pre">QAction</span></code>s of the commands in these menus can be found via the
+<a class="reference external" href="https://app-model.readthedocs.io/en/latest/reference/backends/qt/#app_model.backends.qt.QModelMenu" title="(in App Model v0.0.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">QModelMenu</span></code></a>’s
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">findAction()</span></code> method. <code class="docutils literal notranslate"><span class="pre">QAction</span></code>s of
+submenu of a <a class="reference external" href="https://app-model.readthedocs.io/en/latest/reference/backends/qt/#app_model.backends.qt.QModelMenu" title="(in App Model v0.0.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">QModelMenu</span></code></a> currently cannot be
+found via <code class="xref py py-meth docutils literal notranslate"><span class="pre">findAction()</span></code>. The utility
+function <code class="docutils literal notranslate"><span class="pre">napari._qt._qapp_model._tests.utils.get_submenu_action</span></code> can be used
+instead.</p>
 </section>
 </section>
 <section id="contexts">
@@ -1118,59 +1126,71 @@ For details on contexts and expressions see <a class="reference internal" href="
 <code class="xref py py-class docutils literal notranslate"><span class="pre">ContextNamespace</span></code> classes in
 napari; <code class="xref py py-class docutils literal notranslate"><span class="pre">LayerListContextKeys</span></code> and
 <code class="xref py py-class docutils literal notranslate"><span class="pre">LayerListSelectionContextKeys</span></code>. These map
-variables to various values obtained using <a class="reference internal" href="../../api/napari.components.LayerList.html#napari.components.LayerList" title="napari.components.LayerList"><code class="xref py py-class docutils literal notranslate"><span class="pre">LayerList</span></code></a>
-and selection <a class="reference internal" href="../../api/napari.components.LayerList.html#napari.components.LayerList" title="napari.components.LayerList"><code class="xref py py-class docutils literal notranslate"><span class="pre">LayerList</span></code></a> (e.g., “Number of selected points
+variables to various values obtained using
+<a class="reference internal" href="../../api/napari.components.LayerList.html#napari.components.LayerList" title="napari.components.LayerList"><code class="xref py py-class docutils literal notranslate"><span class="pre">LayerList</span></code></a> and selection
+<a class="reference internal" href="../../api/napari.components.LayerList.html#napari.components.LayerList" title="napari.components.LayerList"><code class="xref py py-class docutils literal notranslate"><span class="pre">LayerList</span></code></a> (e.g., “Number of selected points
 layers”). They are defined in
 <a class="reference external" href="https://github.com/napari/napari/tree/main/napari/_app_model/context"><code class="docutils literal notranslate"><span class="pre">napari/_app_model/context</span></code></a>.
 An instance of each class is created and saved as an attribute of
 <a class="reference internal" href="../../api/napari.components.LayerList.html#napari.components.LayerList" title="napari.components.LayerList"><code class="xref py py-class docutils literal notranslate"><span class="pre">LayerList</span></code></a>. The
 <code class="xref py py-meth docutils literal notranslate"><span class="pre">update()</span></code>
 methods of each are then connected to events that change the
-<a class="reference internal" href="../../api/napari.components.LayerList.html#napari.components.LayerList" title="napari.components.LayerList"><code class="xref py py-class docutils literal notranslate"><span class="pre">LayerList</span></code></a> or selected <a class="reference internal" href="../../api/napari.components.LayerList.html#napari.components.LayerList" title="napari.components.LayerList"><code class="xref py py-class docutils literal notranslate"><span class="pre">LayerList</span></code></a>.</p>
-<p>Variables in these classes can be used in expressions
-in the <a class="reference internal" href="#app-model-actions"><span class="std std-ref"><code class="docutils literal notranslate"><span class="pre">Action</span></code></span></a> <code class="docutils literal notranslate"><span class="pre">enablement</span></code> field and
-menus <a class="reference external" href="https://app-model.readthedocs.io/en/latest/reference/types/#app_model.types.MenuRule" title="(in App Model v0.0.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">MenuRule</span></code></a>’s <code class="docutils literal notranslate"><span class="pre">when</span></code> field (see <a class="reference internal" href="#app-model-menus"><span class="std std-ref">Menus</span></a>
-for details).</p>
+<a class="reference internal" href="../../api/napari.components.LayerList.html#napari.components.LayerList" title="napari.components.LayerList"><code class="xref py py-class docutils literal notranslate"><span class="pre">LayerList</span></code></a> or selected
+<a class="reference internal" href="../../api/napari.components.LayerList.html#napari.components.LayerList" title="napari.components.LayerList"><code class="xref py py-class docutils literal notranslate"><span class="pre">LayerList</span></code></a>.</p>
+<p>Variables in these classes can be used in expressions in the
+<a class="reference internal" href="#app-model-actions"><span class="std std-ref"><code class="docutils literal notranslate"><span class="pre">Action</span></code></span></a> <code class="docutils literal notranslate"><span class="pre">enablement</span></code> field and menus
+<a class="reference external" href="https://app-model.readthedocs.io/en/latest/reference/types/#app_model.types.MenuRule" title="(in App Model v0.0.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">MenuRule</span></code></a>’s <code class="docutils literal notranslate"><span class="pre">when</span></code> field (see <a class="reference internal" href="#app-model-menus"><span class="std std-ref">Menus</span></a> for
+details).</p>
 <p>Currently, the <a class="reference external" href="https://app-model.readthedocs.io/en/latest/reference/#app_model.Application" title="(in App Model v0.0.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">app_model.Application</span></code></a> class does not have a
 context registry but it may in future (more details can be found
-<a class="reference external" href="https://github.com/pyapp-kit/app-model/pull/142#issuecomment-1792405334">here</a>).
+<a class="reference external" href="https://github.com/pyapp-kit/app-model/pull/142#issuecomment-1792405334">in app-model PR #142</a>).
 napari therefore needs to manually update the context via
-<code class="xref py py-meth docutils literal notranslate"><span class="pre">update_from_context()</span></code>. For menu bar items,
-we connect <code class="xref py py-meth docutils literal notranslate"><span class="pre">update_from_context()</span></code> to the
-<code class="docutils literal notranslate"><span class="pre">aboutToShow</span></code> event of each menu bar <code class="docutils literal notranslate"><span class="pre">QModelMenu</span></code> instance,
-in <code class="xref py py-meth docutils literal notranslate"><span class="pre">napari.window.Window._add_menus()</span></code>.</p>
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">update_from_context()</span></code>. For menu
+bar items, we connect
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">update_from_context()</span></code> to the
+<code class="docutils literal notranslate"><span class="pre">aboutToShow</span></code> event of each menu bar <code class="docutils literal notranslate"><span class="pre">QModelMenu</span></code> instance, in
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">napari.window.Window._add_menus()</span></code>.</p>
 </section>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="migration-from-action-manager">
-<h1>Migration from action manager<a class="headerlink" href="#migration-from-action-manager" title="Link to this heading">#</a></h1>
+<section id="migration-from-action-manager">
+<h2>Migration from action manager<a class="headerlink" href="#migration-from-action-manager" title="Link to this heading">#</a></h2>
 <section id="motivation-future-vision">
-<h2>Motivation &amp; Future Vision<a class="headerlink" href="#motivation-future-vision" title="Link to this heading">#</a></h2>
+<h3>Motivation &amp; Future Vision<a class="headerlink" href="#motivation-future-vision" title="Link to this heading">#</a></h3>
 <p>While it’s certainly possible that there will be cases where this abstraction
-in app-model proves to be a bit more annoying than the previous “procedural” approach,
-there are a number of motivations for adopting this abstraction.</p>
+in app-model proves to be a bit more annoying than the previous “procedural”
+approach, there are a number of motivations for adopting this abstraction.</p>
 <ol class="arabic simple">
-<li><p>It gives us an abstraction layer on top of Qt that will make it much easier to explore different application backends (such as a web-based app, etc..)</p></li>
-<li><p>It’s easier to test: <code class="docutils literal notranslate"><span class="pre">app-model</span></code> can take care of making sure that commands, menus, keybindings, and actions are rendered, updated, and triggered correctly, and napari can focus on testing the napari-specific logic.</p></li>
-<li><p>It’s becomes <strong>much</strong> easier to add &amp; remove contributions from plugins if our internal representation of a command, menu, keybinding is similar to the schema that plugins use. The previous procedural approach made this marriage much more cumbersome.</p></li>
-<li><p><strong>The Dream</strong>: The unification of napari commands and plugin commands into a registry that can execute commands in response to user input provides an excellent base for “recording” a user workflow. If all GUI user interactions go through dependency-injected commands, then it becomes much easier to export a script that reproduces a set of interactions.</p></li>
+<li><p>It gives us an abstraction layer on top of Qt that will make it much easier
+to explore different application backends (such as a web-based app, etc..)</p></li>
+<li><p>It’s easier to test: <code class="docutils literal notranslate"><span class="pre">app-model</span></code> can take care of making sure that commands,
+menus, keybindings, and actions are rendered, updated, and triggered
+correctly, and napari can focus on testing the napari-specific logic.</p></li>
+<li><p>It’s becomes <strong>much</strong> easier to add &amp; remove contributions from plugins if
+our internal representation of a command, menu, keybinding is similar to the
+schema that plugins use. The previous procedural approach made this marriage
+much more cumbersome.</p></li>
+<li><p><strong>The Dream</strong>: The unification of napari commands and plugin commands into a
+registry that can execute commands in response to user input provides an
+excellent base for “recording” a user workflow. If all GUI user interactions
+go through dependency-injected commands, then it becomes much easier to
+export a script that reproduces a set of interactions.</p></li>
 </ol>
 </section>
 <section id="app-model-vs-action-manager-implementation-differences">
-<span id="app-model-action-manager-differences"></span><h2>app-model vs action manager implementation differences<a class="headerlink" href="#app-model-vs-action-manager-implementation-differences" title="Link to this heading">#</a></h2>
+<span id="app-model-action-manager-differences"></span><h3>app-model vs action manager implementation differences<a class="headerlink" href="#app-model-vs-action-manager-implementation-differences" title="Link to this heading">#</a></h3>
 <p>App-model and action manager differ in when actions are registered.
 In app-model, actions are <a class="reference internal" href="#app-model-actions-napari"><span class="std std-ref">registered</span></a> (on
 <code class="xref py py-class docutils literal notranslate"><span class="pre">NapariApplication</span></code> and
 <a class="reference internal" href="../../api/napari.window.Window.html#napari.window.Window" title="napari.window.Window"><code class="xref py py-class docutils literal notranslate"><span class="pre">Window</span></code></a> initialization). This is much earlier than with
 action manager, where actions are registered when building the menus.</p>
-<p>For example, with action manager, a <code class="docutils literal notranslate"><span class="pre">PluginsMenu</span></code> class instance is created when
-building the menu bar. Plugins menu actions are thus registered at a time when
-we know we have access to Qt.
-In app-model, plugins menu actions are registered during
-<code class="docutils literal notranslate"><span class="pre">napari.plugins._initialize_plugins</span></code>, which is run on initialization of
-<a class="reference internal" href="../../api/napari.Viewer.html#napari.Viewer" title="napari.viewer.Viewer"><code class="xref py py-class docutils literal notranslate"><span class="pre">napari.viewer.Viewer</span></code></a>. This is much earlier in napari startup and is before
-we know if we have access to Qt. Thus, we register with
-<code class="docutils literal notranslate"><span class="pre">napari.plugins._npe2._safe_register_qt_actions</span></code>, which first checks if
-Qt is available.</p>
+<p>For example, with action manager, a <code class="docutils literal notranslate"><span class="pre">PluginsMenu</span></code> class instance is created
+when building the menu bar. Plugins menu actions are thus registered at a time
+when we know we have access to Qt. In app-model, plugins menu actions are
+registered during <code class="docutils literal notranslate"><span class="pre">napari.plugins._initialize_plugins</span></code>, which is run on
+initialization of <a class="reference internal" href="../../api/napari.Viewer.html#napari.Viewer" title="napari.viewer.Viewer"><code class="xref py py-class docutils literal notranslate"><span class="pre">napari.viewer.Viewer</span></code></a>. This is much earlier in napari
+startup and is before we know if we have access to Qt. Thus, we register with
+<code class="docutils literal notranslate"><span class="pre">napari.plugins._npe2._safe_register_qt_actions</span></code>, which first checks if Qt is
+available.</p>
+</section>
 </section>
 </section>
 
@@ -1221,7 +1241,6 @@ Qt is available.</p>
   </div>
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="pst-show_toc_level nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">napari’s application model</a><ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">App-model</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#actions"><code class="docutils literal notranslate"><span class="pre">Action</span></code>s</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#actions-in-napari"><code class="docutils literal notranslate"><span class="pre">Action</span></code>s in napari</a></li>
@@ -1252,15 +1271,12 @@ Qt is available.</p>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#contexts">Contexts</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#migration-from-action-manager">Migration from action manager</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#motivation-future-vision">Motivation &amp; Future Vision</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#app-model-vs-action-manager-implementation-differences">app-model vs action manager implementation differences</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#migration-from-action-manager">Migration from action manager</a><ul class="pst-show_toc_level nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#motivation-future-vision">Motivation &amp; Future Vision</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#app-model-vs-action-manager-implementation-differences">app-model vs action manager implementation differences</a></li>
 </ul>
-</li>
-</ul>
-
   </nav></div>
 
   <div class="sidebar-secondary-item">

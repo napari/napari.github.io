@@ -61,9 +61,7 @@ your function with the
 Continuing with the example above:
 
 ```{code-block} python
----
-emphasize-lines: 4,7,13-15
----
+:emphasize-lines: 4,7,13-15
 import napari
 import numpy as np
 
@@ -115,7 +113,7 @@ napari.run()
 When the `connect` argument to
 {func}`@thread_worker<napari.qt.threading.thread_worker>`
 is not `None`, the thread will start
-by default when the decorated function is called.  Otherwise the thread must
+by default when the decorated function is called. Otherwise the thread must
 be manually started by calling
 {meth}`worker.start() <napari.qt.threading.WorkerBase.start>`.
 ```
@@ -155,14 +153,14 @@ def error_prone_function(): ...
 
 (generators-for-the-win)=
 
-## Generators for the win!
+## Generators for the win
 
 ````{admonition} quick reminder
 
 A generator function is a
 [special kind of function](https://realpython.com/introduction-to-python-generators/)
-that returns a lazy iterator. To make a generator, you "yield"
-results rather than (or in addition to) "returning" them:
+that returns a lazy iterator. To make a generator, you "yield" results rather
+than (or in addition to) "returning" them:
 
 ```python
 def my_generator():
@@ -198,9 +196,7 @@ as it is generated (rather than taking the average of the fully generated
 stack) we can watch the mean projection as it builds:
 
 ```{code-block} python
----
-emphasize-lines: 19,25
----
+:emphasize-lines: 19,25
 import napari
 import numpy as np
 from napari.qt.threading import thread_worker
@@ -253,9 +249,7 @@ free. In the example below we decorate what would normally be an infinitely
 yielding generator, but add a button that aborts the worker when clicked:
 
 ```{code-block} python
----
-emphasize-lines: 20,30
----
+:emphasize-lines: 20,30
 import time
 import napari
 from napari.qt.threading import thread_worker
@@ -310,9 +304,9 @@ to force quit your program.
 So whenever possible, sprinkle your long-running functions with `yield`.
 
 ```{note}
-Starting with napari 0.6.5 workers get registered as a running task and a confirmation
-dialog will be shown if they are still running when closing the napari GUI via
-its close button.
+Starting with napari 0.6.5 workers get registered as a running task and a
+confirmation dialog will be shown if they are still running when closing the
+napari GUI via its close button.
 ```
 
 ## Full two-way communication
@@ -328,9 +322,7 @@ cumulative multiplier that runs in another thread, and exits if the product
 hits "0":
 
 ```{code-block} python
----
-emphasize-lines: 9,14-16,35,39,49,50,52,53
----
+:emphasize-lines: 9,14-16,35,39,49,50,52,53
 import napari
 import time
 

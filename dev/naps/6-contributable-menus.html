@@ -451,9 +451,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../developers/architecture/dir_organization.html">napari directory organization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../developers/architecture/napari_models.html">napari models and events</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../developers/architecture/app_model.html">napari’s application model</a></li>
-
 <li class="toctree-l2"><a class="reference internal" href="../developers/architecture/magicgui_type_reg.html"><code class="docutils literal notranslate"><span class="pre">magicgui</span></code> type registration</a></li>
-
 <li class="toctree-l2 has-children"><a class="reference internal" href="../developers/architecture/ui_sections/index.html">UI sections</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../developers/architecture/ui_sections/application_menus_ui.html">Application menus</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../developers/architecture/ui_sections/application_status_bar_ui.html">Application status bar</a></li>
@@ -488,7 +486,6 @@
 <li class="toctree-l2"><a class="reference internal" href="8-telemetry.html">NAP-8 — Telemetry</a></li>
 <li class="toctree-l2"><a class="reference internal" href="9-multiple-canvases.html">NAP-9 — Multiple Views</a></li>
 <li class="toctree-l2"><a class="reference internal" href="10-migration-event-system.html">NAP-10 — Migration of the event system</a></li>
-
 <li class="toctree-l2"><a class="reference internal" href="template.html">NAP-X — Template and Instructions</a></li>
 </ul>
 </details></li>
@@ -646,42 +643,50 @@ menus to be added to the existing list.</p>
 the existing problem, who it affects, what it is trying to solve, and why.
 This section should explicitly address the scope of and key requirements
 for the proposed change. -->
-<p>Currently plugin developers can provide processing and analysis extensions strictly through
-<strong>dock widget</strong> contributions. These are exposed to the user under the <code class="docutils literal notranslate"><span class="pre">Plugins</span></code> menu, either
-directly at the top level if a plugin only provides a single widget, or in a submenu labelled
-with the plugin’s display name when a plugin provides multiple widgets.</p>
-<p>This <code class="docutils literal notranslate"><span class="pre">Plugins</span></code> menu quickly becomes difficult to parse with increasing number of plugins
-installed in an environment, and does not provide sufficient structure for a user to be
-able to quickly and coherently navigate through the extensions available to them.</p>
+<p>Currently plugin developers can provide processing and analysis extensions
+strictly through <strong>dock widget</strong> contributions. These are exposed to the user
+under the <code class="docutils literal notranslate"><span class="pre">Plugins</span></code> menu, either directly at the top level if a plugin only
+provides a single widget, or in a submenu labelled with the plugin’s display
+name when a plugin provides multiple widgets.</p>
+<p>This <code class="docutils literal notranslate"><span class="pre">Plugins</span></code> menu quickly becomes difficult to parse with increasing number
+of plugins installed in an environment, and does not provide sufficient
+structure for a user to be able to quickly and coherently navigate through the
+extensions available to them.</p>
 <p><img alt="A napari viewer with many plugins installed quickly becomes unwieldy." src="../_images/napari-many-plugins.png" /></p>
-<p>The vast majority of plugins (217 out of 263) available today provide at least one <code class="docutils literal notranslate"><span class="pre">widget</span></code> contribution.
-Of these, 140 provide just a single widget 19 provide more than five widgets and 9 provide more than 10.
-This means that while it is important to provide structure within an individual plugin’s widgets,
-we must also provide cross-plugin structure so that users with many plugins installed can find widgets
-by the action they want to perform, rather than by hunting across
-endless plugin submenus, or attempting to discern what a plugin’s widget might do from its title.</p>
-<p>Without meaningful places to put their contributions, plugin developers are coming
-up with their own way to organize contributions, whether through numbering widgets in
-their menu, mangling names to achieve a certain order, or coming up with their own unsupported
-solutions for adding new menu items.</p>
-<p>The goal of this NAP, therefore, is to provide a structured set of contributable menus
-that is easy to navigate, semantically organized and intuitive for both users and plugin developers.</p>
+<p>The vast majority of plugins (217 out of 263) available today provide at least
+one <code class="docutils literal notranslate"><span class="pre">widget</span></code> contribution. Of these, 140 provide just a single widget 19
+provide more than five widgets and 9 provide more than 10. This means that
+while it is important to provide structure within an individual plugin’s
+widgets, we must also provide cross-plugin structure so that users with many
+plugins installed can find widgets by the action they want to perform, rather
+than by hunting across endless plugin submenus, or attempting to discern what a
+plugin’s widget might do from its title.</p>
+<p>Without meaningful places to put their contributions, plugin developers are
+coming up with their own way to organize contributions, whether through
+numbering widgets in their menu, mangling names to achieve a certain order, or
+coming up with their own unsupported solutions for adding new menu items.</p>
+<p>The goal of this NAP, therefore, is to provide a structured set of
+contributable menus that is easy to navigate, semantically organized and
+intuitive for both users and plugin developers.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>It is highly likely that with growing numbers of plugins, widgets and menus, menu navigation
-itself becomes more burdensome when hunting for a specific action. Searchability of menu items is
-not within scope for this NAP, but will be made available to users via a command palette.</p>
+<p>It is highly likely that with growing numbers of plugins, widgets and menus,
+menu navigation itself becomes more burdensome when hunting for a specific
+action. Searchability of menu items is not within scope for this NAP, but will
+be made available to users via a command palette.</p>
 </div>
 <section id="what-is-a-menu-contribution">
 <h3>What is a Menu Contribution?<a class="headerlink" href="#what-is-a-menu-contribution" title="Link to this heading">#</a></h3>
-<p>A <code class="docutils literal notranslate"><span class="pre">MenuItem</span></code> contribution in the <a class="reference external" href="https://github.com/napari/npe2/blob/main/src/npe2/manifest/contributions/_menus.py"><code class="docutils literal notranslate"><span class="pre">npe2</span></code> manifest</a>
-adds a new item to one of the <code class="docutils literal notranslate"><span class="pre">napari</span></code> menus (defined by an ID). When this item is clicked,
-the associated <code class="docutils literal notranslate"><span class="pre">command</span></code> is executed. Additionally, <code class="docutils literal notranslate"><span class="pre">enablement</span></code> clauses can be defined
-that control when this menu item is available for clicking and when it is disabled. Similarly,
-a <code class="docutils literal notranslate"><span class="pre">when</span></code> clause can be used to control whether the menu item is visible in the menu at all.</p>
-<p>In addition to the menu items themselves, <code class="docutils literal notranslate"><span class="pre">Submenu</span></code> contributions can also be defined,
-which add a new submenu to a contributable menu which can be populated with new
-<code class="docutils literal notranslate"><span class="pre">MenuItem</span></code> contributions.</p>
+<p>A <code class="docutils literal notranslate"><span class="pre">MenuItem</span></code> contribution in the
+<a class="reference external" href="https://github.com/napari/npe2/blob/main/src/npe2/manifest/contributions/_menus.py"><code class="docutils literal notranslate"><span class="pre">npe2</span></code> manifest</a>
+adds a new item to one of the <code class="docutils literal notranslate"><span class="pre">napari</span></code> menus (defined by an ID). When this item
+is clicked, the associated <code class="docutils literal notranslate"><span class="pre">command</span></code> is executed. Additionally, <code class="docutils literal notranslate"><span class="pre">enablement</span></code>
+clauses can be defined that control when this menu item is available for
+clicking and when it is disabled. Similarly, a <code class="docutils literal notranslate"><span class="pre">when</span></code> clause can be used to
+control whether the menu item is visible in the menu at all.</p>
+<p>In addition to the menu items themselves, <code class="docutils literal notranslate"><span class="pre">Submenu</span></code> contributions can also be
+defined, which add a new submenu to a contributable menu which can be populated
+with new <code class="docutils literal notranslate"><span class="pre">MenuItem</span></code> contributions.</p>
 <p>The following example <code class="docutils literal notranslate"><span class="pre">napari.yaml</span></code> file demonstrates menu contributions as
 proposed in this NAP:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">napari-demo</span>
@@ -712,22 +717,23 @@ proposed in this NAP:</p>
 <span class="w">      </span><span class="nt">label</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Thresholding</span>
 </pre></div>
 </div>
-<p>This NAP proposes new menu IDs and new top level menus to open for contribution.</p>
+<p>This NAP proposes new menu IDs and new top level menus to open for
+contribution.</p>
 <p><img alt="napari with layers menu highlighted including menu items and a submenu contributed by a plugin" src="../_images/nap6-menu-example.png" /></p>
 </section>
 <section id="what-do-menu-contributions-do">
 <h3>What do Menu Contributions do?<a class="headerlink" href="#what-do-menu-contributions-do" title="Link to this heading">#</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">MenuItem</span></code> contributions can be thought of as auxiliary contributions that
 allow you to place an existing contribution into one of napari’s menus.</p>
-<p>Currently only <code class="docutils literal notranslate"><span class="pre">widget</span></code> contributions and pure commands could be placed in menus, as the other
-contribution types (reader, writer, sample data) already have defined locations
-and dispatch mechanisms.</p>
+<p>Currently only <code class="docutils literal notranslate"><span class="pre">widget</span></code> contributions and pure commands could be placed in
+menus, as the other contribution types (reader, writer, sample data) already
+have defined locations and dispatch mechanisms.</p>
 <p>When <code class="docutils literal notranslate"><span class="pre">widget</span></code> contributions are placed in a menu, clicking on that menu item
-will simply open the associated <code class="docutils literal notranslate"><span class="pre">widget</span></code>. However, pure commands can take as input
-<code class="docutils literal notranslate"><span class="pre">napari</span></code> objects like specific layers, or the <code class="docutils literal notranslate"><span class="pre">Viewer</span></code>, and produce
-output the <code class="docutils literal notranslate"><span class="pre">Viewer</span></code> uses - currently this would be new layers. For example,
-you could have a command that creates a new layer with specific features,
-or one that edits the rendering properties of an existing layer.</p>
+will simply open the associated <code class="docutils literal notranslate"><span class="pre">widget</span></code>. However, pure commands can take as
+input <code class="docutils literal notranslate"><span class="pre">napari</span></code> objects like specific layers, or the <code class="docutils literal notranslate"><span class="pre">Viewer</span></code>, and produce
+output the <code class="docutils literal notranslate"><span class="pre">Viewer</span></code> uses - currently this would be new layers. For example, you
+could have a command that creates a new layer with specific features, or one
+that edits the rendering properties of an existing layer.</p>
 <p>Moving forward, new contribution types could be defined that allow
 plugin developers to run context aware commands that interact with
 different <code class="docutils literal notranslate"><span class="pre">Viewer</span></code> components without the need for a <code class="docutils literal notranslate"><span class="pre">widget</span></code>, and with
@@ -756,47 +762,62 @@ being acted upon by the actions within the menu, and the likely output of those
 actions.</p>
 <section id="the-layers-menu">
 <h3>The <code class="docutils literal notranslate"><span class="pre">Layers</span></code> Menu<a class="headerlink" href="#the-layers-menu" title="Link to this heading">#</a></h3>
-<p>Currently the foremost example of such an object is the napari <code class="docutils literal notranslate"><span class="pre">Layers</span></code>, and this
-top level menu therefore contains a number of submenus organized by the types of processing
-the user may wish to perform on the selected <code class="docutils literal notranslate"><span class="pre">Layer</span></code> or <code class="docutils literal notranslate"><span class="pre">Layers</span></code>.</p>
+<p>Currently the foremost example of such an object is the napari <code class="docutils literal notranslate"><span class="pre">Layers</span></code>, and
+this top level menu therefore contains a number of submenus organized by the
+types of processing the user may wish to perform on the selected <code class="docutils literal notranslate"><span class="pre">Layer</span></code> or
+<code class="docutils literal notranslate"><span class="pre">Layers</span></code>.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">Layers</span></code> submenus are organized to give the user an immediate
 feeling of what might happen to their <code class="docutils literal notranslate"><span class="pre">Layers</span></code> as a result of clicking
 one of these menu items. Note that the top level menu <code class="docutils literal notranslate"><span class="pre">Layers</span></code> itself is
 not contributable. Only its submenus are.</p>
 <ol class="arabic simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">Visualize</span></code> - Items in this submenu allow you to change visualization parameters from selected layer or layers.
-They do not change the layer data, but will change how it’s displayed. An example would be a widget that allows you
-to select which subset of points is visible based on feature properties, or one that automatically sets the contrast limits
-based on properties of the data.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Annotate</span></code> - This submenu provides a location for convenient layer editing tools e.g. <code class="docutils literal notranslate"><span class="pre">Labels</span></code> split/merge actions.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Data</span></code> - This submenu provides utilities for converting your underlying data to a new format e.g. zarr to numpy array,
+<li><p><code class="docutils literal notranslate"><span class="pre">Visualize</span></code> - Items in this submenu allow you to change visualization
+parameters from selected layer or layers.
+They do not change the layer data, but will change how it’s displayed. An
+example would be a widget that allows you to select which subset of points is
+visible based on feature properties, or one that automatically sets the
+contrast limits based on properties of the data.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Annotate</span></code> - This submenu provides a location for convenient layer editing
+tools e.g. <code class="docutils literal notranslate"><span class="pre">Labels</span></code> split/merge actions.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Data</span></code> - This submenu provides utilities for converting your underlying data
+to a new format e.g. zarr to numpy array,
 or for changing its data type.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Layer</span> <span class="pre">Type</span></code> - This submenu provides utilities for converting layers into layers of different types e.g. image to labels.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Transform</span></code> - Items in this submenu will edit your layer’s metadata and affect the way its data is displayed e.g.
+<li><p><code class="docutils literal notranslate"><span class="pre">Layer</span> <span class="pre">Type</span></code> - This submenu provides utilities for converting layers into
+layers of different types e.g. image to labels.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Transform</span></code> - Items in this submenu will edit your layer’s metadata and
+affect the way its data is displayed e.g.
 an affine transform.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Measure</span></code> - Items in this submenu provide utilities for summarising information about your layer’s data. An example
-would be a widget that plots the change in the intensity of a clicked pixel over time.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Filter</span></code> - The items in this submenu allow you to apply filters to your actions e.g. a gaussian filter or a denoising
+<li><p><code class="docutils literal notranslate"><span class="pre">Measure</span></code> - Items in this submenu provide utilities for summarising
+information about your layer’s data. An example
+would be a widget that plots the change in the intensity of a clicked pixel
+over time.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Filter</span></code> - The items in this submenu allow you to apply filters to your
+actions e.g. a gaussian filter or a denoising
 filter.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Register</span></code> - Commands that allow the user to perform image registration on one or more layers</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Project</span></code> - Commands that generate various projections based on one or more layers</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Segment</span></code> - Commands that generate instance segmentations e.g. watershed, SLIC, threshold</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Track</span></code> - Commands that take in an image or segmentation and produce timelapse tracks</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Classify</span></code> - Commands that predict classes/categories for pixels, objects, points, etc.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Register</span></code> - Commands that allow the user to perform image registration on
+one or more layers</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Project</span></code> - Commands that generate various projections based on one or more
+layers</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Segment</span></code> - Commands that generate instance segmentations e.g. watershed,
+SLIC, threshold</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Track</span></code> - Commands that take in an image or segmentation and produce
+timelapse tracks</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Classify</span></code> - Commands that predict classes/categories for pixels, objects,
+points, etc.</p></li>
 </ol>
-<p>Many of the actions in this menu exist in the right click layer context menu. These items
-should be replicated in the <code class="docutils literal notranslate"><span class="pre">Layers</span></code> menu as needed, both to aid discoverability and
-to ensure users are not met with empty menus on initially opening <code class="docutils literal notranslate"><span class="pre">napari</span></code>. It’s
-also possible that exceedingly common operations e.g. thresholds, are provided in the future
-by <code class="docutils literal notranslate"><span class="pre">napari</span></code> itself.</p>
+<p>Many of the actions in this menu exist in the right click layer context menu.
+These items should be replicated in the <code class="docutils literal notranslate"><span class="pre">Layers</span></code> menu as needed, both to aid
+discoverability and to ensure users are not met with empty menus on initially
+opening <code class="docutils literal notranslate"><span class="pre">napari</span></code>. It’s also possible that exceedingly common operations e.g.
+thresholds, are provided in the future by <code class="docutils literal notranslate"><span class="pre">napari</span></code> itself.</p>
 </section>
 <section id="new-file-submenus">
 <h3>New <code class="docutils literal notranslate"><span class="pre">File</span></code> Submenus<a class="headerlink" href="#new-file-submenus" title="Link to this heading">#</a></h3>
 <p>These submenus will be placed in the <code class="docutils literal notranslate"><span class="pre">File</span></code> top-level menu.</p>
 <section id="acquire">
 <h4><code class="docutils literal notranslate"><span class="pre">Acquire</span></code><a class="headerlink" href="#acquire" title="Link to this heading">#</a></h4>
-<p><code class="docutils literal notranslate"><span class="pre">Acquire</span></code> will contain widgets and utilities for interfacing with microscopes and
-other types of cameras.</p>
+<p><code class="docutils literal notranslate"><span class="pre">Acquire</span></code> will contain widgets and utilities for interfacing with microscopes
+and other types of cameras.</p>
 </section>
 <section id="i-o-utilities">
 <h4><code class="docutils literal notranslate"><span class="pre">I/O</span> <span class="pre">Utilities</span></code><a class="headerlink" href="#i-o-utilities" title="Link to this heading">#</a></h4>
@@ -804,47 +825,53 @@ other types of cameras.</p>
 widgets dedicated to importing and exporting of data, features, models and/or
 other material supporting analysis.</p>
 <p>These widgets usually require more choices from the user than are currently
-possible via the <code class="docutils literal notranslate"><span class="pre">reader</span></code> and <code class="docutils literal notranslate"><span class="pre">writer</span></code> interfaces. Although many discussions have
-been raised about expanding the opening and saving options in <code class="docutils literal notranslate"><span class="pre">napari</span></code> to
-support more complex choices (<a class="reference external" href="https://github.com/napari/napari/issues/1637">#1637</a>,
+possible via the <code class="docutils literal notranslate"><span class="pre">reader</span></code> and <code class="docutils literal notranslate"><span class="pre">writer</span></code> interfaces. Although many discussions
+have been raised about expanding the opening and saving options in <code class="docutils literal notranslate"><span class="pre">napari</span></code> to
+support more complex choices
+(<a class="reference external" href="https://github.com/napari/napari/issues/1637">#1637</a>,
 <a class="reference external" href="https://github.com/napari/napari/issues/2801">#2801</a>,
 <a class="reference external" href="https://github.com/napari/napari/issues/4611">#4611</a>,
 <a class="reference external" href="https://github.com/napari/napari/pull/4882">#4882</a>…),
-we are not presently close to providing a unified interface for complex file opening/saving.
-Additionally, default <code class="docutils literal notranslate"><span class="pre">napari</span></code> opening and saving is entirely focused on reading data into
-layer, but there are many other reasons a user may wish to read a file or save some output
-from the <code class="docutils literal notranslate"><span class="pre">Viewer</span></code>.</p>
-<p>It is likely, therefore, that some plugins will always have bespoke interfaces for importing and
-exporting various file formats. These interfaces will be exposed via the new <code class="docutils literal notranslate"><span class="pre">File-&gt;I/O</span> <span class="pre">Utilities</span></code>
-menu.</p>
+we are not presently close to providing a unified interface for complex file
+opening/saving. Additionally, default <code class="docutils literal notranslate"><span class="pre">napari</span></code> opening and saving is entirely
+focused on reading data into layer, but there are many other reasons a user may
+wish to read a file or save some output from the <code class="docutils literal notranslate"><span class="pre">Viewer</span></code>.</p>
+<p>It is likely, therefore, that some plugins will always have bespoke interfaces
+for importing and exporting various file formats. These interfaces will be
+exposed via the new <code class="docutils literal notranslate"><span class="pre">File-&gt;I/O</span> <span class="pre">Utilities</span></code> menu.</p>
 </section>
 <section id="new-layer">
 <h4><code class="docutils literal notranslate"><span class="pre">New</span> <span class="pre">Layer</span></code><a class="headerlink" href="#new-layer" title="Link to this heading">#</a></h4>
-<p>This menu will contain built-in <code class="docutils literal notranslate"><span class="pre">napari</span></code> commands for creating new empty layers (similar to
-the ‘new layer’ buttons atop the layerlist), but also allow plugins to declare commands that
-open new empty layers with specific properties e.g. a <code class="docutils literal notranslate"><span class="pre">zarr</span></code>-backed <code class="docutils literal notranslate"><span class="pre">Labels</span></code> layer, an
-<code class="docutils literal notranslate"><span class="pre">Image</span></code> layer with a specific <code class="docutils literal notranslate"><span class="pre">dtype</span></code>, or a <code class="docutils literal notranslate"><span class="pre">Points</span></code> layer with specific default features.</p>
+<p>This menu will contain built-in <code class="docutils literal notranslate"><span class="pre">napari</span></code> commands for creating new empty layers
+(similar to the ‘new layer’ buttons atop the layerlist), but also allow plugins
+to declare commands that open new empty layers with specific properties e.g. a
+<code class="docutils literal notranslate"><span class="pre">zarr</span></code>-backed <code class="docutils literal notranslate"><span class="pre">Labels</span></code> layer, an <code class="docutils literal notranslate"><span class="pre">Image</span></code> layer with a specific <code class="docutils literal notranslate"><span class="pre">dtype</span></code>, or a
+<code class="docutils literal notranslate"><span class="pre">Points</span></code> layer with specific default features.</p>
 </section>
 </section>
 <section id="plugin-submenus">
 <h3>Plugin Submenus<a class="headerlink" href="#plugin-submenus" title="Link to this heading">#</a></h3>
-<p>The goal of the newly proposed menus is to provide a natural place where generally applicable
-actions can be semantically organized and easy to locate. However, many <code class="docutils literal notranslate"><span class="pre">napari</span></code> plugins
-contain an assortment of highly specialized widgets (that often interact with each other)
-that support highly specific, and sometimes ordered, workflows and analyses.</p>
-<p>It may never make sense for such plugins to distribute their widgets across the different
-<code class="docutils literal notranslate"><span class="pre">napari</span></code> menus, particularly when they are designed to work in concert on specific
-data formats or layer types.</p>
-<p>We therefore give plugin developers full control over their own submenu under <code class="docutils literal notranslate"><span class="pre">Plugins-&gt;My</span> <span class="pre">Plugin</span></code>.
-Plugin developers can organize all contributions under this submenu as they see fit, including adding
-their own submenus of arbitrary depth.</p>
-<p>All commands offered by a plugin will always be available in the plugin’s submenu, regardless of
-their presence in other menus. If the plugin defines its own submenus, these will always be first,
-followed by a separator, then any commands with no dedicated menu entry for the plugin’s own
-submenu. These will be alphabetically ordered.</p>
-<p>To declare a new submenu for itself, a plugin can add a submenu entry whose id is prefixed
-with the plugin’s own name. For example, the following manifest declares one command for the
-<code class="docutils literal notranslate"><span class="pre">napari/layers/segment</span></code> submenu, and one for its own <code class="docutils literal notranslate"><span class="pre">specific-analysis</span></code> submenu.</p>
+<p>The goal of the newly proposed menus is to provide a natural place where
+generally applicable actions can be semantically organized and easy to locate.
+However, many <code class="docutils literal notranslate"><span class="pre">napari</span></code> plugins contain an assortment of highly specialized
+widgets (that often interact with each other) that support highly specific, and
+sometimes ordered, workflows and analyses.</p>
+<p>It may never make sense for such plugins to distribute their widgets across the
+different <code class="docutils literal notranslate"><span class="pre">napari</span></code> menus, particularly when they are designed to work in
+concert on specific data formats or layer types.</p>
+<p>We therefore give plugin developers full control over their own submenu under
+<code class="docutils literal notranslate"><span class="pre">Plugins-&gt;My</span> <span class="pre">Plugin</span></code>. Plugin developers can organize all contributions under
+this submenu as they see fit, including adding their own submenus of arbitrary
+depth.</p>
+<p>All commands offered by a plugin will always be available in the plugin’s
+submenu, regardless of their presence in other menus. If the plugin defines its
+own submenus, these will always be first, followed by a separator, then any
+commands with no dedicated menu entry for the plugin’s own submenu. These will
+be alphabetically ordered.</p>
+<p>To declare a new submenu for itself, a plugin can add a submenu entry whose id
+is prefixed with the plugin’s own name. For example, the following manifest
+declares one command for the <code class="docutils literal notranslate"><span class="pre">napari/layers/segment</span></code> submenu, and one for its
+own <code class="docutils literal notranslate"><span class="pre">specific-analysis</span></code> submenu.</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">napari-demo</span>
 <span class="nt">display_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Demo plugin</span>
 
@@ -871,9 +898,9 @@ with the plugin’s own name. For example, the following manifest declares one c
 </section>
 <section id="complete-set-of-proposed-contributable-napari-menus">
 <h3>Complete Set of Proposed Contributable <code class="docutils literal notranslate"><span class="pre">napari</span></code> Menus<a class="headerlink" href="#complete-set-of-proposed-contributable-napari-menus" title="Link to this heading">#</a></h3>
-<p>The full list of contributable menus is below. Note that the top level menu <code class="docutils literal notranslate"><span class="pre">Layers</span></code> itself is
-not contributable. Only its submenus are.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>File
+<p>The full list of contributable menus is below. Note that the top level menu
+<code class="docutils literal notranslate"><span class="pre">Layers</span></code> itself is not contributable. Only its submenus are.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>File
 ├─ ...
 ├─ New Layer
 ├─ IO Utilities
@@ -893,13 +920,15 @@ Layers
 ├─ Classify
 </pre></div>
 </div>
-<p>As a case study, we take four plugins offering between 9 and 14 widget contributions and arrange their widgets in these menus:
-<code class="docutils literal notranslate"><span class="pre">empanada-napari</span></code>, <code class="docutils literal notranslate"><span class="pre">napari-stracking</span></code>, <code class="docutils literal notranslate"><span class="pre">napari-mm3</span></code> and <code class="docutils literal notranslate"><span class="pre">napari-clemreg</span></code>. We have not listed the Plugins menu for most plugins,
-as it simply contains all widgets. However, for <code class="docutils literal notranslate"><span class="pre">empanada-napari</span></code>, we demo a new submenu, and show the widgets with entries
-in other menus at the bottom.
-Note that we have arranged these widgets purely based on title and cursory inspection of the documentation,
-so this should not be considered a concrete proposal for the structure of these plugins.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>File
+<p>As a case study, we take four plugins offering between 9 and 14 widget
+contributions and arrange their widgets in these menus: <code class="docutils literal notranslate"><span class="pre">empanada-napari</span></code>,
+<code class="docutils literal notranslate"><span class="pre">napari-stracking</span></code>, <code class="docutils literal notranslate"><span class="pre">napari-mm3</span></code> and <code class="docutils literal notranslate"><span class="pre">napari-clemreg</span></code>. We have not listed the
+Plugins menu for most plugins, as it simply contains all widgets. However, for
+<code class="docutils literal notranslate"><span class="pre">empanada-napari</span></code>, we demo a new submenu, and show the widgets with entries in
+other menus at the bottom. Note that we have arranged these widgets purely
+based on title and cursory inspection of the documentation, so this should not
+be considered a concrete proposal for the structure of these plugins.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>File
 ├─ ...
 ├─ New Layer
 ├─ IO Utilities
@@ -969,10 +998,11 @@ Plugins
 <section id="item-descriptions">
 <h3>Item Descriptions<a class="headerlink" href="#item-descriptions" title="Link to this heading">#</a></h3>
 <p>To allow users to browse menus more effectively without having to click each
-item to figure out what it does, menu contributions should be given a <code class="docutils literal notranslate"><span class="pre">description</span></code>
-field that is available when the user is inspecting the menu. The <code class="docutils literal notranslate"><span class="pre">description</span></code>
-should be required and displayed in the bottom left hand status bar of napari,
-so that users can be confident of what will happen when they click on an item.</p>
+item to figure out what it does, menu contributions should be given a
+<code class="docutils literal notranslate"><span class="pre">description</span></code> field that is available when the user is inspecting the menu. The
+<code class="docutils literal notranslate"><span class="pre">description</span></code> should be required and displayed in the bottom left hand status
+bar of napari, so that users can be confident of what will happen when they
+click on an item.</p>
 </section>
 <section id="item-grouping-ordering">
 <h3>Item Grouping &amp; Ordering<a class="headerlink" href="#item-grouping-ordering" title="Link to this heading">#</a></h3>
@@ -981,35 +1011,39 @@ under the plugin’s name. Now that plugin contributions can be colocated with
 native napari actions, it’s important that users are able to distinguish
 the source of menu items.</p>
 <p>To that end, napari items should always be grouped separately to plugin items
-in all menus, and listed first. Additionally, the plugin’s name should also be listed with
-each plugin contribution. Since plugin names can be quite long, future work should
-consider more concise ways to indicate menu item sources, including using icons.
-If using an icon, the plugin’s display name should be available on hover.</p>
+in all menus, and listed first. Additionally, the plugin’s name should also be
+listed with each plugin contribution. Since plugin names can be quite long,
+future work should consider more concise ways to indicate menu item sources,
+including using icons. If using an icon, the plugin’s display name should be
+available on hover.</p>
 <p>Otherwise, plugin commands will be grouped according to the given <code class="docutils literal notranslate"><span class="pre">order</span></code> and
-<code class="docutils literal notranslate"><span class="pre">group</span></code> parameters if there are any, or otherwise at the bottom of the given menu,
-below a separator, in alphabetical order. Where a group only contains a single item
-after all plugin and napari actions have been registered, a separator will not be added. Otherwise,
-groups will be separated by a separator.</p>
+<code class="docutils literal notranslate"><span class="pre">group</span></code> parameters if there are any, or otherwise at the bottom of the given
+menu, below a separator, in alphabetical order. Where a group only contains a
+single item after all plugin and napari actions have been registered, a
+separator will not be added. Otherwise, groups will be separated by a
+separator.</p>
 </section>
 <section id="items-that-don-t-fit">
 <h3>Items that Don’t Fit?<a class="headerlink" href="#items-that-don-t-fit" title="Link to this heading">#</a></h3>
-<p>Where a plugin developer feels that none of the submenus of a given menu are suitable
-for their purpose, they should add their item to the deepest applicable menu.
-Where a plugin developer feels no top level menu or submenu is suitable for their purpose,
-they should add their item to their own plugin’s submenu under <code class="docutils literal notranslate"><span class="pre">Plugins</span> <span class="pre">-&gt;</span> <span class="pre">Your</span> <span class="pre">Plugin</span></code>,
-and consider requesting a new contributable menu via the process described below.</p>
-<p>The top level menu bar in <code class="docutils literal notranslate"><span class="pre">napari</span></code> is not open for contribution, and new top level
-menus can only be added via the process described below.</p>
+<p>Where a plugin developer feels that none of the submenus of a given menu are
+suitable for their purpose, they should add their item to the deepest
+applicable menu. Where a plugin developer feels no top level menu or submenu is
+suitable for their purpose, they should add their item to their own plugin’s
+submenu under <code class="docutils literal notranslate"><span class="pre">Plugins</span> <span class="pre">-&gt;</span> <span class="pre">Your</span> <span class="pre">Plugin</span></code>, and consider requesting a new
+contributable menu via the process described below.</p>
+<p>The top level menu bar in <code class="docutils literal notranslate"><span class="pre">napari</span></code> is not open for contribution, and new top
+level menus can only be added via the process described below.</p>
 </section>
 <section id="process-for-expanding-set-of-contributable-menus">
 <h3>Process for Expanding Set of Contributable Menus<a class="headerlink" href="#process-for-expanding-set-of-contributable-menus" title="Link to this heading">#</a></h3>
-<p>New contributable menus or submenus will be added either following periodic analysis
-of all plugin contributions, or following user request upon core developer consensus.</p>
+<p>New contributable menus or submenus will be added either following periodic
+analysis of all plugin contributions, or following user request upon core
+developer consensus.</p>
 <section id="periodic-contribution-analysis">
 <h4>Periodic Contribution Analysis<a class="headerlink" href="#periodic-contribution-analysis" title="Link to this heading">#</a></h4>
-<p>As the number of plugins, types of contributions and <code class="docutils literal notranslate"><span class="pre">Viewer</span></code> interactions grows,
-it is important that the set of contributable menus is periodically assessed
-to add new submenus as required.</p>
+<p>As the number of plugins, types of contributions and <code class="docutils literal notranslate"><span class="pre">Viewer</span></code> interactions
+grows, it is important that the set of contributable menus is periodically
+assessed to add new submenus as required.</p>
 <p>Every 6 months to 1 year, the core developers will perform an analysis on
 the total set of menu item and widget contributions of all plugins, and
 derive new groupings to ensure that the length of each submenu remains
@@ -1038,17 +1072,19 @@ Request, though they may, if they wish.</p>
 </section>
 <section id="user-configuration">
 <h3>User Configuration<a class="headerlink" href="#user-configuration" title="Link to this heading">#</a></h3>
-<p>This document has so far discussed menu contributions exclusively from
-the plugin developer’s perspective. In general, napari will continue
-to be opinionated about what plugin developers can and cannot change
-about the napari interface through menu contributions. Our guiding principle
-here is that users should never be surprised by the napari interface as a result
-of standard plugin contributions - menus shouldn’t move around, or be hidden, layer
-controls should behave in the same way regardless of what plugins are installed, etc.</p>
-<p>However, napari users <strong>should</strong> be able to freely customize their own napari installation
-to a much greater extent. In future, this should include contribution-level enablement control
-for plugins, as well as building their own custom menus, whether this be a brand new top-level
-menu or rearranging things within existing menus.</p>
+<p>This document has so far discussed menu contributions exclusively from the
+plugin developer’s perspective. In general, napari will continue to be
+opinionated about what plugin developers can and cannot change about the napari
+interface through menu contributions. Our guiding principle here is that users
+should never be surprised by the napari interface as a result of standard
+plugin contributions - menus shouldn’t move around, or be hidden, layer
+controls should behave in the same way regardless of what plugins are
+installed, etc.</p>
+<p>However, napari users <strong>should</strong> be able to freely customize their own napari
+installation to a much greater extent. In future, this should include
+contribution-level enablement control for plugins, as well as building their
+own custom menus, whether this be a brand new top-level menu or rearranging
+things within existing menus.</p>
 </section>
 </section>
 <section id="related-work">
@@ -1075,12 +1111,11 @@ single pull request if it makes sense to implement it in discrete phases).
 If a new NAP document is created, it should be added to the documentation Table
 of Contents as an item on `napari/docs/_toc.yml`. -->
 <p>Issue number <a class="reference external" href="https://github.com/napari/napari/issues/7012">#7012</a> tracks the
-current progress towards NAP-6 implementation,
-and PR number <a class="reference external" href="https://github.com/napari/napari/pull/7011">#7011</a> implements
-the proposed contributable menus with some
-limitations as described in the tracking issue.
-When this NAP is finalized, the tracking issue contents should be copied to this
-section.</p>
+current progress towards NAP-6 implementation, and PR number
+<a class="reference external" href="https://github.com/napari/napari/pull/7011">#7011</a> implements the proposed
+contributable menus with some limitations as described in the tracking issue.
+When this NAP is finalized, the tracking issue contents should be copied to
+this section.</p>
 </section>
 <section id="backward-compatibility">
 <h2>Backward Compatibility<a class="headerlink" href="#backward-compatibility" title="Link to this heading">#</a></h2>
@@ -1100,37 +1135,37 @@ that refer to this submenu should instead be placed in the higher level
 menu. For example, if <code class="docutils literal notranslate"><span class="pre">Layers</span> <span class="pre">-&gt;</span> <span class="pre">Segment</span></code> is removed,
 existing contributions referring to this ID will be placed under
 <code class="docutils literal notranslate"><span class="pre">Layers</span></code>.</p>
-<p>If a contributable <code class="docutils literal notranslate"><span class="pre">napari</span></code> top level menu is removed, this should be highlighted
-first by a deprecation warning. Before the submenu is deprecated, core developers
-must work to identify plugins that will need migration and aid the migration
-process by opening issues and PRs as required. Top level menus should not be removed
-without a clear migration guide of where these contributions should be placed in
-the future. After the menu is deprecated, contributions referring to this menu
-should raise a warning, and be placed in the plugin’s own submenu at the highest
-level.</p>
-<p>Plugin contributions to non contributable menus will raise warnings and be placed
-in the plugin’s submenu at the top level.</p>
+<p>If a contributable <code class="docutils literal notranslate"><span class="pre">napari</span></code> top level menu is removed, this should be
+highlighted first by a deprecation warning. Before the submenu is deprecated,
+core developers must work to identify plugins that will need migration and aid
+the migration process by opening issues and PRs as required. Top level menus
+should not be removed without a clear migration guide of where these
+contributions should be placed in the future. After the menu is deprecated,
+contributions referring to this menu should raise a warning, and be placed in
+the plugin’s own submenu at the highest level.</p>
+<p>Plugin contributions to non contributable menus will raise warnings and be
+placed in the plugin’s submenu at the top level.</p>
 </section>
 <section id="future-work">
 <h2>Future Work<a class="headerlink" href="#future-work" title="Link to this heading">#</a></h2>
-<p><strong>Command palette:</strong> As mentioned above, a key feature to support rapid browsing for actions is the
-search functionality via the command palette. This is actively being worked
-on and is essential for navigation.</p>
-<p><strong>Context dependent enablement:</strong> Once more contribution types are exposed for users, it’s important that users
-are aware why certain actions are disabled when the user doesn’t meet the
-requisite context declared in the contribution’s <code class="docutils literal notranslate"><span class="pre">enablement</span></code> clause. Since
-the syntax for declaring these contexts is strictly defined, we should be
-able to surface information to users about what is required for the action
-to be enabled and functional. For example, an action could declare itself
-enabled only when a points layer <em>and</em> an image layer are selected. If
-the user has only selected an image layer, we could indicate the missing
-context to the user e.g. “Action takes a points and image layer, but no
+<p><strong>Command palette:</strong> As mentioned above, a key feature to support rapid
+browsing for actions is the search functionality via the command palette. This
+is actively being worked on and is essential for navigation.</p>
+<p><strong>Context dependent enablement:</strong> Once more contribution types are exposed for
+users, it’s important that users are aware why certain actions are disabled
+when the user doesn’t meet the requisite context declared in the contribution’s
+<code class="docutils literal notranslate"><span class="pre">enablement</span></code> clause. Since the syntax for declaring these contexts is strictly
+defined, we should be able to surface information to users about what is
+required for the action to be enabled and functional. For example, an action
+could declare itself enabled only when a points layer <em>and</em> an image layer are
+selected. If the user has only selected an image layer, we could indicate the
+missing context to the user e.g. “Action takes a points and image layer, but no
 points layer is selected”.</p>
-<p><strong>Making actions predictable:</strong> A desired attribute of these menu items is that users always know what
-will happen when they click a menu item. Does a widget open? Is the layer
-edited? Is a new layer added to the <code class="docutils literal notranslate"><span class="pre">Viewer</span></code>? Once more contribution
-types are exposed, we should be able to either add this information
-as metadata in the manifest file, or infer it from return type
+<p><strong>Making actions predictable:</strong> A desired attribute of these menu items is that
+users always know what will happen when they click a menu item. Does a widget
+open? Is the layer edited? Is a new layer added to the <code class="docutils literal notranslate"><span class="pre">Viewer</span></code>? Once more
+contribution types are exposed, we should be able to either add this
+information as metadata in the manifest file, or infer it from return type
 annotations of contribution commands, and also expose this to the user.</p>
 <p><strong>Dynamic menus:</strong> The number of actions in each menu is heavily dependent on
 the plugins installed in the user’s environment. Given a complete set of
@@ -1150,30 +1185,55 @@ the menu item is placed in the next location on the preference list.</p>
 </section>
 <section id="alternatives">
 <h2>Alternatives<a class="headerlink" href="#alternatives" title="Link to this heading">#</a></h2>
-<p>The main alternative is the proposed <code class="docutils literal notranslate"><span class="pre">Tools</span></code> menu from <a class="reference external" href="https://github.com/napari/npe2/pull/161">npe2 #161</a>.</p>
-<p>This is a single top level menu containing the same submenus as our proposed list, but organized
-roughly in order of when actions may be performed in a standard image processing workflow.</p>
-<p>General feedback from the community and the core developers is that this menu structure, while mostly
-containing individual submenus that make sense:</p>
+<p>The main alternative is the proposed <code class="docutils literal notranslate"><span class="pre">Tools</span></code> menu from
+<a class="reference external" href="https://github.com/napari/npe2/pull/161">npe2 #161</a>.</p>
+<p>This is a single top level menu containing the same submenus as our proposed
+list, but organized roughly in order of when actions may be performed in a
+standard image processing workflow.</p>
+<p>General feedback from the community and the core developers is that this menu
+structure, while mostly containing individual submenus that make sense:</p>
 <ul class="simple">
 <li><p>is too long and therefore difficult to parse at a glance</p></li>
-<li><p>does not give the user a good indication of what inputs an action takes and what its output will be</p></li>
-<li><p>is not semantically structured and is rather just a one stop shop for “plugin stuff”</p></li>
-<li><p>will be difficult to extend further in meaningful ways as we develop more complex viewer
+<li><p>does not give the user a good indication of what inputs an action takes and
+what its output will be</p></li>
+<li><p>is not semantically structured and is rather just a one stop shop for “plugin
+stuff”</p></li>
+<li><p>will be difficult to extend further in meaningful ways as we develop more
+complex viewer
 interactions and plugin contributions e.g. multi canvas</p></li>
 </ul>
 </section>
 <section id="discussion">
 <h2>Discussion<a class="headerlink" href="#discussion" title="Link to this heading">#</a></h2>
 <ul class="simple">
-<li><p><strong><a class="reference external" href="https://github.com/napari/npe2/pull/160">May 8 2022: npe2 #160</a></strong> is opened and merged during core dev hackathon. Allows arbitrary menu locations in npe2 to support plugins contributing to other plugins, etc. Validation would happen elsewhere.</p></li>
-<li><p><strong><a class="reference external" href="https://github.com/napari/npe2/pull/161">May 8 2022: npe2 #161</a></strong> is opened with almost instant approvals. Initial feedback is that it’s difficult for people to know the input/output of menu items, suggests creating a NAP. Complexity arises with desire to declare contributable menus but still allow plugins to contribute to other plugin’s menus.</p></li>
-<li><p><strong>Jun 2 2022: npe2 #161</strong> After further discussion (on zulip and in PR), this schema is identified as potentially too limiting and there is mention that #160 may need to be reverted. A NAP is once again suggested as this is an influential decision with lots of opinions.</p></li>
-<li><p><strong>Jun 13 2022: npe2 #161</strong> is closed and #160 is reverted, with comment for follow up over in the napari repo.</p></li>
-<li><p><strong><a class="reference external" href="https://github.com/napari/napari/pull/5153">Sep 30 2022: napari #5153</a></strong> opened with same list as in npe2, minimal discussion and input.</p></li>
-<li><p><strong>Oct 28 2022: napari #5153</strong> discussion on core devs zulip stream begins. Developers mostly agree on the individual menu items but don’t like how deep the <code class="docutils literal notranslate"><span class="pre">Tools</span></code> menu already is, and the lack of semantic meaning in its structure.</p></li>
-<li><p><strong><a class="reference external" href="https://github.com/napari/docs/pull/77">Dec 22 2022: NAP6 PR</a></strong> is opened and there is much discussion. Implementation is blocked by <code class="docutils literal notranslate"><span class="pre">app-model</span></code> work, so focus turns to that.</p></li>
-<li><p><strong><a class="reference external" href="https://hackmd.io/fmKp0If5RkiwWIxYYRdKpg">Oct 04 2023: Hackathon</a></strong> is held and Draga demos working branch of menu contributions. Core devs present discuss various outstanding items. This discussion is summarised in the linked notes.</p></li>
+<li><p><strong><a class="reference external" href="https://github.com/napari/npe2/pull/160">May 8 2022: npe2 #160</a></strong> is
+opened and merged during core dev hackathon. Allows arbitrary menu locations
+in npe2 to support plugins contributing to other plugins, etc. Validation
+would happen elsewhere.</p></li>
+<li><p><strong><a class="reference external" href="https://github.com/napari/npe2/pull/161">May 8 2022: npe2 #161</a></strong> is
+opened with almost instant approvals. Initial feedback is that it’s difficult
+for people to know the input/output of menu items, suggests creating a NAP.
+Complexity arises with desire to declare contributable menus but still allow
+plugins to contribute to other plugin’s menus.</p></li>
+<li><p><strong>Jun 2 2022: npe2 #161</strong> After further discussion (on zulip and in PR), this
+schema is identified as potentially too limiting and there is mention that
+#160 may need to be reverted. A NAP is once again suggested as this is an
+influential decision with lots of opinions.</p></li>
+<li><p><strong>Jun 13 2022: npe2 #161</strong> is closed and #160 is reverted, with comment for
+follow up over in the napari repo.</p></li>
+<li><p><strong><a class="reference external" href="https://github.com/napari/napari/pull/5153">Sep 30 2022: napari #5153</a></strong>
+opened with same list as in npe2, minimal discussion and input.</p></li>
+<li><p><strong>Oct 28 2022: napari #5153</strong> discussion on core devs zulip stream begins.
+Developers mostly agree on the individual menu items but don’t like how deep
+the <code class="docutils literal notranslate"><span class="pre">Tools</span></code> menu already is, and the lack of semantic meaning in its
+structure.</p></li>
+<li><p><strong><a class="reference external" href="https://github.com/napari/docs/pull/77">Dec 22 2022: NAP6 PR</a></strong> is opened
+and there is much discussion. Implementation is blocked by <code class="docutils literal notranslate"><span class="pre">app-model</span></code> work,
+so focus turns to that.</p></li>
+<li><p><strong><a class="reference external" href="https://hackmd.io/fmKp0If5RkiwWIxYYRdKpg">Oct 04 2023: Hackathon</a></strong> is
+held and Draga demos working branch of menu contributions. Core devs present
+discuss various outstanding items. This discussion is summarised in the
+linked notes.</p></li>
 </ul>
 </section>
 <section id="references-and-footnotes">
@@ -1185,8 +1245,8 @@ CC0+BY <a class="footnote-reference brackets" href="#id5" id="id3" role="doc-not
 <section id="copyright">
 <h2>Copyright<a class="headerlink" href="#copyright" title="Link to this heading">#</a></h2>
 <p>This document is dedicated to the public domain with the Creative Commons CC0
-license <a class="footnote-reference brackets" href="#id4" id="id6" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>. Attribution to this source is encouraged where appropriate, as per
-CC0+BY <a class="footnote-reference brackets" href="#id5" id="id7" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>.</p>
+license <a class="footnote-reference brackets" href="#id4" id="id6" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>. Attribution to this source is encouraged where appropriate, as
+per CC0+BY <a class="footnote-reference brackets" href="#id5" id="id7" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>.</p>
 </section>
 </section>
 <aside class="footnote-list brackets">

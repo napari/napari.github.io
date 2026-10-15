@@ -64,13 +64,13 @@ napari as part of their official duties, or by committing significant funding
 to napari, as determined by the SC.
 
 This NAP proposes the following benefits for IFPs:
+
 - acknowledgement on the napari website, and in talks about the napari project.
 - ability to promote their contribution on their own sites and communications.
 - ability to improve the project for their specific use cases via their
   engineering, design, and other efforts.
 - ability to provide input to the project via the IFPAC and the IFPAC-elected
   SC member.
-
 
 ## Related Work
 
@@ -88,8 +88,8 @@ Advisory Board provides input on scientific directions and project plans, and
 elects industry representatives to the Governing Board.
 
 Another source of inspiration was the Institutional Partner and Funding model
-described in the [NumPy governance
-document](https://numpy.org/devdocs/dev/governance/governance.html#institutional-partners-and-funding),
+described in the
+[NumPy governance document](https://numpy.org/devdocs/dev/governance/governance.html#institutional-partners-and-funding),
 which recognizes institutions that significantly contribute to the project, and
 encourages institutions explicitly to provide direction to the project via
 direct engineering effort by institution employees.
@@ -105,8 +105,7 @@ An initial proposal for the additions to the governance is included below:
 > employed by the same entity. One seat on the steering council is reserved for
 > a member elected by the Institutional and Funding Partner Advisory Council,
 > as detailed below. This member need not be an existing core developer.
-
-
+>
 >### Institutional and Funding Partners
 >
 > The SC is the primary leadership body for napari. No outside institution,
@@ -159,7 +158,8 @@ An initial proposal for the additions to the governance is included below:
 > - Ability to influence the project through the election of the Institutional
 >   and Funding Partner seat on the SC.
 
-The proposed implementation can be found in [PR 4458](https://github.com/napari/napari/pull/4458)
+The proposed implementation can be found in
+[PR 4458](https://github.com/napari/napari/pull/4458)
 
 ## Backward Compatibility
 
@@ -187,39 +187,42 @@ therefore make it more difficult to grow the project's support base.
 
 ## Discussion
 
-> Does this mean that a non-core developer who joins the SC will also automatically become a core dev?
+> Does this mean that a non-core developer who joins the SC will also
+> automatically become a core dev?
 
 No, they are merely the IFP SC member.
 
-> Should this document include instructions on how to deal with (or identify) situations where
-> IFPs are not working with napari in good faith? How can the community raise concerns about
-> and IFP interaction.
+> Should this document include instructions on how to deal with (or identify)
+> situations where IFPs are not working with napari in good faith? How can the
+> community raise concerns about and IFP interaction.
 
-Community members can raise their concerns to the SC. Since IFP status is decided by the SC,
-it can also be revoked by the SC.
+Community members can raise their concerns to the SC. Since IFP status is
+decided by the SC, it can also be revoked by the SC.
 
-> I think five is a great number for the SC and makes sense, but what about seven?
-> Is there a particular reason for the limit of the SC at five?
+> I think five is a great number for the SC and makes sense, but what about
+> seven? Is there a particular reason for the limit of the SC at five?
 
-It was thought to be a good limit with one IFP seat. The open forcefield project has seven members with
-two IFP like seats.
+It was thought to be a good limit with one IFP seat. The open forcefield
+project has seven members with two IFP like seats.
 
-> A potential side benefit of IFPs: this provides a reason for employers of existing napari contributors/core-devs to officially recognise work on napari as part of someones 'duties', potentially legitimising work on OSS more generally as 'useful work'
+> A potential side benefit of IFPs: this provides a reason for employers of
+> existing napari contributors/core-devs to officially recognise work on napari
+> as part of someones 'duties', potentially legitimising work on OSS more
+> generally as 'useful work'
 
 Agreed, the SC can help promote this rationale.
 
-> Should we require/expect organizing rules of the IFP Advisory Council to happen somewhere in the open?
+> Should we require/expect organizing rules of the IFP Advisory Council to
+> happen somewhere in the open?
 
-NAP-1 does not prescribe the rules for the IFP Advisory Council, but does ask them to describe their
-processes openly.
-
+NAP-1 does not prescribe the rules for the IFP Advisory Council, but does ask
+them to describe their processes openly.
 
 ## References and Footnotes
 
 - [Open Force Field Consortium
   governance](https://openforcefield.org/about/organization/)
-- [NumPy project governance and decision-making: Institutional Partners and
-  Funding](https://numpy.org/devdocs/dev/governance/governance.html#institutional-partners-and-funding)
+- [NumPy project governance and decision-making: Institutional Partners and Funding](https://numpy.org/devdocs/dev/governance/governance.html#institutional-partners-and-funding)
 
 ## Copyright
 
@@ -227,9 +230,9 @@ This document is dedicated to the public domain with the Creative Commons CC0
 license[^id3]. Attribution to this source is encouraged where appropriate, as
 per CC0+BY[^id4].
 
+[^NumFOCUS-Fiscal-Sponsorship]: <https://numfocus.org/projects-overview>
+
 [^id3]: CC0 1.0 Universal (CC0 1.0) Public Domain Dedication,
 <https://creativecommons.org/publicdomain/zero/1.0/>
 
 [^id4]: <https://dancohen.org/2013/11/26/cc0-by/>
-
-[^NumFOCUS-Fiscal-Sponsorship]: https://numfocus.org/projects-overview

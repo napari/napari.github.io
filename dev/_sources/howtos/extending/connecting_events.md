@@ -2,10 +2,10 @@
 
 # Hooking up your own events
 
-The napari graphical user interface (GUI) operates within an **event loop** that
-waits for and responds to user interaction 'events'. If you are unfamiliar with
-event loops, see [napari event loop](intro-to-event-loop) for a more detailed
-introduction.
+The napari graphical user interface (GUI) operates within an **event loop**
+that waits for and responds to user interaction 'events'. If you are unfamiliar
+with event loops, see [napari event loop](intro-to-event-loop) for a more
+detailed introduction.
 
 If you would like to set up a custom event listener then you need to hook into
 the napari [event loop](intro-to-event-loop). We offer a couple of convenience
@@ -49,8 +49,8 @@ def delete_layer(viewer):
 napari.run()
 ```
 
-See also this [custom key bindings
-example](https://github.com/napari/napari/blob/main/examples/custom_key_bindings.py).
+See also this
+[custom key bindings example](https://github.com/napari/napari/blob/main/examples/custom_key_bindings.py).
 
 (connect-mouse-event)=
 
@@ -76,7 +76,8 @@ def update_layer(layer, event):
 napari.run()
 ```
 
-As of this writing `MouseProvider`s have 4 list of callbacks that can be registered:
+As of this writing `MouseProvider`s have 4 list of callbacks that can be
+registered:
 
 - `mouse_move_callbacks`
 - `mouse_wheel_callbacks`
@@ -84,14 +85,14 @@ As of this writing `MouseProvider`s have 4 list of callbacks that can be registe
 - `mouse_double_click_callbacks`
 
 Please look at the documentation of `MouseProvider` for a more in depth
-discussion of when each callback is triggered. In particular single click can be
-registered with `mouse_drag_callbacks`, and `mouse_double_click_callbacks` is
-triggered _in addition to_ mouse `mouse_drag_callbacks`.
+discussion of when each callback is triggered. In particular single click can
+be registered with `mouse_drag_callbacks`, and `mouse_double_click_callbacks`
+is triggered *in addition to* mouse `mouse_drag_callbacks`.
 
-See also the [custom mouse
-functions](https://github.com/napari/napari/blob/main/examples/custom_mouse_functions.py)
-and [mouse drag
-callback](https://github.com/napari/napari/blob/main/examples/mouse_drag_callback.py)
+See also the
+[custom mouse functions](https://github.com/napari/napari/blob/main/examples/custom_mouse_functions.py)
+and
+[mouse drag callback](https://github.com/napari/napari/blob/main/examples/mouse_drag_callback.py)
 examples.
 
 (connect-napari-event)=
@@ -108,17 +109,16 @@ browse the source code. Take for instance, the base
 
 ```python
 self.events = EmitterGroup(
-    ...
+    ...,
     data=Event,
     name=Event,
-    ...
 )
 ```
 
-That tells you that all layers are capable of emitting events called `data`, and
-`name` (among many others) that will (presumably) be emitted when that property
-changes. To provide your own response to that change, you can hook up a callback
-function that accepts the event object:
+That tells you that all layers are capable of emitting events called `data`,
+and `name` (among many others) that will (presumably) be emitted when that
+property changes. To provide your own response to that change, you can hook up
+a callback function that accepts the event object:
 
 ```python
 def print_layer_name(event):
@@ -148,8 +148,8 @@ viewer.add_image(image)
 # the entire interface freezes!
 ```
 
-Here we have a long computation (`np.random.rand(512, 1024, 1024).mean(0)`) that
-"blocks" the main thread, meaning *no button press, key press, or any other
-event can be processed until it's done*. In this scenario, it's best to put
-your long-running function into another thread or process. napari provides a
-convenience for that, described in {ref}`multithreading-in-napari`.
+Here we have a long computation (`np.random.rand(512, 1024, 1024).mean(0)`)
+that "blocks" the main thread, meaning *no button press, key press, or any
+other event can be processed until it's done*. In this scenario, it's best to
+put your long-running function into another thread or process. napari provides
+a convenience for that, described in {ref}`multithreading-in-napari`.

@@ -12,6 +12,7 @@ kernelspec:
 ---
 
 (layers-image)=
+
 # Image
 
 In this document, you will learn how to use the `napari` `image` layer,
@@ -20,7 +21,8 @@ like `contrast limits`, `opacity`, `colormaps`, `blending` and `interpolation`.
 You will also understand how to add and manipulate a variety of different types
 of images both from the GUI and from the console.
 
-For more information about layers, refer to [Layers at a glance](layers-glance).
+For more information about layers, refer to
+[Layers at a glance](layers-glance).
 
 ## Controlling the `image` layer using the GUI
 
@@ -53,15 +55,16 @@ Before we can use any of the GUI `layer controls`, we must load an image.
 
 ### Buttons
 
-- `Pan/zoom` ![image: Pan/zoom tool](../../_static/images/pan-zoom-tool.png) is the default mode
-  of the layer and supports panning and zooming. Press the `1` key when the layer is selected
-  to use this mode.
+- `Pan/zoom` ![image: Pan/zoom tool](../../_static/images/pan-zoom-tool.png) is
+  the default mode of the layer and supports panning and zooming. Press the `1`
+  key when the layer is selected to use this mode.
 
-- `Transform` ![image: Transform](../../_static/images/transform-tool.png) enables you to
-  rotate, scale, or translate the layer. Note: at present this feature is limited to 2D viewer display mode.
-  To reset the transformation,
-  you can Option/Alt-click the transform button (a confirmation dialog will open to
-  confirm the reset). Press the `2` key when the layer is selected to use this mode.
+- `Transform` ![image: Transform](../../_static/images/transform-tool.png)
+  enables you to rotate, scale, or translate the layer. Note: at present this
+  feature is limited to 2D viewer display mode. To reset the transformation,
+  you can Option/Alt-click the transform button (a confirmation dialog will
+  open to confirm the reset). Press the `2` key when the layer is selected to
+  use this mode.
 
 ### Controls
 
@@ -70,19 +73,20 @@ The GUI controls may be adjusted as follows:
 - `opacity` is adjusted by moving the circle along the slider until the image
   has the opacity you want. 0 is transparent and 1 is completely opaque.
 
-- `contrast limits` are adjusted by moving the minimum and maximum circles along
-  the slider until you have the contrast limits you want. For more precise
-  control, including the ability to set specific numerical values, you can
-  right-click on the slider. **Note:** Contrast limits are explained in
+- `contrast limits` are adjusted by moving the minimum and maximum circles
+  along the slider until you have the contrast limits you want. For more
+  precise control, including the ability to set specific numerical values, you
+  can right-click on the slider. **Note:** Contrast limits are explained in
   [Adjusting contrast limits](#adjusting-contrast-limits).
 
-- `auto-contrast` is adjusted by selecting either `once` or `continuous`. `once`
-  adjusts the contrast one time while `continuous` adjusts the contrast as you
-  explore the image.
+- `auto-contrast` is adjusted by selecting either `once` or `continuous`.
+  `once` adjusts the contrast one time while `continuous` adjusts the contrast
+  as you explore the image.
 
 - `histogram` shows the distribution of pixel values for the layer. The
   histogram button sits next to the contrast limits slider.
-  - **Left-click** the button to toggle the histogram inline in the layer controls.
+  - **Left-click** the button to toggle the histogram inline in the layer
+    controls.
   - **Right-click** to open an advanced popup with the histogram, a larger
     contrast limits slider, gamma correction, and reset buttons.
   See the {ref}`histogram-guide` for a detailed explanation of canvas and full
@@ -92,14 +96,14 @@ The GUI controls may be adjusted as follows:
   *Gamma correction* or *gamma* is a nonlinear operation used to encode and
   decode luminance or tristimulus values.
 
-- `colormap` is selected from the dropdown. **Note:** If the image you select is
-  an RGB or RGBA image, the colormap is automatically assigned RGB and cannot be
-  changed. You can find out if your image is RGB or RGBA by looking at the
-  `.rgb` property of the image layer.
+- `colormap` is selected from the dropdown. **Note:** If the image you select
+  is an RGB or RGBA image, the colormap is automatically assigned RGB and
+  cannot be changed. You can find out if your image is RGB or RGBA by looking
+  at the `.rgb` property of the image layer.
 
 - `blending` has the options of `translucent`, `translucent no depth`,
   `additive`, `minimum`, or `opaque` in the dropdown. Refer to the
-  [Blending layers](blending-layers) section of _Layers at a glance_ for an
+  [Blending layers](blending-layers) section of *Layers at a glance* for an
   explanation of each type of blending.
 
 - `interpolation` may be assigned one of the following from the dropdown:
@@ -133,18 +137,14 @@ viewer, _ = napari.imshow(cells, colormap='magma')
 ```
 
 ```{code-cell} python
----
-tags: [hide-input]
----
+:tags: [hide-input]
 from napari.utils import nbscreenshot
 
 nbscreenshot(viewer, alt_text="Cells")
 ```
 
 ```{code-cell} python
----
-tags: [remove-cell]
----
+:tags: [remove-cell]
 viewer.close()
 ```
 
@@ -154,9 +154,7 @@ viewer.close()
 accept the same layer-creation parameters.
 
 ```{code-cell} python
----
-tags: [hide-output]
----
+:tags: [hide-output]
 help(napari.imshow)
 ```
 
@@ -177,19 +175,20 @@ keep on using your favorite array libraries without worrying about any
 conversions. napari handles all of that for you.
 
 ```{note}
-If you pass an [Xarray](https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html)
+If you pass an
+[Xarray](https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html)
 `DataArray` to napari, it automatically inherits metadata from it, such as axis
 labels, `scale`, `translate`, and units. For details on how this metadata is
 used for rendering, see the [units guide](units-guide).
 ```
 
 napari will also wait until just before it displays data onto the screen to
-actually generate a NumPy array from your data, and so if you're using a library
-like `dask` or `zarr` that supports lazy loading and lazy evaluation, we won't
-force you to load or compute data that you're not examining. This enables
-napari to seamlessly browse enormous datasets that are loaded in the right way.
-For example, here we are browsing over 100GB of lattice lightsheet data stored
-in a `zarr` file:
+actually generate a NumPy array from your data, and so if you're using a
+library like `dask` or `zarr` that supports lazy loading and lazy evaluation,
+we won't force you to load or compute data that you're not examining. This
+enables napari to seamlessly browse enormous datasets that are loaded in the
+right way. For example, here we are browsing over 100GB of lattice lightsheet
+data stored in a `zarr` file:
 
 ```{raw} html
 <figure>
@@ -232,25 +231,26 @@ multiscale image and the part of the image that needs to be displayed:
 </figure>
 ```
 
-This example had precomputed multiscale images stored in a `zarr` file, which is
-best for performance. If you don't have a precomputed multiscale image but try
-and show an exceptionally large image, napari will try and compute the
-best for performance.
+This example had precomputed multiscale images stored in a `zarr` file, which
+is best for performance. If you don't have a precomputed multiscale image but
+try and show an exceptionally large image, napari will try and compute the best
+for performance.
 
 You can use the boolean `multiscale` keyword argument when creating an image
-layer to specify if your data is a multiscale image or not. If you don't provide
-this value, then napari will try and guess whether your data is or needs to be a
-multiscale image.
+layer to specify if your data is a multiscale image or not. If you don't
+provide this value, then napari will try and guess whether your data is or
+needs to be a multiscale image.
 
 ### Locking the multiscale level
 
-By default, napari automatically selects which resolution level to display based
-on the current zoom and viewport. In 2D this means zooming in loads
+By default, napari automatically selects which resolution level to display
+based on the current zoom and viewport. In 2D this means zooming in loads
 higher-resolution data, while in 3D the coarsest level is used for performance.
 
 If you want to force a specific resolution level — for example, to keep a
 consistent view while panning or to inspect a particular level — you can set
-the `locked_data_level` property, or using the resolution dropdown in the layer controls:
+the `locked_data_level` property, or using the resolution dropdown in the layer
+controls:
 
 ```python
 # Lock rendering to level 0 (highest resolution)
@@ -260,17 +260,17 @@ layer.locked_data_level = 0
 layer.locked_data_level = None
 ```
 
-When a level is locked, napari loads the full extent of that level on the currently
-displayed dimensions regardless of zoom or display mode. The lock is automatically 
-reset to `None` when the layer's data is replaced.
+When a level is locked, napari loads the full extent of that level on the
+currently displayed dimensions regardless of zoom or display mode. The lock is
+automatically reset to `None` when the layer's data is replaced.
 
 This property is available on both `Image` and `Labels` layers.
 
 ## Loading multichannel images
 
 Each channel in a multichannel image can be displayed as an individual layer by
-using the `channel_axis` argument in {meth}`viewer.add_image()`. All the rest of
-the arguments to `viewer.add_image()` (e.g. `name`, `colormap`,
+using the `channel_axis` argument in {meth}`viewer.add_image()`. All the rest
+of the arguments to `viewer.add_image()` (e.g. `name`, `colormap`,
 `contrast_limit`) can take the form of a list of the same size as the number of
 channels.
 
@@ -298,18 +298,14 @@ viewer, layers = napari.imshow(
 ```
 
 ```{code-cell} python
----
-tags: [hide-input]
----
+:tags: [hide-input]
 from napari.utils import nbscreenshot
 
 nbscreenshot(viewer, alt_text="napari viewer with a multichannel image of cells displayed as two image layers: nuclei and membrane.")
 ```
 
 ```{code-cell} python
----
-tags: [remove-cell]
----
+:tags: [remove-cell]
 viewer.close()
 ```
 
@@ -323,18 +319,14 @@ viewer, layer = napari.imshow(data.astronaut(), rgb=True)
 ```
 
 ```{code-cell} python
----
-tags: [hide-input]
----
+:tags: [hide-input]
 from napari.utils import nbscreenshot
 
 nbscreenshot(viewer, alt_text="napari viewer with the left sidebar layer controls and an image of astronaut Eileen Collins. In the layer controls, the colormap is fixed to RGB")
 ```
 
 ```{code-cell} python
----
-tags: [remove-cell]
----
+:tags: [remove-cell]
 viewer.close()
 ```
 
@@ -344,9 +336,9 @@ dimension for the image array was 3 or 4. If you have a luminance image where
 the last dimension is 3 or 4, you can set the `rgb` argument to `False` to
 explicitly state this is not a color image and get a slider for that dimension.
 
-`rgb` data must either be `uint8`, corresponding to values between 0 and 255, or
-`float` and between 0 and 1. If the values are `float` and outside the 0 to 1
-range they will be clipped.
+`rgb` data must either be `uint8`, corresponding to values between 0 and 255,
+or `float` and between 0 and 1. If the values are `float` and outside the 0 to
+1 range they will be clipped.
 
 ## Working with colormaps
 
@@ -389,9 +381,7 @@ viewer, layer = napari.imshow(image, colormap=('diverging', cmap))
 ```
 
 ```{code-cell} python
----
-tags: [hide-input]
----
+:tags: [hide-input]
 from napari.utils import nbscreenshot
 
 nbscreenshot(viewer, alt_text="napari viewer with colormap example using the cell example from skimage")
@@ -401,8 +391,8 @@ Note in this example the colormap keyword argument was passed as a tuple
 containing both a name for the new custom colormap and the colormap itself. If
 we had passed only the colormap it would have been given a default name.
 
-The named colormap now appears in the dropdown alongside a thumbnail of the full
-range of the colormap.
+The named colormap now appears in the dropdown alongside a thumbnail of the
+full range of the colormap.
 
 (contrast-limits)=
 
@@ -413,20 +403,24 @@ contrast limits. Contrast limits are the minimum and maximum values displayed
 by the layer, represented in napari by a 2-tuple where the second value is
 larger than the first. The smaller contrast limit corresponds to the value of
 the image data that will get mapped to the color defined by 0 in the colormap,
-meaning that in most cases any value under the lower contrast limit will appear as black. On
-the other hand, the upper contrast limit corresponds to the value of the image
-data that will get mapped to the color defined by 1 in the colormap; for an image using the `gray` colormap, all values larger than this value will appear as white. Note that the values set in the contrast limits do not change the underlying values of the image, only the visualization of the colormap.
+meaning that in most cases any value under the lower contrast limit will appear
+as black. On the other hand, the upper contrast limit corresponds to the value
+of the image data that will get mapped to the color defined by 1 in the
+colormap; for an image using the `gray` colormap, all values larger than this
+value will appear as white. Note that the values set in the contrast limits do
+not change the underlying values of the image, only the visualization of the
+colormap.
 
-For example, if you are looking at an image that has values between 0 and 100 with
-a standard `gray` colormap, and you set the contrast limits to `(20, 75)`, then
-all the pixels with values less than 20 will get mapped to black, the color
-corresponding to 0 in the colormap, and all pixels with values greater than 75
-will get mapped to white, the color corresponding to 1 in the colormap. All
-other pixel values between 20 and 75 will get linearly mapped onto the range of
-colors between black and white.
+For example, if you are looking at an image that has values between 0 and 100
+with a standard `gray` colormap, and you set the contrast limits to `(20, 75)`,
+then all the pixels with values less than 20 will get mapped to black, the
+color corresponding to 0 in the colormap, and all pixels with values greater
+than 75 will get mapped to white, the color corresponding to 1 in the colormap.
+All other pixel values between 20 and 75 will get linearly mapped onto the
+range of colors between black and white.
 
-In napari you can set the *contrast limits* when creating an `Image` layer or on
-an existing layer using the `contrast_limits` keyword argument or property,
+In napari you can set the *contrast limits* when creating an `Image` layer or
+on an existing layer using the `contrast_limits` keyword argument or property,
 respectively.
 
 ```{code-cell} python
@@ -435,18 +429,14 @@ viewer.layers['moon'].contrast_limits=(100, 175)
 ```
 
 ```{code-cell} python
----
-tags: [hide-input]
----
+:tags: [hide-input]
 from napari.utils import nbscreenshot
 
 nbscreenshot(viewer, alt_text="A viewer where the contrast limits have been adjusted")
 ```
 
 ```{code-cell} python
----
-tags: [remove-cell]
----
+:tags: [remove-cell]
 viewer.close()
 ```
 
@@ -454,7 +444,8 @@ Because the contrast limits are defined by two values, the corresponding slider
 has two handles: one adjusts the smaller value, and one adjusts the larger
 value.
 
-For RGB images, adjusting the contrast limits adjusts the black point and white point of the image.
+For RGB images, adjusting the contrast limits adjusts the black point and white
+point of the image.
 
 ```{important}
 If you pass `contrast_limits` as a keyword argument to a layer, then the full
@@ -472,13 +463,25 @@ with big images, it is recommended to explicitly set the contrast limits if you
 can.
 ```
 
-For more precise control, you can right-click on the contrast limits slider to show a version of the slider with numerical values. Importantly, all four displayed values can be edited by clicking on them. Editing the numbers above the circular slider handles allows you to precisely specify values for the two contrast limits. Press the {kbd}`Enter` or {kbd}`Return` to confirm the new value.
-Meanwhile, the numbers at the two ends of the horizontal rule let you change the *range* of the contrast limits slider (programmatically accessed using the `contrast_limits_range` property). Clicking the `full range` button will reset the contrast limits slider range back to the full range of the data type (e.g. 0 and 255 for `uint8`). Finally, clicking the `reset` button will reset *both* the contrast limits *and* the contrast limits range to the full range for uint8 images (0, 255), and to the minimum and maximum of the *data* for other data types.
+For more precise control, you can right-click on the contrast limits slider to
+show a version of the slider with numerical values. Importantly, all four
+displayed values can be edited by clicking on them. Editing the numbers above
+the circular slider handles allows you to precisely specify values for the two
+contrast limits. Press the {kbd}`Enter` or {kbd}`Return` to confirm the new
+value. Meanwhile, the numbers at the two ends of the horizontal rule let you
+change the *range* of the contrast limits slider (programmatically accessed
+using the `contrast_limits_range` property). Clicking the `full range` button
+will reset the contrast limits slider range back to the full range of the data
+type (e.g. 0 and 255 for `uint8`). Finally, clicking the `reset` button will
+reset *both* the contrast limits *and* the contrast limits range to the full
+range for uint8 images (0, 255), and to the minimum and maximum of the *data*
+for other data types.
 
 ### Resetting the contrast limits
 
 When all the image data values are near the bottom of the range, the image can
-appear black even if there are some very dark (but not quite black) pixels there.
+appear black even if there are some very dark (but not quite black) pixels
+there.
 
 To avoid such issues, you can reset the contrast limits by clicking the
 "auto-contrast: once" button, or, if that fails, right-clicking on the contrast
@@ -499,9 +502,9 @@ resetting the contrast limits by right-clicking on the slider and clicking the
 </figure>
 ```
 
-When in doubt, you can hover over the canvas with your image layer selected, and
-check the status message as you move the mouse around. That will give you an
-idea of the range and variability of the data in your layer, helping you set
+When in doubt, you can hover over the canvas with your image layer selected,
+and check the status message as you move the mouse around. That will give you
+an idea of the range and variability of the data in your layer, helping you set
 meaningful contrast limits.
 
 ## Saving without image compression
@@ -509,7 +512,9 @@ meaningful contrast limits.
 When saving an image layer, lossless zlib compression is applied by default. To
 save with a different level of compression, consider using
 [imageio.imwrite](https://imageio.readthedocs.io/en/stable/_autosummary/imageio.v3.imwrite.html).
-Adjusting compression can be accomplished by including the appropriate kwargs as
-outlined in the following locations for
-[tiff](https://imageio.readthedocs.io/en/stable/_autosummary/imageio.plugins.tifffile.html#metadata-for-writing) or
-[png](https://pillow.readthedocs.io/en/stable/handbook/image-file-formats.html#png) files.
+Adjusting compression can be accomplished by including the appropriate kwargs
+as outlined in the following locations for
+[tiff](https://imageio.readthedocs.io/en/stable/_autosummary/imageio.plugins.tifffile.html#metadata-for-writing)
+or
+[png](https://pillow.readthedocs.io/en/stable/handbook/image-file-formats.html#png)
+files.

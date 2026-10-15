@@ -72,7 +72,8 @@ Any community member can become a contributor, and
 all are encouraged to do so. By contributing to the project, community members
 can directly help to shape its future.
 
-Contributors are encouraged to read the [contributing guide](napari-contributing).
+Contributors are encouraged to read the
+[contributing guide](napari-contributing).
 
 ### Triage team members
 
@@ -90,7 +91,7 @@ merge pull requests.
 New triage team members are added by nomination by a core team member,
 followed by acceptance through a one-week consensus seeking period.
 Triage team members can step down at any time. The
-details of the role are described in the [triage guide](napari-triage) and 
+details of the role are described in the [triage guide](napari-triage) and
 triage team members should also become familiar with the
 [core team member guide](core-dev-guide).
 
@@ -103,17 +104,16 @@ we value from our community. We have therefore updated the title to be more
 inclusive.
 
 Some historical artifacts e.g. our google mailing group and our GitHub team
-cannot be renamed. Additionally, NAPs and release notes have not been retroactively
-updated to reflect the new role title.
+cannot be renamed. Additionally, NAPs and release notes have not been
+retroactively updated to reflect the new role title.
 ```
 
 Core team members are community members that have demonstrated continued
-commitment to the project through ongoing contributions. They
-have shown they can be trusted to maintain napari with care. Becoming a
-core team member allows contributors to merge approved pull requests, cast votes
-for and against merging a pull-request, and be involved in deciding major
-changes to the API, and thereby more easily carry on with their project related
-activities.
+commitment to the project through ongoing contributions. They have shown they
+can be trusted to maintain napari with care. Becoming a core team member allows
+contributors to merge approved pull requests, cast votes for and against
+merging a pull-request, and be involved in deciding major changes to the API,
+and thereby more easily carry on with their project related activities.
 
 Aside from technical contributions, core team members support the Steering
 Council in carrying out the project's mission. They participate in discussion
@@ -121,16 +121,18 @@ about the project's present and future goals and direction, collaborate with
 the SC to establish and update the project's development roadmap, and support
 the napari community at large.
 
-Core team members are expected to review code contributions while adhering to the
-[core team member guide](core-dev-guide). New core team members can be nominated
-by any existing core team member, and for details on that process see our core
-team member guide. Core team members can choose to step down from their role and
-become "emeritus" core team members if they are no longer involved with the project,
-or feel they do not have sufficient time to dedicate to their role. Emeritus core
-team members can request or be invited to become active core team members at
-a later date and with consensus from currently active core team members.
+Core team members are expected to review code contributions while adhering to
+the [core team member guide](core-dev-guide). New core team members can be
+nominated by any existing core team member, and for details on that process see
+our core team member guide. Core team members can choose to step down from
+their role and become "emeritus" core team members if they are no longer
+involved with the project, or feel they do not have sufficient time to dedicate
+to their role. Emeritus core team members can request or be invited to become
+active core team members at a later date and with consensus from currently
+active core team members.
 
-For a full list of core team members see our [About the project and team](team) page.
+For a full list of core team members see our [About the project and team](team)
+page.
 
 ### Steering council
 
@@ -181,32 +183,34 @@ the project and its ecosystem, whether they be users, plugin developers, direct
 napari contributors, or involved with the project in other ways e.g. attending
 community events, supporting users of napari, etc.
 
-The SC will be no less than three members and no more than five members,
-with a strong preference for an odd number to ensure a simple majority vote
-outcome is always possible, and a preference for five members to ensure a
-diversity of voices. All deadlocked votes of the SC will be postponed until
-there is an odd number of members and another vote can be held. A majority of the
-SC will not be employed by the same entity. One seat on the SC is reserved
-for a member elected by the [Institutional and Funding Partner Advisory Council](#institutional-and-funding-partners),
+The SC will be no less than three members and no more than five members, with a
+strong preference for an odd number to ensure a simple majority vote outcome is
+always possible, and a preference for five members to ensure a diversity of
+voices. All deadlocked votes of the SC will be postponed until there is an odd
+number of members and another vote can be held. A majority of the SC will not
+be employed by the same entity. One seat on the SC is reserved for a member
+elected by the
+[Institutional and Funding Partner Advisory Council](#institutional-and-funding-partners),
 as detailed below.
 
-The SC membership, including the Institutional and Funding Partner (IFP) seat, is revisited every January.
-Current SC members must actively reaffirm their membership for the upcoming
-year, or choose to resign. SC members who do not actively engage with the SC
-duties are expected to resign. Should an SC member resign, they remain eligible
-for rejoining the SC at a later date, via the standard process described below.
+The SC membership, including the Institutional and Funding Partner (IFP) seat,
+is revisited every January. Current SC members must actively reaffirm their
+membership for the upcoming year, or choose to resign. SC members who do not
+actively engage with the SC duties are expected to resign. Should an SC member
+resign, they remain eligible for rejoining the SC at a later date, via the
+standard process described below.
 
 New members for vacant spots are added by nomination by a core team member or
 SC member, and subsequent vote. Nominees should have demonstrated long-term,
-continued commitment to the project and/or its community, and its [mission and
-values](mission-and-values). Before nomination, the core team should approach
-the prospective nominee to gauge their interest and availability in the role.
-A nomination will result in discussion among current core team members and SC
-members, that cannot take more than a month and then admission to the SC by
-consensus, as defined [below](#decision-making-process). During that time
-deadlocked votes of the SC will
-be postponed until the new member has joined and another vote can be held. The IFP seat
-is elected by the IFP Advisory Council.
+continued commitment to the project and/or its community, and its
+[mission and values](mission-and-values). Before nomination, the core team
+should approach the prospective nominee to gauge their interest and
+availability in the role. A nomination will result in discussion among current
+core team members and SC members, that cannot take more than a month and then
+admission to the SC by consensus, as defined [below](#decision-making-process).
+During that time deadlocked votes of the SC will be postponed until the new
+member has joined and another vote can be held. The IFP seat is elected by the
+IFP Advisory Council.
 
 Any core team member or SC member can request the explusion of an SC member
 whom they believe has acted in a manner contrary to the project's mission and
@@ -224,8 +228,8 @@ An expelled member may not be readmitted unless a vote for readmission, by
 secret ballot, of the core team members and Steering Council achieves a 75%
 majority.
 
-The SC may be contacted at `napari-steering-council@googlegroups.com`. For a list of the current
-SC see our [About the project and team](team) page.
+The SC may be contacted at `napari-steering-council@googlegroups.com`. For a
+list of the current SC see our [About the project and team](team) page.
 
 ### Institutional and funding partners
 
@@ -254,41 +258,43 @@ should describe this process openly. IFPs are expected to work together
 and with the napari community in good faith towards a common goal
 of improving napari for the broader scientific computing community.
 
-If at some point an existing IFP is no longer contributing any employees
-or funding, then a one-year grace period commences. If during this one-year
-period they do not contribute any employees or funding, then at the end of
-the period their status as an IFP will lapse, and resuming it will require
-going through the normal process for new IFPs. If the IFP Representative on
-the SC is from an organization that loses its status as an Institutional Partner,
-that person will cease being a member of the SC and the remaining IFP Advisory
-Council members may choose a new Representative at their earliest convenience.
+If at some point an existing IFP is no longer contributing any employees or
+funding, then a one-year grace period commences. If during this one-year period
+they do not contribute any employees or funding, then at the end of the period
+their status as an IFP will lapse, and resuming it will require going through
+the normal process for new IFPs. If the IFP Representative on the SC is from an
+organization that loses its status as an Institutional Partner, that person
+will cease being a member of the SC and the remaining IFP Advisory Council
+members may choose a new Representative at their earliest convenience.
 
 IFP benefits are:
 
 - Acknowledgement on the napari website, including homepage, and in talks.
-- Ability to acknowledge their contribution to napari on their own websites and in talks.
+- Ability to acknowledge their contribution to napari on their own websites and
+  in talks.
 - Ability to provide input to the project through their Institutional Partner
   Representative.
 - Ability to influence the project through the election of the Institutional
   and Funding Partner seat on the SC.
 
-For a full list of current IFPs and their Representatives see our [About Us](team) page.
+For a full list of current IFPs and their Representatives see our
+[About Us](team) page.
 
 ## Decision making process
 
 Decisions about the future of the project are made through discussion with all
 members of the community. All non-sensitive project management discussion takes
-place on the [issue tracker](https://github.com/napari/napari/issues) and project
-[zulip](https://napari.zulipchat.com/) community chat channel. Occasionally,
-sensitive discussion may occur on a private core team member mailing list
-`napari-core-devs@googlegroups.com` or private chat channel.
+place on the [issue tracker](https://github.com/napari/napari/issues) and
+project [zulip](https://napari.zulipchat.com/) community chat channel.
+Occasionally, sensitive discussion may occur on a private core team member
+mailing list `napari-core-devs@googlegroups.com` or private chat channel.
 
-Decisions should be made in accordance with the [mission and values](mission-and-values)
-of the napari project.
+Decisions should be made in accordance with the
+[mission and values](mission-and-values) of the napari project.
 
-napari uses a “consensus seeking” process for making decisions. The group
-tries to find a resolution that has no open objections among core team members.
-Core team members are expected to distinguish between fundamental objections to a
+napari uses a “consensus seeking” process for making decisions. The group tries
+to find a resolution that has no open objections among core team members. Core
+team members are expected to distinguish between fundamental objections to a
 proposal and minor perceived flaws that they can live with, and not hold up the
 decision-making process for the latter. If no option can be found without
 objections, the decision is escalated to the SC, which will itself use
@@ -299,28 +305,30 @@ simple majority of the SC.
 Decisions (in addition to adding core team members and SC membership as above)
 are made according to the following rules:
 
-- **Minor documentation changes**, such as typo fixes, or addition / correction of a
-  sentence, require approval by a core team member *and* no disagreement or requested
-  changes by a core team member on the issue or pull request page (lazy
-  consensus). Core team members are expected to give “reasonable time” to others
-  to give their opinion on the pull request if they’re not confident others
-  would agree.
+- **Minor documentation changes**, such as typo fixes, or addition / correction
+  of a sentence, require approval by a core team member *and* no disagreement
+  or requested changes by a core team member on the issue or pull request page
+  (lazy consensus). Core team members are expected to give “reasonable time” to
+  others to give their opinion on the pull request if they’re not confident
+  others would agree.
 
 - **Code changes and major documentation changes** require agreement by *one*
-  core team member *and* no disagreement or requested changes by a core team member
-  on the issue or pull-request page (lazy consensus). For all changes of this type,
-  core team members are expected to give “reasonable time” after approval and before
-  merging for others to weigh in on the pull request in its final state.
+  core team member *and* no disagreement or requested changes by a core team
+  member on the issue or pull-request page (lazy consensus). For all changes of
+  this type, core team members are expected to give “reasonable time” after
+  approval and before merging for others to weigh in on the pull request in its
+  final state.
 
 - **Changes to the API principles** require a dedicated issue on our
   [issue tracker](https://github.com/napari/napari/issues) and follow the
   decision-making process outlined above.
 
 - **Changes to this governance model or our mission, vision, and values**
-  require a dedicated issue on our [issue tracker](https://github.com/napari/napari/issues)
-  and follow the decision-making process outlined above,
-  *unless* there is unanimous agreement from core team members on the change in
-  which case it can move forward faster.
+  require a dedicated issue on our
+  [issue tracker](https://github.com/napari/napari/issues) and follow the
+  decision-making process outlined above, *unless* there is unanimous agreement
+  from core team members on the change in which case it can move forward
+  faster.
 
 If an objection is raised on a lazy consensus, the proposer can appeal to the
 community and core team members and the change can be approved or rejected by

@@ -12,10 +12,10 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://napari.org/stable/tutorials/dask.html" />
 <meta property="og:site_name" content="napari" />
-<meta property="og:description" content="Often in microscopy, multidimensional data is acquired and written to disk in many small files, each of which contain a subset of one or more dimensions from the complete dataset. For example, in a 5-dimensional experiment(e.g. 3D z-stacks acquired for multiple channels at various moments over ti..." />
+<meta property="og:description" content="Often in microscopy, multidimensional data is acquired and written to disk in many small files, each of which contain a subset of one or more dimensions from the complete dataset. For example, in a 5-dimensional experiment (e.g. 3D z-stacks acquired for multiple channels at various moments over t..." />
 <meta property="og:image" content="https://napari.org/stable/_images/dask_repr.png" />
 <meta property="og:image:alt" content="HTML representation of a Dask array as seen in Jupyter notebook. The image is split into two main regions: a table showing the bytes, shape, count and data type attributes of the array and of each chunk, and a visual representation of the shape of the chunks that make up the array (a rectangle of 1200x1) and each individual chunk (a 65x256x256 cube)." />
-<meta name="description" content="Often in microscopy, multidimensional data is acquired and written to disk in many small files, each of which contain a subset of one or more dimensions from the complete dataset. For example, in a 5-dimensional experiment(e.g. 3D z-stacks acquired for multiple channels at various moments over ti..." />
+<meta name="description" content="Often in microscopy, multidimensional data is acquired and written to disk in many small files, each of which contain a subset of one or more dimensions from the complete dataset. For example, in a 5-dimensional experiment (e.g. 3D z-stacks acquired for multiple channels at various moments over t..." />
 <meta name="twitter:card" content="summary_large_image" />
 
     <title>Using Dask and napari to process &amp; view large datasets &#8212; napari</title>
@@ -836,46 +836,56 @@
                   
   <section class="tex2jax_ignore mathjax_ignore" id="using-dask-and-napari-to-process-view-large-datasets">
 <span id="dask-napari"></span><h1>Using Dask and napari to process &amp; view large datasets<a class="headerlink" href="#using-dask-and-napari-to-process-view-large-datasets" title="Link to this heading">#</a></h1>
-<p>Often in microscopy, multidimensional data is acquired and written to disk in many small files,
-each of which contain a subset of one or more dimensions from the complete dataset.
-For example, in a 5-dimensional experiment
-(e.g. 3D z-stacks acquired for multiple channels at various moments over time),
-each file on disk might be a 3D TIFF stack from a single channel at a single timepoint.
-Data may also be stored in some proprietary format.
-As the size of the dataset grows,
-viewing arbitrary slices (in time, channel, z) of these datasets can become cumbersome.</p>
-<p>Chunked file formats exist (such as <a class="reference external" href="https://support.hdfgroup.org/HDF5/">hdf5</a> and <a class="reference external" href="https://zarr.readthedocs.io/en/stable/">zarr</a>) that store data in a way that makes it easier to retrieve arbitrary subsets of the dataset, but they require either data duplication, or “committing” to a new file standard.</p>
+<p>Often in microscopy, multidimensional data is acquired and written to disk in
+many small files, each of which contain a subset of one or more dimensions from
+the complete dataset. For example, in a 5-dimensional experiment (e.g. 3D
+z-stacks acquired for multiple channels at various moments over time), each
+file on disk might be a 3D TIFF stack from a single channel at a single
+timepoint. Data may also be stored in some proprietary format. As the size of
+the dataset grows, viewing arbitrary slices (in time, channel, z) of these
+datasets can become cumbersome.</p>
+<p>Chunked file formats exist (such as <a class="reference external" href="https://support.hdfgroup.org/HDF5/">hdf5</a>
+and <a class="reference external" href="https://zarr.readthedocs.io/en/stable/">zarr</a>) that store data in a way
+that makes it easier to retrieve arbitrary subsets of the dataset, but they
+require either data duplication, or “committing” to a new file standard.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>This tutorial is not meant to promote a folder of TIFFs as a “good way” to store large datasets on disk; but it is
-undoubtedly a common scenario in microscopy. Chunked formats such as <code class="docutils literal notranslate"><span class="pre">hdf5</span></code> or <code class="docutils literal notranslate"><span class="pre">zarr</span></code> are superior in many ways, but
-they do require the user to either duplicate their data or go “all in” and delete the original data after conversion.
-And while <code class="docutils literal notranslate"><span class="pre">napari</span></code> can easily handle something like a <code class="docutils literal notranslate"><span class="pre">zarr</span></code> store, it can be a bit more limiting inasmuch as it
-requires programs that are capable of viewing it (i.e. you can’t necessarily just drag it into Fiji …)</p>
+<p>This tutorial is not meant to promote a folder of TIFFs as a “good way” to
+store large datasets on disk; but it is undoubtedly a common scenario in
+microscopy. Chunked formats such as <code class="docutils literal notranslate"><span class="pre">hdf5</span></code> or <code class="docutils literal notranslate"><span class="pre">zarr</span></code> are superior in many ways,
+but they do require the user to either duplicate their data or go “all in” and
+delete the original data after conversion. And while <code class="docutils literal notranslate"><span class="pre">napari</span></code> can easily handle
+something like a <code class="docutils literal notranslate"><span class="pre">zarr</span></code> store, it can be a bit more limiting inasmuch as it
+requires programs that are capable of viewing it (i.e. you can’t necessarily
+just drag it into Fiji …)</p>
 </div>
-<p>The first part of this tutorial demonstrates how to use <a class="reference external" href="https://docs.dask.org/en/latest/"><code class="docutils literal notranslate"><span class="pre">Dask</span></code></a>
-and <a class="reference external" href="https://docs.dask.org/en/latest/delayed.html"><code class="docutils literal notranslate"><span class="pre">dask.delayed</span></code></a>
-(or <a class="reference external" href="https://github.com/dask/dask-image"><code class="docutils literal notranslate"><span class="pre">dask_image</span></code></a>) to feed <code class="docutils literal notranslate"><span class="pre">napari</span></code> image data “<a class="reference external" href="https://en.wikipedia.org/wiki/Lazy_evaluation">lazily</a>”:
-that is, the specific image file corresponding to the requested timepoint/channel
-is only read from disk at the moment it is required
-(based on the current position of the dimension sliders in <code class="docutils literal notranslate"><span class="pre">napari</span></code>).
-Additionally, we will see that <em>any</em> function that takes a filepath
-and returns a <code class="docutils literal notranslate"><span class="pre">numpy</span></code> array can be used to lazily read image data.
-This can be useful if you have a proprietary format that is not immediately recognized by <code class="docutils literal notranslate"><span class="pre">napari</span></code>
-(but for which you have at least some way of reading into a <code class="docutils literal notranslate"><span class="pre">numpy</span></code> array)</p>
-<p>In some cases, data must be further processed prior to viewing,
-such as a deskewing step for images acquired on a stage-scanning light sheet microscope.
-Or perhaps you’d like to apply some basic image corrections or ratiometry prior to viewing.
-The second part of this tutorial demonstrates the use of the <a class="reference external" href="https://docs.dask.org/en/stable/generated/dask.array.map_blocks.html"><code class="docutils literal notranslate"><span class="pre">dask.array.map_blocks</span></code></a> function
-to describe an arbitrary sequence of functions in a declarative manner
-that will be performed <em>on demand</em> as you explore the data (i.e. move the sliders) in <code class="docutils literal notranslate"><span class="pre">napari</span></code>.</p>
+<p>The first part of this tutorial demonstrates how to use
+<a class="reference external" href="https://docs.dask.org/en/latest/"><code class="docutils literal notranslate"><span class="pre">Dask</span></code></a> and
+<a class="reference external" href="https://docs.dask.org/en/latest/delayed.html"><code class="docutils literal notranslate"><span class="pre">dask.delayed</span></code></a> (or
+<a class="reference external" href="https://github.com/dask/dask-image"><code class="docutils literal notranslate"><span class="pre">dask_image</span></code></a>) to feed <code class="docutils literal notranslate"><span class="pre">napari</span></code> image data
+“<a class="reference external" href="https://en.wikipedia.org/wiki/Lazy_evaluation">lazily</a>”: that is, the
+specific image file corresponding to the requested timepoint/channel is only
+read from disk at the moment it is required (based on the current position of
+the dimension sliders in <code class="docutils literal notranslate"><span class="pre">napari</span></code>). Additionally, we will see that <em>any</em>
+function that takes a filepath and returns a <code class="docutils literal notranslate"><span class="pre">numpy</span></code> array can be used to
+lazily read image data. This can be useful if you have a proprietary format
+that is not immediately recognized by <code class="docutils literal notranslate"><span class="pre">napari</span></code> (but for which you have at least
+some way of reading into a <code class="docutils literal notranslate"><span class="pre">numpy</span></code> array)</p>
+<p>In some cases, data must be further processed prior to viewing, such as a
+deskewing step for images acquired on a stage-scanning light sheet microscope.
+Or perhaps you’d like to apply some basic image corrections or ratiometry prior
+to viewing. The second part of this tutorial demonstrates the use of the
+<a class="reference external" href="https://docs.dask.org/en/stable/generated/dask.array.map_blocks.html"><code class="docutils literal notranslate"><span class="pre">dask.array.map_blocks</span></code></a>
+function to describe an arbitrary sequence of functions in a declarative manner
+that will be performed <em>on demand</em> as you explore the data (i.e. move the
+sliders) in <code class="docutils literal notranslate"><span class="pre">napari</span></code>.</p>
 <section id="using-dask-delayed-to-load-images">
 <h2>Using <code class="docutils literal notranslate"><span class="pre">dask.delayed</span></code> to load images<a class="headerlink" href="#using-dask-delayed-to-load-images" title="Link to this heading">#</a></h2>
 <p>If you have a function that can take a filename and return a <code class="docutils literal notranslate"><span class="pre">numpy</span></code> array,
-such as <code class="docutils literal notranslate"><span class="pre">skimage.io.imread</span></code>,
-you can create a “lazy” version of that function by calling <code class="docutils literal notranslate"><span class="pre">dask.delayed</span></code> on the function itself.
-This <em>new</em> function, when handed a filename,
-will not actually read the file until explicitly asked with the <code class="docutils literal notranslate"><span class="pre">compute()</span></code> method:</p>
+such as <code class="docutils literal notranslate"><span class="pre">skimage.io.imread</span></code>, you can create a “lazy” version of that function
+by calling <code class="docutils literal notranslate"><span class="pre">dask.delayed</span></code> on the function itself. This <em>new</em> function, when
+handed a filename, will not actually read the file until explicitly asked with
+the <code class="docutils literal notranslate"><span class="pre">compute()</span></code> method:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">skimage.io</span><span class="w"> </span><span class="kn">import</span> <span class="n">imread</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">dask</span><span class="w"> </span><span class="kn">import</span> <span class="n">delayed</span>
 
@@ -887,9 +897,10 @@ will not actually read the file until explicitly asked with the <code class="doc
 <p>(If you have an unusual image format,
 but you <em>do</em> have a python function that returns a <code class="docutils literal notranslate"><span class="pre">numpy</span></code> array,
 simply substitute it for <code class="docutils literal notranslate"><span class="pre">skimage.io.imread</span></code> in the example above).</p>
-<p>We can create a <a class="reference external" href="https://docs.dask.org/en/latest/array.html">Dask array</a> of delayed file-readers
-for <em>all</em> of the files in our multidimensional experiment using the <code class="docutils literal notranslate"><span class="pre">dask.array.from_delayed</span></code> function
-and a <a class="reference external" href="https://docs.python.org/3/library/glob.html"><code class="docutils literal notranslate"><span class="pre">glob</span></code></a> filename pattern
+<p>We can create a <a class="reference external" href="https://docs.dask.org/en/latest/array.html">Dask array</a> of
+delayed file-readers for <em>all</em> of the files in our multidimensional experiment
+using the <code class="docutils literal notranslate"><span class="pre">dask.array.from_delayed</span></code> function and a
+<a class="reference external" href="https://docs.python.org/3/library/glob.html"><code class="docutils literal notranslate"><span class="pre">glob</span></code></a> filename pattern
 (<em>this example assumes that all files are of the same <code class="docutils literal notranslate"><span class="pre">shape</span></code> and <code class="docutils literal notranslate"><span class="pre">dtype</span></code>!</em>):</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">skimage.io</span><span class="w"> </span><span class="kn">import</span> <span class="n">imread</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">skimage.io.collection</span><span class="w"> </span><span class="kn">import</span> <span class="n">alphanumeric_key</span>
@@ -918,10 +929,10 @@ and a <a class="reference external" href="https://docs.python.org/3/library/glob
 </div>
 <p><img alt="HTML representation of a Dask array as seen in Jupyter notebook. The image is split into two main regions: a table showing the bytes, shape, count and data type attributes of the array and of each chunk, and a visual representation of the shape of the chunks that make up the array (a rectangle of 1200x1) and each individual chunk (a 65x256x256 cube)." src="../_images/dask_repr.png" /></p>
 <p><em>No data has been read from disk yet!</em></p>
-<p><code class="docutils literal notranslate"><span class="pre">napari</span></code> is capable of consuming Dask arrays,
-so you can simply call <code class="docutils literal notranslate"><span class="pre">napari.imshow</span></code> on this <code class="docutils literal notranslate"><span class="pre">stack</span></code> and behind the scenes,
-Dask will take care of reading the data from disk
-and handing a <code class="docutils literal notranslate"><span class="pre">numpy</span></code> array to <code class="docutils literal notranslate"><span class="pre">napari</span></code> each time a new timepoint or channel is requested.</p>
+<p><code class="docutils literal notranslate"><span class="pre">napari</span></code> is capable of consuming Dask arrays, so you can simply call
+<code class="docutils literal notranslate"><span class="pre">napari.imshow</span></code> on this <code class="docutils literal notranslate"><span class="pre">stack</span></code> and behind the scenes, Dask will take care of
+reading the data from disk and handing a <code class="docutils literal notranslate"><span class="pre">numpy</span></code> array to <code class="docutils literal notranslate"><span class="pre">napari</span></code> each time a
+new timepoint or channel is requested.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">napari</span>
 
 <span class="c1"># specify contrast_limits and multiscale=False with big data</span>
@@ -929,17 +940,23 @@ and handing a <code class="docutils literal notranslate"><span class="pre">numpy
 <span class="n">napari</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">stack</span><span class="p">,</span> <span class="n">contrast_limits</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2000</span><span class="p">],</span> <span class="n">multiscale</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
-<p><em>Note: providing the</em> <code class="docutils literal notranslate"><span class="pre">contrast_limits</span></code> <em>and</em> <code class="docutils literal notranslate"><span class="pre">multiscale</span></code> <em>arguments prevents</em> <code class="docutils literal notranslate"><span class="pre">napari</span></code> <em>from trying to calculate the data min/max, which can take an extremely long time with big data.
-See <a class="reference external" href="https://github.com/napari/napari/issues/736">napari issue #736</a> for further discussion.</em></p>
+<p><em>Note: providing the</em> <code class="docutils literal notranslate"><span class="pre">contrast_limits</span></code> <em>and</em> <code class="docutils literal notranslate"><span class="pre">multiscale</span></code> <em>arguments prevents</em>
+<code class="docutils literal notranslate"><span class="pre">napari</span></code> <em>from trying to calculate the data min/max, which can take an
+extremely long time with big data. See
+<a class="reference external" href="https://github.com/napari/napari/issues/736">napari issue #736</a> for further
+discussion.</em></p>
 </section>
 <section id="make-your-life-easier-with-dask-image">
 <h2>Make your life easier with <code class="docutils literal notranslate"><span class="pre">dask-image</span></code><a class="headerlink" href="#make-your-life-easier-with-dask-image" title="Link to this heading">#</a></h2>
-<p>This pattern for creating a <code class="docutils literal notranslate"><span class="pre">dask.array</span></code> from image data
-has been previously described in an <a class="reference external" href="https://blog.dask.org/2019/06/20/load-image-data">excellent blog post</a> by John Kirkham.
-It is a common-enough pattern that John created a useful library (<a class="reference external" href="https://github.com/dask/dask-image"><code class="docutils literal notranslate"><span class="pre">dask-image</span></code></a>)
-that does all this for you,
-provided your image format can be read by the <a class="reference external" href="https://github.com/soft-matter/pims"><code class="docutils literal notranslate"><span class="pre">pims</span></code></a> (Python Image Sequence) reader
-(if not, see note above about providing your own reader function with <code class="docutils literal notranslate"><span class="pre">dask.delayed</span></code>).</p>
+<p>This pattern for creating a <code class="docutils literal notranslate"><span class="pre">dask.array</span></code> from image data has been previously
+described in an
+<a class="reference external" href="https://blog.dask.org/2019/06/20/load-image-data">excellent blog post</a> by John
+Kirkham. It is a common-enough pattern that John created a useful library
+(<a class="reference external" href="https://github.com/dask/dask-image"><code class="docutils literal notranslate"><span class="pre">dask-image</span></code></a>) that does all this for
+you, provided your image format can be read by the
+<a class="reference external" href="https://github.com/soft-matter/pims"><code class="docutils literal notranslate"><span class="pre">pims</span></code></a> (Python Image Sequence) reader
+(if not, see note above about providing your own reader function with
+<code class="docutils literal notranslate"><span class="pre">dask.delayed</span></code>).</p>
 <p>Using <code class="docutils literal notranslate"><span class="pre">dask-image</span></code>, <em>all</em> of the above code can be simplified to 5 lines:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">napari</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">dask_image.imread</span><span class="w"> </span><span class="kn">import</span> <span class="n">imread</span>
@@ -960,9 +977,10 @@ provided your image format can be read by the <a class="reference external" href
 </figure><section id="side-note-regarding-higher-dimensional-datasets">
 <h3><strong>Side note regarding higher-dimensional datasets</strong><a class="headerlink" href="#side-note-regarding-higher-dimensional-datasets" title="Link to this heading">#</a></h3>
 <p>In the above example, it would be quite common to have a 5+ dimensional dataset
-(e.g. different timepoints <em>and</em> channels represented among the 3D TIFF files in a folder).
-A standard approach to deal with that sort of thing in <code class="docutils literal notranslate"><span class="pre">numpy</span></code> would be to <code class="docutils literal notranslate"><span class="pre">reshape</span></code> the array after instantiation.
-With Dask, reshaping arrays can <em>sometimes</em> lead to unexpected read events if you’re not careful.</p>
+(e.g. different timepoints <em>and</em> channels represented among the 3D TIFF files
+in a folder). A standard approach to deal with that sort of thing in <code class="docutils literal notranslate"><span class="pre">numpy</span></code>
+would be to <code class="docutils literal notranslate"><span class="pre">reshape</span></code> the array after instantiation. With Dask, reshaping
+arrays can <em>sometimes</em> lead to unexpected read events if you’re not careful.</p>
 <p>For example:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">dask_image.imread</span><span class="w"> </span><span class="kn">import</span> <span class="n">imread</span>
 
@@ -976,10 +994,9 @@ With Dask, reshaping arrays can <em>sometimes</em> lead to unexpected read event
 <span class="n">stack</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">compute</span><span class="p">()</span>  <span class="c1"># incurs 600 read events!</span>
 </pre></div>
 </div>
-<p>We will update this post as best-practices emerge,
-but one possible solution to this is to avoid reshaping
-Dask arrays altogether, by constructing multiple Dask arrays using <code class="docutils literal notranslate"><span class="pre">dask-image</span></code>, and then using
-<code class="docutils literal notranslate"><span class="pre">da.stack</span></code> to combine them:</p>
+<p>We will update this post as best-practices emerge, but one possible solution to
+this is to avoid reshaping Dask arrays altogether, by constructing multiple
+Dask arrays using <code class="docutils literal notranslate"><span class="pre">dask-image</span></code>, and then using <code class="docutils literal notranslate"><span class="pre">da.stack</span></code> to combine them:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">dask_image.imread</span><span class="w"> </span><span class="kn">import</span> <span class="n">imread</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">dask.array</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">da</span>
 
@@ -1001,23 +1018,32 @@ Dask arrays altogether, by constructing multiple Dask arrays using <code class="
 <section id="a-real-example-high-resolution-human-brain-imaging-dataset">
 <h2>A real example: high-resolution human brain imaging dataset<a class="headerlink" href="#a-real-example-high-resolution-human-brain-imaging-dataset" title="Link to this heading">#</a></h2>
 <p>In this example, we are going to view and process a high-resolution human brain
-imaging dataset. The dataset was obtained from <a class="reference external" href="https://www.comarecoverylab.org/">Dr. Brian Edlow’s Lab</a>
-for NeuroImaging of Coma and Consciousness, which is dedicated to promoting
-recovery of consciousness in people with severe brain injuries. This dataset is
-a 100 micron resolution magnetic resonance imaging (MRI) scan of an ex vivo
-human brain specimen. The brain specimen was donated by a <a class="reference external" href="https://www.youtube.com/watch?v=Q-9jzBkoNuI">58-year-old woman</a> who had no history of neurological disease and died of non-neurological causes.
-This dataset was originally described in <a class="reference external" href="https://doi.org/10.1038/s41597-019-0254-8">Edlow, B.L., Mareyam, A., Horn, A. <em>et al.</em> 7 Tesla MRI of the ex vivo human brain at 100 micron resolution. Sci Data 6, 244 (2019)</a>.</p>
+imaging dataset. The dataset was obtained from
+<a class="reference external" href="https://www.comarecoverylab.org/">Dr. Brian Edlow’s Lab</a> for NeuroImaging of
+Coma and Consciousness, which is dedicated to promoting recovery of
+consciousness in people with severe brain injuries. This dataset is a 100
+micron resolution magnetic resonance imaging (MRI) scan of an ex vivo human
+brain specimen. The brain specimen was donated by a
+<a class="reference external" href="https://www.youtube.com/watch?v=Q-9jzBkoNuI">58-year-old woman</a> who had no
+history of neurological disease and died of non-neurological causes. This
+dataset was originally described in
+<a class="reference external" href="https://doi.org/10.1038/s41597-019-0254-8">Edlow, B.L., Mareyam, A., Horn, A. <em>et al.</em> 7 Tesla MRI of the ex vivo human brain at 100 micron resolution. Sci Data 6, 244 (2019)</a>.</p>
 <div class="admonition-getting-the-data admonition">
 <p class="admonition-title">Getting the data</p>
-<p>You can download the dataset from <a class="reference external" href="https://datadryad.org/stash/dataset/doi:10.5061/dryad.119f80q">here</a>.
-In this example we use the <a class="reference external" href="https://datadryad.org/stash/downloads/file_stream/182482">FLASH25_100um_TIFF_Axial data</a>. This link will download a ~2 Gb <code class="docutils literal notranslate"><span class="pre">.zip</span></code> file  and after extracting the compressed data set,
-the <code class="docutils literal notranslate"><span class="pre">.tiff</span></code> images can be found in the <code class="docutils literal notranslate"><span class="pre">SYNTHESIZED_TIFF_Images_Raw/Synthesized_FLASH25_100um_TIFF_Axial_Images/</span></code>
+<p>You can download the dataset from
+<a class="reference external" href="https://datadryad.org/stash/dataset/doi:10.5061/dryad.119f80q">here</a>. In this
+example we use the
+<a class="reference external" href="https://datadryad.org/stash/downloads/file_stream/182482">FLASH25_100um_TIFF_Axial data</a>.
+This link will download a ~2 Gb <code class="docutils literal notranslate"><span class="pre">.zip</span></code> file and after extracting the compressed
+data set, the <code class="docutils literal notranslate"><span class="pre">.tiff</span></code> images can be found in the
+<code class="docutils literal notranslate"><span class="pre">SYNTHESIZED_TIFF_Images_Raw/Synthesized_FLASH25_100um_TIFF_Axial_Images/</span></code>
 directory. The dataset is 3.69 GB unzipped.</p>
 </div>
 <p>While we could use plain <code class="docutils literal notranslate"><span class="pre">dask</span></code> through <code class="docutils literal notranslate"><span class="pre">delayed</span></code>, as we have shown above, we
-will <a class="reference internal" href="#make-your-life-easier-with-dask-image">make our lives easier</a> here and use
-<code class="docutils literal notranslate"><span class="pre">dask-image</span></code>.</p>
-<p>Using <a class="reference external" href="https://image.dask.org/en/latest/dask_image.imread.html#module-dask_image.imread">dask_image.imread</a>,
+will <a class="reference internal" href="#make-your-life-easier-with-dask-image">make our lives easier</a> here and
+use <code class="docutils literal notranslate"><span class="pre">dask-image</span></code>.</p>
+<p>Using
+<a class="reference external" href="https://image.dask.org/en/latest/dask_image.imread.html#module-dask_image.imread">dask_image.imread</a>,
 loading the entire dataset to view in napari is straightforward.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">napari</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">dask_image.imread</span><span class="w"> </span><span class="kn">import</span> <span class="n">imread</span>
@@ -1043,13 +1069,13 @@ We’ll take as an example
 a series of TIFF files acquired on a lattice-light-sheet microscope.
 A typical workflow might be to deskew, deconvolve, and perhaps crop
 or apply some channel registration prior to viewing.</p>
-<p>With <code class="docutils literal notranslate"><span class="pre">dask.array.map_blocks</span></code> we can apply any function that accepts a <code class="docutils literal notranslate"><span class="pre">numpy</span></code> array
-and returns a modified array to all the images in our <code class="docutils literal notranslate"><span class="pre">dask.array</span></code>.
-It will be evaluated lazily, when requested (in this case, by <code class="docutils literal notranslate"><span class="pre">napari</span></code>);
-we do not have to wait for it to process the entire dataset.</p>
-<p>Here is an example of a script that will take a folder of raw tiff files,
-and lazily read, deskew, deconvolve, crop,
-and display them, <em>on demand</em> as you move the <code class="docutils literal notranslate"><span class="pre">napari</span></code> dimensions sliders around.</p>
+<p>With <code class="docutils literal notranslate"><span class="pre">dask.array.map_blocks</span></code> we can apply any function that accepts a <code class="docutils literal notranslate"><span class="pre">numpy</span></code>
+array and returns a modified array to all the images in our <code class="docutils literal notranslate"><span class="pre">dask.array</span></code>. It
+will be evaluated lazily, when requested (in this case, by <code class="docutils literal notranslate"><span class="pre">napari</span></code>); we do not
+have to wait for it to process the entire dataset.</p>
+<p>Here is an example of a script that will take a folder of raw tiff files, and
+lazily read, deskew, deconvolve, crop, and display them, <em>on demand</em> as you
+move the <code class="docutils literal notranslate"><span class="pre">napari</span></code> dimensions sliders around.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">napari</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">pycudadecon</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">functools</span><span class="w"> </span><span class="kn">import</span> <span class="n">partial</span>
@@ -1102,10 +1128,10 @@ and display them, <em>on demand</em> as you move the <code class="docutils liter
 <span class="n">napari</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>Of course, the GUI isn’t as responsive as it would be if you had processed the data up front
-and loaded the results into RAM and viewed them in <code class="docutils literal notranslate"><span class="pre">napari</span></code> (it’s doing a lot of work after all!),
-but it’s surprisingly usable,
-and allows you to preview the result of a relatively complex processing pipeline <em>on-the-fly</em>,
+<p>Of course, the GUI isn’t as responsive as it would be if you had processed the
+data up front and loaded the results into RAM and viewed them in <code class="docutils literal notranslate"><span class="pre">napari</span></code> (it’s
+doing a lot of work after all!), but it’s surprisingly usable, and allows you
+to preview the result of a relatively complex processing pipeline <em>on-the-fly</em>,
 for arbitrary timepoints/channels, while storing <em>only</em> the raw data on disk.</p>
 <figure>
   <video width="100%" controls autoplay loop muted playsinline>
@@ -1116,10 +1142,11 @@ for arbitrary timepoints/channels, while storing <em>only</em> the raw data on d
       alt="napari viewer showing the same dataset as the previous video, demonstrating on-the-fly processing of a dask array with sliding through dimensions still performing reasonably well considering the amount of processing going on as you slice."
     >
   </video>
-</figure><p>This workflow is very much patterned after <a class="reference external" href="https://blog.dask.org/2019/08/09/image-itk">another great post by John Kirkham, Matthew Rocklin, and Matthew McCormick</a>
-that describes a similar image processing pipeline using <a class="reference external" href="https://itk.org/">ITK</a>.
-<code class="docutils literal notranslate"><span class="pre">napari</span></code> simply sits at the end of this lazy processing chain,
-ready to show you the result on demand!</p>
+</figure><p>This workflow is very much patterned after
+<a class="reference external" href="https://blog.dask.org/2019/08/09/image-itk">another great post by John Kirkham, Matthew Rocklin, and Matthew McCormick</a>
+that describes a similar image processing pipeline using
+<a class="reference external" href="https://itk.org/">ITK</a>. <code class="docutils literal notranslate"><span class="pre">napari</span></code> simply sits at the end of this lazy
+processing chain, ready to show you the result on demand!</p>
 </section>
 <section id="further-reading">
 <h2>Further reading<a class="headerlink" href="#further-reading" title="Link to this heading">#</a></h2>

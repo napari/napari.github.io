@@ -451,9 +451,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../architecture/dir_organization.html">napari directory organization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../architecture/napari_models.html">napari models and events</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../architecture/app_model.html">napari’s application model</a></li>
-
 <li class="toctree-l2"><a class="reference internal" href="../architecture/magicgui_type_reg.html"><code class="docutils literal notranslate"><span class="pre">magicgui</span></code> type registration</a></li>
-
 <li class="toctree-l2 has-children"><a class="reference internal" href="../architecture/ui_sections/index.html">UI sections</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../architecture/ui_sections/application_menus_ui.html">Application menus</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../architecture/ui_sections/application_status_bar_ui.html">Application status bar</a></li>
@@ -488,7 +486,6 @@
 <li class="toctree-l2"><a class="reference internal" href="../../naps/8-telemetry.html">NAP-8 — Telemetry</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../naps/9-multiple-canvases.html">NAP-9 — Multiple Views</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../naps/10-migration-event-system.html">NAP-10 — Migration of the event system</a></li>
-
 <li class="toctree-l2"><a class="reference internal" href="../../naps/template.html">NAP-X — Template and Instructions</a></li>
 </ul>
 </details></li>
@@ -598,48 +595,69 @@ mechanics for executing a <code class="docutils literal notranslate"><span class
 For the release policy — versioning, cadence, milestone ownership, highlights,
 and the release manager’s responsibilities — see the
 <a class="reference internal" href="release_policy.html#napari-release"><span class="std std-ref">release policy</span></a>.
-Most required tools mentioned here are in <a class="github reference external" href="https://github.com/napari/napari-release-tools">napari/napari-release-tools</a>.</p>
+Most required tools mentioned here are in
+<a class="github reference external" href="https://github.com/napari/napari-release-tools">napari/napari-release-tools</a>.</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
-<p>The first step in managing a release is to create a new Issue in napari/napari with the <a class="reference external" href="https://github.com/napari/napari/tree/main/.github/ISSUE_TEMPLATE/release.md"><code class="docutils literal notranslate"><span class="pre">release</span></code> template</a>.</p>
+<p>The first step in managing a release is to create a new Issue in napari/napari
+with the
+<a class="reference external" href="https://github.com/napari/napari/tree/main/.github/ISSUE_TEMPLATE/release.md"><code class="docutils literal notranslate"><span class="pre">release</span></code> template</a>.</p>
 </div>
 <section id="release-management">
 <h2>Release management<a class="headerlink" href="#release-management" title="Link to this heading">#</a></h2>
-<p>The release will be coordinated by a release manager whose responsibilities include the following.</p>
+<p>The release will be coordinated by a release manager whose responsibilities
+include the following.</p>
 <section id="step-1-preparing-for-the-release">
 <h3>Step 1: Preparing for the release<a class="headerlink" href="#step-1-preparing-for-the-release" title="Link to this heading">#</a></h3>
 <ul class="simple">
-<li><p>Create a zulip thread in <a class="reference external" href="https://napari.zulipchat.com/#narrow/stream/215289-release">the release channel</a>
-letting people know the release candidate is coming and pointing out PRs that would be nice to merge before release.</p></li>
-<li><p>Look through currently open PRs and get a sense of what would be good to merge before the first release candidate. Set milestones appropriately;</p></li>
+<li><p>Create a zulip thread in
+<a class="reference external" href="https://napari.zulipchat.com/#narrow/stream/215289-release">the release channel</a>
+letting people know the release candidate is coming and pointing out PRs that
+would be nice to merge before release.</p></li>
+<li><p>Look through currently open PRs and get a sense of what would be good to
+merge before the first release candidate. Set milestones appropriately;</p></li>
 </ul>
-<p>At this stage, bug fixes and features that are close to landing should be prioritized.
-The release manager will follow up with PR authors, reviewing and merging as needed.
-New features should wait until after release.</p>
+<p>At this stage, bug fixes and features that are close to landing should be
+prioritized. The release manager will follow up with PR authors, reviewing and
+merging as needed. New features should wait until after release.</p>
 </section>
 <section id="step-2-generating-release-notes">
 <h3>Step 2: Generating release notes<a class="headerlink" href="#step-2-generating-release-notes" title="Link to this heading">#</a></h3>
 <ul class="simple">
-<li><p>Add a header and highlights section to the <a class="reference external" href="https://github.com/napari/napari-release-tools/tree/main/additional_notes"><code class="docutils literal notranslate"><span class="pre">additional</span> <span class="pre">notes</span></code></a> folder for the given release.
-Use the <a class="reference external" href="https://github.com/napari/napari/pulls?q=sort%3Aupdated-desc+is%3Apr+is%3Aopen+label%3Ahighlight">highlight label</a> for the relevant milestone to note which PRs to comment on.
-To add images or GIFs and have them display in both the napari docs and the github release notes, add the file as a comment to the appropriate PR.
-You then need to link to the public GitHub asset for that file (obtained via editing the comment and getting the original link) and not the private assets version (which is the link of the previewed image).
-The public link starts with <code class="docutils literal notranslate"><span class="pre">https://github.com/user-attachments/assets/...</span></code> whereas the private link starts with <code class="docutils literal notranslate"><span class="pre">https://private-user-images.githubusercontent.com/...</span></code>.</p></li>
-<li><p>Generate release notes with the <a class="reference external" href="https://github.com/napari/napari-release-tools/blob/main/generate_release_notes.py"><code class="docutils literal notranslate"><span class="pre">generate_release_notes.py</span></code> script from napari/napari-release-tools</a>;</p></li>
+<li><p>Add a header and highlights section to the
+<a class="reference external" href="https://github.com/napari/napari-release-tools/tree/main/additional_notes"><code class="docutils literal notranslate"><span class="pre">additional</span> <span class="pre">notes</span></code></a>
+folder for the given release. Use the
+<a class="reference external" href="https://github.com/napari/napari/pulls?q=sort%3Aupdated-desc+is%3Apr+is%3Aopen+label%3Ahighlight">highlight label</a>
+for the relevant milestone to note which PRs to comment on. To add images or
+GIFs and have them display in both the napari docs and the github release
+notes, add the file as a comment to the appropriate PR. You then need to link
+to the public GitHub asset for that file (obtained via editing the comment
+and getting the original link) and not the private assets version (which is
+the link of the previewed image). The public link starts with
+<code class="docutils literal notranslate"><span class="pre">https://github.com/user-attachments/assets/...</span></code> whereas the private link
+starts with <code class="docutils literal notranslate"><span class="pre">https://private-user-images.githubusercontent.com/...</span></code>.</p></li>
+<li><p>Generate release notes with the
+<a class="reference external" href="https://github.com/napari/napari-release-tools/blob/main/generate_release_notes.py"><code class="docutils literal notranslate"><span class="pre">generate_release_notes.py</span></code> script from napari/napari-release-tools</a>;</p></li>
 <li><p>Make a PR with the release notes, making sure to add the new document to the
 <a class="reference external" href="https://github.com/napari/docs/blob/main/docs/_toc.yml">napari/docs table of contents file</a>.
-See an example of such a PR: <a class="github reference external" href="https://github.com/napari/docs/pull/485">napari/docs#485</a></p></li>
+See an example of such a PR:
+<a class="github reference external" href="https://github.com/napari/docs/pull/485">napari/docs#485</a></p></li>
 </ul>
-<p>At this point the release manager should ideally be the only person merging PRs on the repo for the next few days before the release.</p>
+<p>At this point the release manager should ideally be the only person merging PRs
+on the repo for the next few days before the release.</p>
 </section>
 <section id="step-3-making-the-prerelease">
 <h3>Step 3: Making the prerelease<a class="headerlink" href="#step-3-making-the-prerelease" title="Link to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Merge any remaining PRs and update release notes accordingly;</p></li>
-<li><p>Ensure <a class="reference external" href="https://github.com/napari/packaging/blob/main/conda-recipe/recipe.yaml"><code class="docutils literal notranslate"><span class="pre">conda-recipe/recipe.yaml</span></code></a> in <code class="docutils literal notranslate"><span class="pre">napari/packaging</span></code> is up-to-date (e.g. <code class="docutils literal notranslate"><span class="pre">run</span></code> dependencies match <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code> requirements);</p></li>
+<li><p>Ensure
+<a class="reference external" href="https://github.com/napari/packaging/blob/main/conda-recipe/recipe.yaml"><code class="docutils literal notranslate"><span class="pre">conda-recipe/recipe.yaml</span></code></a>
+in <code class="docutils literal notranslate"><span class="pre">napari/packaging</span></code> is up-to-date (e.g. <code class="docutils literal notranslate"><span class="pre">run</span></code> dependencies match
+<code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code> requirements);</p></li>
 <li><p>Merge release notes;</p></li>
 <li><p>Make the release candidate and announce on zulip;</p></li>
-<li><p>Announce to release stream on zulip that the first release candidate is available for testing.</p></li>
+<li><p>Announce to release stream on zulip that the first release candidate is
+available for testing.</p></li>
 </ul>
 </section>
 <section id="step-4-testing-the-prerelease">
@@ -654,10 +672,13 @@ See an example of such a PR: <a class="github reference external" href="https://
 </section>
 <section id="release-procedures">
 <h2>Release procedures<a class="headerlink" href="#release-procedures" title="Link to this heading">#</a></h2>
-<p>The <code class="docutils literal notranslate"><span class="pre">release</span></code> dependency group (<code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-e</span> <span class="pre">.</span> <span class="pre">--group</span> <span class="pre">release</span></code>, from the <code class="docutils literal notranslate"><span class="pre">napari/napari</span></code> root folder) are required to complete the release process.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">release</span></code> dependency group (<code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-e</span> <span class="pre">.</span> <span class="pre">--group</span> <span class="pre">release</span></code>,
+from the <code class="docutils literal notranslate"><span class="pre">napari/napari</span></code> root folder) are required to complete the release
+process.</p>
 <blockquote>
-<div><p><a class="reference external" href="https://github.com/napari/napari/blob/main/MANIFEST.in"><code class="docutils literal notranslate"><span class="pre">MANIFEST.in</span></code></a> determines which non-Python files are included.
-Make sure to check that all necessary ones are listed before beginning the release process.</p>
+<div><p><a class="reference external" href="https://github.com/napari/napari/blob/main/MANIFEST.in"><code class="docutils literal notranslate"><span class="pre">MANIFEST.in</span></code></a>
+determines which non-Python files are included. Make sure to check that all
+necessary ones are listed before beginning the release process.</p>
 </div></blockquote>
 <p>The <code class="docutils literal notranslate"><span class="pre">napari/napari</span></code> repository must have a PyPI API token as a GitHub secret.
 This likely has been done already, but if it has not, follow
@@ -680,11 +701,11 @@ release though we need to generate the release notes.</p>
 <li><p>Grab the <code class="docutils literal notranslate"><span class="pre">generate_release_notes.py</span></code> script from the
 <a class="reference external" href="https://github.com/napari/napari-release-tools">napari/napari-release-tools</a>
 repo. Make a list of merges, contributors, and reviewers by running
-<code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">generate_release_notes.py</span> <span class="pre">-h</span></code> and following that file’s usage.
-For each release generate the list to include everything since the last release for which there
-are release notes (which should just be the last release).</p>
-<p>Prior to generating release notes, you will need to set your GitHub token environment variable:
-On Linux or MacOS:</p>
+<code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">generate_release_notes.py</span> <span class="pre">-h</span></code> and following that file’s usage. For
+each release generate the list to include everything since the last release
+for which there are release notes (which should just be the last release).</p>
+<p>Prior to generating release notes, you will need to set your GitHub token
+environment variable: On Linux or MacOS:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">GH_TOKEN</span><span class="o">=</span><span class="s1">'&lt;your-gh-api-token&gt;'</span>
 </pre></div>
 </div>
@@ -702,28 +723,36 @@ and bugfixes, and mention these in the relevant sections of the notes.
 Try to present the information in an expressive way by mentioning
 the affected functions, elaborating on the changes and their
 consequences. If possible, organize semantically close PRs in groups.</p></li>
-<li><p>Make sure the file name is of the form <code class="docutils literal notranslate"><span class="pre">doc/release/release_&lt;macro&gt;_&lt;meso&gt;_&lt;micro&gt;.md</span></code>, e.g. <code class="docutils literal notranslate"><span class="pre">doc/release/release_0_5_4.md</span></code>.</p></li>
-<li><p><strong>Important</strong>: Make and merge a PR in <code class="docutils literal notranslate"><span class="pre">napari/docs</span></code> with these release notes before moving onto the next steps.
-If these release notes are not merged, the release will fail because the
+<li><p>Make sure the file name is of the form
+<code class="docutils literal notranslate"><span class="pre">doc/release/release_&lt;macro&gt;_&lt;meso&gt;_&lt;micro&gt;.md</span></code>, e.g.
+<code class="docutils literal notranslate"><span class="pre">doc/release/release_0_5_4.md</span></code>.</p></li>
+<li><p><strong>Important</strong>: Make and merge a PR in <code class="docutils literal notranslate"><span class="pre">napari/docs</span></code> with these release notes
+before moving onto the next steps. If these release notes are not merged,
+the release will fail because the
 <a class="reference external" href="https://github.com/napari/napari/blob/main/.github/workflows/make_release.yml"><code class="docutils literal notranslate"><span class="pre">make_release.yml</span></code> workflow</a>
 will not be able to find the release notes file.</p></li>
 </ol>
 </section>
 <section id="update-constraints-files">
 <h3>Update constraints files<a class="headerlink" href="#update-constraints-files" title="Link to this heading">#</a></h3>
-<p><code class="docutils literal notranslate"><span class="pre">napari</span></code> uses a set of constraints files to prevent test failures due to dependency updates. This also allows for reproducible builds (see <a class="reference internal" href="../contributing/dev_install.html#dev-installation"><span class="std std-ref">Setting up a development installation</span></a>).
-These constraints files need to be updated at least weekly on Monday, and may also be triggered manually by a maintainer. You can find these files at
+<p><code class="docutils literal notranslate"><span class="pre">napari</span></code> uses a set of constraints files to prevent test failures due to
+dependency updates. This also allows for reproducible builds (see
+<a class="reference internal" href="../contributing/dev_install.html#dev-installation"><span class="std std-ref">Setting up a development installation</span></a>). These constraints files need to be updated at least
+weekly on Monday, and may also be triggered manually by a maintainer. You can
+find these files at
 <a class="reference external" href="https://github.com/napari/napari/tree/main/resources/constraints">resources/constraints</a>.</p>
 <section id="via-bot-recommended-for-prs">
 <h4>Via bot (recommended for PRs)<a class="headerlink" href="#via-bot-recommended-for-prs" title="Link to this heading">#</a></h4>
-<p>To get updated constraints for a PR, comment <code class="docutils literal notranslate"><span class="pre">&#64;napari-bot</span> <span class="pre">update</span> <span class="pre">constraints</span></code> on the PR. The bot will
-run the full upgrade workflow and push the updated constraints to the <code class="docutils literal notranslate"><span class="pre">napari-bot/napari</span></code> repository.</p>
+<p>To get updated constraints for a PR, comment <code class="docutils literal notranslate"><span class="pre">&#64;napari-bot</span> <span class="pre">update</span> <span class="pre">constraints</span></code>
+on the PR. The bot will run the full upgrade workflow and push the updated
+constraints to the <code class="docutils literal notranslate"><span class="pre">napari-bot/napari</span></code> repository.</p>
 </section>
 <section id="locally-with-compile-constraints-sh">
 <h4>Locally with <code class="docutils literal notranslate"><span class="pre">compile_constraints.sh</span></code><a class="headerlink" href="#locally-with-compile-constraints-sh" title="Link to this heading">#</a></h4>
-<p>The <a class="reference external" href="https://github.com/napari/napari/blob/main/tools/compile_constraints.sh"><code class="docutils literal notranslate"><span class="pre">compile_constraints.sh</span></code></a>
-script automates regenerating all constraint files at once. You need <code class="docutils literal notranslate"><span class="pre">uv</span></code> installed and a
-<strong>bash environment</strong> (on Windows, use WSL or Git Bash).</p>
+<p>The
+<a class="reference external" href="https://github.com/napari/napari/blob/main/tools/compile_constraints.sh"><code class="docutils literal notranslate"><span class="pre">compile_constraints.sh</span></code></a>
+script automates regenerating all constraint files at once. You need <code class="docutils literal notranslate"><span class="pre">uv</span></code>
+installed and a <strong>bash environment</strong> (on Windows, use WSL or Git Bash).</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Regenerate all constraint files (upgrade everything to latest)</span>
 tools/compile_constraints.sh
 
@@ -734,22 +763,23 @@ tools/compile_constraints.sh<span class="w"> </span>pyside6
 tools/compile_constraints.sh<span class="w"> </span>pyside6<span class="w"> </span>pyqt6-qt6
 </pre></div>
 </div>
-<p>Run the <code class="docutils literal notranslate"><span class="pre">compile_constraints.sh</span></code> script with the flags <code class="docutils literal notranslate"><span class="pre">-h</span></code> or <code class="docutils literal notranslate"><span class="pre">--help</span></code> for usage details within the CLI.</p>
+<p>Run the <code class="docutils literal notranslate"><span class="pre">compile_constraints.sh</span></code> script with the flags <code class="docutils literal notranslate"><span class="pre">-h</span></code> or <code class="docutils literal notranslate"><span class="pre">--help</span></code> for
+usage details within the CLI.</p>
 <div class="note admonition">
 <p class="admonition-title">Package name matching</p>
-<p>The script checks whether each named package already appears in an existing constraint
-file. Package names are <strong>case-sensitive</strong> — use the lowercase form found in the
-constraints (e.g., <code class="docutils literal notranslate"><span class="pre">pyside6</span></code>, not <code class="docutils literal notranslate"><span class="pre">PySide6</span></code>). Underscores and hyphens are treated
-as equivalent.</p>
+<p>The script checks whether each named package already appears in an existing
+constraint file. Package names are <strong>case-sensitive</strong> — use the lowercase form
+found in the constraints (e.g., <code class="docutils literal notranslate"><span class="pre">pyside6</span></code>, not <code class="docutils literal notranslate"><span class="pre">PySide6</span></code>). Underscores and
+hyphens are treated as equivalent.</p>
 </div>
-<p>If a package is not found in any constraint file, the script prints an error and exits.
-Packages that are transitive dependencies (not pinned in constraints) cannot be upgraded
-with this script directly.</p>
+<p>If a package is not found in any constraint file, the script prints an error
+and exits. Packages that are transitive dependencies (not pinned in
+constraints) cannot be upgraded with this script directly.</p>
 </section>
 <section id="manually-with-uv-pip-compile">
 <h4>Manually with <code class="docutils literal notranslate"><span class="pre">uv</span> <span class="pre">pip</span> <span class="pre">compile</span></code><a class="headerlink" href="#manually-with-uv-pip-compile" title="Link to this heading">#</a></h4>
-<p>You can also update a single constraint file by copying the command from the <strong>second line</strong>
-of that file. For example:</p>
+<p>You can also update a single constraint file by copying the command from the
+<strong>second line</strong> of that file. For example:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>uv<span class="w"> </span>pip<span class="w"> </span>compile<span class="w"> </span>--python-version<span class="w"> </span><span class="m">3</span>.12<span class="w"> </span>--output-file<span class="w"> </span>resources/constraints/constraints_py3.12.txt<span class="w"> </span>pyproject.toml<span class="w"> </span>resources/constraints/version_denylist.txt<span class="w"> </span>--extra<span class="w"> </span>pyqt6<span class="w"> </span>--extra<span class="w"> </span>pyside6<span class="w"> </span>--extra<span class="w"> </span>testing<span class="w"> </span>--group<span class="w"> </span>testing_extra<span class="w"> </span>--extra<span class="w"> </span>all_optional<span class="w"> </span>--exclude<span class="w"> </span>resources/constraints/napari_exclude.txt
 </pre></div>
 </div>
@@ -765,41 +795,48 @@ command reads <code class="docutils literal notranslate"><span class="pre">pypro
 <li><p><strong>Test infrastructure packages</strong> like <code class="docutils literal notranslate"><span class="pre">pytest-json-report</span></code></p></li>
 </ul>
 </div>
-<p>See the <a class="reference external" href="https://github.com/napari/napari/blob/main/.github/workflows/upgrade_test_constraints.yml">upgrade test constraints workflow</a>
+<p>See the
+<a class="reference external" href="https://github.com/napari/napari/blob/main/.github/workflows/upgrade_test_constraints.yml">upgrade test constraints workflow</a>
 for how this runs in CI.</p>
 </section>
 </section>
 <section id="tagging-the-new-release-candidate">
 <h3>Tagging the new release candidate<a class="headerlink" href="#tagging-the-new-release-candidate" title="Link to this heading">#</a></h3>
-<p>First we will generate a release candidate, which will contain the letters <code class="docutils literal notranslate"><span class="pre">rc</span></code>.
-Using release candidates allows us to test releases on PyPI without using up the actual
-release number. You may instead wish to release an alpha candidate, much earlier
-in the release process, would would use <code class="docutils literal notranslate"><span class="pre">a</span></code> instead of <code class="docutils literal notranslate"><span class="pre">rc</span></code> in the tag name.</p>
-<p>You will likely want to tag upstream/main; first, fetch and checkout main. The <code class="docutils literal notranslate"><span class="pre">-s</span></code>
-option is used to sign the tag, but is optional if you do not have a key set up.
-It is also recommend to add a tag message containing the release notes, with the <code class="docutils literal notranslate"><span class="pre">-F</span></code> option.
-If you have the docs repo checked out next to the napari repo as <code class="docutils literal notranslate"><span class="pre">napari-docs</span></code>, you can do this as follows:</p>
+<p>First we will generate a release candidate, which will contain the letters
+<code class="docutils literal notranslate"><span class="pre">rc</span></code>. Using release candidates allows us to test releases on PyPI without using
+up the actual release number. You may instead wish to release an alpha
+candidate, much earlier in the release process, would would use <code class="docutils literal notranslate"><span class="pre">a</span></code> instead of
+<code class="docutils literal notranslate"><span class="pre">rc</span></code> in the tag name.</p>
+<p>You will likely want to tag upstream/main; first, fetch and checkout main. The
+<code class="docutils literal notranslate"><span class="pre">-s</span></code> option is used to sign the tag, but is optional if you do not have a key
+set up. It is also recommend to add a tag message containing the release notes,
+with the <code class="docutils literal notranslate"><span class="pre">-F</span></code> option. If you have the docs repo checked out next to the napari
+repo as <code class="docutils literal notranslate"><span class="pre">napari-docs</span></code>, you can do this as follows:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>fetch<span class="w"> </span>upstream
 git<span class="w"> </span>checkout<span class="w"> </span>upstream/main
 git<span class="w"> </span>tag<span class="w"> </span>-s<span class="w"> </span><span class="s2">"vX.Y.Zrc0"</span><span class="w"> </span>-F<span class="w"> </span>../napari-docs/release/release_X_Y_Z.md
 </pre></div>
 </div>
-<p>If you would like to check that the tag is correct, you can use the <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">show</span></code> command:</p>
+<p>If you would like to check that the tag is correct, you can use the <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">show</span></code>
+command:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>show<span class="w"> </span><span class="s2">"vX.Y.Zrc0"</span>
 </pre></div>
 </div>
-<p>If the tag is meant for a previous version of main, simply reference the specific commit:</p>
+<p>If the tag is meant for a previous version of main, simply reference the
+specific commit:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>tag<span class="w"> </span><span class="s2">"vX.Y.Zrc0"</span><span class="w"> </span>abcde42
 </pre></div>
 </div>
-<p>Note here how we are using <code class="docutils literal notranslate"><span class="pre">rc</span></code> for release candidate to create a version of our release we can test
-before making the real release.</p>
-<p>You can read more on tagging <a class="reference external" href="https://git-scm.com/book/en/v2/Git-Basics-Tagging">here</a>.</p>
+<p>Note here how we are using <code class="docutils literal notranslate"><span class="pre">rc</span></code> for release candidate to create a version of
+our release we can test before making the real release.</p>
+<p>You can read more on tagging
+<a class="reference external" href="https://git-scm.com/book/en/v2/Git-Basics-Tagging">in the Git documentation</a>.</p>
 </section>
 <section id="testing-the-release-candidate">
 <h3>Testing the release candidate<a class="headerlink" href="#testing-the-release-candidate" title="Link to this heading">#</a></h3>
-<p>Our CI automatically makes a release, copying the release notes to the tag and uploading the distribution to PyPI.
-You can trigger this by pushing the new tag to <code class="docutils literal notranslate"><span class="pre">napari/napari</span></code>:</p>
+<p>Our CI automatically makes a release, copying the release notes to the tag and
+uploading the distribution to PyPI. You can trigger this by pushing the new tag
+to <code class="docutils literal notranslate"><span class="pre">napari/napari</span></code>:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>push<span class="w"> </span>upstream<span class="w"> </span>vX.Y.Zrc0<span class="w"> </span>--tags
 </pre></div>
 </div>
@@ -809,46 +846,66 @@ You can trigger this by pushing the new tag to <code class="docutils literal not
 </div>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
-<p>While the latest prerelease (alpha or release candidate) can be installed with <code class="docutils literal notranslate"><span class="pre">--pre</span></code>,
-this results in <em>all</em> dependencies being installed as prereleases. This has
-resulted in other dependencies breaking napari, so instead we recommend promoting
-installation of prereleases by specifying the version explicitly, e.g.:</p>
+<p>While the latest prerelease (alpha or release candidate) can be installed with
+<code class="docutils literal notranslate"><span class="pre">--pre</span></code>, this results in <em>all</em> dependencies being installed as prereleases.
+This has resulted in other dependencies breaking napari, so instead we
+recommend promoting installation of prereleases by specifying the version
+explicitly, e.g.:</p>
 <p><code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">pip</span> <span class="pre">install</span> <span class="pre">&quot;napari[all]&gt;=0.9.1a0&quot;</span></code></p>
 </div>
-<p>It is recommended that the release candidate is tested in a virtual environment in order to isolate dependencies.</p>
-<p>If the release candidate is not what you want, make your changes and repeat the process from the beginning but
-incrementing the number after <code class="docutils literal notranslate"><span class="pre">rc</span></code> on tag (e.g. <code class="docutils literal notranslate"><span class="pre">vX.Y.Zrc2</span></code>).</p>
-<p>Once you are satisfied with the release candidate it is time to generate the actual release.</p>
+<p>It is recommended that the release candidate is tested in a virtual environment
+in order to isolate dependencies.</p>
+<p>If the release candidate is not what you want, make your changes and repeat the
+process from the beginning but incrementing the number after <code class="docutils literal notranslate"><span class="pre">rc</span></code> on tag (e.g.
+<code class="docutils literal notranslate"><span class="pre">vX.Y.Zrc2</span></code>).</p>
+<p>Once you are satisfied with the release candidate it is time to generate the
+actual release.</p>
 </section>
 <section id="generating-the-actual-release">
 <h3>Generating the actual release<a class="headerlink" href="#generating-the-actual-release" title="Link to this heading">#</a></h3>
-<p>To generate the actual release you will now repeat the processes above but now dropping the <code class="docutils literal notranslate"><span class="pre">rc</span></code>.
-For example:</p>
+<p>To generate the actual release you will now repeat the processes above but now
+dropping the <code class="docutils literal notranslate"><span class="pre">rc</span></code>. For example:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>tag<span class="w"> </span>-s<span class="w"> </span><span class="s2">"vX.Y.Z"</span><span class="w"> </span>-F<span class="w"> </span>../napari-docs/release/release_X_Y_Z.md
 git<span class="w"> </span>push<span class="w"> </span>upstream<span class="w"> </span>--tags
 </pre></div>
 </div>
-<p>Once the new tag is pushed, the <a class="reference external" href="https://github.com/napari/napari/blob/main/.github/workflows/make_release.yml"><code class="docutils literal notranslate"><span class="pre">make_release.yml</span></code> workflow</a> will be triggered, using the <a class="reference external" href="https://github.com/pypa/gh-action-pypi-publish">PyPI Publish action</a> to publish the new napari version to PyPI using <a class="reference external" href="https://docs.pypi.org/trusted-publishers/">Trusted Publishers</a>.</p>
+<p>Once the new tag is pushed, the
+<a class="reference external" href="https://github.com/napari/napari/blob/main/.github/workflows/make_release.yml"><code class="docutils literal notranslate"><span class="pre">make_release.yml</span></code> workflow</a>
+will be triggered, using the
+<a class="reference external" href="https://github.com/pypa/gh-action-pypi-publish">PyPI Publish action</a> to
+publish the new napari version to PyPI using
+<a class="reference external" href="https://docs.pypi.org/trusted-publishers/">Trusted Publishers</a>.</p>
 </section>
 </section>
 <section id="conda-forge-packages">
 <h2>conda-forge packages<a class="headerlink" href="#conda-forge-packages" title="Link to this heading">#</a></h2>
 <p>The packages on <code class="docutils literal notranslate"><span class="pre">conda-forge</span></code> are not controlled directly by our repositories.
 Instead, they are governed by the <code class="docutils literal notranslate"><span class="pre">conda-forge/napari-feedstock</span></code> repository.
-The essential actions are automated, but there are a few maintenance notes we need to have in mind.
-For a more complete description of the napari packaging infrastructure, see <a class="reference internal" href="packaging.html#napari-packaging"><span class="std std-ref">Packaging</span></a>.</p>
+The essential actions are automated, but there are a few maintenance notes we
+need to have in mind. For a more complete description of the napari packaging
+infrastructure, see <a class="reference internal" href="packaging.html#napari-packaging"><span class="std std-ref">Packaging</span></a>.</p>
 <section id="new-releases">
 <h3>New releases<a class="headerlink" href="#new-releases" title="Link to this heading">#</a></h3>
-<p>Once the PyPI release is available, the <code class="docutils literal notranslate"><span class="pre">conda-forge</span></code> bots will submit a PR to <code class="docutils literal notranslate"><span class="pre">conda-forge/napari-feedstock</span></code> within about twelves hours. Alternatively, to speed up the process, you may open an issue with title <a class="reference external" href="https://github.com/conda-forge/napari-feedstock/issues/new?template=2-bot-commands.yml"><code class="docutils literal notranslate"><span class="pre">&#64;conda-forge-admin,</span> <span class="pre">please</span> <span class="pre">update</span> <span class="pre">version</span></code></a> to manually trigger the bot. The release manager may not have push/merge rights to the feedstock, so ask a recipe maintainer for assistance. Merging the bot PR to <code class="docutils literal notranslate"><span class="pre">main</span></code> will trigger the <code class="docutils literal notranslate"><span class="pre">conda-forge</span></code> release.
-Accounting for the build times and the CDN sync, this means that the <code class="docutils literal notranslate"><span class="pre">conda-forge</span></code> packages will be available 30-60 mins after the PR is merged.</p>
+<p>Once the PyPI release is available, the <code class="docutils literal notranslate"><span class="pre">conda-forge</span></code> bots will submit a PR to
+<code class="docutils literal notranslate"><span class="pre">conda-forge/napari-feedstock</span></code> within about twelves hours. Alternatively, to
+speed up the process, you may open an issue with title
+<a class="reference external" href="https://github.com/conda-forge/napari-feedstock/issues/new?template=2-bot-commands.yml"><code class="docutils literal notranslate"><span class="pre">&#64;conda-forge-admin,</span> <span class="pre">please</span> <span class="pre">update</span> <span class="pre">version</span></code></a>
+to manually trigger the bot. The release manager may not have push/merge rights
+to the feedstock, so ask a recipe maintainer for assistance. Merging the bot PR
+to <code class="docutils literal notranslate"><span class="pre">main</span></code> will trigger the <code class="docutils literal notranslate"><span class="pre">conda-forge</span></code> release. Accounting for the build
+times and the CDN sync, this means that the <code class="docutils literal notranslate"><span class="pre">conda-forge</span></code> packages will be
+available 30-60 mins after the PR is merged.</p>
 <p>Before merging, please pay special attention to these aspects:</p>
 <ul class="simple">
-<li><p>Version string has been correctly updated. The build number should have been reset to <code class="docutils literal notranslate"><span class="pre">0</span></code> now.</p></li>
-<li><p>The CI passes correctly. Do check the logs, especially the test section (search for <code class="docutils literal notranslate"><span class="pre">TEST</span> <span class="pre">START</span></code>).</p></li>
-<li><p>The <code class="docutils literal notranslate"><span class="pre">run</span></code> dependencies in <code class="docutils literal notranslate"><span class="pre">recipe/meta.yaml</span></code> match the runtime requirements of the PyPI release (listed in <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code>).
-Watch for modified version constraints, as well as added or removed packages.
-Note that the <code class="docutils literal notranslate"><span class="pre">conda-forge</span></code> packages include some more dependencies for convenience,
-so you might need to check the <code class="docutils literal notranslate"><span class="pre">optional</span></code> sections in <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code>.</p></li>
+<li><p>Version string has been correctly updated. The build number should have been
+reset to <code class="docutils literal notranslate"><span class="pre">0</span></code> now.</p></li>
+<li><p>The CI passes correctly. Do check the logs, especially the test section
+(search for <code class="docutils literal notranslate"><span class="pre">TEST</span> <span class="pre">START</span></code>).</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">run</span></code> dependencies in <code class="docutils literal notranslate"><span class="pre">recipe/meta.yaml</span></code> match the runtime requirements
+of the PyPI release (listed in <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code>). Watch for modified version
+constraints, as well as added or removed packages. Note that the
+<code class="docutils literal notranslate"><span class="pre">conda-forge</span></code> packages include some more dependencies for convenience, so you
+might need to check the <code class="docutils literal notranslate"><span class="pre">optional</span></code> sections in <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code>.</p></li>
 </ul>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -863,19 +920,24 @@ so you might need to check the <code class="docutils literal notranslate"><span 
 <section id="patch-dependencies-of-previous-releases">
 <h3>Patch dependencies of previous releases<a class="headerlink" href="#patch-dependencies-of-previous-releases" title="Link to this heading">#</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">conda-forge</span></code> offers a mechanism to patch the metadata of existing releases.
-This is useful when a new dependency release breaks <code class="docutils literal notranslate"><span class="pre">napari</span></code> in some way or, in general,
-when the metadata of an existing package is proven wrong after it has been released.</p>
+This is useful when a new dependency release breaks <code class="docutils literal notranslate"><span class="pre">napari</span></code> in some way or, in
+general, when the metadata of an existing package is proven wrong after it has
+been released.</p>
 <p>To amend the metadata, we need to:</p>
 <ul class="simple">
 <li><p>Encode the patch instructions as a PR to
 <a class="reference external" href="https://github.com/conda-forge/conda-forge-repodata-patches-feedstock"><code class="docutils literal notranslate"><span class="pre">conda-forge/conda-forge-repodata-patches-feedstock</span></code></a>:</p>
 <ul>
-<li><p>Add the required changes to <code class="docutils literal notranslate"><span class="pre">recipe/gen_patch_json.py</span></code>, under the <a class="reference external" href="https://github.com/conda-forge/conda-forge-repodata-patches-feedstock/blob/6aa624be7fe4e3627daea095c8d92b7379b3bb66/recipe/gen_patch_json.py#L1562"><code class="docutils literal notranslate"><span class="pre">record_name</span> <span class="pre">==</span> <span class="pre">'napari'</span></code> section</a>.</p></li>
-<li><p>Use a <a class="reference external" href="https://github.com/conda-forge/conda-forge-repodata-patches-feedstock/blob/6aa624be7fe4e3627daea095c8d92b7379b3bb66/recipe/gen_patch_json.py#L1564">timestamp condition</a> to ensure only existing releases are patched.</p></li>
+<li><p>Add the required changes to <code class="docutils literal notranslate"><span class="pre">recipe/gen_patch_json.py</span></code>, under the
+<a class="reference external" href="https://github.com/conda-forge/conda-forge-repodata-patches-feedstock/blob/6aa624be7fe4e3627daea095c8d92b7379b3bb66/recipe/gen_patch_json.py#L1562"><code class="docutils literal notranslate"><span class="pre">record_name</span> <span class="pre">==</span> <span class="pre">'napari'</span></code> section</a>.</p></li>
+<li><p>Use a
+<a class="reference external" href="https://github.com/conda-forge/conda-forge-repodata-patches-feedstock/blob/6aa624be7fe4e3627daea095c8d92b7379b3bb66/recipe/gen_patch_json.py#L1564">timestamp condition</a>
+to ensure only existing releases are patched.</p></li>
 </ul>
 </li>
-<li><p>If necessary, make sure the metadata is amended in the feedstock too.
-Usually this is not needed until a new release is made, but it’s important to remember!</p></li>
+<li><p>If necessary, make sure the metadata is amended in the feedstock too. Usually
+this is not needed until a new release is made, but it’s important to
+remember!</p></li>
 </ul>
 <p>Some previous examples include:</p>
 <ul class="simple">
@@ -885,33 +947,47 @@ Usually this is not needed until a new release is made, but it’s important to 
 </section>
 <section id="broken-packages">
 <h3>Broken packages<a class="headerlink" href="#broken-packages" title="Link to this heading">#</a></h3>
-<p>In some cases, a wrongly merged PR might cause the release of a broken artifact.
-If this is not fixable with a metadata patch (see above), then the packages can be marked as broken.
-To do so, we can submit a PR to <code class="docutils literal notranslate"><span class="pre">conda-forge/admin-requests</span></code>.</p>
+<p>In some cases, a wrongly merged PR might cause the release of a broken
+artifact. If this is not fixable with a metadata patch (see above), then the
+packages can be marked as broken. To do so, we can submit a PR to
+<code class="docutils literal notranslate"><span class="pre">conda-forge/admin-requests</span></code>.</p>
 <p>For more details, follow the instructions for
 <a class="reference external" href="https://github.com/conda-forge/admin-requests#mark-packages-as-broken-on-conda-forge">“Mark packages as broken on conda-forge”</a>.</p>
-<p>Please make sure a correct build for the problematic release is available before (or shortly after) the <code class="docutils literal notranslate"><span class="pre">admin-requests</span></code> PR is merged!</p>
+<p>Please make sure a correct build for the problematic release is available
+before (or shortly after) the <code class="docutils literal notranslate"><span class="pre">admin-requests</span></code> PR is merged!</p>
 </section>
 </section>
 <section id="post-release">
 <h2>Post release<a class="headerlink" href="#post-release" title="Link to this heading">#</a></h2>
 <section id="update-documentation-based-on-user-feedback">
 <h3>Update documentation based on user feedback<a class="headerlink" href="#update-documentation-based-on-user-feedback" title="Link to this heading">#</a></h3>
-<p>The <a class="reference external" href="https://napari.org">napari docs</a> are versioned, meaning that each release has its own documentation, selected through the version switcher dropdown. Once you tag a new version in the <code class="docutils literal notranslate"><span class="pre">napari/napari</span></code> repo, the <a class="reference external" href="https://github.com/napari/docs/blob/main/.github/workflows/build_and_deploy.yml"><code class="docutils literal notranslate"><span class="pre">build_and_deploy.yml</span></code> workflow</a> will automatically create a new folder for this version number in the <code class="docutils literal notranslate"><span class="pre">gh-pages</span></code> branch of the <code class="docutils literal notranslate"><span class="pre">napari/napari.github.io</span></code> repo.</p>
+<p>The <a class="reference external" href="https://napari.org">napari docs</a> are versioned, meaning that each release
+has its own documentation, selected through the version switcher dropdown. Once
+you tag a new version in the <code class="docutils literal notranslate"><span class="pre">napari/napari</span></code> repo, the
+<a class="reference external" href="https://github.com/napari/docs/blob/main/.github/workflows/build_and_deploy.yml"><code class="docutils literal notranslate"><span class="pre">build_and_deploy.yml</span></code> workflow</a>
+will automatically create a new folder for this version number in the
+<code class="docutils literal notranslate"><span class="pre">gh-pages</span></code> branch of the <code class="docutils literal notranslate"><span class="pre">napari/napari.github.io</span></code> repo.</p>
 <p>Next, you need to do the following:</p>
 <ol class="arabic simple">
-<li><p>In the <code class="docutils literal notranslate"><span class="pre">napari/napari.github.io</span></code> repo, update the <code class="docutils literal notranslate"><span class="pre">stable</span></code> symlink in the <code class="docutils literal notranslate"><span class="pre">gh-pages</span></code> branch to point to the new version. This can be done by manually triggering this <a class="reference external" href="https://github.com/napari/napari.github.io/actions/workflows/symlink-stable.yml">stable symlink action</a>. Enter X.Y.Z into the trigger box; do not include <code class="docutils literal notranslate"><span class="pre">v</span></code> as a prefix.</p></li>
-<li><p>In the <code class="docutils literal notranslate"><span class="pre">napari/docs</span></code> repo, update the <a class="reference external" href="https://github.com/napari/docs/blob/main/docs/_static/version_switcher.json"><code class="docutils literal notranslate"><span class="pre">docs/_static/version_switcher.json</span></code> file</a>
-so that <code class="docutils literal notranslate"><span class="pre">stable</span></code> points to the right version.
-The active version switcher is read from the file in the <code class="docutils literal notranslate"><span class="pre">dev</span></code> folder, so this can be done as the last step in the process.
-You can find an example in <a class="reference external" href="https://github.com/napari/docs/pull/754">this PR</a>.</p></li>
+<li><p>In the <code class="docutils literal notranslate"><span class="pre">napari/napari.github.io</span></code> repo, update the <code class="docutils literal notranslate"><span class="pre">stable</span></code> symlink in the
+<code class="docutils literal notranslate"><span class="pre">gh-pages</span></code> branch to point to the new version. This can be done by manually
+triggering this
+<a class="reference external" href="https://github.com/napari/napari.github.io/actions/workflows/symlink-stable.yml">stable symlink action</a>.
+Enter X.Y.Z into the trigger box; do not include <code class="docutils literal notranslate"><span class="pre">v</span></code> as a prefix.</p></li>
+<li><p>In the <code class="docutils literal notranslate"><span class="pre">napari/docs</span></code> repo, update the
+<a class="reference external" href="https://github.com/napari/docs/blob/main/docs/_static/version_switcher.json"><code class="docutils literal notranslate"><span class="pre">docs/_static/version_switcher.json</span></code> file</a>
+so that <code class="docutils literal notranslate"><span class="pre">stable</span></code> points to the right version. The active version switcher is
+read from the file in the <code class="docutils literal notranslate"><span class="pre">dev</span></code> folder, so this can be done as the last step
+in the process. You can find an example in
+<a class="reference external" href="https://github.com/napari/docs/pull/754">this PR</a>.</p></li>
 </ol>
 </section>
 <section id="plan-a-bug-release">
 <h3>Plan a bug release<a class="headerlink" href="#plan-a-bug-release" title="Link to this heading">#</a></h3>
 <p>If any critical bugs are found in the release, a bug release should be planned.
-This will be a micro release with the bug fixes and few or no new features.
-The release manager should coordinate with the maintainers to ensure that the bug release is made in a timely manner.</p>
+This will be a micro release with the bug fixes and few or no new features. The
+release manager should coordinate with the maintainers to ensure that the bug
+release is made in a timely manner.</p>
 </section>
 </section>
 </section>

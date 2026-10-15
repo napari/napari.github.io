@@ -27,16 +27,18 @@ the user clicked.
 When a user clicks or moves the mouse in the canvas, napari emits a mouse event
 with the following properties:
 
-- **pos**: the position of the click in canvas coordinates.
-- **position**: the position of the click in world coordinates. The point is
-  located at the intersection of the click line (`view_direction`) and a plane
-  parallel to the camera plane (i.e,. a plane normal to `view_direction`).
-- **view_direction**: a unit vector giving the direction of the camera in
-  world coordinates.
+- **pos**: the position of the click in canvas coordinates, as an `(x, y)` pair
+  in pixels.
+- **position**: the position of the click in world coordinates, with one value
+  per dimension. In 3D mode the point is located at the intersection of the
+  click line (`view_direction`) and a plane parallel to the camera plane (i.e,.
+  a plane normal to `view_direction`).
+- **view_direction**: a unit vector in world coordinates pointing from the
+  camera into the scene along the click line. It is `None` in 2D mode.
 - **dims_displayed**: a list of the dimensions currently being displayed
   in the viewer. This comes from `viewer.dims.displayed`.
-- **dims_point**: the indices for the data in view in world coordinates. This
-  comes from `viewer.dims.point`.
+- **dims_point**: the current slicing position for each dimension in world
+  coordinates. This comes from `viewer.dims.point`.
 
 ## Determining where the click intersects the data
 

@@ -45,7 +45,7 @@
   <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=18bd87630a240e9c25be" />
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=18bd87630a240e9c25be" />
 
-    <script src="../../../../_static/documentation_options.js?v=dde3ba53"></script>
+    <script src="../../../../_static/documentation_options.js?v=5037a9aa"></script>
     <script src="../../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -2551,6 +2551,15 @@ window.runMermaid = runMermaid;</script>
         <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mode</span><span class="p">:</span>
             <span class="k">return</span>
 
+        <span class="n">is_creating</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_creating</span>
+        <span class="k">if</span> <span class="n">is_creating</span><span class="p">:</span>
+            <span class="c1"># Shapes._finish_drawing() calls Shapes.refresh() via Shapes._update_dims()</span>
+            <span class="c1"># so we need to block thumbnail update from here</span>
+            <span class="c1"># TODO: this is not great... ideally we should no longer need this blocking system</span>
+            <span class="c1">#       but maybe follow up PR</span>
+            <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">block_thumbnail_update</span><span class="p">():</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_finish_drawing</span><span class="p">()</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">_mode</span> <span class="o">=</span> <span class="n">mode</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">mode</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="n">mode</span><span class="p">)</span>
 
@@ -2565,14 +2574,7 @@ window.runMermaid = runMermaid;</script>
         <span class="k">if</span> <span class="n">mode</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">non_draw_modes</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">selected_data</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
 
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_creating</span><span class="p">:</span>
-            <span class="c1"># Shapes._finish_drawing() calls Shapes.refresh() via Shapes._update_dims()</span>
-            <span class="c1"># so we need to block thumbnail update from here</span>
-            <span class="c1"># TODO: this is not great... ideally we should no longer need this blocking system</span>
-            <span class="c1">#       but maybe follow up PR</span>
-            <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">block_thumbnail_update</span><span class="p">():</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_finish_drawing</span><span class="p">()</span>
-        <span class="k">else</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">is_creating</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">refresh</span><span class="p">(</span><span class="n">data_displayed</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">extent</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">thumbnail</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_reset_editable</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>

@@ -1,3 +1,5 @@
+(napari-working-groups)=
+
 # Working groups
 
 Working groups are subteams of the napari community formed by members
@@ -13,11 +15,10 @@ maintain healthy working groups. Working groups should:
 
 - Identify at least two co-leads responsible for the creation and continuation
   of the group.
-- Have a
-  [core team member](https://napari.org/community/team.html#current-core-developers)
-  “sponsor” who is kept aware of work and can help shepherd through PRs as
-  needed. If you don't have a sponsor in mind directly for your proposed
-  working group, please post on the `#general` channel on
+- Have a [core team member](napari-team) “sponsor” who is kept aware of work
+  and can help shepherd through PRs as needed. If you don't have a sponsor in
+  mind directly for your proposed working group, please post on the `#general`
+  channel on
   [Zulip](https://napari.zulipchat.com) and ask whether any core members would
   like to sponsor your group.
 - Create a readme for your

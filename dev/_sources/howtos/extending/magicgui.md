@@ -24,7 +24,7 @@ assists in building widgets. It is a general abstraction layer on GUI toolkit
 backends (like Qt), with an emphasis on mapping Python types to widgets. This
 enables you to easily create widgets using annotations. If you require more
 extensibility, you can create your own widget `class` that subclasses
-[`QtWidgets.QWidget`](https://doc.qt.io/qt-5/qwidget.html) or
+[`QtWidgets.QWidget`](https://doc.qt.io/qt-6/qwidget.html) or
 {class}`magicgui.widgets.bases.Widget`.
 
 This document will describe each widget creation method, in increasing order of
@@ -43,7 +43,7 @@ extensibility;
    perform processing, have conditional selection options, customize display of
    outputs and much more.
 1. [](#qwidget-class-widgets) - subclass
-   [`QtWidgets.QWidget`](https://doc.qt.io/qt-5/qwidget.html). This option is
+   [`QtWidgets.QWidget`](https://doc.qt.io/qt-6/qwidget.html). This option is
    the most difficult to implement and is suitable for those who wish to build
    a widget from a 'blank slate', without `magicgui` defaults.
 
@@ -68,7 +68,7 @@ There are two ways to add a widget to a napari viewer:
 There is an important implementation distinction between the two methods;
 {meth}`~napari.qt.Window.add_dock_widget` expects an *instance* of a widget,
 like an instance of class {class}`~magicgui.widgets.FunctionGui` or
-[`QtWidgets.QWidget`](https://doc.qt.io/qt-5/qwidget.html), whereas
+[`QtWidgets.QWidget`](https://doc.qt.io/qt-6/qwidget.html), whereas
 [widget contributions](widgets-contribution-guide) expect a `callable` (e.g., a
 function or class) that will return a widget instance. When describing each of
 the three widget creation methods below, we will first show how to create a
@@ -244,7 +244,7 @@ This enables you to get information from the napari viewer into your widget.
 
 ```{note}
 When using {func}`~magicgui.widgets.create_widget` for a 'layer' type in a
-[`QtWidgets.QWidget`](https://doc.qt.io/qt-5/qwidget.html) subclass, you will
+[`QtWidgets.QWidget`](https://doc.qt.io/qt-6/qwidget.html) subclass, you will
 need to manually connect the `reset_choices` of the resulting
 {class}`~magicgui.widgets.ComboBox` (i.e., "dropdown menu") to layer events.
 This is so it will synchronize with layer changes. See the
@@ -677,7 +677,7 @@ Generating a widget by creating a widget class allows you to have more control
 over your widget. Your widget class must subclass
 {class}`magicgui.widgets.bases.Widget` (i.e., a
 [`magicgui` widget class](https://pyapp-kit.github.io/magicgui/widgets/#the-widget-hierarchy))
-or [`QtWidgets.QWidget`](https://doc.qt.io/qt-5/qwidget.html).
+or [`QtWidgets.QWidget`](https://doc.qt.io/qt-6/qwidget.html).
 It can then be added to the napari viewer
 by instantiating the widget class, then adding it to the viewer via
 {meth}`~napari.qt.Window.add_dock_widget`. You can also create a plugin and add
@@ -801,13 +801,13 @@ As above, to turn this into a
 class definition and add to the plugin manifest.
 
 To build your widget from a 'blank slate', you can subclass
-[`QtWidgets.QWidget`](https://doc.qt.io/qt-5/qwidget.html).
+[`QtWidgets.QWidget`](https://doc.qt.io/qt-6/qwidget.html).
 See [](#qwidget-class-widgets) for details.
 
 ### `QWidget` class widgets
 
 To build your widget from a 'blank slate', subclass
-[`QtWidgets.QWidget`](https://doc.qt.io/qt-5/qwidget.html).
+[`QtWidgets.QWidget`](https://doc.qt.io/qt-6/qwidget.html).
 
 In the following example, we create a button and a dropdown list.
 The available choices for the dropdown list are the

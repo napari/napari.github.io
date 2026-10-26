@@ -183,11 +183,8 @@ the `pyproject.toml` file.
 To run this test, prefix the `tox` command with `MIN_REQ=1`:
 
 ```sh
-MIN_REQ=1 tox -e py311-pyqt5 --recreate
+MIN_REQ=1 tox -e py311-pyqt6 --recreate
 ```
-
-Unfortunately, it is impossible to test this on ARM macOS, due to the lack of
-pyqt5 support for this platform.
 
 #### Running with constraints
 
@@ -573,7 +570,7 @@ checking visibility. Additionally, you can set the timeout for
 `qtbot.waitUntil` (default is 5 seconds).
 
 Another function that may be useful for testing `QWidget` visibility is
-[`QWidget.isVisibleTo`](https://doc.qt.io/qt-5/qwidget.html#isVisibleTo), which
+[`QWidget.isVisibleTo`](https://doc.qt.io/qt-6/qwidget.html#isVisibleTo), which
 tells you if a widget is visible relative to an ancestor.
 
 ### Skipping tests with GUI elements or need window focus

@@ -1,3 +1,5 @@
+(napari-licensing)=
+
 # Licensing
 
 napari is distributed under the BSD-3-Clause license, a copy of which is

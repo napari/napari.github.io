@@ -8,7 +8,7 @@ could affect the ability to install or use your plugin effectively.
 
 (best-practices-no-qt-backend)=
 
-## Don't include `napari[all]`, `PySide6`, `PyQt5` or `PyQt6` in your plugin's default dependencies
+## Don't include `napari[all]`, `PySide6` or `PyQt6` in your plugin's default dependencies
 
 *This is important! Avoid including any form of Qt in your plugin's
 dependencies!*
@@ -18,8 +18,8 @@ end-user to choose which one they want. If they installed napari with
 `pip install napari[all]`, then this includes `PyQt6` from PyPI as the default
 backend. If they installed via `conda install napari pyqt6`, then they'll have
 `PyQt6`, but from conda-forge instead of PyPI. Meanwhile, the napari bundle
-installs with PySide6. Users are also free to install PyQt5, or PySide6
-backend.
+installs with PySide6. Users are also free to install the PySide6 backend
+themselves.
 
 Here's what can go wrong if you *also* declare one of these backends
 **or napari[all]** in the `dependencies`/`install_requires` section of your
@@ -33,44 +33,44 @@ plugin metadata:
   napari*. This is an unfortunate consequence of
   [package naming decisions](https://github.com/ContinuumIO/anaconda-issues/issues/1554),
   and it's not something napari can fix.
-- Alternatively, they may end up with some combination of *both* PyQt5, PyQt6,
-  and PySide6 in their environment: the Qt backend they had installed and the
-  one your plugin installed as a dependency. This will not *always* break
-  things, but it will lead to unexpected and difficult to debug problems.
+- Alternatively, they may end up with *both* PyQt6 and PySide6 in their
+  environment: the Qt backend they had installed and the one your plugin
+  installed as a dependency. This will not *always* break things, but it will
+  lead to unexpected and difficult to debug problems.
 - Both of the above cases are most likely to happen with the built-in GUI
   napari plugin manager, which will install your plugin plus the base
   dependencies. As a result, this frequently occurs with the bundle app. Trying
   to fix these issues is almost impossible for GUI centric users, leaving them
   the only recourse of re-installing.
 
-````{tip}
+:::{tip}
 1. You can still include a specific Qt backend in optional `dev` or `testing`
-   dependencies!
-Just *don't* include a specific Qt backend (or `napari[all]`, which currently
-includes PyQt6) in your base dependencies.
+   dependencies! Just *don't* include a specific Qt backend (or `napari[all]`,
+   which currently includes PyQt6) in your base dependencies.
 2. You can include an optional `all` dependency on `napari[all]` to mimic the
-   simple,
-command line installation in a fresh environment. In `pyproject.toml` this
-would be:
+   simple, command line installation in a fresh environment. In
+   `pyproject.toml` this would be:
 
-    ```
+    ```text
     [project.optional-dependencies]
     all = ["napari[all]"]
     ```
 
-    And then your plugin could be installed with napari and the default Qt backend using:
+   And then your plugin could be installed with napari and the default Qt
+   backend using:
+
     ```bash
     pip install my_plugin[all]
     ```
-    Meanwhile, the napari plugin manager will still just install your plugin without the Qt
-    dependency.  
 
-````
+   Meanwhile, the napari plugin manager will still just install your plugin
+   without the Qt dependency.  
+:::
 
-## Don't import from any specific Qt backend (e.g. `PyQt5`, `PyQt6`, `PySide6`, etc.) in your plugin: use `qtpy`
+## Don't import from any specific Qt backend (e.g. `PyQt6`, `PySide6`) in your plugin: use `qtpy`
 
 If you use `from PyQt6 import QtCore` (or similar) in your plugin, but the
-end-user has chosen to use `PySide6` or `PyQt5` for their Qt backend — or vice
+end-user has chosen to use `PySide6` for their Qt backend — or vice
 versa — then your plugin will fail to import. Instead use
 `from qtpy import QtCore`. `qtpy` is a
 [Qt compatibility layer](https://github.com/spyder-ide/qtpy) that will import
@@ -230,7 +230,7 @@ up to report test coverage, but you can test locally as well, using
 
 In napari plugins we strongly advise additional widgets be docked in the main
 napari viewer, but sometimes a separate window is required. The best practice
-is to use [`QDialog`](https://doc.qt.io/qt-5/qdialog.html) based windows with
+is to use [`QDialog`](https://doc.qt.io/qt-6/qdialog.html) based windows with
 parent set to widget already docked in the viewer.
 
 ```python
@@ -267,8 +267,8 @@ class MyWidget(QWidget):
         # setting parent to self allows the dialog to inherit its
         # style from the viewer by pass self as argument
         dialog = MyInputDialog(self)
-        dialog.exec_()
-        if dialog.result() == QDialog.Accepted:
+        dialog.exec()
+        if dialog.result() == QDialog.DialogCode.Accepted:
             print(dialog.number.value())
 ```
 

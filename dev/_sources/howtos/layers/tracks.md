@@ -171,6 +171,14 @@ viewer.add_tracks(tracks_data)
 napari.run()
 ```
 
+## Preparing tracks data from a pandas DataFrame
+
+The `prepare_tracks_data()` helper maps DataFrame columns to a numpy array with
+the track ID, time, and spatial coordinates in the order expected by napari.
+This is useful when track data uses custom column names or when the columns are
+not already in the order expected by napari. See
+{ref}`sphx_glr_gallery_prepare_tracks.py` for an example.
+
 ## Tracks graph
 
 We can use the tracks `graph` argument to define the relationships between

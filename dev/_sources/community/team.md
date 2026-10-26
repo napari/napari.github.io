@@ -1,10 +1,10 @@
-# About the project and team
+(napari-team)=
 
-napari is a consensus-based community project. Anyone with an interest in the
-project can join the community, contribute to the project design, and
-participate in the decision making process. You can learn more about how the
-project is run by reading our [governance model](napari-governance). This page
-lists our current and emeritus
+# The team
+
+napari is a consensus-based community project. You can learn more about how
+the project is run by reading our [governance model](napari-governance). This
+page lists our current and emeritus
 [core team members](governance.md#core-team-members). Core team members are
 community members that have demonstrated a sustained commitment to the project
 through ongoing contributions and that they can maintain napari with care. We
@@ -15,6 +15,8 @@ members in various roles supported by grants. They are listed below under the
 
 ## Current Core Team Members
 
+- [Aniket Singh Yadav](https://github.com/napari/napari/commits?author=Aniketsy)* -
+  [@Aniketsy](https://github.com/Aniketsy)
 - [Ashley Anderson](https://github.com/napari/napari/commits?author=aganders3) -
   [@aganders3](https://github.com/aganders3)
 - [Carlos M. Rodríguez-Reza](https://github.com/napari/napari/commits?author=carlosmariorr) -
@@ -25,6 +27,8 @@ members in various roles supported by grants. They are listed below under the
   [@DragaDoncila](https://github.com/DragaDoncila)
 - [Grzegorz Bokota](https://github.com/napari/napari/commits?author=Czaki) -
   [@Czaki](https://github.com/Czaki)
+- [Jacopo Abramo](https://github.com/napari/napari/commits?author=jacopoabramo)* -
+  [@jacopoabramo](https://github.com/jacopoabramo)
 - [Jaime Rodríguez-Guerra](https://github.com/napari/napari/commits?author=jaimergp) -
   [@jaimergp](https://github.com/jaimergp)
 - [Juan Nunez-Iglesias](https://github.com/napari/napari/commits?author=jni) -
@@ -45,6 +49,8 @@ members in various roles supported by grants. They are listed below under the
   [@TimMonko](https://github.com/TimMonko)
 - [Wouter-Michiel Vierdag](https://github.com/napari/napari/commits?author=melonora) -
   [@melonora](https://github.com/melonora)
+
+\* Former triage team members nominated to the core team.
 
 ## Emeritus Core Team Members
 
@@ -97,10 +103,9 @@ members in various roles supported by grants. They are listed below under the
 
 ## Current Triage Team Members
 
-- [Aniket Singh Yadav](https://github.com/napari/napari/commits?author=Aniketsy) -
-  [@Aniketsy](https://github.com/Aniketsy)
-- [Jacopo Abramo](https://github.com/napari/napari/commits?author=jacopoabramo) -
-  [@jacopoabramo](https://github.com/jacopoabramo)
+We are always looking for more community members to help with the triage role.
+If you are interested, please see our [triage guide](napari-triage) and reach
+out to the core team to express your interest.
 
 ## Team Roles
 
@@ -127,93 +132,3 @@ maintenance items:
 - [Daniel Althviz Moré](https://github.com/dalthviz) is working on refactoring
   our layer controls implementation, improving the `napari-plugin-manager`, and
   migrating our application model to `app-model`
-
-## Project history
-
-The napari project began in the spring of 2018. It was born out of the shared
-need for fast n-dimensional image viewing in Python by project co-founders Loïc
-Royer, from the Chan Zuckerberg Biohub (CZ Biohub), and Juan Nunez-Iglesias,
-from Monash University. Since then it has grown rapidly to now also provide a
-graphical user interface to a plugin ecosystem of image analysis tools for
-scientists to use in their daily work.
-
-Named after the tiny village of Napari, in the Republic of Kiribati in the
-Pacifc Ocean, at the geographic midpoint between Loïc's home of San Francisco
-and Juan’s home of Melbourne, the napari project has, from its inception, been
-a global community effort.
-
-Early development on the project was led by Kira Evans, first as an intern with
-Loïc at CZ Biohub, then later as a software engineer at the Chan Zuckerberg
-Initiative (CZI). Nicholas Sofroniew (CZI) joined in the fall of 2018,
-accelerating both the organization and management of the growing team, as well
-as the development of core features.
-
-You can read a full history of the project’s founding and early development in
-this
-[blog post](https://ilovesymposia.com/2019/10/24/introducing-napari-a-fast-n-dimensional-image-viewer-in-python/)
-from Juan.
-
-Over time, napari has grown to over 180 direct contributors. Talley Lambert,
-from Harvard Medical School, began contributing around the time of Juan's blog
-post, and has been a critical driver of napari's development, including
-development of its first and second (current) plugin systems.
-
-We now have core team members located in four continents and three
-fortnightly community calls spread across the day to accommodate users
-and contributors in any time zone.
-
-Read more about napari’s [mission and values](mission-and-values), how to get
-started as a [contributor](napari-contributing) or join us in our
-[public chat room](https://napari.zulipchat.com/login/). You can also follow us
-on [mastodon](https://fosstodon.org/@napari),
-[Bluesky](http://bsky.app/profile/napari.org), or
-[LinkedIn](https://www.linkedin.com/company/napari).
-
-(funding)=
-
-## Institutional and funding partners
-
-napari is developed by a global community of scientists, with many working as
-volunteers, improving napari for their own use while sharing their work with
-the world. We appreciate their efforts!
-
-We have also received generous direct funding and in-kind support that
-enables us to develop faster:
-
-- The [Chan Zuckerberg Initiative](https://chanzuckerberg.com/science) has long
-  supported napari in numerous ways (listed in reverse chronological order):
-
-  - CZI is currently supporting napari with a grant for scaffolding
-    sustainability of the project (2025-2028, \$1.7m)
-  - CZI is currently supporting napari with a grant to seed [sustainability]
-    of the project (2022-2025, \$200,0000).
-  - CZI is matching funds donated to the project up to \$100,000.
-  - The CZI Imaging Tech team, in an effort led by Justin Kiggins, developed
-    and maintained the original version of [napari-hub], which helps users
-    discover napari plugins (2021-2025).
-  - CZI funded [two grant rounds][napari-plugin-grants] to support the napari
-    community in developing and maintaining plugins (2021, 2022).
-  - The CZI Imaging Tech team, led by Nick Sofroniew and Justine Larsen,
-    contributed development and design effort for the project (2019-2023) and
-    funded contributors at [Quansight Labs](https://labs.quansight.org)
-    to work for the project (2021-2023).
-  - napari co-founder Juan Nunez-Iglesias has been supported by a
-    CZI Imaging Software Fellowship (2018-2025)
-
-- [NumFOCUS](https://numfocus.org) serves as the fiscal home of the napari
-  project. As part of this fiscal sponsorship, NumFOCUS provides Small
-  Development Grants for napari, funding current efforts to improve handling of
-  physical units.
-
-As described in our [governance](governance) document, project supporters are
-represented by a seat on the napari steering council. The current
-representative of the napari Institutional and Funding Partners is Kyle I. S.
-Harrington (CZI).
-
-If you or your organization are interested in also supporting the napari
-project and becoming an Institutional and Funding Partner, please email the
-napari steering council at `napari-steering-council@googlegroups.com`.
-
-[napari-hub]: https://napari-hub.org
-[napari-plugin-grants]: https://chanzuckerberg.com/rfa/napari-plugin-grants/
-[sustainability]: https://chanzuckerberg.com/science/programs-resources/imaging/napari/seeding-sustainability-for-the-napari-project/

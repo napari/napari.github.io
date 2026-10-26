@@ -59,6 +59,6 @@ Examples of napari usage, to be downloaded as Python scripts or Jupyter notebook
 :link: workshops
 :link-type: ref
 
-A list of information and materials for workshops given about napari.
+Workshop materials, upcoming events, and past workshops about napari.
 ```
 ````

@@ -242,8 +242,9 @@ by running:
 pip list
 ```
 
-And check if `PyQt5`, `PyQt6` or `PySide6` are mentioned in the output as
-installed.
+And check if `PyQt6` or `PySide6` are mentioned in the output as
+installed. Qt5 bindings (`PyQt5`, `PySide2`) are not supported by napari 0.10.0
+and newer.
 
 If there is no such entry, please install one of them following the
 instructions in [Choosing a different Qt backend](choosing-qt-backend)
@@ -268,7 +269,6 @@ This will provide you with more information about problem.
 Such import may look like **one** of the following lines:
 
 ```python
-from PyQt5 import QtWidgets
 from PyQt6 import QtWidgets
 from PySide6 import QtWidgets
 ```
@@ -276,12 +276,12 @@ from PySide6 import QtWidgets
 Such import may raise an error like:
 
 ```text
-ImportError: .../site-packages/PyQt5/QtWidgets.abi3.so: undefined symbol: _ZdlPvm, version Qt_5
+ImportError: .../site-packages/PyQt6/QtWidgets.abi3.so: undefined symbol: _ZdlPvm, version Qt_6
 ```
 
 Then when you identify which file is causing the problem you can use `ldd`
 command to check which libraries are used by this file:
 
 ```bash
-ldd .../site-packages/PyQt5/QtWidgets.abi3.so
+ldd .../site-packages/PyQt6/QtWidgets.abi3.so
 ```

@@ -286,7 +286,7 @@ In napari `MenuId` and `MenuGroup` enums are defined in
 Menu bar menus are created during {class}`~napari.window.Window` initialization
 via `napari._qt._qapp_model.build_qmodel_menu`. This creates a
 {class}`~app_model.backends.qt.QModelMenu` (a subclass of
-[`QMenu`](https://doc.qt.io/qt-5/qmenu.html)) instance. It is the creation of
+[`QMenu`](https://doc.qt.io/qt-6/qmenu.html)) instance. It is the creation of
 the {class}`~app_model.backends.qt.QModelMenu` that creates `QAction` for the
 {class}`~app_model.types.Action` associated with that menu.
 

@@ -932,6 +932,11 @@ selected:
     the final projected image.
   - **median projection** - the median projection takes the median pixel
     intensity for the final projected image.
+  - **Drop first axis** - available for **Points** layers with more than 2
+    dimensions. Rather than an intensity projection, it adds a new points layer
+    with the first axis removed (for example, dropping the z coordinate of a 3D
+    layer), keeping every point along with its size, color, symbol, and
+    features.
 - **Link Layers** - links the selected layers. Once layers are linked, any
   action performed on one layer will be performed on all linked layers at the
   same time. The layer control panel will show *only* when a single layer is

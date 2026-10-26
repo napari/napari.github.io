@@ -151,14 +151,14 @@ def main():
         print('Launched ImageJ')
 
     QtCore.QTimer.singleShot(0, start_imagej)
-    app.exec_()
+    app.exec()
 
 
 if __name__ == '__main__':
     main()
 ```
 
-Note that the `app.exec_()` call blocks the main thread, because Qt takes it
+Note that the `app.exec()` call blocks the main thread, because Qt takes it
 over as its GUI/main thread. On macOS, the main thread is the only thread that
 works for Qt to use as its GUI/main thread.
 

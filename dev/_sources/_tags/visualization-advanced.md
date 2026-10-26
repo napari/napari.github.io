@@ -15,6 +15,7 @@ caption: With this tag
 ../gallery/affine_transforms.rst
 ../gallery/cell_tracking.rst
 ../gallery/dynamic-projections-dask.rst
+../gallery/everything.rst
 ../gallery/export_figure.rst
 ../gallery/export_rois.rst
 ../gallery/heart_masks_points.rst

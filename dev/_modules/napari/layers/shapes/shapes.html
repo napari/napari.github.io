@@ -37,7 +37,7 @@
     <link rel="stylesheet" type="text/css" href="../../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../../../../_static/custom.css?v=d2b87285" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/custom.css?v=9f79b9c3" />
   
   <!-- So that users can add custom icons -->
   <script defer src="../../../../_static/scripts/fontawesome.js?digest=18bd87630a240e9c25be"></script>
@@ -45,7 +45,7 @@
   <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=18bd87630a240e9c25be" />
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=18bd87630a240e9c25be" />
 
-    <script src="../../../../_static/documentation_options.js?v=0eacd4fd"></script>
+    <script src="../../../../_static/documentation_options.js?v=eaeb1c99"></script>
     <script src="../../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -1513,6 +1513,8 @@ window.runMermaid = runMermaid;</script>
         <span class="c1"># not given a shape_type through data</span>
         <span class="k">if</span> <span class="n">shape_type</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">shape_type</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">shape_type</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">shape_type</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="n">shape_type</span> <span class="o">=</span> <span class="p">[</span><span class="n">shape_type</span><span class="p">]</span> <span class="o">*</span> <span class="n">n_new_shapes</span>
 
         <span class="n">edge_widths</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data_view</span><span class="o">.</span><span class="n">edge_widths</span>
         <span class="n">edge_color</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data_view</span><span class="o">.</span><span class="n">edge_color</span>

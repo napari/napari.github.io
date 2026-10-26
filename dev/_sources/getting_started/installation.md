@@ -61,14 +61,14 @@ You may also want:
 [conda](https://docs.conda.io/projects/conda/en/stable/user-guide/getting-started.html)
 **(Highly recommended)**
 
-```{admonition} New to Python?
+:::{admonition} New to Python?
 :class: note
 New to Python or uncertain about uv, conda, and virtual environments?
 Here are some resources we recommend:
 
 - [Scientific Python: Getting started with Python for science](https://lectures.scientific-python.org/intro/index.html)
 - [Detailed comparison of Python environment management tools](https://www.nijho.lt/post/python-environments/)
-```
+:::
 
 Choose one of the options below to install napari as a Python package.
 
@@ -221,9 +221,8 @@ the current release {{ napari_version }}, using the command:
 napari needs a library called [Qt](https://www.qt.io/) to run its user
 interface (UI). In Python, there are two primary alternative libraries to run
 this: [PyQt6](https://www.riverbankcomputing.com/software/pyqt/download) and
-[PySide6](https://doc.qt.io/qtforpython-6/) for Qt6. There is also an older
-option, [PyQt5](https://www.riverbankcomputing.com/software/pyqt/download) for
-Qt5. By default, we don't choose for you — simply running
+[PySide6](https://doc.qt.io/qtforpython-6/), both for Qt6. By default, we
+don't choose for you — simply running
 `python -m pip install napari` will not install either. You may already have
 one installed in your environment through other scientific packages such as
 Spyder or matplotlib. If neither is available, running napari will result in an
@@ -249,10 +248,11 @@ If you switch backends, it's a good idea to `pip uninstall` the one
 you're not using.
 ```
 
-```{admonition} Pyside2 is no longer supported
+```{admonition} Qt5 is no longer supported
 :class: warning
-PySide2 is no longer maintained, so we dropped support for it in napari 0.7.0.
-PyQt5 remains supported, but we recommend the Qt6 backends.
+napari 0.10.0 dropped support for Qt5, so PyQt5 can no longer be used.
+Support for PySide2 was already dropped in napari 0.7.0. Please use PyQt6 or
+PySide6.
 ```
 
 #### Using constraints files

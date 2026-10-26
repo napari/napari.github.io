@@ -37,7 +37,7 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=d2b87285" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=9f79b9c3" />
   
   <!-- So that users can add custom icons -->
   <script defer src="../../../_static/scripts/fontawesome.js?digest=18bd87630a240e9c25be"></script>
@@ -45,7 +45,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=18bd87630a240e9c25be" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=18bd87630a240e9c25be" />
 
-    <script src="../../../_static/documentation_options.js?v=0eacd4fd"></script>
+    <script src="../../../_static/documentation_options.js?v=eaeb1c99"></script>
     <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -889,7 +889,7 @@ window.runMermaid = runMermaid;</script>
 
     <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">48</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mi">128</span><span class="p">):</span>
         <span class="n">pixmap</span> <span class="o">=</span> <span class="n">QPixmap</span><span class="p">(</span><span class="n">QSize</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">s</span><span class="p">))</span>
-        <span class="n">pixmap</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">transparent</span><span class="p">)</span>
+        <span class="n">pixmap</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">GlobalColor</span><span class="o">.</span><span class="n">transparent</span><span class="p">)</span>
         <span class="n">painter</span> <span class="o">=</span> <span class="n">QPainter</span><span class="p">(</span><span class="n">pixmap</span><span class="p">)</span>
         <span class="n">renderer</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">painter</span><span class="p">,</span> <span class="n">QRectF</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">s</span><span class="p">))</span>
         <span class="n">painter</span><span class="o">.</span><span class="n">end</span><span class="p">()</span>
@@ -918,7 +918,7 @@ window.runMermaid = runMermaid;</script>
         <span class="k">return</span>  <span class="c1"># ignore focus changes between two widgets</span>
     <span class="k">if</span> <span class="n">old</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">new</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">return</span>  <span class="c1"># this should not happen</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">old</span><span class="p">,</span> <span class="n">QWidget</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">old</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">old</span><span class="p">,</span> <span class="n">QWidget</span><span class="p">):</span>
         <span class="k">return</span>  <span class="c1"># ignore event happened during teardown of test</span>
     <span class="k">if</span> <span class="n">old</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">start_timer</span> <span class="o">=</span> <span class="kc">True</span>
@@ -935,7 +935,9 @@ window.runMermaid = runMermaid;</script>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">notifications</span><span class="p">:</span>
         <span class="k">return</span>
     <span class="k">if</span> <span class="n">start_timer</span><span class="p">:</span>
-        <span class="n">notifications</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">timer_start</span><span class="p">()</span>
+        <span class="n">top</span> <span class="o">=</span> <span class="n">notifications</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">top</span><span class="o">.</span><span class="n">underMouse</span><span class="p">():</span>
+            <span class="n">top</span><span class="o">.</span><span class="n">timer_start</span><span class="p">()</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">for</span> <span class="n">notification</span> <span class="ow">in</span> <span class="n">notifications</span><span class="p">:</span>
             <span class="n">notification</span><span class="o">.</span><span class="n">timer_stop</span><span class="p">()</span>
@@ -1125,7 +1127,7 @@ window.runMermaid = runMermaid;</script>
     <span class="c1"># otherwise, something else created the QApp before us (such as</span>
     <span class="c1"># %gui qt IPython magic).  If we quit the app in this case, then</span>
     <span class="c1"># *later* attempts to instantiate a napari viewer won't work until</span>
-    <span class="c1"># the event loop is restarted with app.exec_().  So rather than</span>
+    <span class="c1"># the event loop is restarted with app.exec().  So rather than</span>
     <span class="c1"># quit just close all the windows (and clear our app icon).</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">QApplication</span><span class="o">.</span><span class="n">setWindowIcon</span><span class="p">(</span><span class="n">QIcon</span><span class="p">())</span>
@@ -1207,9 +1209,9 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        shown in the console that launched the event loop.</span>
 <span class="sd">    max_loop_level : int, optional</span>
 <span class="sd">        The maximum allowable "loop level" for the execution thread.  Every</span>
-<span class="sd">        time `QApplication.exec_()` is called, Qt enters the event loop,</span>
+<span class="sd">        time `QApplication.exec()` is called, Qt enters the event loop,</span>
 <span class="sd">        increments app.thread().loopLevel(), and waits until exit() is called.</span>
-<span class="sd">        This function will prevent calling `exec_()` if the application already</span>
+<span class="sd">        This function will prevent calling `exec()` if the application already</span>
 <span class="sd">        has at least ``max_loop_level`` event loops running.  By default, 1.</span>
 <span class="sd">    _func_name : str, optional</span>
 <span class="sd">        name of calling function, by default 'run'.  This is here to</span>
@@ -1257,7 +1259,7 @@ window.runMermaid = runMermaid;</script>
         <span class="n">_maybe_allow_interrupt</span><span class="p">(</span><span class="n">app</span><span class="p">),</span>
         <span class="n">register_logger_to_napari_handler</span><span class="p">(</span><span class="s1">''</span><span class="p">),</span>
     <span class="p">):</span>
-        <span class="n">app</span><span class="o">.</span><span class="n">exec_</span><span class="p">()</span></div>
+        <span class="n">app</span><span class="o">.</span><span class="n">exec</span><span class="p">()</span></div>
 
 </pre></div>
 

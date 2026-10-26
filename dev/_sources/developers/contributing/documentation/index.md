@@ -111,9 +111,15 @@ script is run. See our
 
 ```{admonition} Got materials for a workshop?
 :class: tip
+
 If you already have teaching materials e.g. recordings, slide decks or Jupyter
-notebooks hosted somewhere, you can add links to these on our
-[napari workshops](workshops) page.
+notebooks hosted somewhere, you can list them on the
+[past workshops](https://napari.org/workshops/past-workshops/) page by opening
+a pull request to the
+[napari/workshops repository](https://github.com/napari/workshops). If you
+would like to improve the napari team's
+[workshop catalogue](https://napari.org/workshops/) itself, contributions there
+are welcome too!
 ```
 
 ### Formats and templates

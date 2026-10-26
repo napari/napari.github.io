@@ -119,9 +119,9 @@ it's worth being aware of two critical steps in the "lifetime" of a Qt
 Application:
 
 1. Any program that would like to create a
-   [`QWidget`](https://doc.qt.io/qt-5/qwidget.html) (the class from which all
+   [`QWidget`](https://doc.qt.io/qt-6/qwidget.html) (the class from which all
    napari's graphical elements are subclassed), must create a
-   [`QApplication`](https://doc.qt.io/qt-5/qapplication.html) instance *before*
+   [`QApplication`](https://doc.qt.io/qt-6/qapplication.html) instance *before*
    instantiating any widgets.
 
    ```python
@@ -134,7 +134,7 @@ Application:
    application's event loop:
 
    ```python
-   app.exec_()
+   app.exec()
    ```
 
 If you would like to create your own widgets in napari see
@@ -154,7 +154,7 @@ import napari
 
 viewer = napari.Viewer()  # This will create a Application if one doesn't exist
 
-napari.run()  # This will call `app.exec_()` and start the event loop.
+napari.run()  # This will call `app.exec()` and start the event loop.
 ```
 
 Now that you have an understanding of how napari creates the event loop, you

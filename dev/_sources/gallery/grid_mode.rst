@@ -20,7 +20,7 @@ scale_bar can also be shown in a gridded manner.
 
 .. tags:: visualization-basic
 
-.. GENERATED FROM PYTHON SOURCE LINES 12-39
+.. GENERATED FROM PYTHON SOURCE LINES 12-42
 
 
 
@@ -58,6 +58,9 @@ scale_bar can also be shown in a gridded manner.
     viewer.canvas.overlays.scale_bar.box = True
     # show scalebar in each grid instead of just once
     viewer.canvas.overlays.scale_bar.gridded = True
+
+    # show the crosshair overlay
+    viewer.scene.overlays.crosshair.visible = True
     viewer.fit_to_view()
 
     if __name__ == '__main__':

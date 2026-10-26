@@ -1,5 +1,5 @@
 # napari 0.10.0
-⚠️ *Note: these release notes are still in draft while 0.10.0rc0 is in prerelease testing.* ⚠️
+⚠️ *Note: these release notes are still in draft while 0.10.0rc1 is in prerelease testing.* ⚠️
 
 *Mon, Oct 26, 2026*
 
@@ -76,13 +76,6 @@ Some plugin dock widgets are wider than they are tall, fitting poorly on the rig
 
 - Remove `PyQt5` support, part 1 ([#9650](https://github.com/napari/napari/pull/9650))
 
-## New Features
-
-- Add grid overlay ([#7827](https://github.com/napari/napari/pull/7827))
-- 2D/3D Crosshair overlay for cursor position ([#8017](https://github.com/napari/napari/pull/8017))
-- Allow plugins widgets to specify dock area ([#9526](https://github.com/napari/napari/pull/9526))
-- Add tabify default for plugin widgets ([#9707](https://github.com/napari/napari/pull/9707))
-
 ## Breaking Changes
 
 ### Dropped support for Qt5 backend
@@ -107,6 +100,13 @@ We previously hardcoded default font sizes for all visuals in the canvas. Now ([
 So if you use the `scale_bar`, or `Points.text` or other layers and overlays that display text and you don't like the new default, make sure to set your font size explicitly!
 
 
+
+## New Features
+
+- Add grid overlay ([#7827](https://github.com/napari/napari/pull/7827))
+- 2D/3D Crosshair overlay for cursor position ([#8017](https://github.com/napari/napari/pull/8017))
+- Allow plugins widgets to specify dock area ([#9526](https://github.com/napari/napari/pull/9526))
+- Add tabify default for plugin widgets ([#9707](https://github.com/napari/napari/pull/9707))
 
 ## Improvements
 
@@ -143,12 +143,12 @@ So if you use the `scale_bar`, or `Points.text` or other layers and overlays tha
 - [perf] Remove duplicate calls in VispyImageLayer (already done in super()) ([#9697](https://github.com/napari/napari/pull/9697))
 - [perf] Defer the expensive import from scipy.spatial.transform until ndisplay=3 ([#9746](https://github.com/napari/napari/pull/9746))
 - Effectively revert PR #8725 so viewer shows when files are opened from CLI ([#9747](https://github.com/napari/napari/pull/9747))
+- [perf] Avoid xarray import (pulls in pandas) in ScalarField construction ([#9780](https://github.com/napari/napari/pull/9780))
 
 ## Bug Fixes
 
 - fix(shapes): pick shapes on a fractional slice key ([#9394](https://github.com/napari/napari/pull/9394))
 - Fix remove() mid-draw when removing shapes shifts the drawn shape's index ([#9441](https://github.com/napari/napari/pull/9441))
-- Fix logger from console 2 ([#9465](https://github.com/napari/napari/pull/9465))
 - Fix fuzzy finding and command highlighting in palette ([#9503](https://github.com/napari/napari/pull/9503))
 - Fix and unify mouse callback generator machinery ([#9513](https://github.com/napari/napari/pull/9513))
 - fix(qt): let a dock widget's minimum size shrink again when its content does ([#9532](https://github.com/napari/napari/pull/9532))
@@ -174,16 +174,22 @@ So if you use the `scale_bar`, or `Points.text` or other layers and overlays tha
 - Fix screenshot with scale!=1 ([#9738](https://github.com/napari/napari/pull/9738))
 - Effectively revert PR #8725 so viewer shows when files are opened from CLI ([#9747](https://github.com/napari/napari/pull/9747))
 - fix: `axis_labels` is no longer set in the viewer dims after layer creation in `imshow` ([#9749](https://github.com/napari/napari/pull/9749))
+- Fix dims ordering and vertices slicing when only vertex dimensions are displayed ([#9751](https://github.com/napari/napari/pull/9751))
 - Fix `canvas_to_world` calculation with grid spacing ([#9752](https://github.com/napari/napari/pull/9752))
 - fix: preserve thick-slice margins under scale flips ([#9759](https://github.com/napari/napari/pull/9759))
 - fix: update return_annotation in create_func to use cls_name rather than cls ([#9765](https://github.com/napari/napari/pull/9765))
+- Set minimum version of pyside6 to 6.8.3 ([#9775](https://github.com/napari/napari/pull/9775))
+- Cancel all pending notifications on close of napari main window. ([#9776](https://github.com/napari/napari/pull/9776))
+- Fix cursor position calculation for 2d data in 3d scene ([#9781](https://github.com/napari/napari/pull/9781))
+- Fix crosshair color of Z-axis for 2D data in 3D view ([#9796](https://github.com/napari/napari/pull/9796))
+- Fix overlay draws during new viewboxes from new layers ([#9799](https://github.com/napari/napari/pull/9799))
+- Fix PySide6 Qt version check truncating patch component ([#9800](https://github.com/napari/napari/pull/9800))
 
 ## Documentation
 
 - Document single-plane projection for points layer ([docs#1074](https://github.com/napari/docs/pull/1074))
 - Prepare tracks data docs ([docs#1132](https://github.com/napari/docs/pull/1132))
 - Typing Guide: Tips and Resources ([docs#1135](https://github.com/napari/docs/pull/1135))
-- Deprecation policy using time-based windows for removal ([docs#1138](https://github.com/napari/docs/pull/1138))
 - Rumdl: Enable more MD rules that require edits by hand (not autofixable) ([docs#1142](https://github.com/napari/docs/pull/1142))
 - Rumdl: Reflow all the docs to 79-char length ([docs#1144](https://github.com/napari/docs/pull/1144))
 - Clarify mouse event properties in the `3D interactivity guide` ([docs#1147](https://github.com/napari/docs/pull/1147))
@@ -197,12 +203,20 @@ So if you use the `scale_bar`, or `Points.text` or other layers and overlays tha
 - Reorganize and spruce up the community pages ([docs#1168](https://github.com/napari/docs/pull/1168))
 - Add icons to persistent sidebar links ([docs#1169](https://github.com/napari/docs/pull/1169))
 - Missing overlays in docs ([docs#1173](https://github.com/napari/docs/pull/1173))
+- Mock `exec` in place of `exec_` ([docs#1176](https://github.com/napari/docs/pull/1176))
+- Use data.napari.org for nilearn data for prefetch step ([docs#1178](https://github.com/napari/docs/pull/1178))
+- Drop PyQt5 in docs ([docs#1181](https://github.com/napari/docs/pull/1181))
+- Update release notes v0.10.0rc1 ([docs#1182](https://github.com/napari/docs/pull/1182))
+- Add Aniket and Jacopo to the core team section ([docs#1184](https://github.com/napari/docs/pull/1184))
+- Add crosshair mention ([docs#1188](https://github.com/napari/docs/pull/1188))
+- The (almost) Everything example ([#9319](https://github.com/napari/napari/pull/9319))
 - Add info in tooltips for projection mode ([#9497](https://github.com/napari/napari/pull/9497))
 - Clarify in `LayerList` docstring when the `changed` event is emitted ([#9504](https://github.com/napari/napari/pull/9504))
 
 ## Other Pull Requests
 
 - ci(dependabot): bump the github-actions group across 1 directory with 2 updates ([docs#1125](https://github.com/napari/docs/pull/1125))
+- [pre-commit.ci] pre-commit autoupdate ([docs#1136](https://github.com/napari/docs/pull/1136))
 - Rumdl: Add baseline config and format docs/ ([docs#1140](https://github.com/napari/docs/pull/1140))
 - Rumdl: Parse and Format code blocks with ruff ([docs#1143](https://github.com/napari/docs/pull/1143))
 - Move pre-fetch data step to begin of prep_docs.py ([docs#1148](https://github.com/napari/docs/pull/1148))
@@ -211,6 +225,8 @@ So if you use the `scale_bar`, or `Points.text` or other layers and overlays tha
 - [pre-commit.ci] pre-commit autoupdate ([docs#1163](https://github.com/napari/docs/pull/1163))
 - Add write permissions for a statuses in label trigger build for docs ([docs#1167](https://github.com/napari/docs/pull/1167))
 - [pre-commit.ci] pre-commit autoupdate ([docs#1172](https://github.com/napari/docs/pull/1172))
+- Make the nightly link check report its results ([docs#1175](https://github.com/napari/docs/pull/1175))
+- Change linkcheck to use pyqt6 instead of pyqt5 ([docs#1180](https://github.com/napari/docs/pull/1180))
 - fix(typing): add typing and fix mypy error in `qt_tracks_controls.py` ([#9176](https://github.com/napari/napari/pull/9176))
 - fix (typing): add typing and fix mypy error in `qt_symbol_combobox.py` ([#9182](https://github.com/napari/napari/pull/9182))
 - chore: remove ChunkLoader dead test code  ([#9381](https://github.com/napari/napari/pull/9381))
@@ -249,14 +265,19 @@ So if you use the `scale_bar`, or `Points.text` or other layers and overlays tha
 - Fix failing test by wait on worker clean ([#9710](https://github.com/napari/napari/pull/9710))
 - TYP: add type hints in `io.py` ([#9715](https://github.com/napari/napari/pull/9715))
 - TYP: add type hints in `_proxies.py` , `_migrations.py` , `_fields.py` and `_base.py` ([#9719](https://github.com/napari/napari/pull/9719))
+- Fix the Qt enum usage ([#9723](https://github.com/napari/napari/pull/9723))
 - Change all `exec_` to `exec` for Qt objects ([#9725](https://github.com/napari/napari/pull/9725))
 - Update links in doc strings to point to the Qt6 documentation. ([#9726](https://github.com/napari/napari/pull/9726))
 - Apply `QCheckBox.stateChanged` to `QCheckBox.toggled` migration ([#9727](https://github.com/napari/napari/pull/9727))
 - Update `certifi`, `hypothesis`, `npe2`, `pillow`, `platformdirs`, `pydantic-settings`, `superqt`, `tifffile`, `virtualenv`, `wrapt` ([#9736](https://github.com/napari/napari/pull/9736))
 - Use QEnumComboBox for depiction control ([#9742](https://github.com/napari/napari/pull/9742))
+- [pre-commit.ci] pre-commit autoupdate ([#9753](https://github.com/napari/napari/pull/9753))
+- Use pooch mocking machinery to fetch scikit-mage data from our server ([#9772](https://github.com/napari/napari/pull/9772))
+- Apply missing changes of PyQt5 drop ([#9779](https://github.com/napari/napari/pull/9779))
+- Update `certifi`, `coverage`, `hypothesis`, `napari-console`, `pandas`, `pint`, `pydantic-settings`, `virtualenv` ([#9791](https://github.com/napari/napari/pull/9791))
 
 
-## 23 authors added to this release (alphabetical)
+## 24 authors added to this release (alphabetical)
 
 (+) denotes first-time contributors 🥳
 
@@ -269,6 +290,7 @@ So if you use the `scale_bar`, or `Points.text` or other layers and overlays tha
 - [Clément Caporal](https://github.com/napari/napari/commits?author=ClementCaporal) - @ClementCaporal
 - [Felipe Cybis Pereira](https://github.com/napari/napari/commits?author=FelipeCybis) - @FelipeCybis +
 - [Grzegorz Bokota](https://github.com/napari/napari/commits?author=Czaki) ([docs](https://github.com/napari/docs/commits?author=Czaki))  - @Czaki
+- [imaddde867](https://github.com/napari/napari/commits?author=imaddde867) - @imaddde867 +
 - [Jacopo Abramo](https://github.com/napari/napari/commits?author=jacopoabramo) ([docs](https://github.com/napari/docs/commits?author=jacopoabramo))  - @jacopoabramo
 - [KRiedmiller](https://github.com/napari/napari/commits?author=KRiedmiller) - @KRiedmiller +
 - [lettyz3](https://github.com/napari/napari/commits?author=lettyz3) - @lettyz3 +
@@ -296,12 +318,12 @@ So if you use the `scale_bar`, or `Points.text` or other layers and overlays tha
 - [Caroline Malin-Mayor](https://github.com/napari/docs/commits?author=cmalinmayor) - @cmalinmayor
 - [Clément Caporal](https://github.com/napari/napari/commits?author=ClementCaporal) - @ClementCaporal +
 - [Draga Doncila Pop](https://github.com/napari/docs/commits?author=DragaDoncila) - @DragaDoncila
+- [Felipe Cybis Pereira](https://github.com/napari/napari/commits?author=FelipeCybis) - @FelipeCybis +
 - [Grzegorz Bokota](https://github.com/napari/napari/commits?author=Czaki) ([docs](https://github.com/napari/docs/commits?author=Czaki))  - @Czaki
 - [Jacopo Abramo](https://github.com/napari/napari/commits?author=jacopoabramo) ([docs](https://github.com/napari/docs/commits?author=jacopoabramo))  - @jacopoabramo
 - [Juan Nunez-Iglesias](https://github.com/napari/docs/commits?author=jni) - @jni
 - [lettyz3](https://github.com/napari/napari/commits?author=lettyz3) - @lettyz3 +
 - [Lorenzo Gaifas](https://github.com/napari/napari/commits?author=brisvag) ([docs](https://github.com/napari/docs/commits?author=brisvag))  - @brisvag
-- [Lundy Bernard](https://github.com/napari/napari/commits?author=lundybernard) ([docs](https://github.com/napari/docs/commits?author=lundybernard))  - @lundybernard +
 - [Peter Sobolewski](https://github.com/napari/napari/commits?author=psobolewskiPhD) - @psobolewskiPhD
 - [Sesan](https://github.com/napari/napari/commits?author=Olusesan) ([docs](https://github.com/napari/docs/commits?author=Olusesan))  - @Olusesan
 - [Tim Monko](https://github.com/napari/napari/commits?author=TimMonko) ([docs](https://github.com/napari/docs/commits?author=TimMonko))  - @TimMonko

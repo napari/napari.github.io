@@ -805,23 +805,27 @@ same location.
 
 Canvas overlays can be accessed via `viewer.canvas.overlays`:
 
-- Scale bar (canvas overlay, accessible via
-  `viewer.canvas.overlays.scale_bar`): it displays distances in world
-  coordinates for the displayed scene. The scale bar usually inherits layer
-  units when they are set. If inference fails it can fall back to a
+- Scale bar (`viewer.canvas.overlays.scale_bar`): it displays distances in
+  world coordinates for the displayed scene. The scale bar usually inherits
+  layer units when they are set. If inference fails it can fall back to a
   dimensionless label, and if displayed axes mix dimensionalities it uses the
   last displayed axis unit with a warning. You can control its appearance and
   fixed length from the viewer. See the [units guide](units-guide) for more
   information.
-- Canvas Axes (canvas overlay, accessible via `viewer.canvas.overlays.axes`):
+- Canvas Axes (`viewer.canvas.overlays.axes`):
   displays basic axes in a corner of the canvas, linked to the viewer's camera.
-- Text (canvas overlay, accessible via `viewer.canvas.overlays.text`): displays
+- Text (`viewer.canvas.overlays.text`): displays
   arbitrary text on the canvas.
 
 Scene overlays live on `viewer.scene.overlays`:
 
-- Scene Axes (scene overlay, accessible via `viewer.scene.axes`): displays
+- Scene Axes (`viewer.scene.overlays.axes`): displays
   basis axes at the origin in the scene.
+- Grid Lines (`viewer.scene.overlays.grid_lines`): displays a smartly-resizing,
+  unit-aware grid behind the data, and optionally tick marks and axis labels
+  (on by default).
+- Crosshair (`viewer.scene.overlays.crosshair`): displays a crosshair at the
+  cursor; especially useful with multiple layers in grid mode.
 
 These overlays can also be accessed via graphical interface through the
 **View** menu and their respective submenus.

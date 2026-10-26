@@ -153,6 +153,10 @@ some extra visualisations as overlays:
 - Color bar (canvas overlay, accessible via `layer.colorbar` on layers with a
   `colormap` attribute): displays a colorbar legend with tickmarks,
   automatically synced with contrast limits
+- Name overlay (canvas overlay, accessible via `layer.name_overlay`): displays
+  the name of the layer on the canvas; especially useful with many layers
+  displayed in grid mode. The text will be automatically colored based on the
+  layer's colormap where appropriate.
 
 These overlays can be also toggled from the graphical interface by
 right-clicking on selected layers in the layerlist, and clicking their

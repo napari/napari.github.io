@@ -49,7 +49,7 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=d2b87285" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=9f79b9c3" />
   
   <!-- So that users can add custom icons -->
   <script defer src="../../../_static/scripts/fontawesome.js?digest=18bd87630a240e9c25be"></script>
@@ -57,7 +57,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=18bd87630a240e9c25be" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=18bd87630a240e9c25be" />
 
-    <script src="../../../_static/documentation_options.js?v=be7f2f34"></script>
+    <script src="../../../_static/documentation_options.js?v=4fe9927d"></script>
     <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -69,7 +69,7 @@
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.23.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.10.0a0';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.10.0rc1';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
@@ -451,9 +451,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../architecture/dir_organization.html">napari directory organization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../architecture/napari_models.html">napari models and events</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../architecture/app_model.html">napari’s application model</a></li>
-
 <li class="toctree-l2"><a class="reference internal" href="../../architecture/magicgui_type_reg.html"><code class="docutils literal notranslate"><span class="pre">magicgui</span></code> type registration</a></li>
-
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../architecture/ui_sections/index.html">UI sections</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../architecture/ui_sections/application_menus_ui.html">Application menus</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../architecture/ui_sections/application_status_bar_ui.html">Application status bar</a></li>
@@ -488,7 +486,6 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../naps/8-telemetry.html">NAP-8 — Telemetry</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../naps/9-multiple-canvases.html">NAP-9 — Multiple Views</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../naps/10-migration-event-system.html">NAP-10 — Migration of the event system</a></li>
-
 <li class="toctree-l2"><a class="reference internal" href="../../../naps/template.html">NAP-X — Template and Instructions</a></li>
 </ul>
 </details></li>
@@ -505,25 +502,25 @@
     </p>
     <ul class="nav bd-sidenav">
       <li class="toctree-l1">
-          <a class="reference internal" href="../../../community/meeting_schedule.html">Community calendar</a>
+          <a class="reference internal" href="../../../community/meeting_schedule.html"><i class="fa-solid fa-calendar-days sidebar-link-icon" aria-hidden="true"></i>Community calendar</a>
       </li>
       <li class="toctree-l1">
-          <a class="reference external" href="https://napari.zulipchat.com/">Community chat</a>
+          <a class="reference external" href="https://napari.zulipchat.com/"><i class="fa-solid fa-comments sidebar-link-icon" aria-hidden="true"></i>Community chat</a>
       </li>
       <li class="toctree-l1">
-          <a class="reference internal" href="../../../troubleshooting.html">Troubleshooting</a>
+          <a class="reference internal" href="../../../troubleshooting.html"><i class="fa-solid fa-circle-question sidebar-link-icon" aria-hidden="true"></i>Troubleshooting</a>
       </li>
       <li class="toctree-l1">
-          <a class="reference internal" href="../../../release/index.html">Release notes</a>
+          <a class="reference internal" href="../../../release/index.html"><i class="fa-solid fa-newspaper sidebar-link-icon" aria-hidden="true"></i>Release notes</a>
       </li>
       <li class="toctree-l1">
-          <a class="reference internal" href="../../../roadmaps/active_roadmap.html">Roadmap</a>
+          <a class="reference internal" href="../../../roadmaps/active_roadmap.html"><i class="fa-solid fa-map sidebar-link-icon" aria-hidden="true"></i>Roadmap</a>
       </li>
       <li class="toctree-l1">
-          <a class="reference external" href="https://napari.org/island-dispatch">Blog</a>
+          <a class="reference external" href="https://napari.org/island-dispatch"><i class="fa-solid fa-rss sidebar-link-icon" aria-hidden="true"></i>Blog</a>
       </li>
       <li class="toctree-l1">
-          <a class="reference external" href="https://napari-hub.org">Discover plugins</a>
+          <a class="reference external" href="https://napari-hub.org"><i class="fa-solid fa-puzzle-piece sidebar-link-icon" aria-hidden="true"></i>Discover plugins</a>
       </li>
     </ul>
   </div>
@@ -593,19 +590,20 @@
                   
   <section class="tex2jax_ignore mathjax_ignore" id="profiling">
 <span id="napari-profiling"></span><h1>Profiling<a class="headerlink" href="#profiling" title="Link to this heading">#</a></h1>
-<p>Profiling provides information about the
-total time of execution of each function when performing a specific task or workflow.
-It produces a complete call graph that
-simplifies understanding the call relationship between functions. It is useful for
-identifying which functions are taking most of the runtime and causing bottlenecks.</p>
-<p><a class="reference internal" href="../../../howtos/perfmon.html#napari-perfmon"><span class="std std-ref">Performance monitoring</span></a>, unlike profiling provides information about the
-timing of events or specific functions each time it is called. It can be useful when
-profiling identifies a common function to be slow, but
-as this function gets called from many places so it’s hard to know where to optimize.
-Performance monitoring is able to tell you at which points during execution it is
-called and how long it took each time. This is also helpful in differentiating
-functions that are only slow in the first call versus functions that are consistently
-slow. See <a class="reference internal" href="../../../howtos/perfmon.html#napari-perfmon"><span class="std std-ref">performance monitoring</span></a> for more details.</p>
+<p>Profiling provides information about the total time of execution of each
+function when performing a specific task or workflow. It produces a complete
+call graph that simplifies understanding the call relationship between
+functions. It is useful for identifying which functions are taking most of the
+runtime and causing bottlenecks.</p>
+<p><a class="reference internal" href="../../../howtos/perfmon.html#napari-perfmon"><span class="std std-ref">Performance monitoring</span></a>, unlike profiling provides information
+about the timing of events or specific functions each time it is called. It can
+be useful when profiling identifies a common function to be slow, but as this
+function gets called from many places so it’s hard to know where to optimize.
+Performance monitoring is able to tell you at which points during execution it
+is called and how long it took each time. This is also helpful in
+differentiating functions that are only slow in the first call versus functions
+that are consistently slow. See <a class="reference internal" href="../../../howtos/perfmon.html#napari-perfmon"><span class="std std-ref">performance monitoring</span></a> for
+more details.</p>
 <p><img alt="A section of an example call graph showing the functions called in napari's layerlist and some of their profile statistics such as call count and cumulative percentage time spent." src="../../../_images/execution_graph.png" /></p>
 <p>The basic tool for profile in Python is the built-in module <code class="docutils literal notranslate"><span class="pre">cProfile</span></code>.
 To profile an entire script, use the call:</p>
@@ -613,61 +611,65 @@ To profile an entire script, use the call:</p>
 </pre></div>
 </div>
 <p>The output will be a table similar to this one:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>         <span class="mi">2334264</span> <span class="n">function</span> <span class="n">calls</span> <span class="p">(</span><span class="mi">2267576</span> <span class="n">primitive</span> <span class="n">calls</span><span class="p">)</span> <span class="ow">in</span> <span class="mf">2.242</span> <span class="n">seconds</span>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>         2334264 function calls (2267576 primitive calls) in 2.242 seconds
 
-   <span class="n">Ordered</span> <span class="n">by</span><span class="p">:</span> <span class="n">internal</span> <span class="n">time</span>
+   Ordered by: internal time
 
-   <span class="n">ncalls</span>  <span class="n">tottime</span>  <span class="n">percall</span>  <span class="n">cumtime</span>  <span class="n">percall</span> <span class="n">filename</span><span class="p">:</span><span class="n">lineno</span><span class="p">(</span><span class="n">function</span><span class="p">)</span>
-    <span class="mi">21241</span>    <span class="mf">0.252</span>    <span class="mf">0.000</span>    <span class="mf">0.252</span>    <span class="mf">0.000</span> <span class="p">{</span><span class="n">method</span> <span class="s1">'reduce'</span> <span class="n">of</span> <span class="s1">'numpy.ufunc'</span> <span class="n">objects</span><span class="p">}</span>
-<span class="mi">80547</span><span class="o">/</span><span class="mi">57578</span>    <span class="mf">0.080</span>    <span class="mf">0.000</span>    <span class="mf">0.765</span>    <span class="mf">0.000</span> <span class="p">{</span><span class="n">built</span><span class="o">-</span><span class="ow">in</span> <span class="n">method</span> <span class="n">numpy</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">_multiarray_umath</span><span class="o">.</span><span class="n">implement_array_function</span><span class="p">}</span>
-     <span class="mi">1048</span>    <span class="mf">0.060</span>    <span class="mf">0.000</span>    <span class="mf">0.060</span>    <span class="mf">0.000</span> <span class="p">{</span><span class="n">built</span><span class="o">-</span><span class="ow">in</span> <span class="n">method</span> <span class="n">marshal</span><span class="o">.</span><span class="n">loads</span><span class="p">}</span>
-    <span class="mi">62683</span>    <span class="mf">0.052</span>    <span class="mf">0.000</span>    <span class="mf">0.052</span>    <span class="mf">0.000</span> <span class="p">{</span><span class="n">built</span><span class="o">-</span><span class="ow">in</span> <span class="n">method</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">}</span>
-  <span class="mi">122</span><span class="o">/</span><span class="mi">117</span>    <span class="mf">0.042</span>    <span class="mf">0.000</span>    <span class="mf">0.047</span>    <span class="mf">0.000</span> <span class="p">{</span><span class="n">built</span><span class="o">-</span><span class="ow">in</span> <span class="n">method</span> <span class="n">_imp</span><span class="o">.</span><span class="n">create_dynamic</span><span class="p">}</span>
-     <span class="mi">5152</span>    <span class="mf">0.042</span>    <span class="mf">0.000</span>    <span class="mf">0.053</span>    <span class="mf">0.000</span> <span class="n">stride_tricks</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">114</span><span class="p">(</span><span class="n">_broadcast_to</span><span class="p">)</span>
-     <span class="mi">5102</span>    <span class="mf">0.037</span>    <span class="mf">0.000</span>    <span class="mf">0.048</span>    <span class="mf">0.000</span> <span class="n">decomp_qr</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">11</span><span class="p">(</span><span class="n">safecall</span><span class="p">)</span>
-     <span class="mi">2551</span>    <span class="mf">0.031</span>    <span class="mf">0.000</span>    <span class="mf">0.386</span>    <span class="mf">0.000</span> <span class="n">transform_utils</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">153</span><span class="p">(</span><span class="n">decompose_linear_matrix</span><span class="p">)</span>
-     <span class="mi">2651</span>    <span class="mf">0.029</span>    <span class="mf">0.000</span>    <span class="mf">0.067</span>    <span class="mf">0.000</span> <span class="n">transforms</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">342</span><span class="p">(</span><span class="fm">__call__</span><span class="p">)</span>
-<span class="mi">2172</span><span class="o">/</span><span class="mi">2108</span>    <span class="mf">0.029</span>    <span class="mf">0.000</span>    <span class="mf">0.087</span>    <span class="mf">0.000</span> <span class="p">{</span><span class="n">built</span><span class="o">-</span><span class="ow">in</span> <span class="n">method</span> <span class="n">builtins</span><span class="o">.</span><span class="n">__build_class__</span><span class="p">}</span>
-    <span class="mi">18283</span>    <span class="mf">0.027</span>    <span class="mf">0.000</span>    <span class="mf">0.278</span>    <span class="mf">0.000</span> <span class="n">fromnumeric</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">70</span><span class="p">(</span><span class="n">_wrapreduction</span><span class="p">)</span>
-<span class="o">...</span>
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+    21241    0.252    0.000    0.252    0.000 {method 'reduce' of 'numpy.ufunc' objects}
+80547/57578    0.080    0.000    0.765    0.000 {built-in method numpy.core._multiarray_umath.implement_array_function}
+     1048    0.060    0.000    0.060    0.000 {built-in method marshal.loads}
+    62683    0.052    0.000    0.052    0.000 {built-in method numpy.array}
+  122/117    0.042    0.000    0.047    0.000 {built-in method _imp.create_dynamic}
+     5152    0.042    0.000    0.053    0.000 stride_tricks.py:114(_broadcast_to)
+     5102    0.037    0.000    0.048    0.000 decomp_qr.py:11(safecall)
+     2551    0.031    0.000    0.386    0.000 transform_utils.py:153(decompose_linear_matrix)
+     2651    0.029    0.000    0.067    0.000 transforms.py:342(__call__)
+2172/2108    0.029    0.000    0.087    0.000 {built-in method builtins.__build_class__}
+    18283    0.027    0.000    0.278    0.000 fromnumeric.py:70(_wrapreduction)
+...
 </pre></div>
 </div>
-<p>The format of this table is documented in the Python docs
-<a class="reference external" href="https://docs.python.org/3/library/profile.html#instant-user-s-manual">here</a>.
-Because the output for complex programs such as napari can be very long,
-we suggest piping output to <code class="docutils literal notranslate"><span class="pre">less</span></code>, or saving it to a file,
-which can be investigated later. To save the output to file use the <code class="docutils literal notranslate"><span class="pre">-o</span></code> option:</p>
+<p>The format of this table is documented
+<a class="reference external" href="https://docs.python.org/3/library/profile.html#instant-user-s-manual">in the Python profiler documentation</a>.
+Because the output for complex programs such as napari can be very long, we
+suggest piping output to <code class="docutils literal notranslate"><span class="pre">less</span></code>, or saving it to a file, which can be
+investigated later. To save the output to file use the <code class="docutils literal notranslate"><span class="pre">-o</span></code> option:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>cProfile<span class="w"> </span>-o<span class="w"> </span>result.pstat<span class="w"> </span>path_to_script.py
 </pre></div>
 </div>
-<p>Once the file is saved, you can investigate using free tools. Some options include:</p>
+<p>Once the file is saved, you can investigate using free tools. Some options
+include:</p>
 <ol class="arabic">
 <li><p>The Stat object.</p>
-<p>You can parse the profile output using the <code class="docutils literal notranslate"><span class="pre">Stats</span></code> object from the <code class="docutils literal notranslate"><span class="pre">pstats</span></code> built-in library. For example:</p>
+<p>You can parse the profile output using the <code class="docutils literal notranslate"><span class="pre">Stats</span></code> object from the <code class="docutils literal notranslate"><span class="pre">pstats</span></code>
+built-in library. For example:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pstats</span><span class="w"> </span><span class="kn">import</span> <span class="n">Stats</span>
 
 <span class="n">stat</span> <span class="o">=</span> <span class="n">Stats</span><span class="p">(</span><span class="s1">'path/to/result.pstat'</span><span class="p">)</span>
 <span class="n">stat</span><span class="o">.</span><span class="n">sort_stats</span><span class="p">(</span><span class="s1">'tottime'</span><span class="p">)</span><span class="o">.</span><span class="n">print_stats</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>You can find more documentation about the Stats object in the Python documentation <a class="reference external" href="https://docs.python.org/3/library/profile.html#the-stats-class">here</a>.</p>
+<p>You can find more documentation about the Stats object
+<a class="reference external" href="https://docs.python.org/3/library/profile.html#the-stats-class">in the Python documentation</a>.</p>
 </li>
 <li><p>Snakeviz.</p>
-<p>Snakeviz is a third party library designed to visualize profiling output interactively.
-You can install it with pip like any other Python library using <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">pip</span> <span class="pre">install</span> <span class="pre">snakeviz</span></code>.
-This will provide the <code class="docutils literal notranslate"><span class="pre">snakeviz</span></code> command, which you can call to create an in-browser
-visualization of your profiling data. Use the command:</p>
+<p>Snakeviz is a third party library designed to visualize profiling output
+interactively. You can install it with pip like any other Python library
+using <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">pip</span> <span class="pre">install</span> <span class="pre">snakeviz</span></code>. This will provide the <code class="docutils literal notranslate"><span class="pre">snakeviz</span></code>
+command, which you can call to create an in-browser visualization of your
+profiling data. Use the command:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>snakeviz<span class="w"> </span>path/to/result.pstat
 </pre></div>
 </div>
-<p>This should cause a new page to open in your browser with your profiling information.
-You can read more about how to interpret this visualization on the
-<a class="reference external" href="https://jiffyclub.github.io/snakeviz/">snakeviz homepage</a>.</p>
+<p>This should cause a new page to open in your browser with your profiling
+information. You can read more about how to interpret this visualization on
+the <a class="reference external" href="https://jiffyclub.github.io/snakeviz/">snakeviz homepage</a>.</p>
 </li>
 <li><p>gprof2dot</p>
-<p>You can visualize the call graph with <a class="reference external" href="https://www.graphviz.org/"><code class="docutils literal notranslate"><span class="pre">graphviz</span></code></a>,
-a third party graph visualization library.
-You can install graphviz with system package managers:</p>
+<p>You can visualize the call graph with
+<a class="reference external" href="https://www.graphviz.org/"><code class="docutils literal notranslate"><span class="pre">graphviz</span></code></a>, a third party graph visualization
+library. You can install graphviz with system package managers:</p>
 <ul class="simple">
 <li><p>Ubuntu: <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">apt</span> <span class="pre">install</span> <span class="pre">graphviz</span></code></p></li>
 <li><p>macOS with brew: <code class="docutils literal notranslate"><span class="pre">brew</span> <span class="pre">install</span> <span class="pre">graphviz</span></code></p></li>
@@ -675,16 +677,18 @@ You can install graphviz with system package managers:</p>
 </ul>
 <p>You can then use <code class="docutils literal notranslate"><span class="pre">gprof2dot</span></code>, a Python library, to convert the <code class="docutils literal notranslate"><span class="pre">.pstat</span></code>
 statistics to a <code class="docutils literal notranslate"><span class="pre">.dot</span></code> graph file and use graphviz:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>python<span class="w"> </span>-m<span class="w"> </span>gprof2dot<span class="w"> </span>-f<span class="w"> </span>pstats<span class="w">  </span>-n<span class="w"> </span><span class="m">5</span><span class="w">  </span>result.pstat<span class="w"> </span>-o<span class="w"> </span>result.dot
-$<span class="w"> </span>dot<span class="w"> </span>-Tpng<span class="w"> </span>-o<span class="w"> </span>result.png<span class="w"> </span>result.dot
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>gprof2dot<span class="w"> </span>-f<span class="w"> </span>pstats<span class="w">  </span>-n<span class="w"> </span><span class="m">5</span><span class="w">  </span>result.pstat<span class="w"> </span>-o<span class="w"> </span>result.dot
+dot<span class="w"> </span>-Tpng<span class="w"> </span>-o<span class="w"> </span>result.png<span class="w"> </span>result.dot
 </pre></div>
 </div>
 <p>If your shell supports piping, this can all be combined into one command:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>python<span class="w"> </span>-m<span class="w"> </span>gprof2dot<span class="w"> </span>-f<span class="w"> </span>pstats<span class="w">  </span>-n<span class="w"> </span><span class="m">5</span><span class="w">  </span>result.pstat<span class="w"> </span>-o<span class="w"> </span><span class="p">|</span><span class="w"> </span>dot<span class="w"> </span>-Tpng<span class="w"> </span>-o<span class="w"> </span>result.png
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>gprof2dot<span class="w"> </span>-f<span class="w"> </span>pstats<span class="w">  </span>-n<span class="w"> </span><span class="m">5</span><span class="w">  </span>result.pstat<span class="w"> </span>-o<span class="w"> </span><span class="p">|</span><span class="w"> </span>dot<span class="w"> </span>-Tpng<span class="w"> </span>-o<span class="w"> </span>result.png
 </pre></div>
 </div>
 </li>
-<li><p>Some IDEs have built in profiling visualization tools. For example, PyCharm Professional, which is free for academics and open source maintainers, allows viewing <code class="docutils literal notranslate"><span class="pre">.pstat</span></code> files using Tools &gt; Open CProfile snapshot.</p></li>
+<li><p>Some IDEs have built in profiling visualization tools. For example, PyCharm
+Professional, which is free for academics and open source maintainers,
+allows viewing <code class="docutils literal notranslate"><span class="pre">.pstat</span></code> files using Tools &gt; Open CProfile snapshot.</p></li>
 </ol>
 <p>cProfile also allows profiling only specific parts of the code.
 You can restrict profiling to particular code sections using
@@ -1447,7 +1451,7 @@ button to trigger profiling:</p>
     </div>
 
     
-      <span>9.1.0</span>
+      <span>9.1.1</span>
     
   </div>
 </div></div>

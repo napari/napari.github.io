@@ -76,8 +76,8 @@ Milestones and labels have a direct effect on the release cycle. If you add a
 milestone to a pull request, you take responsibility for driving it toward a
 mergeable state and for keeping the release manager informed of its status; if
 you add the `highlight` label, please include the motivation, a draft highlight
-note, and any required images or videos. See the [release policy](napari-release)
-for details.
+note, and any required images or videos. See the
+[release policy](napari-release) for details.
 
 ## What to focus on
 
@@ -160,12 +160,14 @@ relevant core team members or bring it up in the `#triage` channel.
 
 ## The pull request triage board
 
-The [napari pull request triage board](https://github.com/orgs/napari/projects/35)
+The
+[napari pull request triage board](https://github.com/orgs/napari/projects/35)
 is an org-level GitHub project board that automatically tracks every open pull
 request across the napari organization. It is populated by the
 [pr-triage-board-bot](https://github.com/jupyter/pr-triage-board-bot), a tool
 designed to "scale maintainer intuition" — the thinking behind it is described
-in [this blog post](https://medium.com/@yuvipanda/scaling-maintainer-intuition-with-pull-request-triage-boards-779f2387498b).
+in
+[this blog post](https://medium.com/@yuvipanda/scaling-maintainer-intuition-with-pull-request-triage-boards-779f2387498b).
 
 For each open pull request, the bot computes a set of fields so you can see at
 a glance where a pull request is in its lifecycle:

@@ -2,37 +2,78 @@
 
 # Community
 
-There are several different ways to be a part of the napari community. From
-being a code or documentation contributor, to creating educational content or
-examples, you are welcome to help develop and improve napari.
+napari is built by a friendly, global community of scientists, developers, and
+users, and everyone is welcome. The quickest way to say hello is our
+[community chat](https://napari.zulipchat.com/) on Zulip, where you can ask
+questions, share what you're working on, and meet the team. You can also drop
+into one of our regular [community meetings](meeting-schedule), which are open
+to anyone and spread across time zones.
 
-## Questions
+<!-- rumdl-disable MD013 -->
 
-To ask questions and interact with the team, you can join our
-[zulip chat](https://napari.zulipchat.com/login/) or participate in our
-[meetings](meeting-schedule).
+```{raw} html
+<div class="homepage-quicklinks">
+  <a href="https://napari.zulipchat.com/"><i class="fa-solid fa-comments"></i><span>Community chat</span></a>
+  <a href="meeting_schedule.html"><i class="fa-solid fa-calendar-days"></i><span>Calendar</span></a>
+  <a href="https://forum.image.sc/tag/napari"><i class="fa-solid fa-circle-question"></i><span>Forum</span></a>
+  <a href="https://github.com/napari/napari"><i class="fa-brands fa-github"></i><span>GitHub</span></a>
+  <a href="https://napari.org/island-dispatch"><i class="fa-solid fa-rss"></i><span>Blog</span></a>
+</div>
+<div class="homepage-quicklinks community-socials">
+  <a href="https://www.linkedin.com/company/napari"><i class="fa-brands fa-linkedin"></i><span>LinkedIn</span></a>
+  <a href="https://bsky.app/profile/napari.org"><i class="fa-brands fa-bluesky"></i><span>Bluesky</span></a>
+  <a href="https://fosstodon.org/@napari" rel="me"><i class="fa-brands fa-mastodon"></i><span>Mastodon</span></a>
+</div>
+```
 
-To ask general questions about napari usage to the community, including plugins,
-you can visit ![forum image.sc logo](../images/image_sc_logo.png) [forum.image.sc/tag/napari](https://forum.image.sc/tag/napari)
+<!-- rumdl-enable MD013 -->
 
-## News and updates
+::::{grid} 1 2 2 3
+:gutter: 3
 
-To get the latest news from the napari team, follow us on:
+:::{grid-item-card} {fas}`users` About the project
+:link: about-napari
+:link-type: ref
 
-- ![mastodon logo](../images/mastodon_logo.svg) mastodon [@napari@fosstodon.org](https://fosstodon.org/@napari)
-- ![bluesky logo](../images/Bluesky_Logo.svg) BlueSky [@napari.org](https://bsky.app/profile/napari.org)
+Our history, mission and values, the team, governance, and the partners who
+support napari.
+:::
 
-## Contributing and Bug reporting
+:::{grid-item-card} {fas}`hand-holding-heart` Get involved
+:link: get-involved
+:link-type: ref
 
-The napari development happens in the napari GitHub repository [github.com/napari/napari](https://github.com/napari/napari).
-If you spot a bug, please check our [issues list](https://github.com/napari/napari/issues) . If you
-do not find a matching report, please open a new issue.
+Join a community meeting or working group, report a bug, or start
+contributing.
+:::
 
-If you are interested in contributing, check out our
-[contributing guide](napari-contributing).
+:::{grid-item-card} {fas}`handshake` Code of conduct
+:link: napari-coc
+:link-type: ref
 
-## Blog
+How we expect everyone in the napari community to treat each other, and how
+to report a concern.
+:::
 
-To read announcements, learn more about who is using napari and see what our
-community has to say, check out our blog, the
-[Island Dispatch](https://napari.org/island-dispatch).
+:::{grid-item-card} {fas}`shield-halved` Security
+:link: security-policy
+:link-type: ref
+
+Security practices for the napari GitHub organization.
+:::
+
+:::{grid-item-card} {fas}`palette` napari resources
+:link: napari-resources
+:link-type: ref
+
+The napari logo, website colors, and the `napari-resources` package.
+:::
+
+:::{grid-item-card} {fas}`scale-balanced` Licensing
+:link: napari-licensing
+:link-type: ref
+
+napari is open source under the BSD-3-Clause license.
+:::
+
+::::

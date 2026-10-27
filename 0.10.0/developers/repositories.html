@@ -49,7 +49,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=2082cf3c" />
     <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=d2b87285" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=9f79b9c3" />
   
   <!-- So that users can add custom icons -->
   <script defer src="../_static/scripts/fontawesome.js?digest=18bd87630a240e9c25be"></script>
@@ -57,7 +57,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=18bd87630a240e9c25be" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=18bd87630a240e9c25be" />
 
-    <script src="../_static/documentation_options.js?v=be7f2f34"></script>
+    <script src="../_static/documentation_options.js?v=4fe9927d"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -69,7 +69,7 @@
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.23.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.10.0a0';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.10.0rc1';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
@@ -451,9 +451,7 @@
 <li class="toctree-l2"><a class="reference internal" href="architecture/dir_organization.html">napari directory organization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="architecture/napari_models.html">napari models and events</a></li>
 <li class="toctree-l2"><a class="reference internal" href="architecture/app_model.html">napari’s application model</a></li>
-
 <li class="toctree-l2"><a class="reference internal" href="architecture/magicgui_type_reg.html"><code class="docutils literal notranslate"><span class="pre">magicgui</span></code> type registration</a></li>
-
 <li class="toctree-l2 has-children"><a class="reference internal" href="architecture/ui_sections/index.html">UI sections</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="architecture/ui_sections/application_menus_ui.html">Application menus</a></li>
 <li class="toctree-l3"><a class="reference internal" href="architecture/ui_sections/application_status_bar_ui.html">Application status bar</a></li>
@@ -488,7 +486,6 @@
 <li class="toctree-l2"><a class="reference internal" href="../naps/8-telemetry.html">NAP-8 — Telemetry</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../naps/9-multiple-canvases.html">NAP-9 — Multiple Views</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../naps/10-migration-event-system.html">NAP-10 — Migration of the event system</a></li>
-
 <li class="toctree-l2"><a class="reference internal" href="../naps/template.html">NAP-X — Template and Instructions</a></li>
 </ul>
 </details></li>
@@ -505,25 +502,25 @@
     </p>
     <ul class="nav bd-sidenav">
       <li class="toctree-l1">
-          <a class="reference internal" href="../community/meeting_schedule.html">Community calendar</a>
+          <a class="reference internal" href="../community/meeting_schedule.html"><i class="fa-solid fa-calendar-days sidebar-link-icon" aria-hidden="true"></i>Community calendar</a>
       </li>
       <li class="toctree-l1">
-          <a class="reference external" href="https://napari.zulipchat.com/">Community chat</a>
+          <a class="reference external" href="https://napari.zulipchat.com/"><i class="fa-solid fa-comments sidebar-link-icon" aria-hidden="true"></i>Community chat</a>
       </li>
       <li class="toctree-l1">
-          <a class="reference internal" href="../troubleshooting.html">Troubleshooting</a>
+          <a class="reference internal" href="../troubleshooting.html"><i class="fa-solid fa-circle-question sidebar-link-icon" aria-hidden="true"></i>Troubleshooting</a>
       </li>
       <li class="toctree-l1">
-          <a class="reference internal" href="../release/index.html">Release notes</a>
+          <a class="reference internal" href="../release/index.html"><i class="fa-solid fa-newspaper sidebar-link-icon" aria-hidden="true"></i>Release notes</a>
       </li>
       <li class="toctree-l1">
-          <a class="reference internal" href="../roadmaps/active_roadmap.html">Roadmap</a>
+          <a class="reference internal" href="../roadmaps/active_roadmap.html"><i class="fa-solid fa-map sidebar-link-icon" aria-hidden="true"></i>Roadmap</a>
       </li>
       <li class="toctree-l1">
-          <a class="reference external" href="https://napari.org/island-dispatch">Blog</a>
+          <a class="reference external" href="https://napari.org/island-dispatch"><i class="fa-solid fa-rss sidebar-link-icon" aria-hidden="true"></i>Blog</a>
       </li>
       <li class="toctree-l1">
-          <a class="reference external" href="https://napari-hub.org">Discover plugins</a>
+          <a class="reference external" href="https://napari-hub.org"><i class="fa-solid fa-puzzle-piece sidebar-link-icon" aria-hidden="true"></i>Discover plugins</a>
       </li>
     </ul>
   </div>
@@ -592,18 +589,19 @@
 <p>The status labels are approximate and should be read as contributor guidance:</p>
 <ul class="simple">
 <li><p><strong>Active</strong>: regular feature work or frequent cross-repository coordination.
-We welcome contributors to these repositories to help drive forward new features and improvements.
-Contributions to these repositories are likely to be more visible, but
-may also require more coordination with the core team and other contributors.</p></li>
+We welcome contributors to these repositories to help drive forward new
+features and improvements. Contributions to these repositories are likely to
+be more visible, but may also require more coordination with the core team
+and other contributors.</p></li>
 <li><p><strong>Maintenance</strong>: stable and useful; bug fixes, documentation updates, and
 dependency work are usually the most common changes.
 Contributions within this scope will be attended to in a timely manner, while
 larger feature contributions may require more discussion and coordination to
 ensure they fit with the current direction and scope of the project.</p></li>
-<li><p><strong>Early Development</strong>: new or still changing quickly. Contributions are especially
-welcome and can help shape the direction of these projects. These repositories
-may be fast changing, but can be easier to contribute to since they have
-fewer established conventions and patterns.</p></li>
+<li><p><strong>Early Development</strong>: new or still changing quickly. Contributions are
+especially welcome and can help shape the direction of these projects. These
+repositories may be fast changing, but can be easier to contribute to since
+they have fewer established conventions and patterns.</p></li>
 <li><p><strong>Backlog</strong>: still relevant, but not a current priority for the core team.
 We encourage contributions to these repos to bring them up to speed and
 bring functionality to match the original vision for the project.</p></li>
@@ -611,8 +609,8 @@ bring functionality to match the original vision for the project.</p></li>
 <section id="core-application-and-core-plugins">
 <h2>Core application and core plugins<a class="headerlink" href="#core-application-and-core-plugins" title="Link to this heading">#</a></h2>
 <p>These are the repositories that are most central to the core napari experience.
-See <a class="reference internal" href="#upstream-dependencies"><span class="std std-ref">Important upstream dependencies</span></a> for libraries that are fundamental to napari functionality
-but are developed outside of the napari organization.</p>
+See <a class="reference internal" href="#upstream-dependencies"><span class="std std-ref">Important upstream dependencies</span></a> for libraries that are fundamental to napari
+functionality but are developed outside of the napari organization.</p>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
 <tr class="row-odd"><th class="head"><p>Repo</p></th>
@@ -648,9 +646,9 @@ but are developed outside of the napari organization.</p>
 <section id="documentation-websites-and-communication">
 <h2>Documentation, websites, and communication<a class="headerlink" href="#documentation-websites-and-communication" title="Link to this heading">#</a></h2>
 <p>These repos shape how users and contributors discover napari, learn about it,
-and interact with project resources online. These repositories are a great place to
-contribute, even if you don’t have experience with Python, since they mostly involve
-writing and design.</p>
+and interact with project resources online. These repositories are a great
+place to contribute, even if you don’t have experience with Python, since they
+mostly involve writing and design.</p>
 <section id="core-website">
 <h3>Core website<a class="headerlink" href="#core-website" title="Link to this heading">#</a></h3>
 <p>These repos build and publish the main <a class="reference external" href="http://napari.org">napari.org</a> site.</p>
@@ -674,7 +672,7 @@ writing and design.</p>
 <td><p>Website content and generated assets used to publish napari/docs on <a class="reference external" href="http://napari.org">napari.org</a>.</p></td>
 <td><p>Maintenance</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference external" href="https://github.com/napari/resources">resources</a></p></td>
+<tr class="row-odd"><td><p><a class="reference external" href="https://github.com/napari/napari-resources">napari-resources</a></p></td>
 <td><p>Shared graphics, copy, and brand resources for the project.</p></td>
 <td><p>Maintenance</p></td>
 </tr>
@@ -720,9 +718,9 @@ writing and design.</p>
 </section>
 <section id="plugin-system">
 <h2>Plugin system<a class="headerlink" href="#plugin-system" title="Link to this heading">#</a></h2>
-<p>The plugin ecosystem is built around the <code class="docutils literal notranslate"><span class="pre">npe2</span></code> plugin engine and manifest specification.
-The repositories below are focused on supporting the plugin ecosystem,
-whether through core plugin infrastructure or development resources.</p>
+<p>The plugin ecosystem is built around the <code class="docutils literal notranslate"><span class="pre">npe2</span></code> plugin engine and manifest
+specification. The repositories below are focused on supporting the plugin
+ecosystem, whether through core plugin infrastructure or development resources.</p>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
 <tr class="row-odd"><th class="head"><p>Repo</p></th>
@@ -837,7 +835,8 @@ features, but they are not as central as the core application and docs repos.</p
 <section id="important-upstream-dependencies">
 <span id="upstream-dependencies"></span><h2>Important upstream dependencies<a class="headerlink" href="#important-upstream-dependencies" title="Link to this heading">#</a></h2>
 <p>The repositories below are not in the <code class="docutils literal notranslate"><span class="pre">napari</span></code> GitHub organization, but they
-are important friends of napari that are contributed to by members of the napari community.</p>
+are important friends of napari that are contributed to by members of the
+napari community.</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://github.com/vispy/vispy">vispy/vispy</a>: rendering backend and canvas
 infrastructure used by napari.</p></li>
@@ -847,8 +846,8 @@ napari’s needs:</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://github.com/pyapp-kit/magicgui">pyapp-kit/magicgui</a>: automatic widget
 generation from Python type hints, widely used in plugins and some napari UI.</p></li>
-<li><p><a class="reference external" href="https://github.com/pyapp-kit/superqt">pyapp-kit/superqt</a>: extended Qt widgets
-used by napari and related plugins.</p></li>
+<li><p><a class="reference external" href="https://github.com/pyapp-kit/superqt">pyapp-kit/superqt</a>: extended Qt
+widgets used by napari and related plugins.</p></li>
 <li><p><a class="reference external" href="https://github.com/pyapp-kit/app-model">pyapp-kit/app-model</a>: action and
 command model used by modern napari UI infrastructure; originally developed
 in the napari organization.</p></li>
@@ -862,26 +861,46 @@ containers and models were spun out of code originally written for napari.</p></
 <p class="sd-card-text">Archived repositories are included here for completeness. In most cases, new
 work should start in a different repository.</p>
 <ul class="simple">
-<li><p class="sd-card-text"><a class="reference external" href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter-napari-plugin</a>: predecessor to <code class="docutils literal notranslate"><span class="pre">napari-plugin-template</span></code>.</p></li>
-<li><p class="sd-card-text"><a class="reference external" href="https://github.com/napari/dummy-test-plugin">dummy-test-plugin</a>: testing plugin used for plugin-system development.</p></li>
-<li><p class="sd-card-text"><a class="reference external" href="https://github.com/napari/image-types">image-types</a>: type-definition experiment for image-oriented Python code.</p></li>
-<li><p class="sd-card-text"><a class="reference external" href="https://github.com/napari/jupyterlab-bot">jupyterlab-bot</a>: historical fork.</p></li>
-<li><p class="sd-card-text"><a class="reference external" href="https://github.com/napari/magicgui">magicgui</a>: mirror of the upstream <code class="docutils literal notranslate"><span class="pre">pyapp-kit/magicgui</span></code> project.</p></li>
-<li><p class="sd-card-text"><a class="reference external" href="https://github.com/napari/napari-core">napari-core</a>: early core repository from before the current <code class="docutils literal notranslate"><span class="pre">napari</span></code> layout.</p></li>
-<li><p class="sd-card-text"><a class="reference external" href="https://github.com/napari/napari-data">napari-data</a>: example-data repository.</p></li>
-<li><p class="sd-card-text"><a class="reference external" href="https://github.com/napari/napari-hello-world">napari-hello-world</a>: example plugin repository.</p></li>
-<li><p class="sd-card-text"><a class="reference external" href="https://github.com/napari/napari-io">napari-io</a>: early IO plugin repository.</p></li>
-<li><p class="sd-card-text"><a class="reference external" href="https://github.com/napari/napari-language-packs">napari-language-packs</a>: repository for downloadable language packs for the napari UI.</p></li>
-<li><p class="sd-card-text"><a class="reference external" href="https://github.com/napari/napari-plugin-devtools">napari-plugin-devtools</a>: tooling repo for plugin developers.</p></li>
-<li><p class="sd-card-text"><a class="reference external" href="https://github.com/napari/napari-plugin-engine">napari-plugin-engine</a>: legacy plugin engine based on pluggy.</p></li>
-<li><p class="sd-card-text"><a class="reference external" href="https://github.com/napari/napari-scipy2025-workshop">napari-scipy2025-workshop</a>: workshop-specific repository for the SciPy 2025 napari tutorial materials.</p></li>
-<li><p class="sd-card-text"><a class="reference external" href="https://github.com/napari/napari-web-experimental">napari-web-experimental</a>: archived exploration of a possible web front end.</p></li>
-<li><p class="sd-card-text"><a class="reference external" href="https://github.com/napari/napari-workshop-template">napari-workshop-template</a>: template for creating napari workshop websites and materials.</p></li>
-<li><p class="sd-card-text"><a class="reference external" href="https://github.com/napari/napari-xarray">napari-xarray</a>: integration work for xarray-based data and labeled nD arrays in napari. Now in core napari.</p></li>
-<li><p class="sd-card-text"><a class="reference external" href="https://github.com/napari/old-docs">old-docs</a>: documentation repository from an older docs system.</p></li>
-<li><p class="sd-card-text"><a class="reference external" href="https://github.com/napari/plugin-cookiecutter">plugin-cookiecutter</a>: early plugin cookiecutter repository.</p></li>
-<li><p class="sd-card-text"><a class="reference external" href="https://github.com/napari/product-heuristics-2020">product-heuristics-2020</a>: product-heuristics snapshot from 2020.</p></li>
-<li><p class="sd-card-text"><a class="reference external" href="https://github.com/napari/superqt">superqt</a>: mirror of the upstream <code class="docutils literal notranslate"><span class="pre">pyapp-kit/superqt</span></code> project.</p></li>
+<li><p class="sd-card-text"><a class="reference external" href="https://github.com/napari/cookiecutter-napari-plugin">cookiecutter-napari-plugin</a>:
+predecessor to <code class="docutils literal notranslate"><span class="pre">napari-plugin-template</span></code>.</p></li>
+<li><p class="sd-card-text"><a class="reference external" href="https://github.com/napari/dummy-test-plugin">dummy-test-plugin</a>: testing
+plugin used for plugin-system development.</p></li>
+<li><p class="sd-card-text"><a class="reference external" href="https://github.com/napari/image-types">image-types</a>: type-definition
+experiment for image-oriented Python code.</p></li>
+<li><p class="sd-card-text"><a class="reference external" href="https://github.com/napari/jupyterlab-bot">jupyterlab-bot</a>: historical
+fork.</p></li>
+<li><p class="sd-card-text"><a class="reference external" href="https://github.com/napari/magicgui">magicgui</a>: mirror of the
+upstream <code class="docutils literal notranslate"><span class="pre">pyapp-kit/magicgui</span></code> project.</p></li>
+<li><p class="sd-card-text"><a class="reference external" href="https://github.com/napari/napari-core">napari-core</a>: early core repository
+from before the current <code class="docutils literal notranslate"><span class="pre">napari</span></code> layout.</p></li>
+<li><p class="sd-card-text"><a class="reference external" href="https://github.com/napari/napari-data">napari-data</a>: example-data
+repository.</p></li>
+<li><p class="sd-card-text"><a class="reference external" href="https://github.com/napari/napari-hello-world">napari-hello-world</a>: example
+plugin repository.</p></li>
+<li><p class="sd-card-text"><a class="reference external" href="https://github.com/napari/napari-io">napari-io</a>: early
+IO plugin repository.</p></li>
+<li><p class="sd-card-text"><a class="reference external" href="https://github.com/napari/napari-language-packs">napari-language-packs</a>:
+repository for downloadable language packs for the napari UI.</p></li>
+<li><p class="sd-card-text"><a class="reference external" href="https://github.com/napari/napari-plugin-devtools">napari-plugin-devtools</a>:
+tooling repo for plugin developers.</p></li>
+<li><p class="sd-card-text"><a class="reference external" href="https://github.com/napari/napari-plugin-engine">napari-plugin-engine</a>:
+legacy plugin engine based on pluggy.</p></li>
+<li><p class="sd-card-text"><a class="reference external" href="https://github.com/napari/napari-scipy2025-workshop">napari-scipy2025-workshop</a>:
+workshop-specific repository for the SciPy 2025 napari tutorial materials.</p></li>
+<li><p class="sd-card-text"><a class="reference external" href="https://github.com/napari/napari-web-experimental">napari-web-experimental</a>:
+archived exploration of a possible web front end.</p></li>
+<li><p class="sd-card-text"><a class="reference external" href="https://github.com/napari/napari-workshop-template">napari-workshop-template</a>:
+template for creating napari workshop websites and materials.</p></li>
+<li><p class="sd-card-text"><a class="reference external" href="https://github.com/napari/napari-xarray">napari-xarray</a>: integration work
+for xarray-based data and labeled nD arrays in napari. Now in core napari.</p></li>
+<li><p class="sd-card-text"><a class="reference external" href="https://github.com/napari/old-docs">old-docs</a>: documentation repository from
+an older docs system.</p></li>
+<li><p class="sd-card-text"><a class="reference external" href="https://github.com/napari/plugin-cookiecutter">plugin-cookiecutter</a>: early
+plugin cookiecutter repository.</p></li>
+<li><p class="sd-card-text"><a class="reference external" href="https://github.com/napari/product-heuristics-2020">product-heuristics-2020</a>:
+product-heuristics snapshot from 2020.</p></li>
+<li><p class="sd-card-text"><a class="reference external" href="https://github.com/napari/superqt">superqt</a>: mirror of the upstream
+<code class="docutils literal notranslate"><span class="pre">pyapp-kit/superqt</span></code> project.</p></li>
 </ul>
 </div>
 </details></section>
@@ -1635,7 +1654,7 @@ work should start in a different repository.</p>
     </div>
 
     
-      <span>9.1.0</span>
+      <span>9.1.1</span>
     
   </div>
 </div></div>

@@ -37,7 +37,7 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=d2b87285" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=9f79b9c3" />
   
   <!-- So that users can add custom icons -->
   <script defer src="../../../_static/scripts/fontawesome.js?digest=18bd87630a240e9c25be"></script>
@@ -45,7 +45,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=18bd87630a240e9c25be" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=18bd87630a240e9c25be" />
 
-    <script src="../../../_static/documentation_options.js?v=be7f2f34"></script>
+    <script src="../../../_static/documentation_options.js?v=4fe9927d"></script>
     <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -416,7 +416,7 @@ window.runMermaid = runMermaid;</script>
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.23.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.10.0a0';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.10.0rc1';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
@@ -821,9 +821,12 @@ window.runMermaid = runMermaid;</script>
                 <article class="bd-article">
                   
   <h1>Source code for napari.utils.notebook_display</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">base64</span>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">base64</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">html</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">io</span><span class="w"> </span><span class="kn">import</span> <span class="n">BytesIO</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">warnings</span><span class="w"> </span><span class="kn">import</span> <span class="n">warn</span>
 
 <span class="k">try</span><span class="p">:</span>
@@ -836,6 +839,11 @@ window.runMermaid = runMermaid;</script>
     <span class="n">lxml_unavailable</span> <span class="o">=</span> <span class="kc">True</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.io</span><span class="w"> </span><span class="kn">import</span> <span class="n">imsave_png</span>
+
+<span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+    <span class="kn">from</span><span class="w"> </span><span class="nn">napari.viewer</span><span class="w"> </span><span class="kn">import</span> <span class="n">Viewer</span>
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'NotebookScreenshot'</span><span class="p">,</span> <span class="s1">'nbscreenshot'</span><span class="p">]</span>
 
@@ -881,10 +889,10 @@ window.runMermaid = runMermaid;</script>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
-        <span class="n">viewer</span><span class="p">,</span>
+        <span class="n">viewer</span><span class="p">:</span> <span class="n">Viewer</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
-        <span class="n">canvas_only</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-        <span class="n">alt_text</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">canvas_only</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">alt_text</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">"""Initialize screenshot object.</span>
 
@@ -904,10 +912,10 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        """</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span> <span class="o">=</span> <span class="n">viewer</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">canvas_only</span> <span class="o">=</span> <span class="n">canvas_only</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">image</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">alt_text</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_clean_alt_text</span><span class="p">(</span><span class="n">alt_text</span><span class="p">)</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">_clean_alt_text</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">alt_text</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_clean_alt_text</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">alt_text</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">"""Clean user input to prevent script injection."""</span>
         <span class="k">if</span> <span class="n">alt_text</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">lxml_unavailable</span><span class="p">:</span>
@@ -934,7 +942,7 @@ window.runMermaid = runMermaid;</script>
                 <span class="n">alt_text</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="k">return</span> <span class="n">alt_text</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">_repr_png_</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_repr_png_</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">"""PNG representation of the viewer object for IPython.</span>
 
 <span class="sd">        Returns</span>
@@ -953,7 +961,7 @@ window.runMermaid = runMermaid;</script>
             <span class="n">png</span> <span class="o">=</span> <span class="n">file_obj</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
         <span class="k">return</span> <span class="n">png</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">_repr_html_</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_repr_html_</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="n">png</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_repr_png_</span><span class="p">()</span>
         <span class="n">url</span> <span class="o">=</span> <span class="s1">'data:image/png;base64,'</span> <span class="o">+</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">png</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">'utf-8'</span><span class="p">)</span>
         <span class="n">_alt</span> <span class="o">=</span> <span class="n">html</span><span class="o">.</span><span class="n">escape</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">alt_text</span><span class="p">)</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">alt_text</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="s1">''</span>
@@ -964,10 +972,10 @@ window.runMermaid = runMermaid;</script>
 <div class="viewcode-block" id="nbscreenshot">
 <a class="viewcode-back" href="../../../api/napari.utils.html#napari.utils.nbscreenshot">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">nbscreenshot</span><span class="p">(</span>
-    <span class="n">viewer</span><span class="p">,</span>
+    <span class="n">viewer</span><span class="p">:</span> <span class="n">Viewer</span><span class="p">,</span>
     <span class="o">*</span><span class="p">,</span>
-    <span class="n">canvas_only</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-    <span class="n">alt_text</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">canvas_only</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">alt_text</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NotebookScreenshot</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">"""Display a napari screenshot in a Jupyter notebook.</span>
 
@@ -1700,7 +1708,7 @@ window.runMermaid = runMermaid;</script>
     </div>
 
     
-      <span>9.1.0</span>
+      <span>9.1.1</span>
     
   </div>
 </div></div>

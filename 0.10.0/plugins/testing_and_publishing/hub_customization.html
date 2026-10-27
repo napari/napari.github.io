@@ -49,7 +49,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=d2b87285" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=9f79b9c3" />
   
   <!-- So that users can add custom icons -->
   <script defer src="../../_static/scripts/fontawesome.js?digest=18bd87630a240e9c25be"></script>
@@ -57,7 +57,7 @@
   <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=18bd87630a240e9c25be" />
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=18bd87630a240e9c25be" />
 
-    <script src="../../_static/documentation_options.js?v=be7f2f34"></script>
+    <script src="../../_static/documentation_options.js?v=4fe9927d"></script>
     <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -69,7 +69,7 @@
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.23.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.10.0a0';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.10.0rc1';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
@@ -480,25 +480,25 @@
     </p>
     <ul class="nav bd-sidenav">
       <li class="toctree-l1">
-          <a class="reference internal" href="../../community/meeting_schedule.html">Community calendar</a>
+          <a class="reference internal" href="../../community/meeting_schedule.html"><i class="fa-solid fa-calendar-days sidebar-link-icon" aria-hidden="true"></i>Community calendar</a>
       </li>
       <li class="toctree-l1">
-          <a class="reference external" href="https://napari.zulipchat.com/">Community chat</a>
+          <a class="reference external" href="https://napari.zulipchat.com/"><i class="fa-solid fa-comments sidebar-link-icon" aria-hidden="true"></i>Community chat</a>
       </li>
       <li class="toctree-l1">
-          <a class="reference internal" href="../../troubleshooting.html">Troubleshooting</a>
+          <a class="reference internal" href="../../troubleshooting.html"><i class="fa-solid fa-circle-question sidebar-link-icon" aria-hidden="true"></i>Troubleshooting</a>
       </li>
       <li class="toctree-l1">
-          <a class="reference internal" href="../../release/index.html">Release notes</a>
+          <a class="reference internal" href="../../release/index.html"><i class="fa-solid fa-newspaper sidebar-link-icon" aria-hidden="true"></i>Release notes</a>
       </li>
       <li class="toctree-l1">
-          <a class="reference internal" href="../../roadmaps/active_roadmap.html">Roadmap</a>
+          <a class="reference internal" href="../../roadmaps/active_roadmap.html"><i class="fa-solid fa-map sidebar-link-icon" aria-hidden="true"></i>Roadmap</a>
       </li>
       <li class="toctree-l1">
-          <a class="reference external" href="https://napari.org/island-dispatch">Blog</a>
+          <a class="reference external" href="https://napari.org/island-dispatch"><i class="fa-solid fa-rss sidebar-link-icon" aria-hidden="true"></i>Blog</a>
       </li>
       <li class="toctree-l1">
-          <a class="reference external" href="https://napari-hub.org">Discover plugins</a>
+          <a class="reference external" href="https://napari-hub.org"><i class="fa-solid fa-puzzle-piece sidebar-link-icon" aria-hidden="true"></i>Discover plugins</a>
       </li>
     </ul>
   </div>
@@ -565,26 +565,36 @@
                   
   <section class="tex2jax_ignore mathjax_ignore" id="customizing-your-plugin-s-listing-on-napari-hub">
 <span id="hub-customization"></span><h1>Customizing your plugin’s listing on napari hub<a class="headerlink" href="#customizing-your-plugin-s-listing-on-napari-hub" title="Link to this heading">#</a></h1>
-<p>Once your plugin is published to <a class="reference external" href="https://pypi.org/">PyPI</a> with the <code class="docutils literal notranslate"><span class="pre">Framework</span> <span class="pre">::</span> <span class="pre">napari</span></code> classifier, it will automatically appear on the <a class="reference external" href="https://napari-hub.org/">napari hub</a>. This guide explains how to customize your plugin’s listing to provide the best experience for potential users.</p>
+<p>Once your plugin is published to <a class="reference external" href="https://pypi.org/">PyPI</a> with the
+<code class="docutils literal notranslate"><span class="pre">Framework</span> <span class="pre">::</span> <span class="pre">napari</span></code> classifier, it will automatically appear on the
+<a class="reference external" href="https://napari-hub.org/">napari hub</a>. This guide explains how to customize
+your plugin’s listing to provide the best experience for potential users.</p>
 <section id="overview">
 <h2>Overview<a class="headerlink" href="#overview" title="Link to this heading">#</a></h2>
 <p>The napari hub displays information about your plugin from three main sources:</p>
 <ol class="arabic simple">
 <li><p><strong>PyPI</strong> - Core package metadata from your <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code></p></li>
-<li><p><strong>README</strong> - As defined in your <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code>, serves as the description on your plugin’s detail page.</p></li>
+<li><p><strong>README</strong> - As defined in your <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code>, serves as the description
+on your plugin’s detail page.</p></li>
 <li><p><strong>npe2 manifest</strong> - Plugin-specific metadata from your <code class="docutils literal notranslate"><span class="pre">napari.yaml</span></code> file</p></li>
 </ol>
-<p>By understanding how these sources work together, you can ensure your plugin appears with accurate, appealing information on the hub.</p>
+<p>By understanding how these sources work together, you can ensure your plugin
+appears with accurate, appealing information on the hub.</p>
 </section>
 <section id="setting-package-metadata-in-pyproject-toml">
 <h2>Setting package metadata in pyproject.toml<a class="headerlink" href="#setting-package-metadata-in-pyproject-toml" title="Link to this heading">#</a></h2>
-<p>Most of the information displayed on the napari hub comes from your <a class="reference external" href="https://packaging.python.org/en/latest/specifications/core-metadata/">Python package metadata</a>. The napari hub reads this information from <a class="reference external" href="https://docs.pypi.org/api/json/">PyPI’s JSON API</a> after you publish your package.</p>
+<p>Most of the information displayed on the napari hub comes from your
+<a class="reference external" href="https://packaging.python.org/en/latest/specifications/core-metadata/">Python package metadata</a>.
+The napari hub reads this information from
+<a class="reference external" href="https://docs.pypi.org/api/json/">PyPI’s JSON API</a> after you publish your
+package.</p>
 <section id="essential-fields">
 <h3>Essential fields<a class="headerlink" href="#essential-fields" title="Link to this heading">#</a></h3>
 <p>These fields appear prominently on your plugin’s listing and in search results:</p>
 <section id="name">
 <h4>Name<a class="headerlink" href="#name" title="Link to this heading">#</a></h4>
-<p>The package name as it appears on PyPI. This is what users will use to install your plugin.</p>
+<p>The package name as it appears on PyPI. This is what users will use to install
+your plugin.</p>
 <div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[project]</span>
 <span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"napari-example-plugin"</span>
 </pre></div>
@@ -592,7 +602,8 @@
 </section>
 <section id="summary">
 <h4>Summary<a class="headerlink" href="#summary" title="Link to this heading">#</a></h4>
-<p>A one-line description of your plugin. Keep it concise and descriptive - it appears in plugin listings and search results.</p>
+<p>A one-line description of your plugin. Keep it concise and descriptive - it
+appears in plugin listings and search results.</p>
 <div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[project]</span>
 <span class="n">description</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"A plugin for advanced image segmentation using deep learning"</span>
 </pre></div>
@@ -600,14 +611,19 @@
 </section>
 <section id="version">
 <h4>Version<a class="headerlink" href="#version" title="Link to this heading">#</a></h4>
-<p>The current version of your plugin. We strongly recommend using <a class="reference external" href="https://semver.org/">Semantic Versioning (SemVer)</a> or <a class="reference external" href="https://jacobtomlinson.dev/effver/">Intended Effort Versioning (EffVer)</a> with Python conventions for pre-releases (<a class="reference external" href="https://www.python.org/dev/peps/pep-0440/">PEP 440</a>).</p>
+<p>The current version of your plugin. We strongly recommend using
+<a class="reference external" href="https://semver.org/">Semantic Versioning (SemVer)</a> or
+<a class="reference external" href="https://jacobtomlinson.dev/effver/">Intended Effort Versioning (EffVer)</a> with
+Python conventions for pre-releases
+(<a class="reference external" href="https://www.python.org/dev/peps/pep-0440/">PEP 440</a>).</p>
 <div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[project]</span>
 <span class="n">version</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"0.1.0"</span>
 </pre></div>
 </div>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p>If you’re using dynamic versioning tools like <code class="docutils literal notranslate"><span class="pre">setuptools-scm</span></code> or <code class="docutils literal notranslate"><span class="pre">hatch-vcs</span></code>, you can specify:</p>
+<p>If you’re using dynamic versioning tools like <code class="docutils literal notranslate"><span class="pre">setuptools-scm</span></code> or <code class="docutils literal notranslate"><span class="pre">hatch-vcs</span></code>,
+you can specify:</p>
 <div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[project]</span>
 <span class="n">dynamic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">"version"</span><span class="p">]</span>
 </pre></div>
@@ -616,7 +632,8 @@
 </section>
 <section id="authors">
 <h4>Authors<a class="headerlink" href="#authors" title="Link to this heading">#</a></h4>
-<p>Plugin authors displayed on your listing. The hub will display this information on the search page and on your plugin’s page.</p>
+<p>Plugin authors displayed on your listing. The hub will display this information
+on the search page and on your plugin’s page.</p>
 <div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[project]</span>
 <span class="n">authors</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span>
 <span class="w">    </span><span class="p">{</span><span class="n">name</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s2">"Jane Doe"</span><span class="p">,</span><span class="w"> </span><span class="n">email</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s2">"jane@example.com"</span><span class="p">},</span>
@@ -627,7 +644,11 @@
 </section>
 <section id="license">
 <h4>License<a class="headerlink" href="#license" title="Link to this heading">#</a></h4>
-<p>The license under which your plugin is distributed. Use a valid <a class="reference external" href="https://spdx.org/licenses/">SPDX identifier</a> or the string <code class="docutils literal notranslate"><span class="pre">&quot;Other&quot;</span></code>. Modern Python packaging uses the <a class="reference external" href="https://packaging.python.org/en/latest/specifications/core-metadata/#license-expression"><code class="docutils literal notranslate"><span class="pre">license-expression</span></code> format</a> for specifying licenses.</p>
+<p>The license under which your plugin is distributed. Use a valid
+<a class="reference external" href="https://spdx.org/licenses/">SPDX identifier</a> or the string <code class="docutils literal notranslate"><span class="pre">&quot;Other&quot;</span></code>. Modern
+Python packaging uses the
+<a class="reference external" href="https://packaging.python.org/en/latest/specifications/core-metadata/#license-expression"><code class="docutils literal notranslate"><span class="pre">license-expression</span></code> format</a>
+for specifying licenses.</p>
 <div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[project]</span>
 <span class="n">license</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"BSD-3-Clause"</span>
 <span class="n">license-files</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">"LICENSE"</span><span class="p">]</span>
@@ -635,7 +656,10 @@
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Previously, the valid way to specify license information used the <code class="docutils literal notranslate"><span class="pre">license</span></code> table with <code class="docutils literal notranslate"><span class="pre">file</span></code> or <code class="docutils literal notranslate"><span class="pre">text</span></code> keys and a license trove classifier. This still works for listings on the napari-hub, but is deprecated in favor of <code class="docutils literal notranslate"><span class="pre">license-expression</span></code>.</p>
+<p>Previously, the valid way to specify license information used the <code class="docutils literal notranslate"><span class="pre">license</span></code>
+table with <code class="docutils literal notranslate"><span class="pre">file</span></code> or <code class="docutils literal notranslate"><span class="pre">text</span></code> keys and a license trove classifier. This still
+works for listings on the napari-hub, but is deprecated in favor of
+<code class="docutils literal notranslate"><span class="pre">license-expression</span></code>.</p>
 <div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[project]</span>
 <span class="n">license</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">text</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s2">"BSD-3-Clause"</span><span class="p">}</span>
 </pre></div>
@@ -644,7 +668,9 @@
 </section>
 <section id="classifiers">
 <h4>Classifiers<a class="headerlink" href="#classifiers" title="Link to this heading">#</a></h4>
-<p><a class="reference external" href="https://pypi.org/classifiers/">PyPI Trove classifiers</a> provide structured metadata about your plugin. The <code class="docutils literal notranslate"><span class="pre">Framework</span> <span class="pre">::</span> <span class="pre">napari</span></code> classifier is required for hub visibility.</p>
+<p><a class="reference external" href="https://pypi.org/classifiers/">PyPI Trove classifiers</a> provide structured
+metadata about your plugin. The <code class="docutils literal notranslate"><span class="pre">Framework</span> <span class="pre">::</span> <span class="pre">napari</span></code> classifier is required
+for hub visibility.</p>
 <div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[project]</span>
 <span class="n">classifiers</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span>
 <span class="w">    </span><span class="s2">"Development Status :: 4 - Beta"</span><span class="p">,</span>
@@ -663,7 +689,8 @@
 </section>
 <section id="python-version-requirements">
 <h4>Python version requirements<a class="headerlink" href="#python-version-requirements" title="Link to this heading">#</a></h4>
-<p>Additionally, specify the Python versions your plugin supports. If you specify <code class="docutils literal notranslate"><span class="pre">&quot;&gt;=3.11&quot;</span></code>, the hub will tag your plugin as supporting Python 3.11, 3.12, etc.</p>
+<p>Additionally, specify the Python versions your plugin supports. If you specify
+<code class="docutils literal notranslate"><span class="pre">&quot;&gt;=3.11&quot;</span></code>, the hub will tag your plugin as supporting Python 3.11, 3.12, etc.</p>
 <div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[project]</span>
 <span class="n">requires-python</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"&gt;=3.11"</span>
 </pre></div>
@@ -683,13 +710,16 @@
 </div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p><strong>Never include Qt backends</strong> (<code class="docutils literal notranslate"><span class="pre">PyQt5</span></code>, <code class="docutils literal notranslate"><span class="pre">PyQt6</span></code>, <code class="docutils literal notranslate"><span class="pre">PySide2</span></code>, <code class="docutils literal notranslate"><span class="pre">PySide6</span></code>) or <code class="docutils literal notranslate"><span class="pre">napari[all]</span></code> in your base dependencies! See <a class="reference internal" href="../building_a_plugin/best_practices.html#best-practices-no-qt-backend"><span class="std std-ref">Don’t include napari[all], PySide6, PyQt5 or PyQt6 in your plugin’s default dependencies.</span></a> for details.</p>
+<p><strong>Never include Qt backends</strong> (<code class="docutils literal notranslate"><span class="pre">PyQt5</span></code>, <code class="docutils literal notranslate"><span class="pre">PyQt6</span></code>, <code class="docutils literal notranslate"><span class="pre">PySide2</span></code>, <code class="docutils literal notranslate"><span class="pre">PySide6</span></code>) or
+<code class="docutils literal notranslate"><span class="pre">napari[all]</span></code> in your base dependencies! See <a class="reference internal" href="../building_a_plugin/best_practices.html#best-practices-no-qt-backend"><span class="std std-ref">Don’t include napari[all], PySide6 or PyQt6 in your plugin’s default dependencies</span></a>
+for details.</p>
 </div>
 </section>
 </section>
 <section id="project-urls">
 <h3>Project URLs<a class="headerlink" href="#project-urls" title="Link to this heading">#</a></h3>
-<p>It is best practice to specify the following URLs in your <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code> file:</p>
+<p>It is best practice to specify the following URLs in your <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code>
+file:</p>
 <div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[project.urls]</span>
 <span class="n">Homepage</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"https://github.com/username/napari-example-plugin"</span>
 <span class="n">Documentation</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"https://napari-example-plugin.readthedocs.io"</span>
@@ -698,10 +728,11 @@
 <span class="s2">"User Support"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"https://forum.image.sc/tag/napari"</span>
 </pre></div>
 </div>
-<p>The hub displays your project’s PyPI link (not specified here, created when you publish your package),
-and your project’s GitHub link on your plugin details page. The GitHub link will be parsed from
-your <code class="docutils literal notranslate"><span class="pre">Homepage</span></code> <strong>or</strong> <code class="docutils literal notranslate"><span class="pre">Source</span> <span class="pre">Code</span></code> links under <code class="docutils literal notranslate"><span class="pre">[project.urls]</span></code>, so you can update your <code class="docutils literal notranslate"><span class="pre">Homepage</span></code>
-to a dedicated website if you have one.</p>
+<p>The hub displays your project’s PyPI link (not specified here, created when you
+publish your package), and your project’s GitHub link on your plugin details
+page. The GitHub link will be parsed from your <code class="docutils literal notranslate"><span class="pre">Homepage</span></code> <strong>or</strong> <code class="docutils literal notranslate"><span class="pre">Source</span> <span class="pre">Code</span></code>
+links under <code class="docutils literal notranslate"><span class="pre">[project.urls]</span></code>, so you can update your <code class="docutils literal notranslate"><span class="pre">Homepage</span></code> to a dedicated
+website if you have one.</p>
 </section>
 <section id="complete-example">
 <h3>Complete example<a class="headerlink" href="#complete-example" title="Link to this heading">#</a></h3>
@@ -749,37 +780,58 @@ to a dedicated website if you have one.</p>
 </section>
 <section id="plugin-hub-description-with-readme-md">
 <h2>Plugin Hub Description with <a class="reference external" href="http://README.md">README.md</a><a class="headerlink" href="#plugin-hub-description-with-readme-md" title="Link to this heading">#</a></h2>
-<p>A detailed description of your plugin. This appears on the plugin’s detail page and is indexed for search. Use your <code class="docutils literal notranslate"><span class="pre">README.md</span></code> file:</p>
+<p>A detailed description of your plugin. This appears on the plugin’s detail page
+and is indexed for search. Use your <code class="docutils literal notranslate"><span class="pre">README.md</span></code> file:</p>
 <div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[project]</span>
 <span class="n">readme</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"README.md"</span>
 </pre></div>
 </div>
-<p>The hub will render your README with proper Markdown formatting. If you begin with a Level 1 heading, it will be treated as a title and removed from the description.</p>
+<p>The hub will render your README with proper Markdown formatting. If you begin
+with a Level 1 heading, it will be treated as a title and removed from the
+description.</p>
 <section id="writing-a-quality-readme">
 <h3>Writing a quality Readme<a class="headerlink" href="#writing-a-quality-readme" title="Link to this heading">#</a></h3>
 <ul class="simple">
-<li><p><strong>Clear summary</strong>: Start with who the plugin is for, what data it works with, and what problems it solves</p></li>
-<li><p><strong>Quick start example</strong>: Include images, GIFs, or videos showing the plugin in action</p></li>
-<li><p><strong>Relevant keywords</strong>: Mention key terms users might search for (e.g., “segmentation”, “3D”, “time series”)</p></li>
-<li><p><strong>Section headings</strong>: Use Level 2 headings (<code class="docutils literal notranslate"><span class="pre">##</span></code>) to organize content - these create navigation links in the sidebar</p></li>
+<li><p><strong>Clear summary</strong>: Start with who the plugin is for, what data it works with,
+and what problems it solves</p></li>
+<li><p><strong>Quick start example</strong>: Include images, GIFs, or videos showing the plugin
+in action</p></li>
+<li><p><strong>Relevant keywords</strong>: Mention key terms users might search for (e.g.,
+“segmentation”, “3D”, “time series”)</p></li>
+<li><p><strong>Section headings</strong>: Use Level 2 headings (<code class="docutils literal notranslate"><span class="pre">##</span></code>) to organize content - these
+create navigation links in the sidebar</p></li>
 </ul>
 </section>
 <section id="including-images-and-media">
 <h3>Including images and media<a class="headerlink" href="#including-images-and-media" title="Link to this heading">#</a></h3>
-<p>There are a few ways to include images and other media in your description, but these assets need to be hosted somewhere and accessible via an absolute URL. In other words, relative paths to images in your repository will not work. Images should use the markdown format <code class="docutils literal notranslate"><span class="pre">![alt</span> <span class="pre">text](https://absolute.url/to/image)</span></code>. Consider how an image located on the <code class="docutils literal notranslate"><span class="pre">main</span></code> branch at <code class="docutils literal notranslate"><span class="pre">./resources/image.png</span></code> in your repository could be hosted:</p>
+<p>There are a few ways to include images and other media in your description, but
+these assets need to be hosted somewhere and accessible via an absolute URL. In
+other words, relative paths to images in your repository will not work. Images
+should use the markdown format <code class="docutils literal notranslate"><span class="pre">![alt</span> <span class="pre">text](https://absolute.url/to/image)</span></code>.
+Consider how an image located on the <code class="docutils literal notranslate"><span class="pre">main</span></code> branch at <code class="docutils literal notranslate"><span class="pre">./resources/image.png</span></code>
+in your repository could be hosted:</p>
 <ol class="arabic simple">
-<li><p>The raw path to the image, identified with <code class="docutils literal notranslate"><span class="pre">raw.githubusercontent.com</span></code>. e.g. <code class="docutils literal notranslate"><span class="pre">![raw</span> <span class="pre">image](https://raw.githubusercontent.com/user/repo/main/resources/image.png)</span></code>. On Github, you can open the image in the repo, open the image in a new tab and copy the address bar url.</p></li>
-<li><p>The raw blob path to the image, with <code class="docutils literal notranslate"><span class="pre">?raw=true</span></code> appended. e.g. <code class="docutils literal notranslate"><span class="pre">![blob</span> <span class="pre">image](https://github.com/user/repo/blob/main/resources/image.png?raw=true)</span></code>. On Github, you can open the image in the repo and right-click the image to copy the link address.</p></li>
-<li><p>The raw path to any image or asset on Github or on any other site, including your own static documentation.</p></li>
+<li><p>The raw path to the image, identified with <code class="docutils literal notranslate"><span class="pre">raw.githubusercontent.com</span></code>. e.g.
+<code class="docutils literal notranslate"><span class="pre">![raw</span> <span class="pre">image](https://raw.githubusercontent.com/user/repo/main/resources/image.png)</span></code>.
+On Github, you can open the image in the repo, open the image in a new tab
+and copy the address bar url.</p></li>
+<li><p>The raw blob path to the image, with <code class="docutils literal notranslate"><span class="pre">?raw=true</span></code> appended. e.g.
+<code class="docutils literal notranslate"><span class="pre">![blob</span> <span class="pre">image](https://github.com/user/repo/blob/main/resources/image.png?raw=true)</span></code>.
+On Github, you can open the image in the repo and right-click the image to
+copy the link address.</p></li>
+<li><p>The raw path to any image or asset on Github or on any other site, including
+your own static documentation.</p></li>
 </ol>
 </section>
 </section>
 <section id="npe2-manifest-metadata">
 <h2>npe2 manifest metadata<a class="headerlink" href="#npe2-manifest-metadata" title="Link to this heading">#</a></h2>
-<p>Your plugin’s <a class="reference internal" href="../technical_references/manifest.html#plugin-manifest"><span class="std std-ref">npe2 manifest</span></a> (<code class="docutils literal notranslate"><span class="pre">napari.yaml</span></code>) provides napari-specific metadata that appears on the hub.</p>
+<p>Your plugin’s <a class="reference internal" href="../technical_references/manifest.html#plugin-manifest"><span class="std std-ref">npe2 manifest</span></a> (<code class="docutils literal notranslate"><span class="pre">napari.yaml</span></code>) provides
+napari-specific metadata that appears on the hub.</p>
 <section id="display-name">
 <h3>Display name<a class="headerlink" href="#display-name" title="Link to this heading">#</a></h3>
-<p>The <code class="docutils literal notranslate"><span class="pre">display_name</span></code>, and not the <code class="docutils literal notranslate"><span class="pre">name</span></code>, appears in plugin listings and the napari plugin manager:</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">display_name</span></code>, and not the <code class="docutils literal notranslate"><span class="pre">name</span></code>, appears in plugin listings and the
+napari plugin manager:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">napari-example-plugin</span>
 <span class="nt">display_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Example Segmentation Plugin</span>
 </pre></div>
@@ -787,7 +839,8 @@ to a dedicated website if you have one.</p>
 </section>
 <section id="plugin-type-indicators">
 <h3>Plugin type indicators<a class="headerlink" href="#plugin-type-indicators" title="Link to this heading">#</a></h3>
-<p>The hub automatically detects your plugin’s capabilities from your manifest contributions and displays them as Plugin types:</p>
+<p>The hub automatically detects your plugin’s capabilities from your manifest
+contributions and displays them as Plugin types:</p>
 <ul class="simple">
 <li><p><strong>Reader plugins</strong>: Detected from <code class="docutils literal notranslate"><span class="pre">contributions.readers</span></code></p></li>
 <li><p><strong>Writer plugins</strong>: Detected from <code class="docutils literal notranslate"><span class="pre">contributions.writers</span></code></p></li>
@@ -814,14 +867,16 @@ to a dedicated website if you have one.</p>
 </section>
 <section id="visibility-control">
 <h3>Visibility control<a class="headerlink" href="#visibility-control" title="Link to this heading">#</a></h3>
-<p>Control whether your plugin appears in hub search and listings, and in the napari plugin manager:</p>
+<p>Control whether your plugin appears in hub search and listings, and in the
+napari plugin manager:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">napari-example-plugin</span>
 <span class="nt">visibility</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">public</span><span class="w">  </span><span class="c1"># or "hidden"</span>
 </pre></div>
 </div>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">public</span></code> (default): Plugin appears in search and listings</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">hidden</span></code>: Detail page is accessible via direct link, but plugin doesn’t appear in search. Remains installable via napari plugin manager.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">hidden</span></code>: Detail page is accessible via direct link, but plugin doesn’t
+appear in search. Remains installable via napari plugin manager.</p></li>
 </ul>
 </section>
 </section>
@@ -829,7 +884,9 @@ to a dedicated website if you have one.</p>
 <h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Link to this heading">#</a></h2>
 <section id="removing-your-plugin-from-napari-and-the-hub">
 <h3>Removing your plugin from napari and the hub<a class="headerlink" href="#removing-your-plugin-from-napari-and-the-hub" title="Link to this heading">#</a></h3>
-<p>To completely hide your plugin from all napari-related APIs, workflows and listings, remove the <code class="docutils literal notranslate"><span class="pre">Framework</span> <span class="pre">::</span> <span class="pre">napari</span></code> classifier from your <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code>:</p>
+<p>To completely hide your plugin from all napari-related APIs, workflows and
+listings, remove the <code class="docutils literal notranslate"><span class="pre">Framework</span> <span class="pre">::</span> <span class="pre">napari</span></code> classifier from your
+<code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code>:</p>
 <div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[project]</span>
 <span class="n">classifiers</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span>
 <span class="w">    </span><span class="c1"># "Framework :: napari",  # Remove or comment out this line</span>
@@ -844,7 +901,8 @@ to a dedicated website if you have one.</p>
 </div>
 <p>After removing the classifier:</p>
 <ul class="simple">
-<li><p>Your plugin will still work when manually installed (e.g. <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">your-plugin</span></code>)</p></li>
+<li><p>Your plugin will still work when manually installed (e.g.
+<code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">your-plugin</span></code>)</p></li>
 <li><p>It won’t appear in the napari plugin manager</p></li>
 <li><p>It won’t appear on the napari hub</p></li>
 <li><p>It won’t be automatically discovered by napari metadata tools</p></li>
@@ -852,7 +910,8 @@ to a dedicated website if you have one.</p>
 </section>
 <section id="my-changes-aren-t-showing-up-on-the-hub">
 <h3>My changes aren’t showing up on the hub<a class="headerlink" href="#my-changes-aren-t-showing-up-on-the-hub" title="Link to this heading">#</a></h3>
-<p>The napari hub updates plugin information periodically. After publishing a new version to PyPI:</p>
+<p>The napari hub updates plugin information periodically. After publishing a new
+version to PyPI:</p>
 <ol class="arabic simple">
 <li><p>Wait up to 4 hours for the hub to refresh</p></li>
 <li><p>Clear your browser cache</p></li>
@@ -866,7 +925,8 @@ to a dedicated website if you have one.</p>
 <li><p>Your package is published to PyPI</p></li>
 <li><p>You included the <code class="docutils literal notranslate"><span class="pre">Framework</span> <span class="pre">::</span> <span class="pre">napari</span></code> classifier</p></li>
 <li><p>Your plugin’s <code class="docutils literal notranslate"><span class="pre">visibility</span></code> is not set to <code class="docutils literal notranslate"><span class="pre">hidden</span></code> (or is set to <code class="docutils literal notranslate"><span class="pre">public</span></code>)</p></li>
-<li><p>Your package has a valid npe2 manifest (<code class="docutils literal notranslate"><span class="pre">napari.yaml</span></code>) with a <code class="docutils literal notranslate"><span class="pre">napari.manifest</span></code> entry point</p></li>
+<li><p>Your package has a valid npe2 manifest (<code class="docutils literal notranslate"><span class="pre">napari.yaml</span></code>) with a
+<code class="docutils literal notranslate"><span class="pre">napari.manifest</span></code> entry point</p></li>
 </ul>
 </section>
 </section>
@@ -1645,7 +1705,7 @@ to a dedicated website if you have one.</p>
     </div>
 
     
-      <span>9.1.0</span>
+      <span>9.1.1</span>
     
   </div>
 </div></div>

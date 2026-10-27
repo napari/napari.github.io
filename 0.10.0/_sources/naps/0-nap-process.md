@@ -124,17 +124,17 @@ champion (a.k.a. Author) should first attempt to ascertain whether the idea
 is suitable for a NAP. Posting to the napari [issues list] is the best
 way to do this.
 
-The proposal should be submitted as a draft NAP via a [GitHub pull
-request][github pull request] to the `docs/naps` directory of the `napari/docs` repo with the
-name `nap-<n>-<short-title>.md` where `<n>` is an appropriately assigned
-number (typically sequential) and `<short-title>` is a one or two word title
-for the idea (e.g., `nap-35-lazy-slicing.md`). The draft must use the
-{ref}`nap-template` file.
+The proposal should be submitted as a draft NAP via a
+[GitHub pull request][github pull request] to the `docs/naps` directory of the
+`napari/docs` repo with the name `nap-<n>-<short-title>.md` where `<n>` is an
+appropriately assigned number (typically sequential) and `<short-title>` is a
+one or two word title for the idea (e.g., `nap-35-lazy-slicing.md`). The draft
+must use the {ref}`nap-template` file.
 
-Once the PR is in place, the NAP should be announced on various channels
-for discussion, including the
-[#naps channel on Zulip](https://napari.zulipchat.com/#narrow/stream/322105-naps) and, if the NAP
-has significant user implications, on the
+Once the PR is in place, the NAP should be announced on various channels for
+discussion, including the
+[#naps channel on Zulip](https://napari.zulipchat.com/#narrow/stream/322105-naps)
+and, if the NAP has significant user implications, on the
 [image.sc forum](https://forum.image.sc/).
 
 At the earliest convenience, the PR should be merged (regardless of whether
@@ -228,7 +228,8 @@ In the body of the topic, you should:
   within 7 days from this post, then the NAP will be accepted; see
   NAP 0 for more details."
 
-For an equivalent example in the NumPy library, see: <https://mail.python.org/pipermail/numpy-discussion/2018-June/078345.html>
+For an equivalent example in the NumPy library, see:
+<https://mail.python.org/pipermail/numpy-discussion/2018-June/078345.html>
 
 After you write the post, you should make sure to link to the specific
 thread from the `Discussion` section of the NAP, so that people can
@@ -276,18 +277,18 @@ these cases will depend on the nature and purpose of the NAP being updated.
 
 ## Format and Template
 
-NAPs are UTF-8 encoded text files using the [MyST markdown] format.  Please
+NAPs are UTF-8 encoded text files using the [MyST markdown] format. Please
 see the {ref}`nap-template` file and the [MyST markdown cheat sheet] for
-more information.  We use [Sphinx] to convert NAPs to HTML for viewing on
+more information. We use [Sphinx] to convert NAPs to HTML for viewing on
 the web [^id4].
 
 ### Header Preamble
 
-Each NAP must begin with a header preamble.  The headers
-must appear in the following order.  Headers marked with `*` are
-optional.  All other headers are required.
+Each NAP must begin with a header preamble. The headers
+must appear in the following order. Headers marked with `*` are
+optional. All other headers are required.
 
-```
+```text
   :Author: <list of authors' real names and optionally, email addresses>
   :Status: <Draft | Provisional | Active | Accepted | Deferred | Rejected |
            Withdrawn | Final | Superseded>
@@ -309,7 +310,7 @@ if the email address is included, and just
 
 > Random J. User
 
-if the address is not given.  If there are multiple authors, each should be
+if the address is not given. If there are multiple authors, each should be
 on a separate line.
 
 ## Discussion
@@ -334,9 +335,7 @@ This process was based on existing process from the scikit-image (SKIPs), NumPy
 
 This document has been placed in the public domain.
 
-[developer forum]: https://forum.image.sc/tag/napari
 [github pull request]: https://github.com/napari/napari/pulls
-[issue tracker]: https://github.com/napari/napari/issues
 [repo]: https://github.com/napari/napari
 [MyST markdown]: https://myst-parser.readthedocs.io/en/latest/index.html
 [MyST markdown cheat sheet]: https://myst-parser.readthedocs.io/en/latest/syntax/syntax.html

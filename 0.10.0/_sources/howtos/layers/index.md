@@ -1,4 +1,5 @@
 (using-layers)=
+
 # Layers guide
 
 [Layers](napari.layers) are the viewable objects that can be added to a viewer,
@@ -12,8 +13,8 @@ following how-to guides:
 ```{tableofcontents}
 ```
 
-Each of these guides has a section on how to manipulate the layers using the GUI
-controls and a section on how to manipulate them programmatically.
+Each of these guides has a section on how to manipulate the layers using the
+GUI controls and a section on how to manipulate them programmatically.
 
 For a high-level overview of the napari Layers, see
 [](layers-glance).

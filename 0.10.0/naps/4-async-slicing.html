@@ -49,7 +49,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=2082cf3c" />
     <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=d2b87285" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=9f79b9c3" />
   
   <!-- So that users can add custom icons -->
   <script defer src="../_static/scripts/fontawesome.js?digest=18bd87630a240e9c25be"></script>
@@ -57,7 +57,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=18bd87630a240e9c25be" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=18bd87630a240e9c25be" />
 
-    <script src="../_static/documentation_options.js?v=be7f2f34"></script>
+    <script src="../_static/documentation_options.js?v=4fe9927d"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -69,7 +69,7 @@
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.23.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.10.0a0';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.10.0rc1';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
@@ -451,9 +451,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../developers/architecture/dir_organization.html">napari directory organization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../developers/architecture/napari_models.html">napari models and events</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../developers/architecture/app_model.html">napari’s application model</a></li>
-
 <li class="toctree-l2"><a class="reference internal" href="../developers/architecture/magicgui_type_reg.html"><code class="docutils literal notranslate"><span class="pre">magicgui</span></code> type registration</a></li>
-
 <li class="toctree-l2 has-children"><a class="reference internal" href="../developers/architecture/ui_sections/index.html">UI sections</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../developers/architecture/ui_sections/application_menus_ui.html">Application menus</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../developers/architecture/ui_sections/application_status_bar_ui.html">Application status bar</a></li>
@@ -488,7 +486,6 @@
 <li class="toctree-l2"><a class="reference internal" href="8-telemetry.html">NAP-8 — Telemetry</a></li>
 <li class="toctree-l2"><a class="reference internal" href="9-multiple-canvases.html">NAP-9 — Multiple Views</a></li>
 <li class="toctree-l2"><a class="reference internal" href="10-migration-event-system.html">NAP-10 — Migration of the event system</a></li>
-
 <li class="toctree-l2"><a class="reference internal" href="template.html">NAP-X — Template and Instructions</a></li>
 </ul>
 </details></li>
@@ -505,25 +502,25 @@
     </p>
     <ul class="nav bd-sidenav">
       <li class="toctree-l1">
-          <a class="reference internal" href="../community/meeting_schedule.html">Community calendar</a>
+          <a class="reference internal" href="../community/meeting_schedule.html"><i class="fa-solid fa-calendar-days sidebar-link-icon" aria-hidden="true"></i>Community calendar</a>
       </li>
       <li class="toctree-l1">
-          <a class="reference external" href="https://napari.zulipchat.com/">Community chat</a>
+          <a class="reference external" href="https://napari.zulipchat.com/"><i class="fa-solid fa-comments sidebar-link-icon" aria-hidden="true"></i>Community chat</a>
       </li>
       <li class="toctree-l1">
-          <a class="reference internal" href="../troubleshooting.html">Troubleshooting</a>
+          <a class="reference internal" href="../troubleshooting.html"><i class="fa-solid fa-circle-question sidebar-link-icon" aria-hidden="true"></i>Troubleshooting</a>
       </li>
       <li class="toctree-l1">
-          <a class="reference internal" href="../release/index.html">Release notes</a>
+          <a class="reference internal" href="../release/index.html"><i class="fa-solid fa-newspaper sidebar-link-icon" aria-hidden="true"></i>Release notes</a>
       </li>
       <li class="toctree-l1">
-          <a class="reference internal" href="../roadmaps/active_roadmap.html">Roadmap</a>
+          <a class="reference internal" href="../roadmaps/active_roadmap.html"><i class="fa-solid fa-map sidebar-link-icon" aria-hidden="true"></i>Roadmap</a>
       </li>
       <li class="toctree-l1">
-          <a class="reference external" href="https://napari.org/island-dispatch">Blog</a>
+          <a class="reference external" href="https://napari.org/island-dispatch"><i class="fa-solid fa-rss sidebar-link-icon" aria-hidden="true"></i>Blog</a>
       </li>
       <li class="toctree-l1">
-          <a class="reference external" href="https://napari-hub.org">Discover plugins</a>
+          <a class="reference external" href="https://napari-hub.org"><i class="fa-solid fa-puzzle-piece sidebar-link-icon" aria-hidden="true"></i>Discover plugins</a>
       </li>
     </ul>
   </div>
@@ -619,34 +616,38 @@
 on the dimension slider positions and the current field of view.</p>
 <p>This project has two major goals.</p>
 <ol class="arabic simple">
-<li><p>Slice layers asynchronously to keep napari responsive while allowing for slow slicing.</p></li>
-<li><p>Improve the logic of slicing layers to help developers better understand how it works and unlock new feature development.</p></li>
+<li><p>Slice layers asynchronously to keep napari responsive while allowing for
+slow slicing.</p></li>
+<li><p>Improve the logic of slicing layers to help developers better understand how
+it works and unlock new feature development.</p></li>
 </ol>
 <p>We propose a lock-free asynchronous solution that uses Python’s built-in
-<code class="docutils literal notranslate"><span class="pre">concurrent.futures</span></code> module and exploits napari’s main event loop.
-For each slice, an immutable shallow copy of all the required input to slicing is
-collected on the main thread and is then processed on a separate single-threaded executor.
-When the slice task is finished, we notify vispy and Qt objects back on the main thread
-so they can be safely updated.
-This approach allows us to gradually introduce asynchronous slicing to napari
-layer by layer without breaking other functionality that relies on existing layer slice state.</p>
+<code class="docutils literal notranslate"><span class="pre">concurrent.futures</span></code> module and exploits napari’s main event loop. For each
+slice, an immutable shallow copy of all the required input to slicing is
+collected on the main thread and is then processed on a separate
+single-threaded executor. When the slice task is finished, we notify vispy and
+Qt objects back on the main thread so they can be safely updated. This approach
+allows us to gradually introduce asynchronous slicing to napari layer by layer
+without breaking other functionality that relies on existing layer slice state.</p>
 </section>
 <section id="motivation-and-scope">
 <h2>Motivation and scope<a class="headerlink" href="#motivation-and-scope" title="Link to this heading">#</a></h2>
-<p>Currently, all slicing in napari is performed synchronously.
-For example, if a dimension slider is moved, napari waits to slice a layer
-before updating the canvas. When slicing layers is slow, this blocking behavior
-makes interacting with data difficult and napari may be reported as not responding
-by the host operating system.</p>
+<p>Currently, all slicing in napari is performed synchronously. For example, if a
+dimension slider is moved, napari waits to slice a layer before updating the
+canvas. When slicing layers is slow, this blocking behavior makes interacting
+with data difficult and napari may be reported as not responding by the host
+operating system.</p>
 <p><img alt="The napari viewer displaying a 2D slice of a 3D multi-resolution electron microscopy image stored remotely. Dragging the slider changes the 2D slice, but the slider position and canvas updates are slow and napari stops responding." src="https://i.imgur.com/cAJxkLq.gif" /></p>
 <p>There are two main reasons why slicing can be slow.</p>
 <ol class="arabic simple">
-<li><p>Some layer specific slicing operations perform non-trivial calculations (e.g. points).</p></li>
-<li><p>The layer data is read lazily (i.e. it is not in RAM) and latency from the source may be non-negligible (e.g. stored remotely, napari-omero plugin).</p></li>
+<li><p>Some layer specific slicing operations perform non-trivial calculations
+(e.g. points).</p></li>
+<li><p>The layer data is read lazily (i.e. it is not in RAM) and latency from the
+source may be non-negligible (e.g. stored remotely, napari-omero plugin).</p></li>
 </ol>
-<p>By slicing asynchronously, we can keep napari responsive while allowing for slow
-slicing operations. We could also consider optimizing napari to make (1) less of
-a problem, but that is outside the scope of this project.</p>
+<p>By slicing asynchronously, we can keep napari responsive while allowing for
+slow slicing operations. We could also consider optimizing napari to make (1)
+less of a problem, but that is outside the scope of this project.</p>
 <p>Introducing asynchrony to software often complicates program flow and logic.
 However, the existing technical design of slicing is already complicated and
 often causes issues for developers.</p>
@@ -655,41 +656,52 @@ often causes issues for developers.</p>
 <li><p>The logic is hard to understand and debug <a class="footnote-reference brackets" href="#issue-2156" id="id4" role="doc-noteref"><span class="fn-bracket">[</span>4<span class="fn-bracket">]</span></a>.</p></li>
 <li><p>The names of the classes are not self-explanatory <a class="footnote-reference brackets" href="#issue-1574" id="id5" role="doc-noteref"><span class="fn-bracket">[</span>5<span class="fn-bracket">]</span></a>.</p></li>
 </ul>
-<p>Some of these issues were caused by a previous effort around asynchronous slicing
-in an effort to keep it isolated from the core code base.
-By contrast, our approach in this project is to redesign slicing in napari to
-provide a solid foundation for asynchronous slicing and related future work like
+<p>Some of these issues were caused by a previous effort around asynchronous
+slicing in an effort to keep it isolated from the core code base. By contrast,
+our approach in this project is to redesign slicing in napari to provide a
+solid foundation for asynchronous slicing and related future work like
 multi-canvas and multi-scale slicing.</p>
 <section id="goals">
 <h3>Goals<a class="headerlink" href="#goals" title="Link to this heading">#</a></h3>
-<p>To summarize the scope of this project, we define a few high level goals.
-Each goal has many prioritized features where P0 is a must-have, P1 is a should-have,
-and P2 is a could-have. Some of these goals may already be achieved by napari in its
-current form, but are captured here to prevent any regression caused by this work.</p>
+<p>To summarize the scope of this project, we define a few high level goals. Each
+goal has many prioritized features where P0 is a must-have, P1 is a
+should-have, and P2 is a could-have. Some of these goals may already be
+achieved by napari in its current form, but are captured here to prevent any
+regression caused by this work.</p>
 <section id="keep-responding-when-slicing-slow-data">
 <h4>1. Keep responding when slicing slow data<a class="headerlink" href="#keep-responding-when-slicing-slow-data" title="Link to this heading">#</a></h4>
 <ul class="simple">
-<li><p>P0. When moving a dimension slider, the slider can still be controlled so that I can navigate to the desired location.</p>
+<li><p>P0. When moving a dimension slider, the slider can still be controlled so
+that I can navigate to the desired location.</p>
 <ul>
 <li><p>Slider can be moved when data is in the middle of loading.</p></li>
-<li><p>Slider location does not return to position of last loaded slice after it was moved to a different position.</p></li>
+<li><p>Slider location does not return to position of last loaded slice after it
+was moved to a different position.</p></li>
 </ul>
 </li>
-<li><p>P0. When the slider is dragged, only slice at some positions so that I don’t wait for unwanted intermediate slicing positions.</p>
+<li><p>P0. When the slider is dragged, only slice at some positions so that I don’t
+wait for unwanted intermediate slicing positions.</p>
 <ul>
-<li><p>Once slider is moved, wait before performing slicing operation, and cancel any prior pending slices (i.e. be lazy).</p></li>
-<li><p>If we can reliably infer that slicing will be fast (e.g. data is a numpy array), consider skipping this delay.</p></li>
+<li><p>Once slider is moved, wait before performing slicing operation, and cancel
+any prior pending slices (i.e. be lazy).</p></li>
+<li><p>If we can reliably infer that slicing will be fast (e.g. data is a numpy
+array), consider skipping this delay.</p></li>
 </ul>
 </li>
-<li><p>P0. When slicing fails, I am notified so that I can understand what went wrong.</p>
+<li><p>P0. When slicing fails, I am notified so that I can understand what went
+wrong.</p>
 <ul>
-<li><p>May want to limit the number of notifications (e.g. lost network connection for remote data).</p></li>
+<li><p>May want to limit the number of notifications (e.g. lost network connection
+for remote data).</p></li>
 </ul>
 </li>
-<li><p>P1. When moving a dimension slider and the slice doesn’t immediately load, I am notified that it is being generated, so that I am aware that my action is being handled.</p>
+<li><p>P1. When moving a dimension slider and the slice doesn’t immediately load, I
+am notified that it is being generated, so that I am aware that my action is
+being handled.</p>
 <ul>
 <li><p>Need a visual cue that a slice is loading.</p></li>
-<li><p>Show visual cue to identify the specific layer(s) that are loading in the case where one layer loads faster than another.</p></li>
+<li><p>Show visual cue to identify the specific layer(s) that are loading in the
+case where one layer loads faster than another.</p></li>
 </ul>
 </li>
 </ul>
@@ -697,26 +709,36 @@ current form, but are captured here to prevent any regression caused by this wor
 <section id="clean-up-slice-state-and-logic-in-layers">
 <h4>2. Clean up slice state and logic in layers<a class="headerlink" href="#clean-up-slice-state-and-logic-in-layers" title="Link to this heading">#</a></h4>
 <ul class="simple">
-<li><p>P0. Encapsulate the slice input and output state for each layer type, so that I can quickly and clearly identify those.</p>
+<li><p>P0. Encapsulate the slice input and output state for each layer type, so that
+I can quickly and clearly identify those.</p>
 <ul>
-<li><p>Minimize number of (nested) classes per layer-type (e.g. <code class="docutils literal notranslate"><span class="pre">ImageSlice</span></code>, <code class="docutils literal notranslate"><span class="pre">ImageSliceData</span></code>, <code class="docutils literal notranslate"><span class="pre">ImageView</span></code>, <code class="docutils literal notranslate"><span class="pre">ImageLoader</span></code>).</p></li>
+<li><p>Minimize number of (nested) classes per layer-type (e.g. <code class="docutils literal notranslate"><span class="pre">ImageSlice</span></code>,
+<code class="docutils literal notranslate"><span class="pre">ImageSliceData</span></code>, <code class="docutils literal notranslate"><span class="pre">ImageView</span></code>, <code class="docutils literal notranslate"><span class="pre">ImageLoader</span></code>).</p></li>
 </ul>
 </li>
-<li><p>P0. Simplify the program flow of slicing, so that developing and debugging against allows for faster implementation.</p>
+<li><p>P0. Simplify the program flow of slicing, so that developing and debugging
+against allows for faster implementation.</p>
 <ul>
 <li><p>Reduce the complexity of the call stack associated with slicing a layer.</p></li>
-<li><p>The implementation details for some layer/data types might be complex (e.g. multi-scale image), but the high level logic should be simple.</p></li>
+<li><p>The implementation details for some layer/data types might be complex (e.g.
+multi-scale image), but the high level logic should be simple.</p></li>
 </ul>
 </li>
-<li><p>P1. Move the slice state off the layer, so that its attributes only represent the whole data.</p>
+<li><p>P1. Move the slice state off the layer, so that its attributes only represent
+the whole data.</p>
 <ul>
 <li><p>Layer may still have a function to get a slice.</p></li>
-<li><p>May need alternatives to access currently private state, though doesn’t necessarily need to be in the Layer (e.g. a plugin with an ND layer, that gets interaction data from 3D visualization , needs some way to get that data back to ND).</p></li>
+<li><p>May need alternatives to access currently private state, though doesn’t
+necessarily need to be in the Layer (e.g. a plugin with an ND layer, that
+gets interaction data from 3D visualization , needs some way to get that
+data back to ND).</p></li>
 </ul>
 </li>
-<li><p>P2. Store multiple slices associated with each layer, so that I can cache previously generated slices.</p>
+<li><p>P2. Store multiple slices associated with each layer, so that I can cache
+previously generated slices.</p>
 <ul>
-<li><p>Pick a default cache size that should not strain most machines (e.g. 0-1GB).</p></li>
+<li><p>Pick a default cache size that should not strain most machines (e.g.
+0-1GB).</p></li>
 <li><p>Make cache size a user defined preference.</p></li>
 </ul>
 </li>
@@ -725,24 +747,31 @@ current form, but are captured here to prevent any regression caused by this wor
 <section id="measure-slicing-latencies-on-representative-examples">
 <h4>3. Measure slicing latencies on representative examples<a class="headerlink" href="#measure-slicing-latencies-on-representative-examples" title="Link to this heading">#</a></h4>
 <ul class="simple">
-<li><p>P0. Define representative examples that currently cause <em>desirable</em> behavior in napari, so that I can check that async slicing does not degrade those.</p>
+<li><p>P0. Define representative examples that currently cause <em>desirable</em> behavior
+in napari, so that I can check that async slicing does not degrade those.</p>
 <ul>
 <li><p>E.g. 2D slice of a 3D image layer where all data fits in RAM, but not VRAM.</p></li>
 </ul>
 </li>
-<li><p>P0. Define representative examples that currently cause <em>undesirable</em> behavior in napari, so that I can check that async slicing improves those.</p>
+<li><p>P0. Define representative examples that currently cause <em>undesirable</em>
+behavior in napari, so that I can check that async slicing improves those.</p>
 <ul>
-<li><p>E.g. 2D slice of a 3D points layer where all data fits in RAM, but not VRAM.</p></li>
+<li><p>E.g. 2D slice of a 3D points layer where all data fits in RAM, but not
+VRAM.</p></li>
 <li><p>E.g. 2D slice of a 3D image layer where all data is not on local storage.</p></li>
 </ul>
 </li>
-<li><p>P0. Define slicing benchmarks, so that I can understand if my changes impact overall timing or memory usage.</p>
+<li><p>P0. Define slicing benchmarks, so that I can understand if my changes impact
+overall timing or memory usage.</p>
 <ul>
-<li><p>E.g. Do not increase the latency of generating a single slice more than 10%.</p></li>
-<li><p>E.g. Decrease the latency of dealing with 25 slice requests over 1 second by 50%.</p></li>
+<li><p>E.g. Do not increase the latency of generating a single slice more than
+10%.</p></li>
+<li><p>E.g. Decrease the latency of dealing with 25 slice requests over 1 second
+by 50%.</p></li>
 </ul>
 </li>
-<li><p>P1. Log specific slicing latencies, so that I can summarize important measurements beyond granular profile timings.</p>
+<li><p>P1. Log specific slicing latencies, so that I can summarize important
+measurements beyond granular profile timings.</p>
 <ul>
 <li><p>Latency logs are local only (i.e. not sent/stored remotely).</p></li>
 <li><p>Add an easy way for users to enable writing these latency measurements.</p></li>
@@ -753,7 +782,8 @@ current form, but are captured here to prevent any regression caused by this wor
 </section>
 <section id="non-goals">
 <h3>Non-goals<a class="headerlink" href="#non-goals" title="Link to this heading">#</a></h3>
-<p>To help clarify the scope, we also define some things that were are not explicit goals of this project and briefly explain why they were omitted.</p>
+<p>To help clarify the scope, we also define some things that were are not
+explicit goals of this project and briefly explain why they were omitted.</p>
 <ul class="simple">
 <li><p>Make a single slicing operation faster.</p>
 <ul>
@@ -771,13 +801,15 @@ current form, but are captured here to prevent any regression caused by this wor
 <li><p>May still automatically infer that slicing can be synchronously.</p></li>
 </ul>
 </li>
-<li><p>When a slice doesn’t immediately load, show a low level of detail version of it, so that I can preview what is upcoming.</p>
+<li><p>When a slice doesn’t immediately load, show a low level of detail version of
+it, so that I can preview what is upcoming.</p>
 <ul>
 <li><p>Requires a low level of detail version to exist.</p></li>
 <li><p>Should be part of a to-be-defined multi-scale project.</p></li>
 </ul>
 </li>
-<li><p>Store multiple slices associated with each layer, so that I can easily implement a multi-canvas mode for napari.</p>
+<li><p>Store multiple slices associated with each layer, so that I can easily
+implement a multi-canvas mode for napari.</p>
 <ul>
 <li><p>Should be part of a to-be-defined multi-canvas project.</p></li>
 <li><p>Solutions for goal (2) should not block this in the future.</p></li>
@@ -816,67 +848,83 @@ current form, but are captured here to prevent any regression caused by this wor
 </section>
 <section id="related-work">
 <h2>Related work<a class="headerlink" href="#related-work" title="Link to this heading">#</a></h2>
-<p>As this project focuses on re-designing slicing in napari, this section contains information on how slicing in napari currently works.</p>
+<p>As this project focuses on re-designing slicing in napari, this section
+contains information on how slicing in napari currently works.</p>
 <section id="existing-slice-logic">
 <h3>Existing slice logic<a class="headerlink" href="#existing-slice-logic" title="Link to this heading">#</a></h3>
-<p>The following diagram shows the simplified call sequence generated by moving the position of a dimension slider in napari.</p>
-<p><img alt="" src="https://raw.githubusercontent.com/andy-sweet/napari-diagrams/main/napari-slicing-sync-calls.drawio.svg" /></p>
+<p>The following diagram shows the simplified call sequence generated by moving
+the position of a dimension slider in napari.</p>
+<p><img alt="Diagram of the synchronous slicing call sequence" src="https://raw.githubusercontent.com/andy-sweet/napari-diagrams/main/napari-slicing-sync-calls.drawio.svg" /></p>
 <p>Moving the slider generates mouse events that the Qt main event loop handles,
 which eventually emits napari’s <code class="docutils literal notranslate"><span class="pre">Dims.events.current_step</span></code> event, which in turn
-triggers the refresh of each layer. A refresh first updates the layer’s slice state
-using <code class="docutils literal notranslate"><span class="pre">Layer.set_view_slice</span></code>, then emits the <code class="docutils literal notranslate"><span class="pre">Layer.events.set_data</span></code> event,
-which finally passes on the layer’s new slice state to the vispy scene node
-using <code class="docutils literal notranslate"><span class="pre">VispyBaseLayer._on_data_change</span></code>.</p>
-<p>All these calls occur on the main thread so the app does not return to the Qt main event
-loop until each layer has been sliced and each vispy node has been updated. This means that
-any other updates to the app, like redrawing the slider position, or other user interactions
-with the app, like moving the slider somewhere else, are blocked until slicing is done.
-This is what causes napari to stop responding when slicing is slow.</p>
-<p>Each subclass of <code class="docutils literal notranslate"><span class="pre">Layer</span></code> has its own type-specific implementation of <code class="docutils literal notranslate"><span class="pre">set_view_slice</span></code>,
-which uses the updated dims state in combination with <code class="docutils literal notranslate"><span class="pre">Layer.data</span></code> to generate and store sliced data.
-Similarly, each subclass of <code class="docutils literal notranslate"><span class="pre">VispyBaseLayer</span></code> has its own type-specific implementation of <code class="docutils literal notranslate"><span class="pre">_on_data_change</span></code>,
-which gets the new sliced data in the layer, may post-process it, and finally passes it to vispy to be rendered on the GPU.</p>
+triggers the refresh of each layer. A refresh first updates the layer’s slice
+state using <code class="docutils literal notranslate"><span class="pre">Layer.set_view_slice</span></code>, then emits the <code class="docutils literal notranslate"><span class="pre">Layer.events.set_data</span></code>
+event, which finally passes on the layer’s new slice state to the vispy scene
+node using <code class="docutils literal notranslate"><span class="pre">VispyBaseLayer._on_data_change</span></code>.</p>
+<p>All these calls occur on the main thread so the app does not return to the Qt
+main event loop until each layer has been sliced and each vispy node has been
+updated. This means that any other updates to the app, like redrawing the
+slider position, or other user interactions with the app, like moving the
+slider somewhere else, are blocked until slicing is done. This is what causes
+napari to stop responding when slicing is slow.</p>
+<p>Each subclass of <code class="docutils literal notranslate"><span class="pre">Layer</span></code> has its own type-specific implementation of
+<code class="docutils literal notranslate"><span class="pre">set_view_slice</span></code>, which uses the updated dims state in combination with
+<code class="docutils literal notranslate"><span class="pre">Layer.data</span></code> to generate and store sliced data. Similarly, each subclass of
+<code class="docutils literal notranslate"><span class="pre">VispyBaseLayer</span></code> has its own type-specific implementation of <code class="docutils literal notranslate"><span class="pre">_on_data_change</span></code>,
+which gets the new sliced data in the layer, may post-process it, and finally
+passes it to vispy to be rendered on the GPU.</p>
 </section>
 <section id="existing-slice-state">
 <h3>Existing slice state<a class="headerlink" href="#existing-slice-state" title="Link to this heading">#</a></h3>
-<p>It’s important to understand what state is currently used by and generated by slicing because
-solutions for this project may cause this state to be read and write from multiple threads.
-Rather than exhaustively list all of the slice state of all layer types and their dependencies <a class="footnote-reference brackets" href="#slice-class-diagram" id="id7" role="doc-noteref"><span class="fn-bracket">[</span>7<span class="fn-bracket">]</span></a>,
-we group and highlight some of the more important state.</p>
+<p>It’s important to understand what state is currently used by and generated by
+slicing because solutions for this project may cause this state to be read and
+write from multiple threads. Rather than exhaustively list all of the slice
+state of all layer types and their dependencies <a class="footnote-reference brackets" href="#slice-class-diagram" id="id7" role="doc-noteref"><span class="fn-bracket">[</span>7<span class="fn-bracket">]</span></a>, we
+group and highlight some of the more important state.</p>
 <section id="input-state">
 <h4>Input state<a class="headerlink" href="#input-state" title="Link to this heading">#</a></h4>
 <p>Some input state for slicing is directly mutated by <code class="docutils literal notranslate"><span class="pre">Layer._slice_dims</span></code>.</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">_ndisplay:</span> <span class="pre">int</span></code>, the display dimensionality (either 2 or 3).</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">_dims_point:</span> <span class="pre">List[Union[numeric,</span> <span class="pre">slice]]</span></code>, the current slice position in world coordinates.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">_dims_order:</span> <span class="pre">Tuple[int,</span> <span class="pre">...]</span></code>, the ordering of dimensions, where the last few are visualized in the canvas.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">_dims_point:</span> <span class="pre">List[Union[numeric,</span> <span class="pre">slice]]</span></code>, the current slice position in
+world coordinates.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">_dims_order:</span> <span class="pre">Tuple[int,</span> <span class="pre">...]</span></code>, the ordering of dimensions, where the last
+few are visualized in the canvas.</p></li>
 </ul>
-<p>Note that while <code class="docutils literal notranslate"><span class="pre">Layer._update_dims</span></code> can mutate more state, it should only do so when
-the dimensionality of the layer has changed, which should not happen when only interacting with existing data.</p>
-<p>Other input state comes from more permanent and public properties of <code class="docutils literal notranslate"><span class="pre">Layer</span></code>, which are critical to the slicing operation.</p>
+<p>Note that while <code class="docutils literal notranslate"><span class="pre">Layer._update_dims</span></code> can mutate more state, it should only do
+so when the dimensionality of the layer has changed, which should not happen
+when only interacting with existing data.</p>
+<p>Other input state comes from more permanent and public properties of <code class="docutils literal notranslate"><span class="pre">Layer</span></code>,
+which are critical to the slicing operation.</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">data:</span> <span class="pre">ArrayLike</span></code>, the full data to be sliced.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">_transforms:</span> <span class="pre">TransformChain</span></code>, transforms sliced data coordinates to vispy-world coordinates.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">_transforms:</span> <span class="pre">TransformChain</span></code>, transforms sliced data coordinates to
+vispy-world coordinates.</p></li>
 </ul>
-<p>Finally, there are some layer-type specific properties that are used to customize the visualized slice.</p>
+<p>Finally, there are some layer-type specific properties that are used to
+customize the visualized slice.</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">_ImageBase</span></code></p>
 <ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">rgb:</span> <span class="pre">bool</span></code> True if the leading dimension contains RGB(A) channels that should be visualized as such.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">rgb:</span> <span class="pre">bool</span></code> True if the leading dimension contains RGB(A) channels that
+should be visualized as such.</p></li>
 </ul>
 </li>
 <li><p><code class="docutils literal notranslate"><span class="pre">Points</span></code></p>
 <ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">face_color,</span> <span class="pre">edge_color:</span> <span class="pre">Array[float,</span> <span class="pre">(N,</span> <span class="pre">4)]</span></code>, the face and edge colors of each point.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">face_color,</span> <span class="pre">edge_color:</span> <span class="pre">Array[float,</span> <span class="pre">(N,</span> <span class="pre">4)]</span></code>, the face and edge colors of
+each point.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">size:</span> <span class="pre">Array[float,</span> <span class="pre">(N,</span> <span class="pre">D)]</span></code>, the size of each point.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">edge_width:</span> <span class="pre">Array[float,</span> <span class="pre">(N,)]</span></code>, the width of each point’s edge.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">shown:</span> <span class="pre">Array[bool,</span> <span class="pre">(N,)]</span></code>, the visibility of each point.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">out_of_slice_display:</span> <span class="pre">bool</span></code>, if True some points may be included in more than one slice based on their size.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">out_of_slice_display:</span> <span class="pre">bool</span></code>, if True some points may be included in more
+than one slice based on their size.</p></li>
 </ul>
 </li>
 <li><p><code class="docutils literal notranslate"><span class="pre">Shapes</span></code></p>
 <ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">face_color,</span> <span class="pre">edge_color:</span> <span class="pre">Array[float,</span> <span class="pre">(N,</span> <span class="pre">4)]</span></code>, the face and edge colors of each shape.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">face_color,</span> <span class="pre">edge_color:</span> <span class="pre">Array[float,</span> <span class="pre">(N,</span> <span class="pre">4)]</span></code>, the face and edge colors of
+each shape.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">edge_width:</span> <span class="pre">Array[float,</span> <span class="pre">(N,)]</span></code>, the width of shape’s edges.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">_data_view:</span> <span class="pre">ShapeList</span></code>, stores all shapes’ data.</p>
 <ul>
@@ -894,14 +942,16 @@ the dimensionality of the layer has changed, which should not happen when only i
 <li><p><code class="docutils literal notranslate"><span class="pre">edge_color:</span> <span class="pre">Array[float,</span> <span class="pre">(N,)]</span></code>, the color of each vector.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">edge_width:</span> <span class="pre">Array[float,</span> <span class="pre">(N,)]</span></code>, the width of each vector.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">length:</span> <span class="pre">numeric</span></code>, multiplicative length scaling all vectors.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">out_of_slice_display:</span> <span class="pre">bool</span></code>, if True some vectors may be included in more than one slice based on their length.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">out_of_slice_display:</span> <span class="pre">bool</span></code>, if True some vectors may be included in more
+than one slice based on their length.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">_mesh_vertices</span></code>, output from <code class="docutils literal notranslate"><span class="pre">generate_vector_meshes</span></code>.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">_mesh_triangles</span></code>, output from <code class="docutils literal notranslate"><span class="pre">generate_vector_meshes</span></code>.</p></li>
 </ul>
 </li>
 </ul>
-<p>Many of these are just indexed as part of slicing.
-For example, <code class="docutils literal notranslate"><span class="pre">Points.face_color</span></code> is indexed by the points that are visible in the current slice.</p>
+<p>Many of these are just indexed as part of slicing. For example,
+<code class="docutils literal notranslate"><span class="pre">Points.face_color</span></code> is indexed by the points that are visible in the current
+slice.</p>
 </section>
 <section id="output-state">
 <h4>Output state<a class="headerlink" href="#output-state" title="Link to this heading">#</a></h4>
@@ -912,19 +962,23 @@ on the layer, and mostly consumed by the corresponding vispy layer.</p>
 <ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">_slice:</span> <span class="pre">ImageSlice</span></code>, contains a loader, and the sliced image and thumbnail</p>
 <ul>
-<li><p>much complexity encapsulated here and other related classes like <code class="docutils literal notranslate"><span class="pre">ImageSliceData</span></code>.</p></li>
+<li><p>much complexity encapsulated here and other related classes like
+<code class="docutils literal notranslate"><span class="pre">ImageSliceData</span></code>.</p></li>
 </ul>
 </li>
 </ul>
 </li>
 <li><p><code class="docutils literal notranslate"><span class="pre">Points</span></code></p>
 <ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">__indices_view:</span> <span class="pre">Array[int,</span> <span class="pre">(M,)]</span></code>, indices of points (i.e. rows of <code class="docutils literal notranslate"><span class="pre">data</span></code>) that are in the current slice.</p>
+<li><p><code class="docutils literal notranslate"><span class="pre">__indices_view:</span> <span class="pre">Array[int,</span> <span class="pre">(M,)]</span></code>, indices of points (i.e. rows of <code class="docutils literal notranslate"><span class="pre">data</span></code>)
+that are in the current slice.</p>
 <ul>
-<li><p>many private properties derived from this (e.g. <code class="docutils literal notranslate"><span class="pre">_indices_view</span></code>, <code class="docutils literal notranslate"><span class="pre">_view_data</span></code>).</p></li>
+<li><p>many private properties derived from this (e.g. <code class="docutils literal notranslate"><span class="pre">_indices_view</span></code>,
+<code class="docutils literal notranslate"><span class="pre">_view_data</span></code>).</p></li>
 </ul>
 </li>
-<li><p><code class="docutils literal notranslate"><span class="pre">_view_size_scale:</span> <span class="pre">Union[float,</span> <span class="pre">Array[float,</span> <span class="pre">(M,)]]</span></code>, used with thick slices of points <code class="docutils literal notranslate"><span class="pre">_view_size</span></code> to make out of slice points appear smaller.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">_view_size_scale:</span> <span class="pre">Union[float,</span> <span class="pre">Array[float,</span> <span class="pre">(M,)]]</span></code>, used with thick
+slices of points <code class="docutils literal notranslate"><span class="pre">_view_size</span></code> to make out of slice points appear smaller.</p></li>
 </ul>
 </li>
 <li><p><code class="docutils literal notranslate"><span class="pre">Shapes</span></code></p>
@@ -943,34 +997,40 @@ on the layer, and mostly consumed by the corresponding vispy layer.</p>
 </li>
 <li><p><code class="docutils literal notranslate"><span class="pre">Vectors</span></code></p>
 <ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">_view_indices:</span> <span class="pre">Array[int,</span> <span class="pre">(-1)]</span></code>, indices of vectors that are in the current slice.</p>
+<li><p><code class="docutils literal notranslate"><span class="pre">_view_indices:</span> <span class="pre">Array[int,</span> <span class="pre">(-1)]</span></code>, indices of vectors that are in the
+current slice.</p>
 <ul>
-<li><p>lots of private properties derived from this (e.g. <code class="docutils literal notranslate"><span class="pre">_view_face_color</span></code>, <code class="docutils literal notranslate"><span class="pre">_view_faces</span></code>).</p></li>
+<li><p>lots of private properties derived from this (e.g. <code class="docutils literal notranslate"><span class="pre">_view_face_color</span></code>,
+<code class="docutils literal notranslate"><span class="pre">_view_faces</span></code>).</p></li>
 </ul>
 </li>
 </ul>
 </li>
 </ul>
-<p>The vispy layers also read other state from their corresponding layer.
-In particular they read <code class="docutils literal notranslate"><span class="pre">Layer._transforms</span></code> to produce a transform that can be used to properly
-represent the layer in the vispy scene coordinate system.</p>
+<p>The vispy layers also read other state from their corresponding layer. In
+particular they read <code class="docutils literal notranslate"><span class="pre">Layer._transforms</span></code> to produce a transform that can be
+used to properly represent the layer in the vispy scene coordinate system.</p>
 </section>
 </section>
 </section>
 <section id="detailed-description">
 <h2>Detailed description<a class="headerlink" href="#detailed-description" title="Link to this heading">#</a></h2>
-<p>The following diagram shows the new proposed approach to slicing layers asynchronously.</p>
-<p><img alt="" src="https://raw.githubusercontent.com/andy-sweet/napari-diagrams/main/napari-slicing-async-calls.drawio.svg" /></p>
-<p>As with the existing synchronous slicing design, the <code class="docutils literal notranslate"><span class="pre">Dims.events.current_step</span></code> event
-is the shared starting point. In the new approach, we pass <code class="docutils literal notranslate"><span class="pre">ViewerModel.layers</span></code> through
-to the newly defined <code class="docutils literal notranslate"><span class="pre">LayerSlicer</span></code>, which makes a slice request for each layer on the main thread.
-This request is processed asynchronously on a dedicated thread for slicing, while the main thread
-returns quickly to the Qt main event loop, allowing napari to keep responding to other updates
-and interactions. When all the layers have generated slice responses on the slicing thread,
-the <code class="docutils literal notranslate"><span class="pre">slice_ready</span></code> event is emitted. That triggers <code class="docutils literal notranslate"><span class="pre">QtViewer.on_slice_ready</span></code> to be executed on
-the main thread, so that the underlying <code class="docutils literal notranslate"><span class="pre">QWidgets</span></code> can be safely updated.</p>
-<p>The rest of this section defines some new types to encapsulate state that is critical
-to slicing and some new methods that redefine the core logic of slicing.</p>
+<p>The following diagram shows the new proposed approach to slicing layers
+asynchronously.</p>
+<p><img alt="Diagram of the proposed asynchronous slicing call sequence" src="https://raw.githubusercontent.com/andy-sweet/napari-diagrams/main/napari-slicing-async-calls.drawio.svg" /></p>
+<p>As with the existing synchronous slicing design, the <code class="docutils literal notranslate"><span class="pre">Dims.events.current_step</span></code>
+event is the shared starting point. In the new approach, we pass
+<code class="docutils literal notranslate"><span class="pre">ViewerModel.layers</span></code> through to the newly defined <code class="docutils literal notranslate"><span class="pre">LayerSlicer</span></code>, which makes a
+slice request for each layer on the main thread. This request is processed
+asynchronously on a dedicated thread for slicing, while the main thread returns
+quickly to the Qt main event loop, allowing napari to keep responding to other
+updates and interactions. When all the layers have generated slice responses on
+the slicing thread, the <code class="docutils literal notranslate"><span class="pre">slice_ready</span></code> event is emitted. That triggers
+<code class="docutils literal notranslate"><span class="pre">QtViewer.on_slice_ready</span></code> to be executed on the main thread, so that the
+underlying <code class="docutils literal notranslate"><span class="pre">QWidgets</span></code> can be safely updated.</p>
+<p>The rest of this section defines some new types to encapsulate state that is
+critical to slicing and some new methods that redefine the core logic of
+slicing.</p>
 <section id="request-and-response">
 <h3>Request and response<a class="headerlink" href="#request-and-response" title="Link to this heading">#</a></h3>
 <p>First, we introduce a request to encapsulate the required input to slicing.</p>
@@ -1002,16 +1062,17 @@ shared world coordinate system.
 At this point <code class="docutils literal notranslate"><span class="pre">data</span></code> should be fast to access either from RAM (e.g. as a numpy
 array) or VRAM (e.g. as a CuPy array), so that it can be consumed on the main
 thread without blocking other operations for long.</p>
-<p>For each layer type, we need to extend the request and response types to include
-state that is specific to slicing those types of layers. For example, the image
-request type should look something like the following.</p>
+<p>For each layer type, we need to extend the request and response types to
+include state that is specific to slicing those types of layers. For example,
+the image request type should look something like the following.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">ImageSliceRequest</span><span class="p">(</span><span class="n">LayerSliceRequest</span><span class="p">):</span>
     <span class="n">rgb</span><span class="p">:</span> <span class="nb">bool</span>
     <span class="n">multiscale</span><span class="p">:</span> <span class="nb">bool</span>
     <span class="n">corner_pixels</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
     <span class="n">data_level</span><span class="p">:</span> <span class="nb">int</span>
 
-<span class="k">class</span><span class="w"> </span><span class="nc">ImageSliceResponse</span><span class="p">(</span><span class="n">LayerSliceResponse</span><span class="p">)</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">ImageSliceResponse</span><span class="p">(</span><span class="n">LayerSliceResponse</span><span class="p">):</span>
     <span class="n">thumbnail</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
 </pre></div>
 </div>
@@ -1028,6 +1089,7 @@ we are slicing asynchronous to avoid any blocking behavior.</p>
     <span class="n">edge_color</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
     <span class="n">edge_width</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
 
+
 <span class="k">class</span><span class="w"> </span><span class="nc">PointsSliceResponse</span><span class="p">(</span><span class="n">LayerSliceResponse</span><span class="p">):</span>
     <span class="n">indices</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
     <span class="n">size</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
@@ -1037,13 +1099,13 @@ we are slicing asynchronous to avoid any blocking behavior.</p>
     <span class="n">edge_width</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
 </pre></div>
 </div>
-<p>While the names and typing of some of the points request and response attributes
-are the same (e.g. <code class="docutils literal notranslate"><span class="pre">face_color</span></code>) they differ semantically because the response
-represent the sliced values only. Defining two distinct and explicit request and
-response types gives us more flexibility later in terms of how slicing works.
-For example, we may want to generate point face colors lazily, which could mean
-that <code class="docutils literal notranslate"><span class="pre">PointsSliceRequest.face_color</span></code> would become a callable instead of a
-materialized array as in the response.</p>
+<p>While the names and typing of some of the points request and response
+attributes are the same (e.g. <code class="docutils literal notranslate"><span class="pre">face_color</span></code>) they differ semantically because
+the response represent the sliced values only. Defining two distinct and
+explicit request and response types gives us more flexibility later in terms of
+how slicing works. For example, we may want to generate point face colors
+lazily, which could mean that <code class="docutils literal notranslate"><span class="pre">PointsSliceRequest.face_color</span></code> would become a
+callable instead of a materialized array as in the response.</p>
 </section>
 <section id="layer-methods">
 <h3>Layer methods<a class="headerlink" href="#layer-methods" title="Link to this heading">#</a></h3>
@@ -1106,22 +1168,22 @@ avoid the associated state and logic leaking into the already complex
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ViewerSliceRequest</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">[</span><span class="n">Layer</span><span class="p">,</span> <span class="n">LayerSliceRequest</span><span class="p">]</span>
 <span class="n">ViewerSliceResponse</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">[</span><span class="n">Layer</span><span class="p">,</span> <span class="n">LayerSliceResponse</span><span class="p">]</span>
 
+
 <span class="k">class</span><span class="w"> </span><span class="nc">LayerSlicer</span><span class="p">:</span>
     <span class="o">...</span>
 
     <span class="n">_executor</span><span class="p">:</span> <span class="n">Executor</span> <span class="o">=</span> <span class="n">ThreadPoolExecutor</span><span class="p">(</span><span class="n">max_workers</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
     <span class="n">_task</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Future</span><span class="p">[</span><span class="n">ViewerSliceResponse</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">...</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span> <span class="o">=</span> <span class="n">EmitterGroup</span><span class="p">(</span><span class="n">source</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">slice_ready</span><span class="o">=</span><span class="n">Event</span><span class="p">)</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">slice_layers_async</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">layers</span><span class="p">:</span> <span class="n">LayerList</span><span class="p">,</span> <span class="n">dims</span><span class="p">:</span> <span class="n">Dims</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Future</span><span class="p">[</span><span class="n">ViewerSliceResponse</span><span class="p">]:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">slice_layers_async</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">layers</span><span class="p">:</span> <span class="n">LayerList</span><span class="p">,</span> <span class="n">dims</span><span class="p">:</span> <span class="n">Dims</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Future</span><span class="p">[</span><span class="n">ViewerSliceResponse</span><span class="p">]:</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_task</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_task</span><span class="o">.</span><span class="n">cancel</span><span class="p">()</span>
-        <span class="n">requests</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="n">layer</span><span class="p">:</span> <span class="n">layer</span><span class="o">.</span><span class="n">_make_slice_request</span><span class="p">(</span><span class="n">dims</span><span class="p">)</span>
-            <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="n">layers</span>
-        <span class="p">}</span>
+        <span class="n">requests</span> <span class="o">=</span> <span class="p">{</span><span class="n">layer</span><span class="p">:</span> <span class="n">layer</span><span class="o">.</span><span class="n">_make_slice_request</span><span class="p">(</span><span class="n">dims</span><span class="p">)</span> <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="n">layers</span><span class="p">}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_task</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_executor</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_slice_layers</span><span class="p">,</span> <span class="n">request</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_task</span><span class="o">.</span><span class="n">add_done_callback</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_on_slice_done</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_task</span>
@@ -1135,9 +1197,10 @@ avoid the associated state and logic leaking into the already complex
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">slice_ready</span><span class="p">(</span><span class="n">task</span><span class="o">.</span><span class="n">result</span><span class="p">())</span>
 </pre></div>
 </div>
-<p>For this class to be useful, there should be at least one connection to the <code class="docutils literal notranslate"><span class="pre">slice_ready</span></code> event.
-In napari, we expect the <code class="docutils literal notranslate"><span class="pre">QtViewer</span></code> to marshall the slice response that this signal carries
-to the vispy layers so that the canvas can be updated.</p>
+<p>For this class to be useful, there should be at least one connection to the
+<code class="docutils literal notranslate"><span class="pre">slice_ready</span></code> event. In napari, we expect the <code class="docutils literal notranslate"><span class="pre">QtViewer</span></code> to marshall the slice
+response that this signal carries to the vispy layers so that the canvas can be
+updated.</p>
 </section>
 <section id="hooking-up-the-viewer">
 <h3>Hooking up the viewer<a class="headerlink" href="#hooking-up-the-viewer" title="Link to this heading">#</a></h3>
@@ -1150,7 +1213,7 @@ in napari without an explicit dependency on Qt.</p>
     <span class="n">dims</span><span class="p">:</span> <span class="n">Dims</span>
     <span class="n">_slicer</span><span class="p">:</span> <span class="n">LayerSlicer</span> <span class="o">=</span> <span class="n">LayerSlicer</span><span class="p">()</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">...</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="o">...</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">current_step</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_slice_layers_async</span><span class="p">)</span>
 
@@ -1174,7 +1237,7 @@ a layer to its corresponding vispy layer.</p>
     <span class="n">viewer</span><span class="p">:</span> <span class="n">ViewerModel</span>
     <span class="n">layer_to_visual</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Layer</span><span class="p">,</span> <span class="n">VispyBaseLayer</span><span class="p">]</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">...</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="o">...</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">_slicer</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">slice_ready</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_on_slice_ready</span><span class="p">)</span>
 
@@ -1197,79 +1260,89 @@ slice output.</p>
 <h2>Implementation<a class="headerlink" href="#implementation" title="Link to this heading">#</a></h2>
 <p>A tracking issue <a class="footnote-reference brackets" href="#tracking-issue" id="id9" role="doc-noteref"><span class="fn-bracket">[</span>9<span class="fn-bracket">]</span></a> serves as a way to communicate high level
 progress and discussion.</p>
-<p>A prototype <a class="footnote-reference brackets" href="#prototype-pr" id="id10" role="doc-noteref"><span class="fn-bracket">[</span>10<span class="fn-bracket">]</span></a> has been created that implements the approach described
-above to show its basic technical feasibility in napari’s existing code base.
-It only implements it for some layer types, some slicing operations, and may
-not work when layer data is mutated.
-There are some other rough edges and plenty of ways to break it, but basic
-functionality should work.</p>
+<p>A prototype <a class="footnote-reference brackets" href="#prototype-pr" id="id10" role="doc-noteref"><span class="fn-bracket">[</span>10<span class="fn-bracket">]</span></a> has been created that implements the approach
+described above to show its basic technical feasibility in napari’s existing
+code base. It only implements it for some layer types, some slicing operations,
+and may not work when layer data is mutated. There are some other rough edges
+and plenty of ways to break it, but basic functionality should work.</p>
 <p>The rough implementation plan is as follows.</p>
 <ul class="simple">
-<li><p>Implement pure refactors related to slicing to support this work (no public API or behavior changes).</p></li>
-<li><p>Implement high-level asynchronous slicing model described here (i.e. add <code class="docutils literal notranslate"><span class="pre">LayerSlicer</span></code>, changes to <code class="docutils literal notranslate"><span class="pre">ViewerModel</span></code>), but with existing layer slicing implementation (i.e. <code class="docutils literal notranslate"><span class="pre">Layer._set_view_slice</span></code>).</p></li>
-<li><p>Incrementally add layer slicing implementation described here (i.e. <code class="docutils literal notranslate"><span class="pre">Layer._get_slice</span></code>) for each layer separately.</p></li>
+<li><p>Implement pure refactors related to slicing to support this work (no public
+API or behavior changes).</p></li>
+<li><p>Implement high-level asynchronous slicing model described here (i.e. add
+<code class="docutils literal notranslate"><span class="pre">LayerSlicer</span></code>, changes to <code class="docutils literal notranslate"><span class="pre">ViewerModel</span></code>), but with existing layer slicing
+implementation (i.e. <code class="docutils literal notranslate"><span class="pre">Layer._set_view_slice</span></code>).</p></li>
+<li><p>Incrementally add layer slicing implementation described here (i.e.
+<code class="docutils literal notranslate"><span class="pre">Layer._get_slice</span></code>) for each layer separately.</p></li>
 </ul>
 <p>This allows us to merge small pieces of work into <code class="docutils literal notranslate"><span class="pre">main</span></code>, testing and fixing
-them as we go. The alternative is to maintain a large branch/fork of napari that
-may be less tested and harder to merge in the end.</p>
+them as we go. The alternative is to maintain a large branch/fork of napari
+that may be less tested and harder to merge in the end.</p>
 </section>
 <section id="backward-compatibility">
 <h2>Backward compatibility<a class="headerlink" href="#backward-compatibility" title="Link to this heading">#</a></h2>
 <section id="breaks-synchronous-slicing-behavior">
 <h3>Breaks synchronous slicing behavior<a class="headerlink" href="#breaks-synchronous-slicing-behavior" title="Link to this heading">#</a></h3>
 <p>The main goal of this project is to perform slicing asynchronously, so it’s
-natural that we might break anyone that was depending on slicing being synchronous.
-In particular, users or plugins that rely on <code class="docutils literal notranslate"><span class="pre">Viewer.screenshot</span></code> to capture the
-contents of the canvas after updating things like <code class="docutils literal notranslate"><span class="pre">Dims.current_step</span></code> will be affected.</p>
-<p>Our proposal will break that usage in general, but we plan to offer some public way to
-force synchronous slicing. For example, one promising idea is to define a context manager
-that would temporarily force <code class="docutils literal notranslate"><span class="pre">LayerSlicer</span></code> to always wait for asynchronous tasks to finish
-and could be used as follows.</p>
+natural that we might break anyone that was depending on slicing being
+synchronous. In particular, users or plugins that rely on <code class="docutils literal notranslate"><span class="pre">Viewer.screenshot</span></code>
+to capture the contents of the canvas after updating things like
+<code class="docutils literal notranslate"><span class="pre">Dims.current_step</span></code> will be affected.</p>
+<p>Our proposal will break that usage in general, but we plan to offer some public
+way to force synchronous slicing. For example, one promising idea is to define
+a context manager that would temporarily force <code class="docutils literal notranslate"><span class="pre">LayerSlicer</span></code> to always wait for
+asynchronous tasks to finish and could be used as follows.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">viewer</span><span class="o">.</span><span class="n">sync_slicing</span><span class="p">():</span>
     <span class="n">viewer</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">current_step</span> <span class="o">=</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
 <span class="n">viewer</span><span class="o">.</span><span class="n">screenshot</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Having such a mechanism in <code class="docutils literal notranslate"><span class="pre">LayerSlicer</span></code> also allows us to implement support for
-async slicing incrementally for each layer type.</p>
+<p>Having such a mechanism in <code class="docutils literal notranslate"><span class="pre">LayerSlicer</span></code> also allows us to implement support
+for async slicing incrementally for each layer type.</p>
 </section>
 <section id="store-existing-slice-state-on-layer">
 <h3>Store existing slice state on layer<a class="headerlink" href="#store-existing-slice-state-on-layer" title="Link to this heading">#</a></h3>
-<p>Many existing napari behaviors depend on the existing slice input and output state
-on the layer instances. In this proposal, we decide not to remove this state from the
-layer yet to prevent breaking other functionality that relies on it. As slice output is
-now generated asynchronously, we must ensure that this state is read and written atomically
-to mutually exclude the main and slicing thread from reading and writing inconsistent
-parts of that state.</p>
-<p>In order to do this, we plan to encapsulate the input and output state of each state into
-private dataclasses. There are no API changes, but this forces any read/write access of
-this state to acquire an associated lock.</p>
+<p>Many existing napari behaviors depend on the existing slice input and output
+state on the layer instances. In this proposal, we decide not to remove this
+state from the layer yet to prevent breaking other functionality that relies on
+it. As slice output is now generated asynchronously, we must ensure that this
+state is read and written atomically to mutually exclude the main and slicing
+thread from reading and writing inconsistent parts of that state.</p>
+<p>In order to do this, we plan to encapsulate the input and output state of each
+state into private dataclasses. There are no API changes, but this forces any
+read/write access of this state to acquire an associated lock.</p>
 </section>
 </section>
 <section id="future-work">
 <h2>Future work<a class="headerlink" href="#future-work" title="Link to this heading">#</a></h2>
 <section id="render-each-slice-as-soon-as-it-is-ready">
 <h3>Render each slice as soon as it is ready<a class="headerlink" href="#render-each-slice-as-soon-as-it-is-ready" title="Link to this heading">#</a></h3>
-<p>In this proposal, the slicing thread waits for slices of all layers to be ready before
-it emits the <code class="docutils literal notranslate"><span class="pre">slice_ready</span></code> event. There are a few reasons for that.</p>
+<p>In this proposal, the slicing thread waits for slices of all layers to be ready
+before it emits the <code class="docutils literal notranslate"><span class="pre">slice_ready</span></code> event. There are a few reasons for that.</p>
 <ol class="arabic simple">
-<li><p>We only use one slicing thread to keep behavior simple and to avoid GIL contention.</p></li>
+<li><p>We only use one slicing thread to keep behavior simple and to avoid GIL
+contention.</p></li>
 <li><p>It’s closer to the existing behavior of napari</p></li>
 <li><p>Shouldn’t introduce any new potential bugs, such as <a class="footnote-reference brackets" href="#issue-2862" id="id11" role="doc-noteref"><span class="fn-bracket">[</span>11<span class="fn-bracket">]</span></a>.</p></li>
-<li><p>It needs less UX design work to decide what should be shown while we are waiting for slices to be ready.</p></li>
+<li><p>It needs less UX design work to decide what should be shown while we are
+waiting for slices to be ready.</p></li>
 </ol>
-<p>In some cases, rendering slices as soon as possible will provide a better user experience,
-especially when some layers are substantially slower than others. Therefore, this should be
-high priority future work.</p>
-<p>To implement this behavior as a small extension to this proposal, we could do something like the following.</p>
+<p>In some cases, rendering slices as soon as possible will provide a better user
+experience, especially when some layers are substantially slower than others.
+Therefore, this should be high priority future work.</p>
+<p>To implement this behavior as a small extension to this proposal, we could do
+something like the following.</p>
 <ul class="simple">
 <li><p>Use multiple workers in the <code class="docutils literal notranslate"><span class="pre">LayerSlicer._executor</span></code>.</p></li>
 <li><p>Submit each call to <code class="docutils literal notranslate"><span class="pre">Layer._get_slice</span></code> separately.</p></li>
-<li><p>When each call is done, emit a separate <code class="docutils literal notranslate"><span class="pre">slice_ready</span></code> event that only contains each layer’s slice response,
-so that the viewer/vispy can update as soon as possible.</p></li>
+<li><p>When each call is done, emit a separate <code class="docutils literal notranslate"><span class="pre">slice_ready</span></code> event that only
+contains each layer’s slice response, so that the viewer/vispy can update as
+soon as possible.</p></li>
 </ul>
-<p>This would cause a <a class="reference external" href="https://raw.githubusercontent.com/andy-sweet/napari-diagrams/main/napari-slicing-async-calls-asap.drawio.svg">more complex call sequence</a>
-and could make cancellation behavior more complex, but may be worth it regardless.</p>
+<p>This would cause a
+<a class="reference external" href="https://raw.githubusercontent.com/andy-sweet/napari-diagrams/main/napari-slicing-async-calls-asap.drawio.svg">more complex call sequence</a>
+and could make cancellation behavior more complex, but may be worth it
+regardless.</p>
 </section>
 </section>
 <section id="alternatives">
@@ -1279,7 +1352,8 @@ and could make cancellation behavior more complex, but may be worth it regardles
 <ul class="simple">
 <li><p>Already being used somewhat successfully by some napari users in the wild.</p></li>
 <li><p>Can still reuse some of the code, tooling, and learnings from this project.</p></li>
-<li><p>The technical design of this approach was not well received (i.e. there is a reason it is experimental).</p></li>
+<li><p>The technical design of this approach was not well received (i.e. there is a
+reason it is experimental).</p></li>
 <li><p>Does not address goal 2.</p></li>
 </ul>
 </section>
@@ -1288,7 +1362,8 @@ and could make cancellation behavior more complex, but may be worth it regardles
 <ul class="simple">
 <li><p>Simple to implement with few code changes needed.</p></li>
 <li><p>Needs at least one lock to provide sensible access to layer slice state.</p></li>
-<li><p>This will need to be acquired to access this state and at the beginning of many methods that access any of that state.</p></li>
+<li><p>This will need to be acquired to access this state and at the beginning of
+many methods that access any of that state.</p></li>
 <li><p>How to emit events on the main thread?</p></li>
 <li><p>Does not address goal 2.</p></li>
 </ul>
@@ -1298,8 +1373,10 @@ and could make cancellation behavior more complex, but may be worth it regardles
 <ul class="simple">
 <li><p>Targets main cause of unresponsiveness (i.e. reading data).</p></li>
 <li><p>No events are emitted on the non-main thread.</p></li>
-<li><p>Less lazy when cancelling is possible (i.e. we do more work on the main thread before submitting the async task).</p></li>
-<li><p>Splits up slicing logic into pre/post data reading, making program flow harder to follow.</p></li>
+<li><p>Less lazy when cancelling is possible (i.e. we do more work on the main
+thread before submitting the async task).</p></li>
+<li><p>Splits up slicing logic into pre/post data reading, making program flow
+harder to follow.</p></li>
 <li><p>Does not address goal 2.</p></li>
 </ul>
 </section>
@@ -1307,10 +1384,13 @@ and could make cancellation behavior more complex, but may be worth it regardles
 <h3>Use <code class="docutils literal notranslate"><span class="pre">QThread</span></code> and similar utilities instead of <code class="docutils literal notranslate"><span class="pre">concurrent.futures</span></code><a class="headerlink" href="#use-qthread-and-similar-utilities-instead-of-concurrent-futures" title="Link to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Standard way for plugins to support long running operations.</p></li>
-<li><p>Can track progress and allow more opportunity for cancellation with <code class="docutils literal notranslate"><span class="pre">yielded</span></code> signal.</p></li>
-<li><p>Can easily process done callback (which might update Qt widgets) on main thread.</p></li>
+<li><p>Can track progress and allow more opportunity for cancellation with <code class="docutils literal notranslate"><span class="pre">yielded</span></code>
+signal.</p></li>
+<li><p>Can easily process done callback (which might update Qt widgets) on main
+thread.</p></li>
 <li><p>Need to define our own task queue to achieve lazy slicing.</p></li>
-<li><p>Need to connect a <code class="docutils literal notranslate"><span class="pre">QObject</span></code>, which ties our core to Qt, unless the code that controls threads does not live in core.</p></li>
+<li><p>Need to connect a <code class="docutils literal notranslate"><span class="pre">QObject</span></code>, which ties our core to Qt, unless the code that
+controls threads does not live in core.</p></li>
 </ul>
 </section>
 <section id="use-asyncio-package-instead-of-concurrent-futures">
@@ -1318,18 +1398,20 @@ and could make cancellation behavior more complex, but may be worth it regardles
 <ul class="simple">
 <li><p>May improve general readability of async code for some.</p></li>
 <li><p>Mostly syntactic sugar on top of <code class="docutils literal notranslate"><span class="pre">concurrent.futures</span></code>.</p></li>
-<li><p>Likely need an <code class="docutils literal notranslate"><span class="pre">asyncio</span></code> event loop distinct from Qt’s main event loop, which could be confusing and cause issues.</p></li>
-<li><p><a class="reference external" href="https://napari.zulipchat.com/#narrow/stream/212875-general/topic/qt-async-threads">As discussed on Zulip</a>, <code class="docutils literal notranslate"><span class="pre">qt-async-threads</span></code> is a possible solution,
-but it is still quite new.</p></li>
+<li><p>Likely need an <code class="docutils literal notranslate"><span class="pre">asyncio</span></code> event loop distinct from Qt’s main event loop, which
+could be confusing and cause issues.</p></li>
+<li><p><a class="reference external" href="https://napari.zulipchat.com/#narrow/stream/212875-general/topic/qt-async-threads">As discussed on Zulip</a>,
+<code class="docutils literal notranslate"><span class="pre">qt-async-threads</span></code> is a possible solution, but it is still quite new.</p></li>
 </ul>
 </section>
 <section id="slice-from-vispy-layer-instead-of-viewer-model">
 <h3>Slice from vispy layer instead of viewer model<a class="headerlink" href="#slice-from-vispy-layer-instead-of-viewer-model" title="Link to this heading">#</a></h3>
-<p>Instead of making the <code class="docutils literal notranslate"><span class="pre">ViewerModel</span></code> the driver of slicing, we could instead drive it from the vispy layers.
-A rough implementation of this approach could look like the following.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
-<span class="k">class</span><span class="w"> </span><span class="nc">QtViewer</span><span class="p">:</span>
+<p>Instead of making the <code class="docutils literal notranslate"><span class="pre">ViewerModel</span></code> the driver of slicing, we could instead
+drive it from the vispy layers. A rough implementation of this approach could
+look like the following.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">QtViewer</span><span class="p">:</span>
     <span class="o">...</span>
+
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="o">...</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">current_step</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">slice_layers</span><span class="p">)</span>
@@ -1338,15 +1420,17 @@ A rough implementation of this approach could look like the following.</p>
         <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">layer_to_visual</span><span class="p">[</span><span class="n">layer</span><span class="p">]</span><span class="o">.</span><span class="n">_slice</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">dims</span><span class="p">)</span>
 
+
 <span class="k">class</span><span class="w"> </span><span class="nc">Image</span><span class="p">:</span>
     <span class="o">...</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">_make_slice_request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dims</span><span class="p">:</span> <span class="n">Dims</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ImageSliceRequest</span><span class="p">:</span>
-        <span class="o">...</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">_get_slice</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">:</span> <span class="n">ImageSliceRequest</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ImageSliceResponse</span><span class="p">:</span>
-        <span class="o">...</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_make_slice_request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dims</span><span class="p">:</span> <span class="n">Dims</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ImageSliceRequest</span><span class="p">:</span> <span class="o">...</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_get_slice</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">:</span> <span class="n">ImageSliceRequest</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ImageSliceResponse</span><span class="p">:</span> <span class="o">...</span>
+
 
 <span class="k">class</span><span class="w"> </span><span class="nc">VispyImageLayer</span><span class="p">:</span>
     <span class="o">...</span>
+
     <span class="k">def</span><span class="w"> </span><span class="nf">_slice</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dims</span><span class="p">:</span> <span class="n">Dims</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">request</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layer</span><span class="o">.</span><span class="n">_make_slice_request</span><span class="p">(</span><span class="n">dims</span><span class="p">)</span>
         <span class="n">task</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">slice_executor</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layer</span><span class="o">.</span><span class="n">_get_slice</span><span class="p">,</span> <span class="n">request</span><span class="p">)</span>
@@ -1356,23 +1440,25 @@ A rough implementation of this approach could look like the following.</p>
         <span class="bp">self</span><span class="o">.</span><span class="n">_set_slice</span><span class="p">(</span><span class="n">task</span><span class="o">.</span><span class="n">result</span><span class="p">())</span>
 
     <span class="nd">@ensure_main_thread</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">_set_slice</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response</span><span class="p">:</span> <span class="n">ImageSliceResponse</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="o">...</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_set_slice</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response</span><span class="p">:</span> <span class="n">ImageSliceResponse</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span> <span class="o">...</span>
 </pre></div>
 </div>
-<p>Most of the internal guts of slicing, such as the implementation of <code class="docutils literal notranslate"><span class="pre">_get_slice</span></code> and
-<code class="docutils literal notranslate"><span class="pre">_make_slice_request</span></code>, are unchanged from the approach proposed here.</p>
-<p>The main advantage of this approach is that the main consumer of the slice response (i.e. vispy)
-is the one driving slicing, which allows us to better define input and output types and
-avoid unnecessary type inheritance.</p>
-<p>In the example code above, we avoid a tight dependency on <code class="docutils literal notranslate"><span class="pre">Qt</span></code> using <code class="docutils literal notranslate"><span class="pre">&#64;ensure_main_thread</span></code>.
-But another advantage of this general approach is that we could rely on tighter dependencies
-between vispy and Qt, which may simplify the implementation and offer some performance benefits.</p>
-<p>One disadvantage is that it becomes harder to control the execution of multiple layers being sliced.
-For example, with the above implementation we can no longer wait for all layers to be sliced before
-updating all the vispy layers.
-Another disadvantage is that this implies that slice state should not live in the model in the future,
-which might cause issues with things like selection that may depend on that state.</p>
+<p>Most of the internal guts of slicing, such as the implementation of
+<code class="docutils literal notranslate"><span class="pre">_get_slice</span></code> and <code class="docutils literal notranslate"><span class="pre">_make_slice_request</span></code>, are unchanged from the approach
+proposed here.</p>
+<p>The main advantage of this approach is that the main consumer of the slice
+response (i.e. vispy) is the one driving slicing, which allows us to better
+define input and output types and avoid unnecessary type inheritance.</p>
+<p>In the example code above, we avoid a tight dependency on <code class="docutils literal notranslate"><span class="pre">Qt</span></code> using
+<code class="docutils literal notranslate"><span class="pre">&#64;ensure_main_thread</span></code>. But another advantage of this general approach is that
+we could rely on tighter dependencies between vispy and Qt, which may simplify
+the implementation and offer some performance benefits.</p>
+<p>One disadvantage is that it becomes harder to control the execution of multiple
+layers being sliced. For example, with the above implementation we can no
+longer wait for all layers to be sliced before updating all the vispy layers.
+Another disadvantage is that this implies that slice state should not live in
+the model in the future, which might cause issues with things like selection
+that may depend on that state.</p>
 </section>
 </section>
 <section id="discussion">
@@ -1380,21 +1466,26 @@ which might cause issues with things like selection that may depend on that stat
 <ul class="simple">
 <li><p><a class="reference external" href="https://napari.zulipchat.com/#narrow/stream/296574-working-group-architecture/topic/Async.20slicing.20project">Initial announcement on Zulip</a>.</p>
 <ul>
-<li><p>Consider (re)sampling instead of slicing as the name for the operation discussed here.</p></li>
+<li><p>Consider (re)sampling instead of slicing as the name for the operation
+discussed here.</p></li>
 </ul>
 </li>
 <li><p><a class="reference external" href="https://forum.image.sc/t/even-with-napari-async-1-data-loading-is-blocking-the-ui-thread/68097/4">Problems with <code class="docutils literal notranslate"><span class="pre">NAPARI_ASYNC=1</span></code></a></p>
 <ul>
-<li><p>The existing experimental async code doesn’t handle some seemingly simple usage.</p></li>
+<li><p>The existing experimental async code doesn’t handle some seemingly simple
+usage.</p></li>
 </ul>
 </li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/issues/4682">Remove slice state from layer</a></p>
 <ul>
 <li><p>Feature request to remove slice/render state from the layer types.</p></li>
-<li><p>Motivated by creating multiple slices of the same layers for multiple canvases.</p></li>
+<li><p>Motivated by creating multiple slices of the same layers for multiple
+canvases.</p></li>
 <li><p>Decision: postpone.</p>
 <ul>
-<li><p>There are too many behaviors that depend on slice state (e.g. <code class="docutils literal notranslate"><span class="pre">Layer._get_value</span></code>) and it’s easy enough to set it after an async slicing task is done, so leave it for now.</p></li>
+<li><p>There are too many behaviors that depend on slice state (e.g.
+<code class="docutils literal notranslate"><span class="pre">Layer._get_value</span></code>) and it’s easy enough to set it after an async slicing
+task is done, so leave it for now.</p></li>
 <li><p>This work should simplify removing it in the future.</p></li>
 </ul>
 </li>
@@ -1405,35 +1496,45 @@ which might cause issues with things like selection that may depend on that stat
 <li><p>Initial feedback before sharing more widely.</p></li>
 </ul>
 </li>
-<li><p>Define a class that encapsulates the slicing bounding box in world coordinates.</p>
+<li><p>Define a class that encapsulates the slicing bounding box in world
+coordinates.</p>
 <ul>
 <li><p><a class="reference external" href="https://github.com/napari/napari/pull/4892/files#r935771292">Define a class that only encapsulates the dims and camera info needed for slicing</a></p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/pull/4892/files#r935877117">Replace <code class="docutils literal notranslate"><span class="pre">point</span></code> and similar with <code class="docutils literal notranslate"><span class="pre">bbox</span></code></a></p></li>
-<li><p>The idea here is to collapse some of the existing input slicing state like <code class="docutils literal notranslate"><span class="pre">point</span></code> and <code class="docutils literal notranslate"><span class="pre">dims_displayed</span></code> into one class that describes the bounding box for slicing in world coordinates.</p></li>
+<li><p>The idea here is to collapse some of the existing input slicing state like
+<code class="docutils literal notranslate"><span class="pre">point</span></code> and <code class="docutils literal notranslate"><span class="pre">dims_displayed</span></code> into one class that describes the bounding box
+for slicing in world coordinates.</p></li>
 <li><p>Decision: postpone.</p>
 <ul>
-<li><p>This can be done independently of this work and the order is not important enough to slow this work down.</p></li>
+<li><p>This can be done independently of this work and the order is not
+important enough to slow this work down.</p></li>
 </ul>
 </li>
 </ul>
 </li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/pull/4892/files#r935773848">Replace layer slice request and response types with a single slice type</a></p>
 <ul>
-<li><p>Motivation is make it easier to add a new layer type by reducing the number of class types needed.</p></li>
-<li><p>Some disagreement here as one type for two purposes (input vs. output) seems confusing.</p></li>
-<li><p>Keeping the request and response types separate may also allow us to better target alternatives to vispy.</p></li>
+<li><p>Motivation is make it easier to add a new layer type by reducing the number
+of class types needed.</p></li>
+<li><p>Some disagreement here as one type for two purposes (input vs. output)
+seems confusing.</p></li>
+<li><p>Keeping the request and response types separate may also allow us to better
+target alternatives to vispy.</p></li>
 <li><p>Decision: keep request and response types separate for now.</p>
 <ul>
 <li><p>Adding a new layer type is not a frequent occurrence.</p></li>
-<li><p>Having one class may reduce the number of classes, but implementing a new layer type is already quite complex.</p></li>
+<li><p>Having one class may reduce the number of classes, but implementing a new
+layer type is already quite complex.</p></li>
 </ul>
 </li>
 </ul>
 </li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/pull/4892/files#r935322222">Slicing in a shader</a></p>
 <ul>
-<li><p>How to handle future cases where layer data has been pre-loaded onto the GPU and we want to slice in the shader?</p></li>
-<li><p>Less about large/slow data, and more about not blocking approaches to handling small/fast data efficiently.</p></li>
+<li><p>How to handle future cases where layer data has been pre-loaded onto the
+GPU and we want to slice in the shader?</p></li>
+<li><p>Less about large/slow data, and more about not blocking approaches to
+handling small/fast data efficiently.</p></li>
 <li><p>May be particularly useful for multi-canvas.</p></li>
 <li><p>Decision: postpone.</p>
 <ul>
@@ -1444,37 +1545,48 @@ which might cause issues with things like selection that may depend on that stat
 </li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/pull/4892/files#r934961214">Support existing usage and plugins that depends on synchronous slicing</a></p>
 <ul>
-<li><p>Main example is <a class="reference external" href="https://www.napari-hub.org/plugins/napari-animation">the napari-animation plugin</a>, but there may be others.</p></li>
+<li><p>Main example is
+<a class="reference external" href="https://www.napari-hub.org/plugins/napari-animation">the napari-animation plugin</a>,
+but there may be others.</p></li>
 <li><p>This was explored <a class="footnote-reference brackets" href="#pull-4969" id="id12" role="doc-noteref"><span class="fn-bracket">[</span>12<span class="fn-bracket">]</span></a> with the following main findings.</p>
 <ul>
-<li><p>Forcing synchronous slicing when combining the prototype and <code class="docutils literal notranslate"><span class="pre">napari-animation</span></code> seems to work for the basic examples.</p></li>
-<li><p>We only need to ensure synchronous slicing before using <code class="docutils literal notranslate"><span class="pre">Viewer.screenshot</span></code>, as keyframes just capture the value of <code class="docutils literal notranslate"><span class="pre">current_step</span></code> and similar.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">screenshot</span></code> is only called a few times in <code class="docutils literal notranslate"><span class="pre">napari-animation</span></code>, so wouldn’t require large changes if asynchronous slicing was the default.</p></li>
+<li><p>Forcing synchronous slicing when combining the prototype and
+<code class="docutils literal notranslate"><span class="pre">napari-animation</span></code> seems to work for the basic examples.</p></li>
+<li><p>We only need to ensure synchronous slicing before using
+<code class="docutils literal notranslate"><span class="pre">Viewer.screenshot</span></code>, as keyframes just capture the value of
+<code class="docutils literal notranslate"><span class="pre">current_step</span></code> and similar.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">screenshot</span></code> is only called a few times in <code class="docutils literal notranslate"><span class="pre">napari-animation</span></code>, so
+wouldn’t require large changes if asynchronous slicing was the default.</p></li>
 </ul>
 </li>
 <li><p>Decision: always have some way to force synchronous slicing.</p>
 <ul>
-<li><p>But no need to support synchronous slicing by default, which is harder to implement.</p></li>
+<li><p>But no need to support synchronous slicing by default, which is harder to
+implement.</p></li>
 </ul>
 </li>
 </ul>
 </li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/pull/5052">What should <code class="docutils literal notranslate"><span class="pre">Viewer.screenshot</span></code> do when the canvas is not fully rendered?</a></p>
 <ul>
-<li><p>Initial consensus is that it should wait for pending slicing tasks and for the associated pushes to vispy.</p>
+<li><p>Initial consensus is that it should wait for pending slicing tasks and for
+the associated pushes to vispy.</p>
 <ul>
-<li><p>There are some ideas of how to implement that, though it is not straightforward.</p></li>
+<li><p>There are some ideas of how to implement that, though it is not
+straightforward.</p></li>
 </ul>
 </li>
-<li><p>In the API, may want a keyword argument to control behavior. In the GUI, could have a dialog if there are pending tasks.
-= Decision: want to support both, with blocking behavior as default.</p>
+<li><p>In the API, may want a keyword argument to control behavior. In the GUI,
+could have a dialog if there are pending tasks. = Decision: want to support
+both, with blocking behavior as default.</p>
 <ul>
 <li><p>No need for a design or prototype before acceptance.</p></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><p>Should <code class="docutils literal notranslate"><span class="pre">Dims.current_step</span></code> (and <code class="docutils literal notranslate"><span class="pre">corner_pixels</span></code>) represent the last slice position request or the last slice response?</p>
+<li><p>Should <code class="docutils literal notranslate"><span class="pre">Dims.current_step</span></code> (and <code class="docutils literal notranslate"><span class="pre">corner_pixels</span></code>) represent the last slice
+position request or the last slice response?</p>
 <ul>
 <li><p>With sync slicing, there is no distinction.</p></li>
 <li><p>With async slicing, <code class="docutils literal notranslate"><span class="pre">current</span></code> is ambiguous.</p></li>
@@ -1482,7 +1594,8 @@ which might cause issues with things like selection that may depend on that stat
 <li><p>Decision: last request.</p>
 <ul>
 <li><p>The implementation is simpler if this represents the last request.</p></li>
-<li><p>Can introduce an additional public attribute later if last response is needed.</p></li>
+<li><p>Can introduce an additional public attribute later if last response is
+needed.</p></li>
 </ul>
 </li>
 </ul>
@@ -1498,8 +1611,8 @@ CC0+BY <a class="footnote-reference brackets" href="#cc0-by" id="id14" role="doc
 <section id="copyright">
 <h2>Copyright<a class="headerlink" href="#copyright" title="Link to this heading">#</a></h2>
 <p>This document is dedicated to the public domain with the Creative Commons CC0
-license <a class="footnote-reference brackets" href="#cc0" id="id15" role="doc-noteref"><span class="fn-bracket">[</span>13<span class="fn-bracket">]</span></a>. Attribution to this source is encouraged where appropriate, as per
-CC0+BY <a class="footnote-reference brackets" href="#cc0-by" id="id16" role="doc-noteref"><span class="fn-bracket">[</span>14<span class="fn-bracket">]</span></a>.</p>
+license <a class="footnote-reference brackets" href="#cc0" id="id15" role="doc-noteref"><span class="fn-bracket">[</span>13<span class="fn-bracket">]</span></a>. Attribution to this source is encouraged where appropriate, as
+per CC0+BY <a class="footnote-reference brackets" href="#cc0-by" id="id16" role="doc-noteref"><span class="fn-bracket">[</span>14<span class="fn-bracket">]</span></a>.</p>
 </section>
 </section>
 <aside class="footnote-list brackets">
@@ -1509,52 +1622,64 @@ CC0+BY <a class="footnote-reference brackets" href="#cc0-by" id="id16" role="doc
 </aside>
 <aside class="footnote brackets" id="issue-1353" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">2</a><span class="fn-bracket">]</span></span>
-<p>napari issue 1353, <a class="github reference external" href="https://github.com/napari/napari/issues/1353">napari/napari#1353</a></p>
+<p>napari issue 1353,
+<a class="github reference external" href="https://github.com/napari/napari/issues/1353">napari/napari#1353</a></p>
 </aside>
 <aside class="footnote brackets" id="issue-1775" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">3</a><span class="fn-bracket">]</span></span>
-<p>napari issue 1775, <a class="github reference external" href="https://github.com/napari/napari/issues/1775">napari/napari#1775</a></p>
+<p>napari issue 1775,
+<a class="github reference external" href="https://github.com/napari/napari/issues/1775">napari/napari#1775</a></p>
 </aside>
 <aside class="footnote brackets" id="issue-2156" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id4">4</a><span class="fn-bracket">]</span></span>
-<p>napari issue 2156, <a class="github reference external" href="https://github.com/napari/napari/issues/2156">napari/napari#2156</a></p>
+<p>napari issue 2156,
+<a class="github reference external" href="https://github.com/napari/napari/issues/2156">napari/napari#2156</a></p>
 </aside>
 <aside class="footnote brackets" id="issue-1574" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id5">5</a><span class="fn-bracket">]</span></span>
-<p>napari issue 1574, <a class="github reference external" href="https://github.com/napari/napari/issues/1574">napari/napari#1574</a></p>
+<p>napari issue 1574,
+<a class="github reference external" href="https://github.com/napari/napari/issues/1574">napari/napari#1574</a></p>
 </aside>
 <aside class="footnote brackets" id="pull-4334" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id6">6</a><span class="fn-bracket">]</span></span>
-<p>napari pull request 4334, <a class="github reference external" href="https://github.com/napari/napari/pull/4334">napari/napari#4334</a></p>
+<p>napari pull request 4334,
+<a class="github reference external" href="https://github.com/napari/napari/pull/4334">napari/napari#4334</a></p>
 </aside>
 <aside class="footnote brackets" id="slice-class-diagram" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id7">7</a><span class="fn-bracket">]</span></span>
-<p>napari slicing class and state dependency diagram, <a class="reference external" href="https://raw.githubusercontent.com/andy-sweet/napari-diagrams/main/napari-slicing-classes.drawio.svg">https://raw.githubusercontent.com/andy-sweet/napari-diagrams/main/napari-slicing-classes.drawio.svg</a></p>
+<p>napari slicing class and state dependency diagram,</p>
+<p><a class="reference external" href="https://raw.githubusercontent.com/andy-sweet/napari-diagrams/main/napari-slicing-classes.drawio.svg">https://raw.githubusercontent.com/andy-sweet/napari-diagrams/main/napari-slicing-classes.drawio.svg</a></p>
 </aside>
 <aside class="footnote brackets" id="vispy-faq-threads" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id8">8</a><span class="fn-bracket">]</span></span>
-<p>Vispy FAQs: Is VisPy multi-threaded or thread-safe?, <a class="reference external" href="https://vispy.org/faq.html#is-vispy-multi-threaded-or-thread-safe">https://vispy.org/faq.html#is-vispy-multi-threaded-or-thread-safe</a></p>
+<p>Vispy FAQs: Is VisPy multi-threaded or thread-safe?,
+<a class="reference external" href="https://vispy.org/faq.html#is-vispy-multi-threaded-or-thread-safe">https://vispy.org/faq.html#is-vispy-multi-threaded-or-thread-safe</a></p>
 </aside>
 <aside class="footnote brackets" id="tracking-issue" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id9">9</a><span class="fn-bracket">]</span></span>
-<p>The tracking issue for this work, <a class="github reference external" href="https://github.com/napari/napari/issues/4795">napari/napari#4795</a></p>
+<p>The tracking issue for this work,
+<a class="github reference external" href="https://github.com/napari/napari/issues/4795">napari/napari#4795</a></p>
 </aside>
 <aside class="footnote brackets" id="prototype-pr" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id10">10</a><span class="fn-bracket">]</span></span>
-<p>A PR that implements a prototype for the approach described here, <a class="github reference external" href="https://github.com/andy-sweet/napari/pull/21">andy-sweet/napari#21</a></p>
+<p>A PR that implements a prototype for the approach described
+here, <a class="github reference external" href="https://github.com/andy-sweet/napari/pull/21">andy-sweet/napari#21</a></p>
 </aside>
 <aside class="footnote brackets" id="issue-2862" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id11">11</a><span class="fn-bracket">]</span></span>
-<p>napari issue 2862, <a class="github reference external" href="https://github.com/napari/napari/issues/2862">napari/napari#2862</a></p>
+<p>napari issue 2862,
+<a class="github reference external" href="https://github.com/napari/napari/issues/2862">napari/napari#2862</a></p>
 </aside>
 <aside class="footnote brackets" id="pull-4969" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id12">12</a><span class="fn-bracket">]</span></span>
-<p>napari pull request 4969, <a class="github reference external" href="https://github.com/napari/napari/issues/4969">napari/napari#4969</a></p>
+<p>napari pull request 4969,
+<a class="github reference external" href="https://github.com/napari/napari/issues/4969">napari/napari#4969</a></p>
 </aside>
 <aside class="footnote brackets" id="cc0" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span>13<span class="fn-bracket">]</span></span>
 <span class="backrefs">(<a role="doc-backlink" href="#id13">1</a>,<a role="doc-backlink" href="#id15">2</a>)</span>
-<p>CC0 1.0 Universal (CC0 1.0) Public Domain Dedication, <a class="reference external" href="https://creativecommons.org/publicdomain/zero/1.0/">https://creativecommons.org/publicdomain/zero/1.0/</a></p>
+<p>CC0 1.0 Universal (CC0 1.0) Public Domain Dedication,
+<a class="reference external" href="https://creativecommons.org/publicdomain/zero/1.0/">https://creativecommons.org/publicdomain/zero/1.0/</a></p>
 </aside>
 <aside class="footnote brackets" id="cc0-by" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span>14<span class="fn-bracket">]</span></span>
@@ -2350,7 +2475,7 @@ CC0+BY <a class="footnote-reference brackets" href="#cc0-by" id="id16" role="doc
     </div>
 
     
-      <span>9.1.0</span>
+      <span>9.1.1</span>
     
   </div>
 </div></div>

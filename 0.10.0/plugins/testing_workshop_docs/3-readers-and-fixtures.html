@@ -12,10 +12,10 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://napari.org/stable/plugins/testing_workshop_docs/3-readers-and-fixtures.html" />
 <meta property="og:site_name" content="napari" />
-<meta property="og:description" content="This lesson explains how to use and test a plugin’s reader function, built-in fixtures, custom fixtures, and enclosed testing. Other lessons in this tutorial:: 1: Python’s assert keyword, 2: Pytest testing framework, 3: This lesson (Readers and fixtures), 4: Test coverage, Resource links: Testing..." />
+<meta property="og:description" content="This lesson explains how to use and test a plugin’s reader function, built-in fixtures, custom fixtures, and enclosed testing. Other lessons in this tutorial: 1: Python’s assert keyword, 2: Pytest testing framework, 3: This lesson (Readers and fixtures), 4: Test coverage, Resource links: Testing ..." />
 <meta property="og:image" content="https://napari.org/stable/_images/napari_plugins_1st_napari_get_reader.png" />
 <meta property="og:image:alt" content="napari_get_reader" />
-<meta name="description" content="This lesson explains how to use and test a plugin’s reader function, built-in fixtures, custom fixtures, and enclosed testing. Other lessons in this tutorial:: 1: Python’s assert keyword, 2: Pytest testing framework, 3: This lesson (Readers and fixtures), 4: Test coverage, Resource links: Testing..." />
+<meta name="description" content="This lesson explains how to use and test a plugin’s reader function, built-in fixtures, custom fixtures, and enclosed testing. Other lessons in this tutorial: 1: Python’s assert keyword, 2: Pytest testing framework, 3: This lesson (Readers and fixtures), 4: Test coverage, Resource links: Testing ..." />
 <meta name="twitter:card" content="summary_large_image" />
 
     <title>3: Readers and fixtures &#8212; napari</title>
@@ -49,7 +49,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=d2b87285" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=9f79b9c3" />
   
   <!-- So that users can add custom icons -->
   <script defer src="../../_static/scripts/fontawesome.js?digest=18bd87630a240e9c25be"></script>
@@ -57,7 +57,7 @@
   <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=18bd87630a240e9c25be" />
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=18bd87630a240e9c25be" />
 
-    <script src="../../_static/documentation_options.js?v=be7f2f34"></script>
+    <script src="../../_static/documentation_options.js?v=4fe9927d"></script>
     <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -69,7 +69,7 @@
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.23.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.10.0a0';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.10.0rc1';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
@@ -480,25 +480,25 @@
     </p>
     <ul class="nav bd-sidenav">
       <li class="toctree-l1">
-          <a class="reference internal" href="../../community/meeting_schedule.html">Community calendar</a>
+          <a class="reference internal" href="../../community/meeting_schedule.html"><i class="fa-solid fa-calendar-days sidebar-link-icon" aria-hidden="true"></i>Community calendar</a>
       </li>
       <li class="toctree-l1">
-          <a class="reference external" href="https://napari.zulipchat.com/">Community chat</a>
+          <a class="reference external" href="https://napari.zulipchat.com/"><i class="fa-solid fa-comments sidebar-link-icon" aria-hidden="true"></i>Community chat</a>
       </li>
       <li class="toctree-l1">
-          <a class="reference internal" href="../../troubleshooting.html">Troubleshooting</a>
+          <a class="reference internal" href="../../troubleshooting.html"><i class="fa-solid fa-circle-question sidebar-link-icon" aria-hidden="true"></i>Troubleshooting</a>
       </li>
       <li class="toctree-l1">
-          <a class="reference internal" href="../../release/index.html">Release notes</a>
+          <a class="reference internal" href="../../release/index.html"><i class="fa-solid fa-newspaper sidebar-link-icon" aria-hidden="true"></i>Release notes</a>
       </li>
       <li class="toctree-l1">
-          <a class="reference internal" href="../../roadmaps/active_roadmap.html">Roadmap</a>
+          <a class="reference internal" href="../../roadmaps/active_roadmap.html"><i class="fa-solid fa-map sidebar-link-icon" aria-hidden="true"></i>Roadmap</a>
       </li>
       <li class="toctree-l1">
-          <a class="reference external" href="https://napari.org/island-dispatch">Blog</a>
+          <a class="reference external" href="https://napari.org/island-dispatch"><i class="fa-solid fa-rss sidebar-link-icon" aria-hidden="true"></i>Blog</a>
       </li>
       <li class="toctree-l1">
-          <a class="reference external" href="https://napari-hub.org">Discover plugins</a>
+          <a class="reference external" href="https://napari-hub.org"><i class="fa-solid fa-puzzle-piece sidebar-link-icon" aria-hidden="true"></i>Discover plugins</a>
       </li>
     </ul>
   </div>
@@ -568,9 +568,10 @@
                   
   <section class="tex2jax_ignore mathjax_ignore" id="readers-and-fixtures">
 <span id="plugin-testing-workshop-reader-fixtures"></span><h1>3: Readers and fixtures<a class="headerlink" href="#readers-and-fixtures" title="Link to this heading">#</a></h1>
-<p>This lesson explains how to use and test a plugin’s reader function, built-in fixtures, custom fixtures, and enclosed testing.</p>
+<p>This lesson explains how to use and test a plugin’s reader function, built-in
+fixtures, custom fixtures, and enclosed testing.</p>
 <section id="other-lessons-in-this-tutorial">
-<h2>Other lessons in this tutorial:<a class="headerlink" href="#other-lessons-in-this-tutorial" title="Link to this heading">#</a></h2>
+<h2>Other lessons in this tutorial<a class="headerlink" href="#other-lessons-in-this-tutorial" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p>1: <a class="reference internal" href="1-pythons-assert-keyword.html#plugin-testing-workshop-assert"><span class="std std-ref">Python’s assert keyword</span></a></p></li>
 <li><p>2: <a class="reference internal" href="2-pytest-testing-frameworks.html#plugin-testing-workshop-pytest"><span class="std std-ref">Pytest testing framework</span></a></p></li>
@@ -579,7 +580,7 @@
 <li><p>Resource links: <a class="reference internal" href="testing-resources.html#plugin-testing-resources"><span class="std std-ref">Testing resources</span></a></p></li>
 </ul>
 <section id="this-lesson-covers">
-<h3>This lesson covers:<a class="headerlink" href="#this-lesson-covers" title="Link to this heading">#</a></h3>
+<h3>This lesson covers<a class="headerlink" href="#this-lesson-covers" title="Link to this heading">#</a></h3>
 <ul class="simple">
 <li><p><a class="reference internal" href="#reader">Readers</a></p></li>
 <li><p><a class="reference internal" href="#built-in-fixtures">Built-in fixtures</a></p></li>
@@ -589,30 +590,62 @@
 </section>
 <section id="resources">
 <h3>Resources<a class="headerlink" href="#resources" title="Link to this heading">#</a></h3>
-<p>The example plugin and all the tests discussed in this lesson are available in <a class="reference external" href="https://github.com/DragaDoncila/plugin-tests">this GitHub repository</a>.</p>
+<p>The example plugin and all the tests discussed in this lesson are available in
+<a class="reference external" href="https://github.com/DragaDoncila/plugin-tests">this GitHub repository</a>.</p>
 </section>
 </section>
 <section id="introduction">
 <h2>Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h2>
-<p>In this lesson, we discuss a napari plugin called <a class="reference external" href="https://github.com/DragaDoncila/plugin-tests/tree/main/src/plugin_tests">plugin_tests</a>, generated using the <a class="reference external" href="https://github.com/napari/napari-plugin-template">napari plugin template</a>, which has a reader and a widget. The reader is the template <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.lib.format.html#npy-format">NumPy <code class="docutils literal notranslate"><span class="pre">.npy</span></code> file</a> reader, <code class="docutils literal notranslate"><span class="pre">napari_get_reader</span></code>. It checks whether a path ends in <code class="docutils literal notranslate"><span class="pre">.npy</span></code>. If it doesn’t, it returns <code class="docutils literal notranslate"><span class="pre">None</span></code>, and if it does, it returns the <code class="docutils literal notranslate"><span class="pre">reader_function</span></code>, which loads the data.</p>
+<p>In this lesson, we discuss a napari plugin called
+<a class="reference external" href="https://github.com/DragaDoncila/plugin-tests/tree/main/src/plugin_tests">plugin_tests</a>,
+generated using the
+<a class="reference external" href="https://github.com/napari/napari-plugin-template">napari plugin template</a>,
+which has a reader and a widget. The reader is the template
+<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.lib.format.html#npy-format">NumPy <code class="docutils literal notranslate"><span class="pre">.npy</span></code> file</a>
+reader, <code class="docutils literal notranslate"><span class="pre">napari_get_reader</span></code>. It checks whether a path ends in <code class="docutils literal notranslate"><span class="pre">.npy</span></code>. If it
+doesn’t, it returns <code class="docutils literal notranslate"><span class="pre">None</span></code>, and if it does, it returns the <code class="docutils literal notranslate"><span class="pre">reader_function</span></code>,
+which loads the data.</p>
 <p><img alt="napari_get_reader" src="../../_images/napari_plugins_1st_napari_get_reader.png" /></p>
 </section>
 <section id="reader">
 <h2>Reader<a class="headerlink" href="#reader" title="Link to this heading">#</a></h2>
-<p>The <code class="docutils literal notranslate"><span class="pre">napari_get_reader</span></code> function is the first thing to test. In the top-level directory under <code class="docutils literal notranslate"><span class="pre">src</span></code>, we have the <code class="docutils literal notranslate"><span class="pre">plugin_tests</span></code> module. Inside <code class="docutils literal notranslate"><span class="pre">plugin_tests</span></code> is the <code class="docutils literal notranslate"><span class="pre">_tests</span></code> directory. This is a typical structure when writing tests. There is also a <code class="docutils literal notranslate"><span class="pre">test_reader.py</span></code> file, which is empty. We will populate it with tests.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">napari_get_reader</span></code> function is the first thing to test. In the top-level
+directory under <code class="docutils literal notranslate"><span class="pre">src</span></code>, we have the <code class="docutils literal notranslate"><span class="pre">plugin_tests</span></code> module. Inside <code class="docutils literal notranslate"><span class="pre">plugin_tests</span></code>
+is the <code class="docutils literal notranslate"><span class="pre">_tests</span></code> directory. This is a typical structure when writing tests.
+There is also a <code class="docutils literal notranslate"><span class="pre">test_reader.py</span></code> file, which is empty. We will populate it with
+tests.</p>
 <p><img alt="reader_function" src="../../_images/napari_plugins_2nd_reader_function.png" /></p>
-<p>We are focused on testing the <code class="docutils literal notranslate"><span class="pre">napari_get_reader</span></code> function. Sometimes it returns <code class="docutils literal notranslate"><span class="pre">None</span></code>; sometimes it returns the <code class="docutils literal notranslate"><span class="pre">reader_function</span></code>. We want to ensure that if we pass in a path that ends with <code class="docutils literal notranslate"><span class="pre">.npy</span></code>, it gives us back a function we can call. We import <code class="docutils literal notranslate"><span class="pre">numpy</span></code> and <code class="docutils literal notranslate"><span class="pre">napari_get_reader</span></code>. <code class="docutils literal notranslate"><span class="pre">numpy</span></code> will be used later.</p>
+<p>We are focused on testing the <code class="docutils literal notranslate"><span class="pre">napari_get_reader</span></code> function. Sometimes it
+returns <code class="docutils literal notranslate"><span class="pre">None</span></code>; sometimes it returns the <code class="docutils literal notranslate"><span class="pre">reader_function</span></code>. We want to ensure
+that if we pass in a path that ends with <code class="docutils literal notranslate"><span class="pre">.npy</span></code>, it gives us back a function we
+can call. We import <code class="docutils literal notranslate"><span class="pre">numpy</span></code> and <code class="docutils literal notranslate"><span class="pre">napari_get_reader</span></code>. <code class="docutils literal notranslate"><span class="pre">numpy</span></code> will be used
+later.</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p>Test as much as possible and focus on writing small tests that look at one indivisible unit. Give tests meaningful names that describe what they’re doing.</p>
+<p>Test as much as possible and focus on writing small tests that look at one
+indivisible unit. Give tests meaningful names that describe what they’re doing.</p>
 </div>
 </section>
 <section id="built-in-fixtures">
 <h2>Built-in fixtures<a class="headerlink" href="#built-in-fixtures" title="Link to this heading">#</a></h2>
-<p>We use <a class="reference external" href="https://docs.pytest.org/en/7.1.x/how-to/tmp_path.html#the-tmp-path-fixture">tmp_path</a> to manage the writing and reading of files during test execution. <code class="docutils literal notranslate"><span class="pre">tmp_path</span></code> is a <code class="docutils literal notranslate"><span class="pre">pytest</span></code> fixture; it is not imported, it comes with <code class="docutils literal notranslate"><span class="pre">pytest</span></code>. We pass <code class="docutils literal notranslate"><span class="pre">tmp_path</span></code> as a parameter to our test function, and <code class="docutils literal notranslate"><span class="pre">pytest</span></code> will inject it when the tests run. <code class="docutils literal notranslate"><span class="pre">tmp_path</span></code> provides a temporary path used to save and manipulate files. Temporary paths, files, and directories created in this way during the testing process are automatically removed by <code class="docutils literal notranslate"><span class="pre">pytest</span></code> when the tests are completed.</p>
-<p>We create a file to read. First, we’ll build a file path, then generate a small amount of data. We’re just testing to see if the function returns a <code class="docutils literal notranslate"><span class="pre">callable</span></code> as expected, so we don’t need a large array.</p>
-<p>There are no specific requirements for the contents of the array in this case. We just need some sort of file to save to this temporary directory. The test file will not appear anywhere unless there is a pause during test execution.</p>
-<p>Using <code class="docutils literal notranslate"><span class="pre">napari_get_reader</span></code> with this path, we assert that the reader is callable. A function should be returned. If it isn’t, we could put an error message here.</p>
+<p>We use
+<a class="reference external" href="https://docs.pytest.org/en/7.1.x/how-to/tmp_path.html#the-tmp-path-fixture">tmp_path</a>
+to manage the writing and reading of files during test execution. <code class="docutils literal notranslate"><span class="pre">tmp_path</span></code> is
+a <code class="docutils literal notranslate"><span class="pre">pytest</span></code> fixture; it is not imported, it comes with <code class="docutils literal notranslate"><span class="pre">pytest</span></code>. We pass
+<code class="docutils literal notranslate"><span class="pre">tmp_path</span></code> as a parameter to our test function, and <code class="docutils literal notranslate"><span class="pre">pytest</span></code> will inject it
+when the tests run. <code class="docutils literal notranslate"><span class="pre">tmp_path</span></code> provides a temporary path used to save and
+manipulate files. Temporary paths, files, and directories created in this way
+during the testing process are automatically removed by <code class="docutils literal notranslate"><span class="pre">pytest</span></code> when the tests
+are completed.</p>
+<p>We create a file to read. First, we’ll build a file path, then generate a small
+amount of data. We’re just testing to see if the function returns a <code class="docutils literal notranslate"><span class="pre">callable</span></code>
+as expected, so we don’t need a large array.</p>
+<p>There are no specific requirements for the contents of the array in this case.
+We just need some sort of file to save to this temporary directory. The test
+file will not appear anywhere unless there is a pause during test execution.</p>
+<p>Using <code class="docutils literal notranslate"><span class="pre">napari_get_reader</span></code> with this path, we assert that the reader is
+callable. A function should be returned. If it isn’t, we could put an error
+message here.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># tmp_path is a pytest fixture</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">test_get_reader_returns_callable</span><span class="p">(</span><span class="n">tmp_path</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">"""Calling get_reader on numpy file returns callable"""</span>
@@ -627,9 +660,13 @@
     <span class="k">assert</span> <span class="nb">callable</span><span class="p">(</span><span class="n">reader</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Running the command <code class="docutils literal notranslate"><span class="pre">pytest</span> <span class="pre">.</span></code> in the root directory of the plugin, we discover all the functions recognized as tests. It should recognize <code class="docutils literal notranslate"><span class="pre">test_reader.py</span></code> because it’s a test file, prefixed with the word test. <code class="docutils literal notranslate"><span class="pre">test_reader.py</span></code> was found and passed the test.</p>
+<p>Running the command <code class="docutils literal notranslate"><span class="pre">pytest</span> <span class="pre">.</span></code> in the root directory of the plugin, we discover
+all the functions recognized as tests. It should recognize <code class="docutils literal notranslate"><span class="pre">test_reader.py</span></code>
+because it’s a test file, prefixed with the word test. <code class="docutils literal notranslate"><span class="pre">test_reader.py</span></code> was
+found and passed the test.</p>
 <p><img alt="pytest passed" src="../../_images/napari_plugins_3rd_pytest_passed.png" /></p>
-<p>If the file did not end in <code class="docutils literal notranslate"><span class="pre">.npy</span></code> the test would fail because what was returned wasn’t callable. This code has been modified to produce an error:</p>
+<p>If the file did not end in <code class="docutils literal notranslate"><span class="pre">.npy</span></code> the test would fail because what was returned
+wasn’t callable. This code has been modified to produce an error:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># tmp_path is a pytest fixture</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">test_get_reader_returns_callable</span><span class="p">(</span><span class="n">tmp_path</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">"""Calling get_reader on numpy file returns callable"""</span>
@@ -644,17 +681,37 @@
     <span class="k">assert</span> <span class="nb">callable</span><span class="p">(</span><span class="n">reader</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Once we run <code class="docutils literal notranslate"><span class="pre">pytest</span></code> we can see that it traced back that the callable of <code class="docutils literal notranslate"><span class="pre">reader</span></code> is <code class="docutils literal notranslate"><span class="pre">False</span></code> and it has filled in the fact that <code class="docutils literal notranslate"><span class="pre">reader</span></code> at the time of the assertion was <code class="docutils literal notranslate"><span class="pre">None</span></code>. This is useful in debugging.</p>
+<p>Once we run <code class="docutils literal notranslate"><span class="pre">pytest</span></code> we can see that it traced back that the callable of
+<code class="docutils literal notranslate"><span class="pre">reader</span></code> is <code class="docutils literal notranslate"><span class="pre">False</span></code> and it has filled in the fact that <code class="docutils literal notranslate"><span class="pre">reader</span></code> at the time of
+the assertion was <code class="docutils literal notranslate"><span class="pre">None</span></code>. This is useful in debugging.</p>
 <p><img alt="test_get_reader_returns_callable Failed" src="../../_images/napari_plugins_4th_test_get_reader_returns_callable-failed.png" /></p>
 </section>
 <section id="custom-fixtures-and-round-trip-tests">
 <h2>Custom fixtures and round-trip tests<a class="headerlink" href="#custom-fixtures-and-round-trip-tests" title="Link to this heading">#</a></h2>
-<p>Next, we test to see if this function reads the data. This is a round-trip test. We will create a fixture to write the data to make things easier for ourselves. This fixture will be called <a class="reference external" href="https://github.com/DragaDoncila/plugin-tests/blob/effb32d6e3b191ad83e69813b26ae8695210f5ad/src/plugin_tests/_tests/test_reader.py#L39">test_reader_round_trip</a>.</p>
-<p>Whatever is returned out of a <code class="docutils literal notranslate"><span class="pre">&#64;pytest.fixture</span></code> decorated function is passed as an argument with the name of the fixture, to the test. We are going to call this <code class="docutils literal notranslate"><span class="pre">pytest.fixture</span></code> decorated function <code class="docutils literal notranslate"><span class="pre">write_im_to_file</span></code>. We’re going to give this fixture the <code class="docutils literal notranslate"><span class="pre">tmp_path</span></code> fixture - fixtures can use fixtures!</p>
-<p><code class="docutils literal notranslate"><span class="pre">write_im_to_file</span></code> returns a function we will call <code class="docutils literal notranslate"><span class="pre">write_func</span></code> that we can pass a path to and have it write the numpy file to that path. <code class="docutils literal notranslate"><span class="pre">write_func</span></code> is defined inside <code class="docutils literal notranslate"><span class="pre">write_im_to_file</span></code> because it’s not needed anywhere else. When we use <code class="docutils literal notranslate"><span class="pre">write_im_to_file</span></code> inside this test it will run <code class="docutils literal notranslate"><span class="pre">write_func</span></code>.</p>
-<p>We will have access to what <code class="docutils literal notranslate"><span class="pre">write_func</span></code> returns once it’s been called inside the test. It returns both the path where the data has been written and the original data.</p>
-<p>The benefit of creating this fixture is that whenever we want to write our own test data we don’t have to copy three lines of code, we can just use the fixture. This is useful in testing data with different structures like integers or a specific layer type. Those arguments could be passed to further customize your fixture.</p>
-<p>We still want to make sure we get a reader when we call <code class="docutils literal notranslate"><span class="pre">napari_get_reader</span></code> with the file. We call that <code class="docutils literal notranslate"><span class="pre">reader</span></code> function with the file we created to see if it returns what we expect. Based on the <a class="reference internal" href="../building_a_plugin/guides.html#plugin-readers-guide"><span class="std std-ref">reader spec</span></a>, it should return a layer data list. Here is the full test, with the fixture:</p>
+<p>Next, we test to see if this function reads the data. This is a round-trip
+test. We will create a fixture to write the data to make things easier for
+ourselves. This fixture will be called
+<a class="reference external" href="https://github.com/DragaDoncila/plugin-tests/blob/effb32d6e3b191ad83e69813b26ae8695210f5ad/src/plugin_tests/_tests/test_reader.py#L39">test_reader_round_trip</a>.</p>
+<p>Whatever is returned out of a <code class="docutils literal notranslate"><span class="pre">&#64;pytest.fixture</span></code> decorated function is passed as
+an argument with the name of the fixture, to the test. We are going to call
+this <code class="docutils literal notranslate"><span class="pre">pytest.fixture</span></code> decorated function <code class="docutils literal notranslate"><span class="pre">write_im_to_file</span></code>. We’re going to
+give this fixture the <code class="docutils literal notranslate"><span class="pre">tmp_path</span></code> fixture - fixtures can use fixtures!</p>
+<p><code class="docutils literal notranslate"><span class="pre">write_im_to_file</span></code> returns a function we will call <code class="docutils literal notranslate"><span class="pre">write_func</span></code> that we can
+pass a path to and have it write the numpy file to that path. <code class="docutils literal notranslate"><span class="pre">write_func</span></code> is
+defined inside <code class="docutils literal notranslate"><span class="pre">write_im_to_file</span></code> because it’s not needed anywhere else. When
+we use <code class="docutils literal notranslate"><span class="pre">write_im_to_file</span></code> inside this test it will run <code class="docutils literal notranslate"><span class="pre">write_func</span></code>.</p>
+<p>We will have access to what <code class="docutils literal notranslate"><span class="pre">write_func</span></code> returns once it’s been called inside
+the test. It returns both the path where the data has been written and the
+original data.</p>
+<p>The benefit of creating this fixture is that whenever we want to write our own
+test data we don’t have to copy three lines of code, we can just use the
+fixture. This is useful in testing data with different structures like integers
+or a specific layer type. Those arguments could be passed to further customize
+your fixture.</p>
+<p>We still want to make sure we get a reader when we call <code class="docutils literal notranslate"><span class="pre">napari_get_reader</span></code>
+with the file. We call that <code class="docutils literal notranslate"><span class="pre">reader</span></code> function with the file we created to see
+if it returns what we expect. Based on the <a class="reference internal" href="../building_a_plugin/guides.html#plugin-readers-guide"><span class="std std-ref">reader spec</span></a>,
+it should return a layer data list. Here is the full test, with the fixture:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">write_im_to_file</span><span class="p">(</span><span class="n">tmp_path</span><span class="p">):</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">write_func</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
@@ -681,9 +738,20 @@
     <span class="n">np</span><span class="o">.</span><span class="n">testing</span><span class="o">.</span><span class="n">assert_allclose</span><span class="p">(</span><span class="n">layer_data</span><span class="p">,</span> <span class="n">original_data</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>We’re going to assert a list length greater than zero. There must be a layer in there; otherwise, we didn’t read it correctly. We also assert that it is a list.</p>
-<p>We will test that inside that list is what we expected - layer data tuples. The first item of a layer data tuple is the actual data. We’re going to test that explicitly.</p>
-<p>Then we assert, using <code class="docutils literal notranslate"><span class="pre">numpy</span></code>’s asserting mechanism, <code class="docutils literal notranslate"><span class="pre">np.testing.assert_allclose</span></code> that they are all close, even though they should be exactly the same. This is standard practice when working with floating point precision. NumPy also has <a class="reference external" href="https://numpy.org/doc/stable/reference/routines.testing.html">other assertion options</a> you may find useful. The layer data we read back with the reader function should be the same as the original data. If that’s true, then we made the entire round trip. We saved the file and we used the reader to read the file.</p>
+<p>We’re going to assert a list length greater than zero. There must be a layer in
+there; otherwise, we didn’t read it correctly. We also assert that it is a
+list.</p>
+<p>We will test that inside that list is what we expected - layer data tuples. The
+first item of a layer data tuple is the actual data. We’re going to test that
+explicitly.</p>
+<p>Then we assert, using <code class="docutils literal notranslate"><span class="pre">numpy</span></code>’s asserting mechanism,
+<code class="docutils literal notranslate"><span class="pre">np.testing.assert_allclose</span></code> that they are all close, even though they should
+be exactly the same. This is standard practice when working with floating point
+precision. NumPy also has
+<a class="reference external" href="https://numpy.org/doc/stable/reference/routines.testing.html">other assertion options</a>
+you may find useful. The layer data we read back with the reader function
+should be the same as the original data. If that’s true, then we made the
+entire round trip. We saved the file and we used the reader to read the file.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">test_reader_round_trip</span><span class="p">(</span><span class="n">write_im_to_file</span><span class="p">):</span>
     <span class="n">my_test_file</span><span class="p">,</span> <span class="n">original_data</span> <span class="o">=</span> <span class="n">write_im_to_file</span><span class="p">(</span><span class="s1">'myfile.npy'</span><span class="p">)</span>
 
@@ -703,8 +771,14 @@
 </section>
 <section id="enclosed-testing">
 <h2>Enclosed testing<a class="headerlink" href="#enclosed-testing" title="Link to this heading">#</a></h2>
-<p>Note that although we’re testing a <code class="docutils literal notranslate"><span class="pre">napari</span></code> plugin, we did not need a viewer or napari to test this. It’s important that we didn’t need those because napari and the napari viewer are out of our control. What we can control is the code <em>we</em> wrote. We wrote that data by simply mocking up an array and getting a temporary path to it. We could thoroughly test our functions in an enclosed way without relying on other people’s code or mocking up many complicated objects.</p>
-<p>The next lesson in this series on testing is <a class="reference internal" href="4-test-coverage.html#plugin-testing-workshop-coverage"><span class="std std-ref">Test coverage</span></a>.</p>
+<p>Note that although we’re testing a <code class="docutils literal notranslate"><span class="pre">napari</span></code> plugin, we did not need a viewer or
+napari to test this. It’s important that we didn’t need those because napari
+and the napari viewer are out of our control. What we can control is the code
+<em>we</em> wrote. We wrote that data by simply mocking up an array and getting a
+temporary path to it. We could thoroughly test our functions in an enclosed way
+without relying on other people’s code or mocking up many complicated objects.</p>
+<p>The next lesson in this series on testing is
+<a class="reference internal" href="4-test-coverage.html#plugin-testing-workshop-coverage"><span class="std std-ref">Test coverage</span></a>.</p>
 </section>
 </section>
 
@@ -755,8 +829,8 @@
   </div>
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="pst-show_toc_level nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#other-lessons-in-this-tutorial">Other lessons in this tutorial:</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#this-lesson-covers">This lesson covers:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#other-lessons-in-this-tutorial">Other lessons in this tutorial</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#this-lesson-covers">This lesson covers</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#resources">Resources</a></li>
 </ul>
 </li>
@@ -1456,7 +1530,7 @@
     </div>
 
     
-      <span>9.1.0</span>
+      <span>9.1.1</span>
     
   </div>
 </div></div>

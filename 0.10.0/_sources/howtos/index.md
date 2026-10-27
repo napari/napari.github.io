@@ -15,12 +15,12 @@ tutorial.
 
 - [Using layers](using-layers): Learn about how to use the layers currently
   supported by napari.
-- [Extending napari](extending-napari): Learn how to extend napari by adding widgets
-  and connecting callbacks.
+- [Extending napari](extending-napari): Learn how to extend napari by adding
+  widgets and connecting callbacks.
 - [napari + ImageJ how-to guide](napari-imagej): Learn about how to use napari
 - [napari in Docker](napari-docker): Learn about using napari in docker.
 - [Performance monitoring](napari-perfmon): Learn about how to monitor napari
   performance and diagnose potential problems.
 - [napari headless](napari-headless): Tips on how to run napari headlessly.
-- [Themes](napari-themes): Changing appearance of the napari GUI with your own theme
-  and sharing your theme via a plugin.
+- [Themes](napari-themes): Changing appearance of the napari GUI with your own
+  theme and sharing your theme via a plugin.

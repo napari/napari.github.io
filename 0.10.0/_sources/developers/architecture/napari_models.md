@@ -10,9 +10,9 @@ familiar with basic usage of napari.
 
 The three main components:
 
-- Python models describing components in the napari application - these are able
-  to operate without the GUI interface and do not have any dependencies on user
-  interface classes
+- Python models describing components in the napari application - these are
+  able to operate without the GUI interface and do not have any dependencies on
+  user interface classes
   - this code lives in `napari/components` (utility objects) and
     `napari/layers` (objects that contain data)
 - Qt classes that handle the interactive GUI aspect of the napari viewer
@@ -33,11 +33,10 @@ The separation of the Python models from viewer GUI code allows:
 
 ## Python models and events
 
-Commonly, Python models in napari are classes that store information about their
-state as an attribute and are the "source of ground truth". When these
+Commonly, Python models in napari are classes that store information about
+their state as an attribute and are the "source of ground truth". When these
 attributes are changed an "event" needs to be emitted such that relevant
-observers of the model (such as other classes) can take the appropriate
-action.
+observers of the model (such as other classes) can take the appropriate action.
 
 One way this is achieved in napari is via getters and setters. Let's take
 for example the `Dims` class with a selected few attributes:

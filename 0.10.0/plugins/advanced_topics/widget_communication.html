@@ -49,7 +49,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=d2b87285" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=9f79b9c3" />
   
   <!-- So that users can add custom icons -->
   <script defer src="../../_static/scripts/fontawesome.js?digest=18bd87630a240e9c25be"></script>
@@ -57,7 +57,7 @@
   <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=18bd87630a240e9c25be" />
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=18bd87630a240e9c25be" />
 
-    <script src="../../_static/documentation_options.js?v=be7f2f34"></script>
+    <script src="../../_static/documentation_options.js?v=4fe9927d"></script>
     <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -69,7 +69,7 @@
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.23.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.10.0a0';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.10.0rc1';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
@@ -480,25 +480,25 @@
     </p>
     <ul class="nav bd-sidenav">
       <li class="toctree-l1">
-          <a class="reference internal" href="../../community/meeting_schedule.html">Community calendar</a>
+          <a class="reference internal" href="../../community/meeting_schedule.html"><i class="fa-solid fa-calendar-days sidebar-link-icon" aria-hidden="true"></i>Community calendar</a>
       </li>
       <li class="toctree-l1">
-          <a class="reference external" href="https://napari.zulipchat.com/">Community chat</a>
+          <a class="reference external" href="https://napari.zulipchat.com/"><i class="fa-solid fa-comments sidebar-link-icon" aria-hidden="true"></i>Community chat</a>
       </li>
       <li class="toctree-l1">
-          <a class="reference internal" href="../../troubleshooting.html">Troubleshooting</a>
+          <a class="reference internal" href="../../troubleshooting.html"><i class="fa-solid fa-circle-question sidebar-link-icon" aria-hidden="true"></i>Troubleshooting</a>
       </li>
       <li class="toctree-l1">
-          <a class="reference internal" href="../../release/index.html">Release notes</a>
+          <a class="reference internal" href="../../release/index.html"><i class="fa-solid fa-newspaper sidebar-link-icon" aria-hidden="true"></i>Release notes</a>
       </li>
       <li class="toctree-l1">
-          <a class="reference internal" href="../../roadmaps/active_roadmap.html">Roadmap</a>
+          <a class="reference internal" href="../../roadmaps/active_roadmap.html"><i class="fa-solid fa-map sidebar-link-icon" aria-hidden="true"></i>Roadmap</a>
       </li>
       <li class="toctree-l1">
-          <a class="reference external" href="https://napari.org/island-dispatch">Blog</a>
+          <a class="reference external" href="https://napari.org/island-dispatch"><i class="fa-solid fa-rss sidebar-link-icon" aria-hidden="true"></i>Blog</a>
       </li>
       <li class="toctree-l1">
-          <a class="reference external" href="https://napari-hub.org">Discover plugins</a>
+          <a class="reference external" href="https://napari-hub.org"><i class="fa-solid fa-puzzle-piece sidebar-link-icon" aria-hidden="true"></i>Discover plugins</a>
       </li>
     </ul>
   </div>
@@ -565,24 +565,29 @@
                   
   <section id="widget-communication">
 <span id="id1"></span><h1>Widget communication<a class="headerlink" href="#widget-communication" title="Link to this heading">#</a></h1>
-<p>Sometimes complex workflows require access to other docked widgets, information from other plugins, which may be created by other developers.</p>
+<p>Sometimes complex workflows require access to other docked widgets, information
+from other plugins, which may be created by other developers.</p>
 </section>
 <section id="access-another-plugin-widget-with-viewer-window-add-plugin-dock-widget">
 <h1>Access another plugin widget with <code class="docutils literal notranslate"><span class="pre">viewer.window.add_plugin_dock_widget</span></code><a class="headerlink" href="#access-another-plugin-widget-with-viewer-window-add-plugin-dock-widget" title="Link to this heading">#</a></h1>
-<p>If a desired plugin widget is already docked in the viewer,
-calling the <code class="docutils literal notranslate"><span class="pre">add_plugin_dock_widget</span></code> method will return the existing widget instance.
-If the desired widget is absent, it will be created and added to the viewer.
-<code class="docutils literal notranslate"><span class="pre">add_plugin_dock_widget</span></code> is the most convenient way to access a plugin widget that is required by your plugin.</p>
+<p>If a desired plugin widget is already docked in the viewer, calling the
+<code class="docutils literal notranslate"><span class="pre">add_plugin_dock_widget</span></code> method will return the existing widget instance. If
+the desired widget is absent, it will be created and added to the viewer.
+<code class="docutils literal notranslate"><span class="pre">add_plugin_dock_widget</span></code> is the most convenient way to access a plugin widget
+that is required by your plugin.</p>
 </section>
 <section id="access-a-widget-by-name-with-viewer-window-dock-widgets">
 <h1>Access a widget by name with <code class="docutils literal notranslate"><span class="pre">viewer.window.dock_widgets</span></code><a class="headerlink" href="#access-a-widget-by-name-with-viewer-window-dock-widgets" title="Link to this heading">#</a></h1>
-<p>If the goal is to access a target widget, without creating a widget, use the <code class="docutils literal notranslate"><span class="pre">dock_widgets</span></code> property.
-The <code class="docutils literal notranslate"><span class="pre">dock_widgets</span></code> property provides access to a read-only mapping of all docked widgets in the viewer. You can list available widget names with <code class="docutils literal notranslate"><span class="pre">viewer.window.dock_widgets.keys()</span></code>.</p>
-<p>This public API returns the (inner) widget, not the <code class="docutils literal notranslate"><span class="pre">QtViewerDockWidget</span></code> wrapper.
-To access the <code class="docutils literal notranslate"><span class="pre">QtViewerDockWidget</span></code> wrapper, use the <code class="docutils literal notranslate"><span class="pre">.parent()</span></code> method on the returned <code class="docutils literal notranslate"><span class="pre">QWidget</span></code>, or <code class="docutils literal notranslate"><span class="pre">.native.parent()</span></code> for a magicgui <code class="docutils literal notranslate"><span class="pre">Widget</span></code>.
-For example, to programmatically show the “Home” dock widget:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">widget</span> <span class="o">=</span> <span class="n">viewer</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">dock_widgets</span><span class="p">[</span><span class="s2">"Home"</span><span class="p">]</span>
-<span class="n">qt_widget</span> <span class="o">=</span> <span class="n">widget</span><span class="o">.</span><span class="n">native</span> <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">widget</span><span class="p">,</span> <span class="s2">"native"</span><span class="p">)</span> <span class="k">else</span> <span class="n">widget</span>
+<p>If the goal is to access a target widget, without creating a widget, use the
+<code class="docutils literal notranslate"><span class="pre">dock_widgets</span></code> property. The <code class="docutils literal notranslate"><span class="pre">dock_widgets</span></code> property provides access to a
+read-only mapping of all docked widgets in the viewer. You can list available
+widget names with <code class="docutils literal notranslate"><span class="pre">viewer.window.dock_widgets.keys()</span></code>.</p>
+<p>This public API returns the (inner) widget, not the <code class="docutils literal notranslate"><span class="pre">QtViewerDockWidget</span></code>
+wrapper. To access the <code class="docutils literal notranslate"><span class="pre">QtViewerDockWidget</span></code> wrapper, use the <code class="docutils literal notranslate"><span class="pre">.parent()</span></code> method
+on the returned <code class="docutils literal notranslate"><span class="pre">QWidget</span></code>, or <code class="docutils literal notranslate"><span class="pre">.native.parent()</span></code> for a magicgui <code class="docutils literal notranslate"><span class="pre">Widget</span></code>. For
+example, to programmatically show the “Home” dock widget:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">widget</span> <span class="o">=</span> <span class="n">viewer</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">dock_widgets</span><span class="p">[</span><span class="s1">'Home'</span><span class="p">]</span>
+<span class="n">qt_widget</span> <span class="o">=</span> <span class="n">widget</span><span class="o">.</span><span class="n">native</span> <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">widget</span><span class="p">,</span> <span class="s1">'native'</span><span class="p">)</span> <span class="k">else</span> <span class="n">widget</span>
 <span class="n">dock_widget</span> <span class="o">=</span> <span class="n">qt_widget</span><span class="o">.</span><span class="n">parent</span><span class="p">()</span>  <span class="c1"># Get the QtViewerDockWidget wrapper</span>
 <span class="n">dock_widget</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 <span class="n">dock_widget</span><span class="o">.</span><span class="n">raise_</span><span class="p">()</span>
@@ -597,12 +602,17 @@ This is a private API that will be removed soon.</p>
 </section>
 <section id="widget-name">
 <h1>Widget name<a class="headerlink" href="#widget-name" title="Link to this heading">#</a></h1>
-<p>When a widget is added to the viewer via a plugin contribution (by using a menu or <code class="docutils literal notranslate"><span class="pre">add_plugin_dock_widget</span></code>), it is assigned a name.
-The name is created by concatenating the widget <code class="docutils literal notranslate"><span class="pre">display_name</span></code> from the plugin manifest and the plugin name in parentheses, like this: <code class="docutils literal notranslate"><span class="pre">&quot;Widget</span> <span class="pre">name</span> <span class="pre">(plugin_name)&quot;</span></code>. Note: this is the same name that is shown in the napari menus and the title bar of the widget.</p>
+<p>When a widget is added to the viewer via a plugin contribution (by using a menu
+or <code class="docutils literal notranslate"><span class="pre">add_plugin_dock_widget</span></code>), it is assigned a name. The name is created by
+concatenating the widget <code class="docutils literal notranslate"><span class="pre">display_name</span></code> from the plugin manifest and the plugin
+name in parentheses, like this: <code class="docutils literal notranslate"><span class="pre">&quot;Widget</span> <span class="pre">name</span> <span class="pre">(plugin_name)&quot;</span></code>. Note: this is
+the same name that is shown in the napari menus and the title bar of the
+widget.</p>
 </section>
 <section id="shared-state-between-widgets">
 <h1>Shared state between widgets<a class="headerlink" href="#shared-state-between-widgets" title="Link to this heading">#</a></h1>
-<p>If you have a need for multiple widgets to share a state, you can use a shared global object.</p>
+<p>If you have a need for multiple widgets to share a state, you can use a shared
+global object.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">psygnal</span><span class="w"> </span><span class="kn">import</span> <span class="n">EventedModel</span>
 
 
@@ -625,7 +635,8 @@ The name is created by concatenating the widget <code class="docutils literal no
     <span class="k">return</span> <span class="n">GLOBAL_STATE</span>
 </pre></div>
 </div>
-<p>If you need to be sure that state is related to a specific viewer, you can use the <code class="docutils literal notranslate"><span class="pre">viewer</span></code> as a dictionary key:</p>
+<p>If you need to be sure that state is related to a specific viewer, you can use
+the <code class="docutils literal notranslate"><span class="pre">viewer</span></code> as a dictionary key:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">weakref</span><span class="w"> </span><span class="kn">import</span> <span class="n">WeakKeyDictionary</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">psygnal</span><span class="w"> </span><span class="kn">import</span> <span class="n">EventedModel</span>
@@ -649,9 +660,11 @@ The name is created by concatenating the widget <code class="docutils literal no
     <span class="k">return</span> <span class="n">GLOBAL_STATE</span><span class="p">[</span><span class="n">viewer</span><span class="p">]</span>
 </pre></div>
 </div>
-<p>To store state between sessions, you can enhance the <code class="docutils literal notranslate"><span class="pre">get_global_state</span></code> to load state from persistent storage, such as a drive or database.
-To get a location for storing the state, you can use the <code class="docutils literal notranslate"><span class="pre">get_settings().config_path</span></code> to have a path per napari installation.
-Or you can use <a class="reference external" href="https://pypi.org/project/appdirs/"><code class="docutils literal notranslate"><span class="pre">appdirs.user_config_dir</span></code></a></p>
+<p>To store state between sessions, you can enhance the <code class="docutils literal notranslate"><span class="pre">get_global_state</span></code> to load
+state from persistent storage, such as a drive or database. To get a location
+for storing the state, you can use the <code class="docutils literal notranslate"><span class="pre">get_settings().config_path</span></code> to have a
+path per napari installation. Or you can use
+<a class="reference external" href="https://pypi.org/project/appdirs/"><code class="docutils literal notranslate"><span class="pre">appdirs.user_config_dir</span></code></a></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
 
@@ -1458,7 +1471,7 @@ Or you can use <a class="reference external" href="https://pypi.org/project/appd
     </div>
 
     
-      <span>9.1.0</span>
+      <span>9.1.1</span>
     
   </div>
 </div></div>

@@ -18,10 +18,10 @@ There are two programmatic ways that the camera is fit to the scene
 
 ```python
 # Fit the camera to the scene and reset angles to default
-viewer.reset_view() 
+viewer.reset_view()
 
 # Keep angles, but fit the camera to the scene
-viewer.fit_to_view() 
+viewer.fit_to_view()
 ```
 
 These can also be accessed via the **View** menu.
@@ -32,7 +32,7 @@ The Home button in the viewer toolbar resets the view.
 ## Synced vs separate camera modes
 
 By default, the camera is **synced** between 2D and 3D views: when you switch
-from 2D to 3D (or back), the camera center and zoom stay the same. In 2D, the 
+from 2D to 3D (or back), the camera center and zoom stay the same. In 2D, the
 depth (Z) component corresponds to the -3 dimension. You can also choose
 **separate** (i.e. unsynced) mode, where each view remembers its own camera
 state independently.
@@ -40,7 +40,7 @@ state independently.
 The current mode is controlled by {attr}`~napari.components.Camera.synced`:
 
 ```python
-viewer.scene.camera.synced = True   # synced mode (default)
+viewer.scene.camera.synced = True  # synced mode (default)
 viewer.scene.camera.synced = False  # separate mode
 ```
 
@@ -53,7 +53,8 @@ and 3D views:
 
 - **2D → 3D**: The last two dimensions of center (Y, X) come from the 2D view.
   The depth (Z) component is taken from the current position of the dimension
-  slider, so the plane you were looking at in 2D becomes the depth position in 3D.
+  slider, so the plane you were looking at in 2D becomes the depth position in
+  3D.
 - **3D → 2D**: The depth position of the camera is written back to the
   dimension slider, so the depth you were viewing in 3D is preserved when
   you return to 2D. The Y and X center also persist.

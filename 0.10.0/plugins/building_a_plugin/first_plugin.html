@@ -49,7 +49,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=d2b87285" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=9f79b9c3" />
   
   <!-- So that users can add custom icons -->
   <script defer src="../../_static/scripts/fontawesome.js?digest=18bd87630a240e9c25be"></script>
@@ -57,7 +57,7 @@
   <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=18bd87630a240e9c25be" />
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=18bd87630a240e9c25be" />
 
-    <script src="../../_static/documentation_options.js?v=be7f2f34"></script>
+    <script src="../../_static/documentation_options.js?v=4fe9927d"></script>
     <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -69,7 +69,7 @@
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.23.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.10.0a0';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.10.0rc1';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
@@ -480,25 +480,25 @@
     </p>
     <ul class="nav bd-sidenav">
       <li class="toctree-l1">
-          <a class="reference internal" href="../../community/meeting_schedule.html">Community calendar</a>
+          <a class="reference internal" href="../../community/meeting_schedule.html"><i class="fa-solid fa-calendar-days sidebar-link-icon" aria-hidden="true"></i>Community calendar</a>
       </li>
       <li class="toctree-l1">
-          <a class="reference external" href="https://napari.zulipchat.com/">Community chat</a>
+          <a class="reference external" href="https://napari.zulipchat.com/"><i class="fa-solid fa-comments sidebar-link-icon" aria-hidden="true"></i>Community chat</a>
       </li>
       <li class="toctree-l1">
-          <a class="reference internal" href="../../troubleshooting.html">Troubleshooting</a>
+          <a class="reference internal" href="../../troubleshooting.html"><i class="fa-solid fa-circle-question sidebar-link-icon" aria-hidden="true"></i>Troubleshooting</a>
       </li>
       <li class="toctree-l1">
-          <a class="reference internal" href="../../release/index.html">Release notes</a>
+          <a class="reference internal" href="../../release/index.html"><i class="fa-solid fa-newspaper sidebar-link-icon" aria-hidden="true"></i>Release notes</a>
       </li>
       <li class="toctree-l1">
-          <a class="reference internal" href="../../roadmaps/active_roadmap.html">Roadmap</a>
+          <a class="reference internal" href="../../roadmaps/active_roadmap.html"><i class="fa-solid fa-map sidebar-link-icon" aria-hidden="true"></i>Roadmap</a>
       </li>
       <li class="toctree-l1">
-          <a class="reference external" href="https://napari.org/island-dispatch">Blog</a>
+          <a class="reference external" href="https://napari.org/island-dispatch"><i class="fa-solid fa-rss sidebar-link-icon" aria-hidden="true"></i>Blog</a>
       </li>
       <li class="toctree-l1">
-          <a class="reference external" href="https://napari-hub.org">Discover plugins</a>
+          <a class="reference external" href="https://napari-hub.org"><i class="fa-solid fa-puzzle-piece sidebar-link-icon" aria-hidden="true"></i>Discover plugins</a>
       </li>
     </ul>
   </div>
@@ -567,9 +567,10 @@
 <span id="id1"></span><h1>Your first plugin<a class="headerlink" href="#your-first-plugin" title="Link to this heading">#</a></h1>
 <p>In this tutorial, we’ll step through the fundamental concepts for building a
 <strong>bare minimum</strong> napari plugin from scratch.</p>
-<p>At the end, we’ll point you to the <a class="reference external" href="https://github.com/napari/napari-plugin-template">napari-plugin-template
-repository</a> that helps automate the creation of new plugins, and adds a number
-of conveniences for testing, maintaining, and deploying your plugin.</p>
+<p>At the end, we’ll point you to the
+<a class="reference external" href="https://github.com/napari/napari-plugin-template">napari-plugin-template repository</a> that helps automate
+the creation of new plugins, and adds a number of conveniences for testing,
+maintaining, and deploying your plugin.</p>
 <div class="important admonition">
 <p class="admonition-title">new plugin format!</p>
 <p>This page describes the creation of a plugin targeting <code class="docutils literal notranslate"><span class="pre">npe2</span></code>, the second
@@ -582,7 +583,8 @@ environment instead of a global python installation is <strong>highly
 recommended</strong>). If you are new to virtual environments, we recommend
 <a class="reference external" href="https://docs.conda.io/projects/conda/en/latest/user-guide/install/download.html">installing miniconda</a> and <a class="reference external" href="https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-python.html">creating a new environment with
 python</a>.</p>
-<p>Even though plugins don’t necessarily need to list <code class="docutils literal notranslate"><span class="pre">napari</span></code> as a direct dependency, and
+<p>Even though plugins don’t necessarily need to list <code class="docutils literal notranslate"><span class="pre">napari</span></code> as a direct
+dependency, and
 <a class="reference internal" href="best_practices.html#best-practices-no-qt-backend"><span class="std std-ref">should not depend on a specific Qt backend</span></a>,
 you will need a working installation of napari in your active Python
 environment to use and test your plugin.
@@ -601,7 +603,9 @@ napari to detect the plugin at runtime.</p></li>
 </section>
 <section id="create-a-new-directory">
 <h2>1. Create a new directory<a class="headerlink" href="#create-a-new-directory" title="Link to this heading">#</a></h2>
-<p>Let’s create a new folder called <code class="docutils literal notranslate"><span class="pre">napari-hello</span></code> for your plugin files, and navigate into it. We’ll use a <code class="docutils literal notranslate"><span class="pre">src</span></code> layout for the Python package, which is now the recommended practice.</p>
+<p>Let’s create a new folder called <code class="docutils literal notranslate"><span class="pre">napari-hello</span></code> for your plugin files, and
+navigate into it. We’ll use a <code class="docutils literal notranslate"><span class="pre">src</span></code> layout for the Python package, which is now
+the recommended practice.</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>napari-hello
 <span class="nb">cd</span><span class="w"> </span>napari-hello
 mkdir<span class="w"> </span>src
@@ -643,10 +647,10 @@ Windows</label><div class="sd-tab-content docutils">
 <div class="tip admonition">
 <p class="admonition-title"><strong>napari-hello</strong> vs <strong>napari_hello</strong></p>
 <p>You might notice that we used a <strong>dash</strong> in our top level folder, and an
-<strong>underscore</strong> in the inner folder. This is the Python convention: <em>distribution
-packages</em> use dashes, while Python <em>files</em> and <em>modules</em> use underscores. Our
-<em>package</em> is named <code class="docutils literal notranslate"><span class="pre">napari-hello</span></code>, and it includes a single top-level module,
-called <code class="docutils literal notranslate"><span class="pre">napari_hello</span></code>.</p>
+<strong>underscore</strong> in the inner folder. This is the Python convention:
+<em>distribution packages</em> use dashes, while Python <em>files</em> and <em>modules</em> use
+underscores. Our <em>package</em> is named <code class="docutils literal notranslate"><span class="pre">napari-hello</span></code>, and it includes a single
+top-level module, called <code class="docutils literal notranslate"><span class="pre">napari_hello</span></code>.</p>
 <p>You would <em>install</em> this package with</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>napari-hello
 </pre></div>
@@ -662,18 +666,17 @@ called <code class="docutils literal notranslate"><span class="pre">napari_hello
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p><code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code> is a standard file (introduced in
-<a class="reference external" href="https://peps.python.org/pep-0518/">PEP518</a>, May 2016) that tells
-the Python package installer <a class="reference external" href="https://pip.pypa.io/en/stable/">pip</a> how to
-build your package. For more background, see
+<a class="reference external" href="https://peps.python.org/pep-0518/">PEP518</a>, May 2016) that tells the Python
+package installer <a class="reference external" href="https://pip.pypa.io/en/stable/">pip</a> how to build your
+package. For more background, see
 <a class="reference external" href="https://snarky.ca/clarifying-pep-518/">Clarifying PEP 518</a> and
 <a class="reference external" href="https://snarky.ca/what-the-heck-is-pyproject-toml/">What the heck is pyproject.toml?</a>.</p>
 </div>
-<p>We provide the bare minimum package metadata (name and version),
-along with a <a class="reference external" href="https://pypi.org/classifiers/">PyPI classifier</a> that identifies
-the package as a napari plugin.
-Here, we declare we want to use <a class="reference external" href="https://setuptools.pypa.io/en/latest/">setuptools</a>
-for packaging our plugin. We also need to tell setuptools to look for the package
-in the <code class="docutils literal notranslate"><span class="pre">src</span></code> directory.
+<p>We provide the bare minimum package metadata (name and version), along with a
+<a class="reference external" href="https://pypi.org/classifiers/">PyPI classifier</a> that identifies the package as
+a napari plugin. Here, we declare we want to use
+<a class="reference external" href="https://setuptools.pypa.io/en/latest/">setuptools</a> for packaging our plugin.
+We also need to tell setuptools to look for the package in the <code class="docutils literal notranslate"><span class="pre">src</span></code> directory.
 Paste the following text into <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code>:</p>
 <div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[project]</span>
 <span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"napari-hello"</span>
@@ -690,15 +693,15 @@ Paste the following text into <code class="docutils literal notranslate"><span c
 <span class="n">where</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">"src"</span><span class="p">]</span>
 </pre></div>
 </div>
-<p>There is a <em>lot</em> more than can go in the package metadata.
-See the <a class="reference external" href="https://setuptools.pypa.io/en/latest/userguide/quickstart.html">setuptools quickstart</a>
+<p>There is a <em>lot</em> more than can go in the package metadata. See the
+<a class="reference external" href="https://setuptools.pypa.io/en/latest/userguide/quickstart.html">setuptools quickstart</a>
 for more.</p>
 </section>
 </section>
 <section id="implement-the-plugin">
 <h2>3. Implement the plugin<a class="headerlink" href="#implement-the-plugin" title="Link to this heading">#</a></h2>
-<p>So far, we’ve done nothing napari-specific. Let’s create the actual plugin and add
-some Python code. We’re going to add a
+<p>So far, we’ve done nothing napari-specific. Let’s create the actual plugin and
+add some Python code. We’re going to add a
 <a class="reference internal" href="../technical_references/contributions.html#contributions-widgets"><span class="std std-ref">Widget contribution</span></a>
 with a single button that shows a “Hello, world!” message when clicked.</p>
 <section id="add-plugin-functionality-to-src-napari-hello-init-py">
@@ -717,16 +720,16 @@ autogeneration capabilities to turn this function into a widget)</em></p>
 </section>
 <section id="add-a-napari-yaml-manifest">
 <h3>Add a <code class="docutils literal notranslate"><span class="pre">napari.yaml</span></code> manifest<a class="headerlink" href="#add-a-napari-yaml-manifest" title="Link to this heading">#</a></h3>
-<p>If you haven’t already, create an empty <a class="reference internal" href="../technical_references/manifest.html#plugin-manifest"><span class="std std-ref">plugin manifest</span></a> file at
-<code class="docutils literal notranslate"><span class="pre">src/napari_hello/napari.yaml</span></code>. We will use this file to tell napari:</p>
+<p>If you haven’t already, create an empty <a class="reference internal" href="../technical_references/manifest.html#plugin-manifest"><span class="std std-ref">plugin manifest</span></a> file
+at <code class="docutils literal notranslate"><span class="pre">src/napari_hello/napari.yaml</span></code>. We will use this file to tell napari:</p>
 <ol class="arabic simple">
-<li><p>That our plugin contributes a <a class="reference internal" href="../technical_references/contributions.html#contributions-commands"><span class="std std-ref"><strong>command</strong></span></a>
-(we give the command an ID of <code class="docutils literal notranslate"><span class="pre">napari-hello.say_hi</span></code>. It must start with our plugin
+<li><p>That our plugin contributes a <a class="reference internal" href="../technical_references/contributions.html#contributions-commands"><span class="std std-ref"><strong>command</strong></span></a> (we give
+the command an ID of <code class="docutils literal notranslate"><span class="pre">napari-hello.say_hi</span></code>. It must start with our plugin
 name, and be unique).</p></li>
-<li><p>The location of the function that executes the command (the <code class="docutils literal notranslate"><span class="pre">python_name</span></code>, pointing
-to the <code class="docutils literal notranslate"><span class="pre">show_hello_message</span></code> function in the <code class="docutils literal notranslate"><span class="pre">napari_hello</span></code> module).</p></li>
-<li><p>That our plugin contributes a <a class="reference internal" href="../technical_references/contributions.html#contributions-widgets"><span class="std std-ref"><strong>widget</strong></span></a>,
-and that we’d like napari to <strong>autogenerate</strong> the widget from the command signature
+<li><p>The location of the function that executes the command (the <code class="docutils literal notranslate"><span class="pre">python_name</span></code>,
+pointing to the <code class="docutils literal notranslate"><span class="pre">show_hello_message</span></code> function in the <code class="docutils literal notranslate"><span class="pre">napari_hello</span></code> module).</p></li>
+<li><p>That our plugin contributes a <a class="reference internal" href="../technical_references/contributions.html#contributions-widgets"><span class="std std-ref"><strong>widget</strong></span></a>, and that
+we’d like napari to <strong>autogenerate</strong> the widget from the command signature
 (so we don’t need to deal with any GUI code).</p></li>
 </ol>
 <p>Add the following text to <code class="docutils literal notranslate"><span class="pre">napari.yaml</span></code>:</p>
@@ -756,20 +759,21 @@ of the corresponding <code class="docutils literal notranslate"><span class="pre
 <ol class="arabic">
 <li><p>Because we are directly using the <code class="docutils literal notranslate"><span class="pre">napari.utils.notifications</span></code> API in our,
 <code class="docutils literal notranslate"><span class="pre">show_hello_message</span></code> function, we need to add <code class="docutils literal notranslate"><span class="pre">napari</span></code> to our package
-<strong><code class="docutils literal notranslate"><span class="pre">install_requires</span></code></strong>. (You should add <em>all</em> of your required package dependencies
-here. Assume nothing about your user’s environment! Not even napari.)</p></li>
-<li><p>We need to instruct setuptools to <em>include</em> that <code class="docutils literal notranslate"><span class="pre">napari.yaml</span></code> file
-when it bundles our package for distribution, by adding
-<strong><code class="docutils literal notranslate"><span class="pre">include-package-data</span> <span class="pre">=</span> <span class="pre">True</span></code></strong> to the <code class="docutils literal notranslate"><span class="pre">[tool.setuptools]</span></code> section and pointing
-<code class="docutils literal notranslate"><span class="pre">package-data</span></code> to all <code class="docutils literal notranslate"><span class="pre">yaml</span></code> files.</p></li>
-<li><p>In order for napari to find our plugin when it’s installed, we need to
-add an <strong>entry point</strong> for <code class="docutils literal notranslate"><span class="pre">napari.manifest</span></code> in the <code class="docutils literal notranslate"><span class="pre">[project.entry-points]</span></code> section.
-This tells napari to look for our plugin manifest in the <code class="docutils literal notranslate"><span class="pre">napari.yaml</span></code>
-file we added to the <code class="docutils literal notranslate"><span class="pre">napari_hello</span></code> module.</p>
+<strong><code class="docutils literal notranslate"><span class="pre">install_requires</span></code></strong>. (You should add <em>all</em> of your required package
+dependencies here. Assume nothing about your user’s environment! Not even
+napari.)</p></li>
+<li><p>We need to instruct setuptools to <em>include</em> that <code class="docutils literal notranslate"><span class="pre">napari.yaml</span></code> file when it
+bundles our package for distribution, by adding
+<strong><code class="docutils literal notranslate"><span class="pre">include-package-data</span> <span class="pre">=</span> <span class="pre">True</span></code></strong> to the <code class="docutils literal notranslate"><span class="pre">[tool.setuptools]</span></code> section and
+pointing <code class="docutils literal notranslate"><span class="pre">package-data</span></code> to all <code class="docutils literal notranslate"><span class="pre">yaml</span></code> files.</p></li>
+<li><p>In order for napari to find our plugin when it’s installed, we need to add
+an <strong>entry point</strong> for <code class="docutils literal notranslate"><span class="pre">napari.manifest</span></code> in the <code class="docutils literal notranslate"><span class="pre">[project.entry-points]</span></code>
+section. This tells napari to look for our plugin manifest in the
+<code class="docutils literal notranslate"><span class="pre">napari.yaml</span></code> file we added to the <code class="docutils literal notranslate"><span class="pre">napari_hello</span></code> module.</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p>Entry points are a standard Python mechanism for an installed distribution to
-advertise components it provides to be discovered and used by other code.</p>
+<p>Entry points are a standard Python mechanism for an installed distribution
+to advertise components it provides to be discovered and used by other code.</p>
 <p>See the <a class="reference external" href="https://packaging.python.org/en/latest/specifications/entry-points/">Entry points specification</a> for details.</p>
 </div>
 </li>
@@ -803,15 +807,17 @@ advertise components it provides to be discovered and used by other code.</p>
 </section>
 </section>
 <section id="install-your-plugin-and-try-it-out">
-<h2>4. Install your plugin and try it out!<a class="headerlink" href="#install-your-plugin-and-try-it-out" title="Link to this heading">#</a></h2>
-<p>With that, we’re ready to go. Let’s install our package in the environment
-and then run napari. Note: we’re using <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-e</span> <span class="pre">.</span></code> here to install our
-package (in the current working directory) in <a class="reference external" href="https://pip.pypa.io/en/stable/cli/pip_install/#editable-installs">“editable” mode</a>.
-This means that changes we make to our package during development will be
-detected when we re-run napari, without having to run <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">pip</span> <span class="pre">install</span></code> again.
-In a fresh environment, when you try to run napari, there will be no Qt bindings
-installed. To do so, you can install the default Qt bindings with
-<code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">napari[pyqt]</span></code>. Importantly, your plugin should not depend on a specific Qt backend, read about plugin <a class="reference internal" href="best_practices.html#best-practices"><span class="std std-ref">Best Practices</span></a> to learn more.</p>
+<h2>4. Install your plugin and try it out<a class="headerlink" href="#install-your-plugin-and-try-it-out" title="Link to this heading">#</a></h2>
+<p>With that, we’re ready to go. Let’s install our package in the environment and
+then run napari. Note: we’re using <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-e</span> <span class="pre">.</span></code> here to install
+our package (in the current working directory) in
+<a class="reference external" href="https://pip.pypa.io/en/stable/cli/pip_install/#editable-installs">“editable” mode</a>. This means that changes we make to our
+package during development will be detected when we re-run napari, without
+having to run <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">pip</span> <span class="pre">install</span></code> again. In a fresh environment, when you
+try to run napari, there will be no Qt bindings installed. To do so, you can
+install the default Qt bindings with <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">napari[pyqt]</span></code>. Importantly,
+your plugin should not depend on a specific Qt backend, read about plugin
+<a class="reference internal" href="best_practices.html#best-practices"><span class="std std-ref">Best Practices</span></a> to learn more.</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
 python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>napari<span class="o">[</span>pyqt<span class="o">]</span>
 napari
@@ -853,8 +859,9 @@ copier<span class="w"> </span>copy<span class="w"> </span>--trust<span class="w"
 of available contributions and their fields in the
 <a class="reference internal" href="../technical_references/contributions.html#contributions-ref"><span class="std std-ref">Contributions Reference</span></a>, and learn more about each
 specific contribution type in the <a class="reference internal" href="guides.html#plugin-contribution-guides"><span class="std std-ref">Guides</span></a>.</p>
-<p>Review the <a class="reference internal" href="best_practices.html#best-practices"><span class="std std-ref">Best Practices</span></a> when developing plugins and,
-when you’re ready to share your plugin, see <a class="reference internal" href="../testing_and_publishing/index.html#plugin-test-deploy"><span class="std std-ref">Testing and Publishing</span></a>.</p>
+<p>Review the <a class="reference internal" href="best_practices.html#best-practices"><span class="std std-ref">Best Practices</span></a> when developing plugins and, when
+you’re ready to share your plugin, see
+<a class="reference internal" href="../testing_and_publishing/index.html#plugin-test-deploy"><span class="std std-ref">Testing and Publishing</span></a>.</p>
 </section>
 </section>
 
@@ -918,7 +925,7 @@ when you’re ready to share your plugin, see <a class="reference internal" href
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#update-pyproject-toml">Update <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#install-your-plugin-and-try-it-out">4. Install your plugin and try it out!</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#install-your-plugin-and-try-it-out">4. Install your plugin and try it out</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optional-build-your-plugin-for-distribution">5. (Optional) Build your plugin for distribution</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#get-going-quickly-with-the-napari-plugin-template">Get going quickly with the napari plugin template</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-steps">Next Steps</a></li>
@@ -1613,7 +1620,7 @@ when you’re ready to share your plugin, see <a class="reference internal" href
     </div>
 
     
-      <span>9.1.0</span>
+      <span>9.1.1</span>
     
   </div>
 </div></div>

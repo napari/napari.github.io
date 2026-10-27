@@ -49,7 +49,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=d2b87285" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=9f79b9c3" />
   
   <!-- So that users can add custom icons -->
   <script defer src="../../_static/scripts/fontawesome.js?digest=18bd87630a240e9c25be"></script>
@@ -57,7 +57,7 @@
   <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=18bd87630a240e9c25be" />
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=18bd87630a240e9c25be" />
 
-    <script src="../../_static/documentation_options.js?v=be7f2f34"></script>
+    <script src="../../_static/documentation_options.js?v=4fe9927d"></script>
     <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -69,7 +69,7 @@
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.23.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.10.0a0';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.10.0rc1';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
@@ -451,9 +451,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../architecture/dir_organization.html">napari directory organization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../architecture/napari_models.html">napari models and events</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../architecture/app_model.html">napari’s application model</a></li>
-
 <li class="toctree-l2"><a class="reference internal" href="../architecture/magicgui_type_reg.html"><code class="docutils literal notranslate"><span class="pre">magicgui</span></code> type registration</a></li>
-
 <li class="toctree-l2 has-children"><a class="reference internal" href="../architecture/ui_sections/index.html">UI sections</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../architecture/ui_sections/application_menus_ui.html">Application menus</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../architecture/ui_sections/application_status_bar_ui.html">Application status bar</a></li>
@@ -488,7 +486,6 @@
 <li class="toctree-l2"><a class="reference internal" href="../../naps/8-telemetry.html">NAP-8 — Telemetry</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../naps/9-multiple-canvases.html">NAP-9 — Multiple Views</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../naps/10-migration-event-system.html">NAP-10 — Migration of the event system</a></li>
-
 <li class="toctree-l2"><a class="reference internal" href="../../naps/template.html">NAP-X — Template and Instructions</a></li>
 </ul>
 </details></li>
@@ -505,25 +502,25 @@
     </p>
     <ul class="nav bd-sidenav">
       <li class="toctree-l1">
-          <a class="reference internal" href="../../community/meeting_schedule.html">Community calendar</a>
+          <a class="reference internal" href="../../community/meeting_schedule.html"><i class="fa-solid fa-calendar-days sidebar-link-icon" aria-hidden="true"></i>Community calendar</a>
       </li>
       <li class="toctree-l1">
-          <a class="reference external" href="https://napari.zulipchat.com/">Community chat</a>
+          <a class="reference external" href="https://napari.zulipchat.com/"><i class="fa-solid fa-comments sidebar-link-icon" aria-hidden="true"></i>Community chat</a>
       </li>
       <li class="toctree-l1">
-          <a class="reference internal" href="../../troubleshooting.html">Troubleshooting</a>
+          <a class="reference internal" href="../../troubleshooting.html"><i class="fa-solid fa-circle-question sidebar-link-icon" aria-hidden="true"></i>Troubleshooting</a>
       </li>
       <li class="toctree-l1">
-          <a class="reference internal" href="../../release/index.html">Release notes</a>
+          <a class="reference internal" href="../../release/index.html"><i class="fa-solid fa-newspaper sidebar-link-icon" aria-hidden="true"></i>Release notes</a>
       </li>
       <li class="toctree-l1">
-          <a class="reference internal" href="../../roadmaps/active_roadmap.html">Roadmap</a>
+          <a class="reference internal" href="../../roadmaps/active_roadmap.html"><i class="fa-solid fa-map sidebar-link-icon" aria-hidden="true"></i>Roadmap</a>
       </li>
       <li class="toctree-l1">
-          <a class="reference external" href="https://napari.org/island-dispatch">Blog</a>
+          <a class="reference external" href="https://napari.org/island-dispatch"><i class="fa-solid fa-rss sidebar-link-icon" aria-hidden="true"></i>Blog</a>
       </li>
       <li class="toctree-l1">
-          <a class="reference external" href="https://napari-hub.org">Discover plugins</a>
+          <a class="reference external" href="https://napari-hub.org"><i class="fa-solid fa-puzzle-piece sidebar-link-icon" aria-hidden="true"></i>Discover plugins</a>
       </li>
     </ul>
   </div>
@@ -595,20 +592,26 @@ communicated. It is the entry point for understanding the release process —
 the <a class="reference internal" href="release.html#napari-release-guide"><span class="std std-ref">release guide</span></a> contains the step-by-step mechanics
 for executing a release. Most required tools mentioned here are in
 <a class="reference external" href="https://github.com/napari/napari-release-tools">napari/napari-release-tools</a>.
-The release manager is is responsible for organizing, executing, and communicating with the team and community about the release process, as described in the <a class="reference internal" href="release.html#napari-release-guide"><span class="std std-ref">release guide</span></a>.</p>
+The release manager is is responsible for organizing, executing, and
+communicating with the team and community about the release process, as
+described in the <a class="reference internal" href="release.html#napari-release-guide"><span class="std std-ref">release guide</span></a>.</p>
 <section id="effver-intended-effort-versioning">
 <h2>EffVer: (Intended) Effort Versioning<a class="headerlink" href="#effver-intended-effort-versioning" title="Link to this heading">#</a></h2>
-<p>As of 0.6.5, napari has officially adopted <a class="reference external" href="https://effver.org">EffVer</a> for versioning, from the previous semantic versioning.
-While in pre-1.0 state, the current convention is <code class="docutils literal notranslate"><span class="pre">0.MACRO.MESO</span></code> and once we release v1.0.0 will henceforth be in <code class="docutils literal notranslate"><span class="pre">MACRO.MESO.MICRO</span></code> versioning.
-This is similar to previous Semantic Versioning schema of <code class="docutils literal notranslate"><span class="pre">MAJOR.MINOR.BUGFIX</span></code>, but allows features and bugfixes to live harmoniously in any version.
-Instead, the version number implies to users the amount of effort required to adopt the newest version from significant effort (<code class="docutils literal notranslate"><span class="pre">MACRO</span></code>) to no expected effort (<code class="docutils literal notranslate"><span class="pre">MICRO</span></code>).
-Our current policy permits deprecations in <code class="docutils literal notranslate"><span class="pre">MACRO</span></code> and <code class="docutils literal notranslate"><span class="pre">MESO</span></code> releases only.</p>
+<p>As of 0.6.5, napari has officially adopted <a class="reference external" href="https://effver.org">EffVer</a> for
+versioning, from the previous semantic versioning. While in pre-1.0 state, the
+current convention is <code class="docutils literal notranslate"><span class="pre">0.MACRO.MESO</span></code> and once we release v1.0.0 will henceforth
+be in <code class="docutils literal notranslate"><span class="pre">MACRO.MESO.MICRO</span></code> versioning. This is similar to previous Semantic
+Versioning schema of <code class="docutils literal notranslate"><span class="pre">MAJOR.MINOR.BUGFIX</span></code>, but allows features and bugfixes to
+live harmoniously in any version. Instead, the version number implies to users
+the amount of effort required to adopt the newest version from significant
+effort (<code class="docutils literal notranslate"><span class="pre">MACRO</span></code>) to no expected effort (<code class="docutils literal notranslate"><span class="pre">MICRO</span></code>). Our current policy permits
+deprecations in <code class="docutils literal notranslate"><span class="pre">MACRO</span></code> and <code class="docutils literal notranslate"><span class="pre">MESO</span></code> releases only.</p>
 </section>
 <section id="release-cadence">
 <h2>Release cadence<a class="headerlink" href="#release-cadence" title="Link to this heading">#</a></h2>
-<p>napari ships on a monthly cadence. Releases are declared meso (e.g.
-<code class="docutils literal notranslate"><span class="pre">0.9.0</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">0.9.1</span></code>) or macro (e.g. <code class="docutils literal notranslate"><span class="pre">0.9.9</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">0.10.0</span></code>) <em>after the fact</em>: we do
-not pre-plan whether the next release will be “big” or “small”, so contributions
+<p>napari ships on a monthly cadence. Releases are declared meso (e.g. <code class="docutils literal notranslate"><span class="pre">0.9.0</span></code> -&gt;
+<code class="docutils literal notranslate"><span class="pre">0.9.1</span></code>) or macro (e.g. <code class="docutils literal notranslate"><span class="pre">0.9.9</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">0.10.0</span></code>) <em>after the fact</em>: we do not
+pre-plan whether the next release will be “big” or “small”, so contributions
 merge when they are ready rather than being rushed into a particular release.</p>
 <p>The monthly cycle is:</p>
 <ul class="simple">
@@ -617,11 +620,11 @@ process works;</p></li>
 <li><p><strong>release candidate</strong> (rc) around the 15th;</p></li>
 <li><p><strong>final release</strong> around the 21st.</p></li>
 </ul>
-<p>We will not ship a release between December 10 and January 10, except in the case
-of large regressions. We may declare a special release (for example, one
+<p>We will not ship a release between December 10 and January 10, except in the
+case of large regressions. We may declare a special release (for example, one
 following a large community event) from the start, explicitly outside the
-expected calendar, when there is clear value in doing so. Such releases may take
-longer to prepare, and this should be communicated clearly.</p>
+expected calendar, when there is clear value in doing so. Such releases may
+take longer to prepare, and this should be communicated clearly.</p>
 <p>A feature or enhancement that is not ready for an upcoming release is <strong>not</strong> a
 reason to delay it. With a monthly cadence, it simply ships a month later.</p>
 <section id="what-can-merge-when">
@@ -629,7 +632,8 @@ reason to delay it. With a monthly cadence, it simply ships a month later.</p>
 <ul class="simple">
 <li><p><strong>Features and enhancements</strong> should be ready before the first release
 candidate (rc1).</p></li>
-<li><p><strong>Documentation, bug fixes, and maintenance</strong> may be merged during the rc phase.</p></li>
+<li><p><strong>Documentation, bug fixes, and maintenance</strong> may be merged during the rc
+phase.</p></li>
 </ul>
 </section>
 </section>
@@ -645,10 +649,10 @@ to indicate that it should not be merged <em>unless</em> the current release is
 determined to be of the appropriate version.</p>
 <section id="milestone-ownership">
 <h3>Milestone ownership<a class="headerlink" href="#milestone-ownership" title="Link to this heading">#</a></h3>
-<p>Whoever adds a milestone to a pull request takes responsibility for driving that
-pull request to a mergeable point — even by pushing the required changes to the
-PR. This person is also responsible for communicating with the release manager
-about the state of the PR after the first alpha.</p>
+<p>Whoever adds a milestone to a pull request takes responsibility for driving
+that pull request to a mergeable point — even by pushing the required changes
+to the PR. This person is also responsible for communicating with the release
+manager about the state of the PR after the first alpha.</p>
 </section>
 <section id="demilestoning">
 <h3>Demilestoning<a class="headerlink" href="#demilestoning" title="Link to this heading">#</a></h3>
@@ -660,9 +664,9 @@ tagging the team member who added the milestone, to get feedback. After three
 days, if there is no response or significant progress, the release manager may
 remove the milestone with a message like “This PR does not look to be ready for
 the upcoming release and is having the milestone removed.”</p>
-<p>An incomplete feature or enhancement should not delay a release. The exception is
-a PR that is pending only on review, when the reviewer declares they will do it
-in a few days.</p>
+<p>An incomplete feature or enhancement should not delay a release. The exception
+is a PR that is pending only on review, when the reviewer declares they will do
+it in a few days.</p>
 <p>Removing a milestone from a pull request that will not be ready is nothing
 personal: it is simply a matter of the calendar, and of making sure already
 merged contributions are released in a timely manner so people can start using
@@ -1433,7 +1437,7 @@ manager might need to review already-reviewed, approved, and merged PRs.</p>
     </div>
 
     
-      <span>9.1.0</span>
+      <span>9.1.1</span>
     
   </div>
 </div></div>

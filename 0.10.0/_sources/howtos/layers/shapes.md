@@ -12,21 +12,23 @@ kernelspec:
 ---
 
 (layers-shapes)=
+
 # Shapes
 
 In this document, you will learn about the `napari` `shapes` layer, including
 how to display and edit shapes like rectangle, ellipses, polygons, paths, and
-lines. You will also understand how to add a `shapes` layer and edit it from the
-GUI and from the console.
+lines. You will also understand how to add a `shapes` layer and edit it from
+the GUI and from the console.
 
-For more information about layers, refer to [Layers at a glance](layers-glance).
+For more information about layers, refer to
+[Layers at a glance](layers-glance).
 
 ## When to use the `shapes` layer
 
 The `shapes` layer allows you to display a list of an NxD arrays, where each
 array corresponds to one shape, specified by N points in D coordinates. You can
-adjust the position, size, face color, edge color, and opacity of all the shapes
-independently, both programmatically and from the GUI.
+adjust the position, size, face color, edge color, and opacity of all the
+shapes independently, both programmatically and from the GUI.
 
 ```{tip}
 To draw Shapes to the screen, napari has to first break them up into triangles.
@@ -82,11 +84,11 @@ All shapes are edited in the same way:
 1. Rotate the shape by clicking and dragging on the rotation handle above the
    shape bounding box.
 
-1. Select multiple shapes by continuing to `shift`+click additional shapes after
-   the first, or drag a box around the shapes to select.
+1. Select multiple shapes by continuing to `shift`+click additional shapes
+   after the first, or drag a box around the shapes to select.
 
-1. Select all the shapes in the current slice by clicking the `a` key if you are
-   in select mode. Once selected you can delete the shapes by clicking the
+1. Select all the shapes in the current slice by clicking the `a` key if you
+   are in select mode. Once selected you can delete the shapes by clicking the
    delete button in the layer controls panel or pressing the delete key on the
    keyboard.
 
@@ -94,10 +96,10 @@ All shapes are edited in the same way:
 
 Copy and paste any selected shapes using the `ctrl-c` and `ctrl-v` keybindings
 respectively. If you have a multidimensional shapes layer you can copy shapes
-from one slice to another by pasting them into the new slice. The coordinates of
-the shapes in the visible dimensions will be in the same place on the new slice
-as in the old slice, but the rest of the coordinates will be updated with the
-new slice values.
+from one slice to another by pasting them into the new slice. The coordinates
+of the shapes in the visible dimensions will be in the same place on the new
+slice as in the old slice, but the rest of the coordinates will be updated with
+the new slice values.
 
 ### Adding (inserting), editing, and deleting (removing) individual vertices
 
@@ -117,17 +119,18 @@ new slice values.
 ### Creating a new `shapes` layer
 
 You can create a brand-new empty `shapes` layer by clicking the
-`New shapes layer` button at the top of the `layer list` panel. The shape of the
-new layer is defined by the shapes inside it, as new shapes are added the new
-shape layer will adjust as needed. The dimension of the new shapes layer will
-default to the largest dimension of any layer currently in the viewer, or to 2
-if no other layers are present in the viewer.
+`New shapes layer` button at the top of the `layer list` panel. The shape of
+the new layer is defined by the shapes inside it, as new shapes are added the
+new shape layer will adjust as needed. The dimension of the new shapes layer
+will default to the largest dimension of any layer currently in the viewer, or
+to 2 if no other layers are present in the viewer.
 
 ### `shapes` layer buttons and controls
 
-Here are the buttons and controls that are available in the GUI for the `shapes`
-layer. This is the order they are presented in, not necessarily the order they
-are used. i.e. You can't remove a vertex before you have created a shape.
+Here are the buttons and controls that are available in the GUI for the
+`shapes` layer. This is the order they are presented in, not necessarily the
+order they are used. i.e. You can't remove a vertex before you have created a
+shape.
 
 - Buttons
   - Remove vertex
@@ -187,23 +190,23 @@ are used. i.e. You can't remove a vertex before you have created a shape.
 - **Select shapes**
   ![image: Select shapes](../../_static/images/shape-select-shape.png)
 
-  Use this tool to select the shape or shapes you want to delete. To select more
-  than one shape, select one, hold down the shift key and select the rest.
+  Use this tool to select the shape or shapes you want to delete. To select
+  more than one shape, select one, hold down the shift key and select the rest.
 
-- **Pan/zoom**
-  ![image: Pan/zoom](../../_static/images/pan-zoom-tool.png)
+- **Pan/zoom** ![image: Pan/zoom](../../_static/images/pan-zoom-tool.png)
 
-  Use this tool to pan around the layer or zoom in. Pan functionality
-  is disabled when using the adding and editing tools; however, zoom using the mouse-wheel will typically continue to work. To activate the tool,
-  you can press `6`. Temporarily re-enable pan and zoom by pressing and holding
-  the spacebar. This feature can be useful if you want to move around the shapes
+  Use this tool to pan around the layer or zoom in. Pan functionality is
+  disabled when using the adding and editing tools; however, zoom using the
+  mouse-wheel will typically continue to work. To activate the tool, you can
+  press `6`. Temporarily re-enable pan and zoom by pressing and holding the
+  spacebar. This feature can be useful if you want to move around the shapes
   layer as you edit it.
 
-- **Transform**
-  ![image: Transform](../../_static/images/transform-tool.png)
+- **Transform** ![image: Transform](../../_static/images/transform-tool.png)
 
-  Use this tool to rotate, scale, or translate the layer. Note: at present this feature is limited to 2D viewer display mode. To activate the tool,
-  you can press `7`. To reset the transformation, you can Option/Alt-click the
+  Use this tool to rotate, scale, or translate the layer. Note: at present this
+  feature is limited to 2D viewer display mode. To activate the tool, you can
+  press `7`. To reset the transformation, you can Option/Alt-click the
   transform button (a confirmation dialog will open to confirm the reset).
 
 - **Move to back**
@@ -225,8 +228,8 @@ are used. i.e. You can't remove a vertex before you have created a shape.
   default keybinding for this tool); next, click the point where you want the
   ellipse to begin. Hold down the left button on the mouse and go to the point
   where you want the ellipse to end. Release the mouse button. Add other
-  ellipses as needed. A single click creates an ellipse of default size centered
-  on that click.
+  ellipses as needed. A single click creates an ellipse of default size
+  centered on that click.
 
 - **Add rectangles**
   ![image: Add rectangles](../../_static/images/shape-add-rectangles.png)
@@ -241,17 +244,17 @@ are used. i.e. You can't remove a vertex before you have created a shape.
   ![image: Add polygons](../../_static/images/shape-add-polygons.png)
 
   The `Add polygon` tool can be selected from the layer controls panel or by
-  pressing the `p` key when the shapes layer is selected. When adding a polygon,
-  each click will add a vertex at the clicked location. To finish,
-  double click or press the `Esc` key: this adds a final vertex at the current mouse
-  position and completes the polygon. You can then add another polygon.
+  pressing the `p` key when the shapes layer is selected. When adding a
+  polygon, each click will add a vertex at the clicked location. To finish,
+  double click or press the `Esc` key: this adds a final vertex at the current
+  mouse position and completes the polygon. You can then add another polygon.
 
 - **Add polygons lasso**
   ![image: Add polygons lasso](../../_static/images/shape-add-lasso.png)
 
-  `Polygons` can also be created with the polygon lasso creation tool, which can
-  be found in the layer control panel or by pressing `shift+p`. The tool can be
-  used to draw complex `Polygons` with the mouse or tablet.
+  `Polygons` can also be created with the polygon lasso creation tool, which
+  can be found in the layer control panel or by pressing `shift+p`. The tool
+  can be used to draw complex `Polygons` with the mouse or tablet.
 
   ````{dropdown} More details on the lasso and path tool
 
@@ -273,20 +276,20 @@ are used. i.e. You can't remove a vertex before you have created a shape.
 - **Add polylines**
   ![image: Add polyline](../../_static/images/shape-add-polyline.png)
 
-  Select the `Add polyline` tool from the layer controls panel or by pressing the
-  `shift + L` keys when the shapes layer is selected. Click where you want the polyline to
-  start and then click each location where the direction of the polyline changes,
-  this adds a vertex at that location. When you have drawn the complete path,
-  hit `Esc` or double-click. This adds a final vertex at the current mouse position and
-  completes the path. You can then add another polyline.
+  Select the `Add polyline` tool from the layer controls panel or by pressing
+  the `shift + L` keys when the shapes layer is selected. Click where you want
+  the polyline to start and then click each location where the direction of the
+  polyline changes, this adds a vertex at that location. When you have drawn
+  the complete path, hit `Esc` or double-click. This adds a final vertex at the
+  current mouse position and completes the path. You can then add another
+  polyline.
 
-- **Add path**
-  ![image: Add path](../../_static/images/shape-add-path.png)
+- **Add path** ![image: Add path](../../_static/images/shape-add-path.png)
 
   Select the `Add path` tool from the layer controls panel or by pressing the
-  `t` key when the shapes layer is selected. The tool can be used to draw freeform,
-  complex paths using the mouse or tablet. Importantly, the paths will still consist
-  of vertices and will be editable like all other Shapes.
+  `t` key when the shapes layer is selected. The tool can be used to draw
+  freeform, complex paths using the mouse or tablet. Importantly, the paths
+  will still consist of vertices and will be editable like all other Shapes.
 
   ````{dropdown} More details on the lasso and path tool
 
@@ -309,9 +312,9 @@ are used. i.e. You can't remove a vertex before you have created a shape.
 
 - Blending
 
-  `blending` has the options of `opaque`, `translucent`, `translucent no depth`,
-  `additive`, and `minimum` in the dropdown. Refer to the
-  [Blending layers](blending-layers) section of _Layers at a glance_ for an
+  `blending` has the options of `opaque`, `translucent`,
+  `translucent no depth`, `additive`, and `minimum` in the dropdown. Refer to
+  the [Blending layers](blending-layers) section of _Layers at a glance_ for an
   explanation of each type of blending.
 
 - Face and edge colors
@@ -319,15 +322,16 @@ are used. i.e. You can't remove a vertex before you have created a shape.
   To change the shape color properties from the GUI, first select the shapes
   whose properties you want to change, otherwise you will just be initializing
   the color for the next shape to add. Select the shape you want to change,
-  click the thumbnail next to `face color:` or `edge color:` to select or create
-  a color from the palette.
+  click the thumbnail next to `face color:` or `edge color:` to select or
+  create a color from the palette.
 
 - Display text
 
-  Check this box to turn `display text` on or off. At present, text can be added to
-  shapes only programmatically and not through the GUI. For unique text labels, see
-  [](../../gallery/add_shapes_with_text) for example code. Alternately, set the same
-  (constant) string for all shapes of a Shapes layer "Shapes", you can use:
+  Check this box to turn `display text` on or off. At present, text can be
+  added to shapes only programmatically and not through the GUI. For unique
+  text labels, see [](../../gallery/add_shapes_with_text) for example code.
+  Alternately, set the same (constant) string for all shapes of a Shapes layer
+  "Shapes", you can use:
 
   ```python
   viewer.layers['Shapes'].text = {'string': {'constant': 'hello world'}}
@@ -338,9 +342,12 @@ are used. i.e. You can't remove a vertex before you have created a shape.
 - 2D/3D button or `Toggle ndisplay` button
 
   All layers can be rendered in both 2D and 3D. The `Toggle ndisplay` button at
-  the bottom of the left panel toggles between these 2 modes.
-  When in 2D, the button looks like this: ![image: 2D/3D button](../../_static/images/3D-button.png), ready to switch to 3D mode.
-  When in 3D, the button looks like this: ![image: 2D/3D button](../../_static/images/2D-button.png), ready to switch to 2D mode.
+  the bottom of the left panel toggles between these 2 modes. When in 2D, the
+  button looks like this:
+  ![image: 2D/3D button](../../_static/images/3D-button.png), ready to switch
+  to 3D mode. When in 3D, the button looks like this:
+  ![image: 2D/3D button](../../_static/images/2D-button.png), ready to switch
+  to 2D mode.
 
   You can also switch modes by pressing `ctrl+y`.
 
@@ -352,16 +359,16 @@ are used. i.e. You can't remove a vertex before you have created a shape.
 
   Create a brand new empty `shapes` layer by clicking the `New shapes layer`
   button at the top of the `layers list` panel. The shape of this layer is
-  defined by the shapes inside it, as new shapes are added the layer will adjust
-  as needed.
+  defined by the shapes inside it, as new shapes are added the layer will
+  adjust as needed.
 
 ## Controlling the shapes layer programmatically
 
 ### A simple example
 
-You can create a new viewer with `napari.Viewer()` and add a list of shapes with the
-`viewer.add_shapes` method.
-In these examples we'll mainly use `add_shapes` to overlay shapes onto an existing image.
+You can create a new viewer with `napari.Viewer()` and add a list of shapes
+with the `viewer.add_shapes` method. In these examples we'll mainly use
+`add_shapes` to overlay shapes onto an existing image.
 
 In this example, we will overlay shapes on the image of a photographer:
 
@@ -399,18 +406,14 @@ shapes_layer = viewer.add_shapes(
 ```
 
 ```{code-cell} python
----
-tags: [hide-input]
----
+:tags: [hide-input]
 from napari.utils import nbscreenshot
 
 nbscreenshot(viewer, alt_text="Shapes overlaid on image")
 ```
 
 ```{code-cell} python
----
-tags: [remove-cell]
----
+:tags: [remove-cell]
 viewer.close()
 ```
 
@@ -420,9 +423,7 @@ viewer.close()
 accepts the following layer-creation parameters.
 
 ```{code-cell} python
----
-tags: [hide-output]
----
+:tags: [hide-output]
 help(napari.Viewer.add_shapes)
 ```
 
@@ -440,18 +441,18 @@ when drawing polygons and paths.
 ### Adding different shape types
 
 Right now the shapes layer supports 5 types of shapes, `Lines`, `Rectangles`,
-`Ellipses`, `Polygons`, and `Paths`. When adding new data can set the shape type
-through the `shape_type` keyword argument, as either a single shape type if all
-the shapes to be added have the same type or as a list of shape types if some of
-the shapes have different types. The actual shape types of all the shapes is
-accessible through the `layer.shape_types` property.
+`Ellipses`, `Polygons`, and `Paths`. When adding new data can set the shape
+type through the `shape_type` keyword argument, as either a single shape type
+if all the shapes to be added have the same type or as a list of shape types if
+some of the shapes have different types. The actual shape types of all the
+shapes is accessible through the `layer.shape_types` property.
 
 - `Lines` consist of two vertices representing the end points of the line. The
-  line creation tool can be selected from the layer control panel or by pressing
-  the `l` key when the shapes layer is selected. When adding a new line the
-  first click will coordinates of the first endpoint and the second click will
-  mark the coordinates of the second endpoint. You'll then be able to add
-  another line.
+  line creation tool can be selected from the layer control panel or by
+  pressing the `l` key when the shapes layer is selected. When adding a new
+  line the first click will coordinates of the first endpoint and the second
+  click will mark the coordinates of the second endpoint. You'll then be able
+  to add another line.
 
 - `Rectangles` can be added using two vertices representing the corners of the
   rectangle for axis aligned rectangle, or using four corners so that non-axis
@@ -459,16 +460,16 @@ accessible through the `layer.shape_types` property.
   representation so we can always support rotated rectangles.
 
 - `Ellipses` can be added using either two vectors, one representing the center
-  position of the ellipse and the other representing the radii of the ellipse in
-  all dimensions for an axis aligned ellipse, or by using the four corners of
-  the ellipse bounding box for a non-axis aligned ellipse. Internally we use the
-  four vertex representation so we can always support rotated ellipses.
+  position of the ellipse and the other representing the radii of the ellipse
+  in all dimensions for an axis aligned ellipse, or by using the four corners
+  of the ellipse bounding box for a non-axis aligned ellipse. Internally we use
+  the four vertex representation so we can always support rotated ellipses.
 
 - `Polygons` can be added using an array of N vertices. Polygons are closed by
   default, so you don't also need to include the first point at the end of the
   array. The order of the vertices will determine the triangulation of the
-  polygon, which can be non-convex, but cannot have holes. For drawing polygons,
-  multiple tools can be used.
+  polygon, which can be non-convex, but cannot have holes. For drawing
+  polygons, multiple tools can be used.
 
 - `Paths` are like polygons but are not closed or filled in. They can be added
   using an array of N vertices.
@@ -476,8 +477,8 @@ accessible through the `layer.shape_types` property.
 ### Adding new shapes
 
 You can add new shapes to an existing `shapes` layer programmatically using the
-`add` method. This allows you to pass in a `shape_type` list when there is mixed
-shape data (data for different types of shapes).
+`add` method. This allows you to pass in a `shape_type` list when there is
+mixed shape data (data for different types of shapes).
 
 ```{code-cell} python
 import napari
@@ -510,24 +511,20 @@ shapes_layer.add(
 ```
 
 ```{code-cell} python
----
-tags: [hide-input]
----
+:tags: [hide-input]
 from napari.utils import nbscreenshot
 
 nbscreenshot(viewer, alt_text="Add new shapes to an existing shapes layer")
 ```
 
 ```{code-cell} python
----
-tags: [remove-cell]
----
+:tags: [remove-cell]
 viewer.close()
 ```
 
-Finally, each shape type has its own convenience method for adding new shapes to
-a layer. Their arguments are identical to those of the `add` method, but they do
-not take a `shape_type`.
+Finally, each shape type has its own convenience method for adding new shapes
+to a layer. Their arguments are identical to those of the `add` method, but
+they do not take a `shape_type`.
 
 ```{code-cell} python
 import napari
@@ -558,25 +555,21 @@ shapes_layer.add_ellipses(
 ```
 
 ```{code-cell} python
----
-tags: [hide-input]
----
+:tags: [hide-input]
 from napari.utils import nbscreenshot
 
 nbscreenshot(viewer, alt_text="Add new ellipses to an existing shapes layer using the specific method for this layer type")
 ```
 
 ```{code-cell} python
----
-tags: [remove-cell]
----
+:tags: [remove-cell]
 viewer.close()
 ```
 
 ### Non-editable mode
 
-To disable editing of the shapes layer, set the `editable` property of the layer
-to `False`.
+To disable editing of the shapes layer, set the `editable` property of the
+layer to `False`.
 
 As noted in [3D rendering](#3d-rendering), below, the shapes layer is not
 editable when using 3D rendering.
@@ -614,8 +607,8 @@ for examples.
 ![image: 3D paths](../../_static/images/3D_paths.png)
 
 ```{note}
-Right now, it is not possible to display 3D cuboids or 3D spheroids, but we will
-be supporting those options soon.
+Right now, it is not possible to display 3D cuboids or 3D spheroids, but we
+will be supporting those options soon.
 ```
 
 ### Changing shape edge and face colors
@@ -630,19 +623,19 @@ next shape to be added or any currently selected shapes.
 
 ### Changing shape edge widths
 
-Individual shapes can each have different edge widths. You can initially set the
-edge widths by providing a list of values to the `edge_width` keyword arguments
-respectively, or you can edit them from the GUI. The widths of each of the
-shapes are available as a list under the `layer.edge_width` property. Similar
-to the edge and face colors, these property is different from the
+Individual shapes can each have different edge widths. You can initially set
+the edge widths by providing a list of values to the `edge_width` keyword
+arguments respectively, or you can edit them from the GUI. The widths of each
+of the shapes are available as a list under the `layer.edge_width` property.
+Similar to the edge and face colors, these property is different from the
 `layer.current_edge_width` property that will determine the edge width of the
 next shape to be added or any currently selected shapes.
 
 ### Layer ordering
 
-You can get the ordering of all the shapes using the `layer.z_indices` property.
-You can also set the initial ordering of shapes by passing a list to the
-`layer.z_index` property.
+You can get the ordering of all the shapes using the `layer.z_indices`
+property. You can also set the initial ordering of shapes by passing a list to
+the `layer.z_index` property.
 
 ### `shapes` layer opacity
 

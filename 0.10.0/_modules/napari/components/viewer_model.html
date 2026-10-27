@@ -37,7 +37,7 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=d2b87285" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=9f79b9c3" />
   
   <!-- So that users can add custom icons -->
   <script defer src="../../../_static/scripts/fontawesome.js?digest=18bd87630a240e9c25be"></script>
@@ -45,7 +45,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=18bd87630a240e9c25be" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=18bd87630a240e9c25be" />
 
-    <script src="../../../_static/documentation_options.js?v=be7f2f34"></script>
+    <script src="../../../_static/documentation_options.js?v=4fe9927d"></script>
     <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -416,7 +416,7 @@ window.runMermaid = runMermaid;</script>
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.23.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.10.0a0';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.10.0rc1';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
@@ -933,6 +933,7 @@ window.runMermaid = runMermaid;</script>
 <span class="n">EXCLUDE_DICT</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s1">'keymap'</span><span class="p">,</span>
     <span class="s1">'_mouse_wheel_gen'</span><span class="p">,</span>
+    <span class="s1">'_mouse_move_gen'</span><span class="p">,</span>
     <span class="s1">'_mouse_drag_gen'</span><span class="p">,</span>
     <span class="s1">'_persisted_mouse_event'</span><span class="p">,</span>
     <span class="s1">'mouse_move_callbacks'</span><span class="p">,</span>
@@ -1742,13 +1743,17 @@ window.runMermaid = runMermaid;</script>
 
         <span class="n">selection</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">selection</span>
         <span class="n">valid_layers</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Layer</span><span class="p">]</span>
-        <span class="n">layers_in_viewbox</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
-            <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">contents_at</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">viewbox</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">),</span>
-                <span class="n">reverse</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">stride</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span>
-            <span class="p">)</span>
-        <span class="p">]</span>
+        <span class="n">layers_in_viewbox</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Layer</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">viewbox</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">layers_in_viewbox</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+                <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">contents_at</span><span class="p">(</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">viewbox</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span>
+                    <span class="p">),</span>
+                    <span class="n">reverse</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">stride</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span>
+                <span class="p">)</span>
+            <span class="p">]</span>
         <span class="n">valid_layers</span> <span class="o">=</span> <span class="p">[</span>
             <span class="n">layer</span>
             <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="n">layers_in_viewbox</span>
@@ -1840,15 +1845,20 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        world_position : np.ndarray</span>
 <span class="sd">            Canvas position (on the canvas plane) converted to world coordinates.</span>
 <span class="sd">        """</span>
-        <span class="kn">from</span><span class="w"> </span><span class="nn">scipy.spatial.transform</span><span class="w"> </span><span class="kn">import</span> <span class="n">Rotation</span> <span class="k">as</span> <span class="n">R</span>
-
         <span class="n">ndisplay</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">ndisplay</span>
         <span class="n">camera</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">camera</span>
 
         <span class="k">if</span> <span class="n">viewbox</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">viewbox</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
         <span class="n">viewbox_size</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">viewbox_size</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">))</span>
-        <span class="n">viewbox_center</span> <span class="o">=</span> <span class="n">viewbox_size</span> <span class="o">*</span> <span class="n">viewbox</span> <span class="o">+</span> <span class="n">viewbox_size</span> <span class="o">/</span> <span class="mi">2</span>
+        <span class="n">spacing</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">_compute_canvas_spacing</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span>
+            <span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">enabled</span>
+            <span class="k">else</span> <span class="mi">0</span>
+        <span class="p">)</span>
+        <span class="n">viewbox_center</span> <span class="o">=</span> <span class="p">(</span><span class="n">viewbox_size</span> <span class="o">+</span> <span class="n">spacing</span><span class="p">)</span> <span class="o">*</span> <span class="n">viewbox</span> <span class="o">+</span> <span class="n">viewbox_size</span> <span class="o">/</span> <span class="mi">2</span>
         <span class="n">world_center</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">camera</span><span class="o">.</span><span class="n">center</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">ndisplay</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
@@ -1856,6 +1866,10 @@ window.runMermaid = runMermaid;</script>
                 <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">canvas_position</span><span class="p">)</span> <span class="o">-</span> <span class="n">viewbox_center</span>
             <span class="p">)</span> <span class="o">/</span> <span class="n">camera</span><span class="o">.</span><span class="n">zoom</span> <span class="o">+</span> <span class="n">world_center</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">:]</span>
         <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># this import is expensive so it is deferred to here</span>
+            <span class="c1"># where it is actually needed</span>
+            <span class="kn">from</span><span class="w"> </span><span class="nn">scipy.spatial.transform</span><span class="w"> </span><span class="kn">import</span> <span class="n">Rotation</span> <span class="k">as</span> <span class="n">R</span>
+
             <span class="c1"># note that while we call napari axes "zyx", in terms of angles to</span>
             <span class="c1"># rot conversion we need to treat them as normal xyz for internal</span>
             <span class="c1"># consistency (zyx actually describes a different rotation order)</span>
@@ -1873,9 +1887,14 @@ window.runMermaid = runMermaid;</script>
                 <span class="o">+</span> <span class="n">world_center</span>
             <span class="p">)</span>
 
+        <span class="c1"># with fewer dims than ndisplay , the leading components</span>
+        <span class="c1"># have no dim to map onto, so we drop them</span>
+        <span class="n">displayed</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">displayed</span>
+        <span class="n">world_displayed</span> <span class="o">=</span> <span class="n">world_displayed</span><span class="p">[</span><span class="o">-</span><span class="nb">len</span><span class="p">(</span><span class="n">displayed</span><span class="p">)</span> <span class="p">:]</span>
+
         <span class="c1"># embed it in the world point</span>
         <span class="n">position_world</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">point</span><span class="p">)</span>
-        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">d</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">displayed</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">d</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">displayed</span><span class="p">):</span>
             <span class="n">position_world</span><span class="p">[</span><span class="n">d</span><span class="p">]</span> <span class="o">=</span> <span class="n">world_displayed</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">position_world</span><span class="p">)</span></div>
 
@@ -3626,7 +3645,7 @@ window.runMermaid = runMermaid;</script>
     </div>
 
     
-      <span>9.1.0</span>
+      <span>9.1.1</span>
     
   </div>
 </div></div>

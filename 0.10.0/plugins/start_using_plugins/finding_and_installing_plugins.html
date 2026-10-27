@@ -49,7 +49,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=d2b87285" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=9f79b9c3" />
   
   <!-- So that users can add custom icons -->
   <script defer src="../../_static/scripts/fontawesome.js?digest=18bd87630a240e9c25be"></script>
@@ -57,7 +57,7 @@
   <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=18bd87630a240e9c25be" />
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=18bd87630a240e9c25be" />
 
-    <script src="../../_static/documentation_options.js?v=be7f2f34"></script>
+    <script src="../../_static/documentation_options.js?v=4fe9927d"></script>
     <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -69,7 +69,7 @@
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.23.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.10.0a0';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.10.0rc1';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
@@ -480,25 +480,25 @@
     </p>
     <ul class="nav bd-sidenav">
       <li class="toctree-l1">
-          <a class="reference internal" href="../../community/meeting_schedule.html">Community calendar</a>
+          <a class="reference internal" href="../../community/meeting_schedule.html"><i class="fa-solid fa-calendar-days sidebar-link-icon" aria-hidden="true"></i>Community calendar</a>
       </li>
       <li class="toctree-l1">
-          <a class="reference external" href="https://napari.zulipchat.com/">Community chat</a>
+          <a class="reference external" href="https://napari.zulipchat.com/"><i class="fa-solid fa-comments sidebar-link-icon" aria-hidden="true"></i>Community chat</a>
       </li>
       <li class="toctree-l1">
-          <a class="reference internal" href="../../troubleshooting.html">Troubleshooting</a>
+          <a class="reference internal" href="../../troubleshooting.html"><i class="fa-solid fa-circle-question sidebar-link-icon" aria-hidden="true"></i>Troubleshooting</a>
       </li>
       <li class="toctree-l1">
-          <a class="reference internal" href="../../release/index.html">Release notes</a>
+          <a class="reference internal" href="../../release/index.html"><i class="fa-solid fa-newspaper sidebar-link-icon" aria-hidden="true"></i>Release notes</a>
       </li>
       <li class="toctree-l1">
-          <a class="reference internal" href="../../roadmaps/active_roadmap.html">Roadmap</a>
+          <a class="reference internal" href="../../roadmaps/active_roadmap.html"><i class="fa-solid fa-map sidebar-link-icon" aria-hidden="true"></i>Roadmap</a>
       </li>
       <li class="toctree-l1">
-          <a class="reference external" href="https://napari.org/island-dispatch">Blog</a>
+          <a class="reference external" href="https://napari.org/island-dispatch"><i class="fa-solid fa-rss sidebar-link-icon" aria-hidden="true"></i>Blog</a>
       </li>
       <li class="toctree-l1">
-          <a class="reference external" href="https://napari-hub.org">Discover plugins</a>
+          <a class="reference external" href="https://napari-hub.org"><i class="fa-solid fa-puzzle-piece sidebar-link-icon" aria-hidden="true"></i>Discover plugins</a>
       </li>
     </ul>
   </div>
@@ -562,39 +562,43 @@
                   
   <section class="tex2jax_ignore mathjax_ignore" id="finding-and-installing-plugins">
 <span id="find-and-install-plugins"></span><h1>Finding and installing plugins<a class="headerlink" href="#finding-and-installing-plugins" title="Link to this heading">#</a></h1>
-<p>Plugins are Python packages which extend napari’s functionality.
-They can be used to add new features, such as file format support, new visualizations, or new tools.
-This page will show you how to find and install plugins for napari.</p>
+<p>Plugins are Python packages which extend napari’s functionality. They can be
+used to add new features, such as file format support, new visualizations, or
+new tools. This page will show you how to find and install plugins for napari.</p>
 <section id="finding-plugins">
 <h2>Finding plugins<a class="headerlink" href="#finding-plugins" title="Link to this heading">#</a></h2>
 <p>Plugins can be discovered in the following places:</p>
 <ul class="simple">
-<li><p><strong>napari hub:</strong> The <a class="reference external" href="https://napari-hub.org">napari hub</a> offers a user-friendly
-way to find napari plugins.</p></li>
-<li><p><strong>PyPI:</strong> The Python Package Index (PyPI) stores and distributes plugin packages.
-Search for plugins annotated with the classifier <a class="reference external" href="https://pypi.org/search/?q=&amp;o=&amp;c=Framework+%3A%3A+napari"><code class="docutils literal notranslate"><span class="pre">Framework</span> <span class="pre">::</span> <span class="pre">napari</span></code></a>.</p></li>
-<li><p><strong>conda-forge:</strong> Many scientific packages are available on conda-forge.
-Use the conda-forge <a class="reference external" href="https://conda-forge.org/packages/">package search page</a> to find napari plugins.</p></li>
+<li><p><strong>napari hub:</strong> The <a class="reference external" href="https://napari-hub.org">napari hub</a> offers a
+user-friendly way to find napari plugins.</p></li>
+<li><p><strong>PyPI:</strong> The Python Package Index (PyPI) stores and distributes plugin
+packages. Search for plugins annotated with the classifier
+<a class="reference external" href="https://pypi.org/search/?q=&amp;o=&amp;c=Framework+%3A%3A+napari"><code class="docutils literal notranslate"><span class="pre">Framework</span> <span class="pre">::</span> <span class="pre">napari</span></code></a>.</p></li>
+<li><p><strong>conda-forge:</strong> Many scientific packages are available on conda-forge. Use
+the conda-forge <a class="reference external" href="https://conda-forge.org/packages/">package search page</a> to
+find napari plugins.</p></li>
 </ul>
 <p>Users may also find plugins by searching on GitHub, napari’s Zulip chat, and
 the <a class="reference external" href="http://image.sc">image.sc</a> forum.</p>
 </section>
 <section id="installing-plugins-with-napari">
 <h2>Installing plugins with napari<a class="headerlink" href="#installing-plugins-with-napari" title="Link to this heading">#</a></h2>
-<p>The <a class="reference external" href="https://napari.org/napari-plugin-manager/">napari plugin manager</a> is a tool
-that allows users to install plugins directly from within napari.
-This napari plugin manager offers users a convenient “Plugins” menu integrated
-with the napari viewer.</p>
+<p>The <a class="reference external" href="https://napari.org/napari-plugin-manager/">napari plugin manager</a> is a
+tool that allows users to install plugins directly from within napari. This
+napari plugin manager offers users a convenient “Plugins” menu integrated with
+the napari viewer.</p>
 <p>From the “Plugins menu”, select “Install/Uninstall Plugins…” to open the
 a dialog that allows you to search for and install plugins.</p>
 <p><img alt="napari viewer's Plugins menu with Install/Uninstall Plugins as the first item." src="../../_images/plugin-menu.png" /></p>
 <p>From the dialog, you can install plugins in the following ways:</p>
 <ul>
-<li><p><strong>Using search:</strong> Start typing in the text box at the top of the dialog to dynamically search
-and filter plugins. Install a desired plugin by clicking the <code class="docutils literal notranslate"><span class="pre">Install</span></code> button found in the chosen plugin’s tile.</p></li>
-<li><p><strong>Via manual input</strong> Manual input offer additional flexibility when installing plugins.
-Depending on how you installed the napari application, a text box at the bottom
-of the napari plugin manager window will display either:</p>
+<li><p><strong>Using search:</strong> Start typing in the text box at the top of the dialog to
+dynamically search and filter plugins. Install a desired plugin by clicking
+the <code class="docutils literal notranslate"><span class="pre">Install</span></code> button found in the chosen plugin’s tile.</p></li>
+<li><p><strong>Via manual input</strong> Manual input offer additional flexibility when
+installing plugins. Depending on how you installed the napari application, a
+text box at the bottom of the napari plugin manager window will display
+either:</p>
 <ul class="simple">
 <li><p>“install with ‘pip’ by name/url, or drop file…”</p></li>
 <li><p>“install with ‘conda’ by name/url, or drop file…”</p></li>
@@ -602,39 +606,50 @@ of the napari plugin manager window will display either:</p>
 <p>In this text box, enter:</p>
 <ul class="simple">
 <li><p>the plugin name to install</p></li>
-<li><p><em>any</em> valid pip or conda <a class="reference external" href="https://pip.pypa.io/en/stable/reference/requirement-specifiers/">requirement specifier</a></p></li>
+<li><p><em>any</em> valid pip or conda
+<a class="reference external" href="https://pip.pypa.io/en/stable/reference/requirement-specifiers/">requirement specifier</a></p></li>
 <li><p>a valid <a class="reference external" href="https://pip.pypa.io/en/stable/topics/vcs-support">VCS scheme</a>.</p></li>
 </ul>
 <p>Then, click the “Install” button next to the input bar.</p>
 <p><img alt="napari viewer's Plugin dialog. At the bottom of the dialog, there is a place to install by name, URL, or dropping in a file." src="../../_images/plugin-install-dialog.png" /></p>
 <div class="admonition-installing-the-current-release admonition">
 <p class="admonition-title">Installing the Current Release</p>
-<p>To install <code class="docutils literal notranslate"><span class="pre">napari-svg</span></code>, enter <code class="docutils literal notranslate"><span class="pre">napari-svg</span></code> in the text field and press <kbd class="kbd docutils literal notranslate">Enter</kbd> or click “Install”. This is equivalent to running <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">napari-svg</span></code>.</p>
+<p>To install <code class="docutils literal notranslate"><span class="pre">napari-svg</span></code>, enter <code class="docutils literal notranslate"><span class="pre">napari-svg</span></code> in the text field and press
+<kbd class="kbd docutils literal notranslate">Enter</kbd> or click “Install”. This is equivalent to running <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">napari-svg</span></code>.</p>
 </div>
 <div class="admonition-installing-from-a-github-branch admonition">
 <p class="admonition-title">Installing from a Github Branch</p>
-<p>If you want to install <code class="docutils literal notranslate"><span class="pre">napari-svg</span></code> directly from the development branch on the <a class="reference external" href="https://github.com/napari/napari-svg">github repository</a>, enter <code class="docutils literal notranslate"><span class="pre">git+https://github.com/napari/napari-svg.git</span></code> in the text field.</p>
+<p>If you want to install <code class="docutils literal notranslate"><span class="pre">napari-svg</span></code> directly from the development branch on
+the <a class="reference external" href="https://github.com/napari/napari-svg">github repository</a>, enter
+<code class="docutils literal notranslate"><span class="pre">git+&lt;https://github.com/napari/napari-svg.git&gt;</span></code> in the text field.</p>
 </div>
 <div class="admonition-installing-a-specific-release admonition">
 <p class="admonition-title">Installing a Specific Release</p>
-<p>If you want to install <code class="docutils literal notranslate"><span class="pre">napari-svg</span></code> from a specific release, enter <code class="docutils literal notranslate"><span class="pre">napari-svg==0.1.0</span></code> in the text field.</p>
+<p>If you want to install <code class="docutils literal notranslate"><span class="pre">napari-svg</span></code> from a specific release, enter
+<code class="docutils literal notranslate"><span class="pre">napari-svg==0.1.0</span></code> in the text field.</p>
 </div>
 <div class="admonition-installing-with-optional-dependency-groups admonition">
 <p class="admonition-title">Installing with Optional Dependency Groups</p>
-<p>To install a plugin with a group of option dependencies, use the optional group in brackets. If you want to install <code class="docutils literal notranslate"><span class="pre">napari-svg</span></code> with the optional testing group, enter <code class="docutils literal notranslate"><span class="pre">napari-svg[testing]</span></code> in the text field.</p>
+<p>To install a plugin with a group of option dependencies, use the optional
+group in brackets. If you want to install <code class="docutils literal notranslate"><span class="pre">napari-svg</span></code> with the optional
+testing group, enter <code class="docutils literal notranslate"><span class="pre">napari-svg[testing]</span></code> in the text field.</p>
 </div>
 </li>
-<li><p><strong>Advanced installation:</strong> After searching for the plugin you wish to install, click on the
-“Installation Info” button to open choices for installation source (conda or pip) and version selection. After choosing the desired options, you can click the “Install” button to install the plugin.</p>
+<li><p><strong>Advanced installation:</strong> After searching for the plugin you wish to
+install, click on the “Installation Info” button to open choices for
+installation source (conda or pip) and version selection. After choosing the
+desired options, you can click the “Install” button to install the plugin.</p>
 <p><img alt="napari plugin manager with the Installation Info button expanded to show conda or pip as installation source." src="../../_images/plugin-manager.png" /></p>
 </li>
 </ul>
-<p>The <a class="reference external" href="https://napari.org/napari-plugin-manager/">napari-plugin-manager’s documentation</a> provides more
-detail on installing plugins.</p>
+<p>The
+<a class="reference external" href="https://napari.org/napari-plugin-manager/">napari-plugin-manager’s documentation</a>
+provides more detail on installing plugins.</p>
 </section>
 <section id="uninstalling-and-updating-plugins">
 <h2>Uninstalling and updating plugins<a class="headerlink" href="#uninstalling-and-updating-plugins" title="Link to this heading">#</a></h2>
-<p>Like installation, the plugin dialog can also be used to uninstall or update plugins in a similar way.</p>
+<p>Like installation, the plugin dialog can also be used to uninstall or update
+plugins in a similar way.</p>
 </section>
 </section>
 
@@ -1379,7 +1394,7 @@ detail on installing plugins.</p>
     </div>
 
     
-      <span>9.1.0</span>
+      <span>9.1.1</span>
     
   </div>
 </div></div>

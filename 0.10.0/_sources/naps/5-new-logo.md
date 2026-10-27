@@ -13,7 +13,8 @@
 ```
 
 :::{note}
-This NAP has been withdrawn due to lack of interest. It is now moot as a new logo has been made differently.
+This NAP has been withdrawn due to lack of interest. It is now moot as a new
+logo has been made differently.
 :::
 
 ## Abstract
@@ -112,7 +113,7 @@ $1/\phi^2 = (\phi - 1)/\phi = 1 - 1/\phi = 2 - \phi$, and so on. Similarly,
 $\phi^2 = 1 + \phi$, which again lets you reduce all polynomials of $\phi$ to
 degree 1.
 
-The original implementation is at https://github.com/jni/new-napari-logo, but
+The original implementation is at <https://github.com/jni/new-napari-logo>, but
 if this NAP is accepted, it would add the logo-generating script as a gallery
 example.
 
@@ -129,14 +130,15 @@ This NAP does not raise backwards compatibility concerns.
 ## Future Work
 
 As mentioned above, this NAP is about the shapes of the logo, not the colors.
-The colors are sampled from Wikipedia's satellite image of Tabuaeran, except for
-the lagoon, which is the turquoise of the napari-hub and napari sphinx theme.
-It's kinda nice to have those match, but not necessary. We *could* change the
-color to be more natural (again sampled from the satellite) *and* update our
-themes to match. Or we could simply pick a more natural color for the lagoon,
-again from the satellite image, and forget about matching them.
+The colors are sampled from Wikipedia's satellite image of Tabuaeran, except
+for the lagoon, which is the turquoise of the napari-hub and napari sphinx
+theme. It's kinda nice to have those match, but not necessary. We *could*
+change the color to be more natural (again sampled from the satellite) *and*
+update our themes to match. Or we could simply pick a more natural color for
+the lagoon, again from the satellite image, and forget about matching them.
 
 I will take the opportunity to express two strong opinions:
+
 - I think some form of "ocean purple" is absolutely necessary for the
   background, as I think it's become part of our identity on account of our
   existing logo.
@@ -164,12 +166,13 @@ for the logo, regardless of where this NAP lands.
 
 It's been suggested that the squircle shape might make it harder to tile a
 laptop together with other stickers, or align the edges. However, I think the
-tiling issue is a red herring because a quick look at the [NumFOCUS sticker
-table](https://x.com/NumFOCUS/status/1547651122654916609) shows that most
-related projects have irregularly-shaped stickers anyway. Additionally, I think
-that the squircle provides both a long enough straight edge (almost 1/3 of each
-side is exactly straight) to align things, but the smooth curvature makes
-slight misalignments perceptually harder to notice than a perfect straight edge.
+tiling issue is a red herring because a quick look at the
+[NumFOCUS sticker table](https://x.com/NumFOCUS/status/1547651122654916609)
+shows that most related projects have irregularly-shaped stickers anyway.
+Additionally, I think that the squircle provides both a long enough straight
+edge (almost 1/3 of each side is exactly straight) to align things, but the
+smooth curvature makes slight misalignments perceptually harder to notice than
+a perfect straight edge.
 
 At any rate, we can provide a variety of background shapes for different
 contexts anyway. I think the squircle shape is indeed more visually appealing
@@ -185,8 +188,8 @@ This section will be updated with links as we discuss the NAP.
 ## Copyright
 
 This document is dedicated to the public domain with the Creative Commons CC0
-license [^id3]. Attribution to this source is encouraged where appropriate, as per
-CC0+BY [^id4].
+license [^id3]. Attribution to this source is encouraged where appropriate, as
+per CC0+BY [^id4].
 
 [^id3]: CC0 1.0 Universal (CC0 1.0) Public Domain Dedication,
     <https://creativecommons.org/publicdomain/zero/1.0/>

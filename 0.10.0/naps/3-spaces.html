@@ -49,7 +49,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=2082cf3c" />
     <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=d2b87285" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=9f79b9c3" />
   
   <!-- So that users can add custom icons -->
   <script defer src="../_static/scripts/fontawesome.js?digest=18bd87630a240e9c25be"></script>
@@ -57,7 +57,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=18bd87630a240e9c25be" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=18bd87630a240e9c25be" />
 
-    <script src="../_static/documentation_options.js?v=be7f2f34"></script>
+    <script src="../_static/documentation_options.js?v=4fe9927d"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -69,7 +69,7 @@
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.23.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.10.0a0';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.10.0rc1';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
@@ -451,9 +451,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../developers/architecture/dir_organization.html">napari directory organization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../developers/architecture/napari_models.html">napari models and events</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../developers/architecture/app_model.html">napari’s application model</a></li>
-
 <li class="toctree-l2"><a class="reference internal" href="../developers/architecture/magicgui_type_reg.html"><code class="docutils literal notranslate"><span class="pre">magicgui</span></code> type registration</a></li>
-
 <li class="toctree-l2 has-children"><a class="reference internal" href="../developers/architecture/ui_sections/index.html">UI sections</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../developers/architecture/ui_sections/application_menus_ui.html">Application menus</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../developers/architecture/ui_sections/application_status_bar_ui.html">Application status bar</a></li>
@@ -488,7 +486,6 @@
 <li class="toctree-l2"><a class="reference internal" href="8-telemetry.html">NAP-8 — Telemetry</a></li>
 <li class="toctree-l2"><a class="reference internal" href="9-multiple-canvases.html">NAP-9 — Multiple Views</a></li>
 <li class="toctree-l2"><a class="reference internal" href="10-migration-event-system.html">NAP-10 — Migration of the event system</a></li>
-
 <li class="toctree-l2"><a class="reference internal" href="template.html">NAP-X — Template and Instructions</a></li>
 </ul>
 </details></li>
@@ -505,25 +502,25 @@
     </p>
     <ul class="nav bd-sidenav">
       <li class="toctree-l1">
-          <a class="reference internal" href="../community/meeting_schedule.html">Community calendar</a>
+          <a class="reference internal" href="../community/meeting_schedule.html"><i class="fa-solid fa-calendar-days sidebar-link-icon" aria-hidden="true"></i>Community calendar</a>
       </li>
       <li class="toctree-l1">
-          <a class="reference external" href="https://napari.zulipchat.com/">Community chat</a>
+          <a class="reference external" href="https://napari.zulipchat.com/"><i class="fa-solid fa-comments sidebar-link-icon" aria-hidden="true"></i>Community chat</a>
       </li>
       <li class="toctree-l1">
-          <a class="reference internal" href="../troubleshooting.html">Troubleshooting</a>
+          <a class="reference internal" href="../troubleshooting.html"><i class="fa-solid fa-circle-question sidebar-link-icon" aria-hidden="true"></i>Troubleshooting</a>
       </li>
       <li class="toctree-l1">
-          <a class="reference internal" href="../release/index.html">Release notes</a>
+          <a class="reference internal" href="../release/index.html"><i class="fa-solid fa-newspaper sidebar-link-icon" aria-hidden="true"></i>Release notes</a>
       </li>
       <li class="toctree-l1">
-          <a class="reference internal" href="../roadmaps/active_roadmap.html">Roadmap</a>
+          <a class="reference internal" href="../roadmaps/active_roadmap.html"><i class="fa-solid fa-map sidebar-link-icon" aria-hidden="true"></i>Roadmap</a>
       </li>
       <li class="toctree-l1">
-          <a class="reference external" href="https://napari.org/island-dispatch">Blog</a>
+          <a class="reference external" href="https://napari.org/island-dispatch"><i class="fa-solid fa-rss sidebar-link-icon" aria-hidden="true"></i>Blog</a>
       </li>
       <li class="toctree-l1">
-          <a class="reference external" href="https://napari-hub.org">Discover plugins</a>
+          <a class="reference external" href="https://napari-hub.org"><i class="fa-solid fa-puzzle-piece sidebar-link-icon" aria-hidden="true"></i>Discover plugins</a>
       </li>
     </ul>
   </div>
@@ -606,64 +603,124 @@
 </dl>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>This NAP has been withdrawn in favour of the more comprehensive <a class="reference internal" href="9-multiple-canvases.html#nap-9"><span class="std std-ref">NAP-9 - Multiple Views</span></a>.</p>
+<p>This NAP has been withdrawn in favour of the more comprehensive
+<a class="reference internal" href="9-multiple-canvases.html#nap-9"><span class="std std-ref">NAP-9 - Multiple Views</span></a>.</p>
 </div>
 <section id="abstract">
 <h2>Abstract<a class="headerlink" href="#abstract" title="Link to this heading">#</a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">napari</span></code> is currently limited to holding (and rendering) data belonging to a single, universal space (which we often refer to as <em>world space</em>). However, it is often useful to have quick and easy access to different parts of a dataset that do not belong to the same coordinate system. In these cases, forcing data to live in the same world not only makes no sense, but it can make navigating the data and interacting with the viewer slower and less intuitive.</p>
-<p>This NAP discusses the reasons why a native napari approach would be better than the currently available workarounds. It then proposes the introduction of <code class="docutils literal notranslate"><span class="pre">spaces</span></code> as a way to manage different coordinate spaces in the same viewer.</p>
+<p><code class="docutils literal notranslate"><span class="pre">napari</span></code> is currently limited to holding (and rendering) data belonging to a
+single, universal space (which we often refer to as <em>world space</em>). However, it
+is often useful to have quick and easy access to different parts of a dataset
+that do not belong to the same coordinate system. In these cases, forcing data
+to live in the same world not only makes no sense, but it can make navigating
+the data and interacting with the viewer slower and less intuitive.</p>
+<p>This NAP discusses the reasons why a native napari approach would be better
+than the currently available workarounds. It then proposes the introduction of
+<code class="docutils literal notranslate"><span class="pre">spaces</span></code> as a way to manage different coordinate spaces in the same viewer.</p>
 </section>
 <section id="motivation-and-scope">
 <h2>Motivation and scope<a class="headerlink" href="#motivation-and-scope" title="Link to this heading">#</a></h2>
-<p>This NAP aims to address a few problems that arise (especially with big datasets), when working with many layers that do not necessarily belong to the same <em>absolute</em> coordinate space. For example, there is no reason to relate between the <em>absolute</em> coordinates of <code class="docutils literal notranslate"><span class="pre">image</span> <span class="pre">1</span></code> and <code class="docutils literal notranslate"><span class="pre">image</span> <span class="pre">2</span></code> from the same microscopy data collection, but it might be useful to quickly switch between the two to – for example – compare the effectiveness of a processing step on different images, or to visually inspect qualitative differences.</p>
+<p>This NAP aims to address a few problems that arise (especially with big
+datasets), when working with many layers that do not necessarily belong to the
+same <em>absolute</em> coordinate space. For example, there is no reason to relate
+between the <em>absolute</em> coordinates of <code class="docutils literal notranslate"><span class="pre">image</span> <span class="pre">1</span></code> and <code class="docutils literal notranslate"><span class="pre">image</span> <span class="pre">2</span></code> from the same
+microscopy data collection, but it might be useful to quickly switch between
+the two to – for example – compare the effectiveness of a processing step on
+different images, or to visually inspect qualitative differences.</p>
 <p>Currently, to do so, a user is forced to either:</p>
 <ul class="simple">
-<li><p>load everything into the layer list (thus “pretending” that the absolute coordinates do indeed match) and then develop a plugin or widget that manages layer visibility</p></li>
-<li><p>or develop a plugin or widget that manages layers externally and feeds them to <code class="docutils literal notranslate"><span class="pre">Viewer.layers</span></code> as desired</p></li>
+<li><p>load everything into the layer list (thus “pretending” that the absolute
+coordinates do indeed match) and then develop a plugin or widget that manages
+layer visibility</p></li>
+<li><p>or develop a plugin or widget that manages layers externally and feeds them
+to <code class="docutils literal notranslate"><span class="pre">Viewer.layers</span></code> as desired</p></li>
 <li><p>do nothing and deal with hundreds of layers manually</p></li>
 </ul>
-<p>While this might not seem problematic with few images, it quickly degenerates when working with big datasets, especially in 3D (for an example use case, check out <a class="reference external" href="https://github.com/napari/napari/issues/4419#issuecomment-1113090992">this issue comment</a>).</p>
+<p>While this might not seem problematic with few images, it quickly degenerates
+when working with big datasets, especially in 3D (for an example use case,
+check out
+<a class="reference external" href="https://github.com/napari/napari/issues/4419#issuecomment-1113090992">this issue comment</a>).</p>
 <p>The above workarounds have the following issues:</p>
 <ul class="simple">
-<li><p><em>usability</em>: adding too many layers to the viewer makes navigating the layerlist unwieldy, a problem that cannot be solved by layer-groups when there is no reasonable way to group layers</p></li>
-<li><p><em>usability</em>: forcing the creation of a plugin or widget with custom logic is one more barrier for non-developers, and possibly one more meta-object (e.g: a “dataset”) that the user has to juggle around and that napari is unaware of.</p></li>
-<li><p><em>performance</em>: many layers perform worse than few layers. This might be addressed separately, but is currently unresolved.</p></li>
-<li><p><em>abstraction</em>: it makes no sense for things to share coordinate space when they shouldn’t.</p></li>
-<li><p><em>performance and usability</em>: regardless of the workaround used, reader plugins can’t know about it, so a user would be forced to either first load everything into the viewer and then do something with it, significantly slowing down startup and adding one more step to opening napari</p></li>
-<li><p><em>serialization</em>: without a native <code class="docutils literal notranslate"><span class="pre">napari</span></code> support, these workarounds cannot be properly serialized.</p></li>
+<li><p><em>usability</em>: adding too many layers to the viewer makes navigating the
+layerlist unwieldy, a problem that cannot be solved by layer-groups when
+there is no reasonable way to group layers</p></li>
+<li><p><em>usability</em>: forcing the creation of a plugin or widget with custom logic is
+one more barrier for non-developers, and possibly one more meta-object (e.g:
+a “dataset”) that the user has to juggle around and that napari is unaware
+of.</p></li>
+<li><p><em>performance</em>: many layers perform worse than few layers. This might be
+addressed separately, but is currently unresolved.</p></li>
+<li><p><em>abstraction</em>: it makes no sense for things to share coordinate space when
+they shouldn’t.</p></li>
+<li><p><em>performance and usability</em>: regardless of the workaround used, reader
+plugins can’t know about it, so a user would be forced to either first load
+everything into the viewer and then do something with it, significantly
+slowing down startup and adding one more step to opening napari</p></li>
+<li><p><em>serialization</em>: without a native <code class="docutils literal notranslate"><span class="pre">napari</span></code> support, these workarounds cannot
+be properly serialized.</p></li>
 </ul>
-<p>Additionally, while this was not the main goal of this NAP, people have sometimes asked for “workspaces”, where different workflows can be tested in parallel <a class="footnote-reference brackets" href="#workspaces" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>; <code class="docutils literal notranslate"><span class="pre">spaces</span></code> would also implicitly allow this by letting users reuse a layer in multiple spaces.</p>
+<p>Additionally, while this was not the main goal of this NAP, people have
+sometimes asked for “workspaces”, where different workflows can be tested in
+parallel <a class="footnote-reference brackets" href="#workspaces" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>; <code class="docutils literal notranslate"><span class="pre">spaces</span></code> would also implicitly allow this by letting
+users reuse a layer in multiple spaces.</p>
 <section id="non-goals">
 <h3>Non-goals<a class="headerlink" href="#non-goals" title="Link to this heading">#</a></h3>
 <ul class="simple">
-<li><p><em>window state</em>: in <a class="reference external" href="https://github.com/napari/napari/issues/4227">#4227</a>, a proposal was advanced for managing window state and layout, with the ability to reuse and restore them. While this could be conceivably be dealt with here, it is probably better to keep separate the state of the window from the representation and the data.</p></li>
-<li><p><em>rendering/data separation</em>: while necessary for some of the future benefits of spaces (i.e: <a class="reference internal" href="#nap-3-multicanvas"><span class="std std-ref">Multicanvas</span></a>), the separation of rendering and data from the currently unified <code class="docutils literal notranslate"><span class="pre">Layer</span></code> object is not in the scope of this NAP. This means that (just like now), layer won’t be shareable between <code class="docutils literal notranslate"><span class="pre">Viewer</span></code>s. However, they should be shareable between <code class="docutils literal notranslate"><span class="pre">Space</span></code>s, as long as the spaces are not <em>rendered</em> at the same time (i.e: in separate <code class="docutils literal notranslate"><span class="pre">Viewer</span></code>s).</p></li>
+<li><p><em>window state</em>: in <a class="reference external" href="https://github.com/napari/napari/issues/4227">#4227</a>, a
+proposal was advanced for managing window state and layout, with the ability
+to reuse and restore them. While this could be conceivably be dealt with
+here, it is probably better to keep separate the state of the window from the
+representation and the data.</p></li>
+<li><p><em>rendering/data separation</em>: while necessary for some of the future benefits
+of spaces (i.e: <a class="reference internal" href="#nap-3-multicanvas"><span class="std std-ref">Multicanvas</span></a>), the separation of rendering and data
+from the currently unified <code class="docutils literal notranslate"><span class="pre">Layer</span></code> object is not in the scope of this NAP.
+This means that (just like now), layer won’t be shareable between <code class="docutils literal notranslate"><span class="pre">Viewer</span></code>s.
+However, they should be shareable between <code class="docutils literal notranslate"><span class="pre">Space</span></code>s, as long as the spaces are
+not <em>rendered</em> at the same time (i.e: in separate <code class="docutils literal notranslate"><span class="pre">Viewer</span></code>s).</p></li>
 </ul>
 </section>
 </section>
 <section id="implementation-proposal">
 <h2>Implementation proposal<a class="headerlink" href="#implementation-proposal" title="Link to this heading">#</a></h2>
-<p>There are a few ways to tackle this issue (see <a class="reference internal" href="#nap-3-alternatives"><span class="std std-ref">Alternatives</span></a>), with different upsides and downsides; the current “main” proposal is aiming to solve the issue by avoiding breaking or major api changes (which are instead required for the alternatives).</p>
+<p>There are a few ways to tackle this issue (see <a class="reference internal" href="#nap-3-alternatives"><span class="std std-ref">Alternatives</span></a>), with
+different upsides and downsides; the current “main” proposal is aiming to solve
+the issue by avoiding breaking or major api changes (which are instead required
+for the alternatives).</p>
 <section id="api">
 <h3>API<a class="headerlink" href="#api" title="Link to this heading">#</a></h3>
-<p><code class="docutils literal notranslate"><span class="pre">ViewerModel.spaces</span></code> would be a (selectable) <code class="docutils literal notranslate"><span class="pre">EventedList</span></code> or similar evented collection, each containing a <code class="docutils literal notranslate"><span class="pre">Space</span></code> object, with the following attributes:</p>
+<p><code class="docutils literal notranslate"><span class="pre">ViewerModel.spaces</span></code> would be a (selectable) <code class="docutils literal notranslate"><span class="pre">EventedList</span></code> or similar evented
+collection, each containing a <code class="docutils literal notranslate"><span class="pre">Space</span></code> object, with the following attributes:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">layers</span></code>: a <code class="docutils literal notranslate"><span class="pre">layerlist</span></code> (or top-level <code class="docutils literal notranslate"><span class="pre">layergroup</span></code>, in the future)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">camera</span></code>: a snapshot of the state of the <code class="docutils literal notranslate"><span class="pre">Camera</span></code> model (i.e: <code class="docutils literal notranslate"><span class="pre">Camera.dict()</span></code>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">camera</span></code>: a snapshot of the state of the <code class="docutils literal notranslate"><span class="pre">Camera</span></code> model (i.e:
+<code class="docutils literal notranslate"><span class="pre">Camera.dict()</span></code>)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">dims</span></code>: a snapshot of the state of the <code class="docutils literal notranslate"><span class="pre">Dims</span></code> model (i.e: <code class="docutils literal notranslate"><span class="pre">Dims.dict()</span></code>)</p></li>
 </ul>
-<p>Additionally, it would be useful and intuitive for users to mirror some of the basic <code class="docutils literal notranslate"><span class="pre">Layer</span></code> API:</p>
+<p>Additionally, it would be useful and intuitive for users to mirror some of the
+basic <code class="docutils literal notranslate"><span class="pre">Layer</span></code> API:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">name</span></code>: a unique name</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">metadata</span></code>: to hold any extra information about the <code class="docutils literal notranslate"><span class="pre">Space</span></code> (for example, experimental conditions, or workflow description)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">source</span></code>: to hold the source <code class="docutils literal notranslate"><span class="pre">path</span></code> and reader plugin, in case a plugin <a class="reference internal" href="#nap-3-plugins"><span class="std std-ref">generated the space</span></a>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">metadata</span></code>: to hold any extra information about the <code class="docutils literal notranslate"><span class="pre">Space</span></code> (for example,
+experimental conditions, or workflow description)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">source</span></code>: to hold the source <code class="docutils literal notranslate"><span class="pre">path</span></code> and reader plugin, in case a plugin
+<a class="reference internal" href="#nap-3-plugins"><span class="std std-ref">generated the space</span></a>.</p></li>
 </ul>
-<p>A few more <code class="docutils literal notranslate"><span class="pre">ViewerModel</span></code> attributes are worth considering for being tracked by <code class="docutils literal notranslate"><span class="pre">State</span></code>s, depending on if we think they should be considered “global” settings, or local to the <code class="docutils literal notranslate"><span class="pre">Space</span></code>. I propose the following:</p>
+<p>A few more <code class="docutils literal notranslate"><span class="pre">ViewerModel</span></code> attributes are worth considering for being tracked by
+<code class="docutils literal notranslate"><span class="pre">State</span></code>s, depending on if we think they should be considered “global” settings,
+or local to the <code class="docutils literal notranslate"><span class="pre">Space</span></code>. I propose the following:</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">grid</span></code>: local, if you leave a state in grid mode, you probably want it back that way</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">grid</span></code>: local, if you leave a state in grid mode, you probably want it back
+that way</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">scale_bar</span></code>: global</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">text_overlay</span></code>: local, as text is likely to refer to the contents of the viewer</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">overlays</span></code>: tricky; this is currently only the <code class="docutils literal notranslate"><span class="pre">InteractionBox</span></code> (and therefore should probably <em>not</em> be serialized, since it’s dynamically changed when transforming layers), but might become more complicated in the future, if something like <a class="reference external" href="https://github.com/napari/napari/pull/3763">napari/napari#3763</a> gets merged).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">text_overlay</span></code>: local, as text is likely to refer to the contents of the
+viewer</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">overlays</span></code>: tricky; this is currently only the <code class="docutils literal notranslate"><span class="pre">InteractionBox</span></code> (and
+therefore should probably <em>not</em> be serialized, since it’s dynamically changed
+when transforming layers), but might become more complicated in the future,
+if something like
+<a class="reference external" href="https://github.com/napari/napari/pull/3763">napari/napari#3763</a> gets
+merged).</p></li>
 </ul>
 <p>The remaining fields should probably not be serialized:</p>
 <ul class="simple">
@@ -674,19 +731,30 @@
 <li><p><code class="docutils literal notranslate"><span class="pre">theme</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">title</span></code></p></li>
 </ul>
-<p>In the end, all <code class="docutils literal notranslate"><span class="pre">spaces</span></code> would do is effectively provide a quick way to swap some of the <code class="docutils literal notranslate"><span class="pre">ViewerModel</span></code> state in and out.</p>
+<p>In the end, all <code class="docutils literal notranslate"><span class="pre">spaces</span></code> would do is effectively provide a quick way to swap
+some of the <code class="docutils literal notranslate"><span class="pre">ViewerModel</span></code> state in and out.</p>
 <hr class="docutils" />
-<p>At the level of <code class="docutils literal notranslate"><span class="pre">ViewerModel</span></code> itself, we would have an <code class="docutils literal notranslate"><span class="pre">active_space</span></code> attribute: similar to how a layer in a <code class="docutils literal notranslate"><span class="pre">layerlist</span></code> can be active, a <code class="docutils literal notranslate"><span class="pre">Space</span></code> in the <code class="docutils literal notranslate"><span class="pre">spaces</span></code> can be active (with the important distinction that only <em>one</em> space can be active); this will determine which space is loaded into the layerlist and used to populate the canvas.
-- in a future with multi-canvas (or multi-viewer), this could be on a per-canvas (or per-viewer) basis.</p>
+<p>At the level of <code class="docutils literal notranslate"><span class="pre">ViewerModel</span></code> itself, we would have an <code class="docutils literal notranslate"><span class="pre">active_space</span></code>
+attribute: similar to how a layer in a <code class="docutils literal notranslate"><span class="pre">layerlist</span></code> can be active, a <code class="docutils literal notranslate"><span class="pre">Space</span></code> in
+the <code class="docutils literal notranslate"><span class="pre">spaces</span></code> can be active (with the important distinction that only <em>one</em>
+space can be active); this will determine which space is loaded into the
+layerlist and used to populate the canvas.
+- in a future with multi-canvas (or multi-viewer), this could be on a
+per-canvas (or per-viewer) basis.</p>
 </section>
 <section id="gui">
 <h3>GUI<a class="headerlink" href="#gui" title="Link to this heading">#</a></h3>
-<p>The GUI could expose this as a (searchable) dropdown menu above the layerlist, and provide shortcuts to navigate easility through spaces, such as <code class="docutils literal notranslate"><span class="pre">page-up</span></code>, <code class="docutils literal notranslate"><span class="pre">page-down</span></code>.</p>
+<p>The GUI could expose this as a (searchable) dropdown menu above the layerlist,
+and provide shortcuts to navigate easility through spaces, such as <code class="docutils literal notranslate"><span class="pre">page-up</span></code>,
+<code class="docutils literal notranslate"><span class="pre">page-down</span></code>.</p>
 </section>
 <section id="plugins">
 <span id="nap-3-plugins"></span><h3>Plugins<a class="headerlink" href="#plugins" title="Link to this heading">#</a></h3>
-<p>Reader/writer plugins should be able to provide/consume spaces. If unspecified, they should act on the active <code class="docutils literal notranslate"><span class="pre">Space</span></code>, which would be backwards compatible.</p>
-<p>Widget plugins would be backwards compatible, as they simply act on the active <code class="docutils literal notranslate"><span class="pre">Space</span></code>. On the other hand, new plugins would be able to access other spaces as well, allowing for easier abstraction of “batch” workflows.</p>
+<p>Reader/writer plugins should be able to provide/consume spaces. If unspecified,
+they should act on the active <code class="docutils literal notranslate"><span class="pre">Space</span></code>, which would be backwards compatible.</p>
+<p>Widget plugins would be backwards compatible, as they simply act on the active
+<code class="docutils literal notranslate"><span class="pre">Space</span></code>. On the other hand, new plugins would be able to access other spaces as
+well, allowing for easier abstraction of “batch” workflows.</p>
 </section>
 </section>
 <section id="alternatives">
@@ -695,59 +763,104 @@
 <h3>Naming<a class="headerlink" href="#naming" title="Link to this heading">#</a></h3>
 <p>Instead of <code class="docutils literal notranslate"><span class="pre">Space</span></code>, we could use a different name:</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">Viewer</span></code>: better conveys that viewer state is also retained. I find it confusing due to the strong coupling with the <code class="docutils literal notranslate"><span class="pre">Window</span></code> (see also <a class="reference internal" href="#nap-3-multiple-viewers"><span class="std std-ref">Multiple viewers, app interface</span></a>)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">State</span></code>: better conveys that non only layerlist state is retained. A bit generic.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Viewer</span></code>: better conveys that viewer state is also retained. I find it
+confusing due to the strong coupling with the <code class="docutils literal notranslate"><span class="pre">Window</span></code> (see also
+<a class="reference internal" href="#nap-3-multiple-viewers"><span class="std std-ref">Multiple viewers, app interface</span></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">State</span></code>: better conveys that non only layerlist state is retained. A bit
+generic.</p></li>
 </ul>
 </section>
 <section id="multiple-viewers-app-interface">
 <span id="nap-3-multiple-viewers"></span><h3>Multiple viewers, <code class="docutils literal notranslate"><span class="pre">app</span></code> interface<a class="headerlink" href="#multiple-viewers-app-interface" title="Link to this heading">#</a></h3>
-<p>These problems could be also solved by allowing multiple <code class="docutils literal notranslate"><span class="pre">Viewer</span></code> objects, each with its own <code class="docutils literal notranslate"><span class="pre">ViewerModel</span></code>, by separating out the <code class="docutils literal notranslate"><span class="pre">QtViewer</span></code> logic to an <code class="docutils literal notranslate"><span class="pre">Application</span></code> level <a class="footnote-reference brackets" href="#application" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>.</p>
+<p>These problems could be also solved by allowing multiple <code class="docutils literal notranslate"><span class="pre">Viewer</span></code> objects, each
+with its own <code class="docutils literal notranslate"><span class="pre">ViewerModel</span></code>, by separating out the <code class="docutils literal notranslate"><span class="pre">QtViewer</span></code> logic to an
+<code class="docutils literal notranslate"><span class="pre">Application</span></code> level <a class="footnote-reference brackets" href="#application" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">app</span><span class="o">.</span><span class="n">viewers</span>  <span class="c1"># list of all viewers</span>
 <span class="n">app</span><span class="o">.</span><span class="n">viewer</span>  <span class="c1"># current viewer model</span>
 <span class="n">app</span><span class="o">.</span><span class="n">window</span>  <span class="c1"># the singleton window now lives on the app rather than the viewer</span>
 </pre></div>
 </div>
-<p>This is in many ways equivalent to <code class="docutils literal notranslate"><span class="pre">spaces</span></code>, with object serving the same purpose but being named differently: <code class="docutils literal notranslate"><span class="pre">Application</span></code> takes place of the <code class="docutils literal notranslate"><span class="pre">Viewer</span></code> object; <code class="docutils literal notranslate"><span class="pre">Viewers</span></code> are acting as <code class="docutils literal notranslate"><span class="pre">Spaces</span></code>, with the difference that they are themselves a <code class="docutils literal notranslate"><span class="pre">ViewerModel</span></code>, rather than holding a snapshot of parts of a <code class="docutils literal notranslate"><span class="pre">ViewerModel</span></code>.</p>
-<p>While the nomenclature is not one of the important points of this NAP, I find the use of the word <code class="docutils literal notranslate"><span class="pre">Viewer</span></code> confusing in this alternative implementation. Intuitively, for me (and, I expect, for most users) the <code class="docutils literal notranslate"><span class="pre">Viewer</span></code> is the window, regardless of the abstraction of <code class="docutils literal notranslate"><span class="pre">ViewerModel</span></code> and <code class="docutils literal notranslate"><span class="pre">Viewer</span></code> that we have on the backend. Additionally, the above changes would cause a big API change in the most basic interaction with <code class="docutils literal notranslate"><span class="pre">napari</span></code> (<code class="docutils literal notranslate"><span class="pre">app.viewer</span></code> rather than <code class="docutils literal notranslate"><span class="pre">viewer</span></code>), unless we “hide” it away (i.e: <code class="docutils literal notranslate"><span class="pre">viewer.app.viewers</span></code>), which would hurt usability and discoverability.</p>
-<p>Additionally, there are no benefits to keeping multiple <code class="docutils literal notranslate"><span class="pre">ViewerModel</span></code> objects alive, since their purpose is simply to act as an evented model to update the GUI.</p>
-<p>Finally, this alternative would further complicate our ability to support multiple <em>actual</em> <code class="docutils literal notranslate"><span class="pre">Viewers</span></code> with their own window, separate from each other <a class="footnote-reference brackets" href="#multiple-viewers" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a>. In that case, the <code class="docutils literal notranslate"><span class="pre">viewer.app.viewers</span></code> seems like a better fit and wouldn’t add too much overhead to basic operations.</p>
+<p>This is in many ways equivalent to <code class="docutils literal notranslate"><span class="pre">spaces</span></code>, with object serving the same
+purpose but being named differently: <code class="docutils literal notranslate"><span class="pre">Application</span></code> takes place of the <code class="docutils literal notranslate"><span class="pre">Viewer</span></code>
+object; <code class="docutils literal notranslate"><span class="pre">Viewers</span></code> are acting as <code class="docutils literal notranslate"><span class="pre">Spaces</span></code>, with the difference that they are
+themselves a <code class="docutils literal notranslate"><span class="pre">ViewerModel</span></code>, rather than holding a snapshot of parts of a
+<code class="docutils literal notranslate"><span class="pre">ViewerModel</span></code>.</p>
+<p>While the nomenclature is not one of the important points of this NAP, I find
+the use of the word <code class="docutils literal notranslate"><span class="pre">Viewer</span></code> confusing in this alternative implementation.
+Intuitively, for me (and, I expect, for most users) the <code class="docutils literal notranslate"><span class="pre">Viewer</span></code> is the window,
+regardless of the abstraction of <code class="docutils literal notranslate"><span class="pre">ViewerModel</span></code> and <code class="docutils literal notranslate"><span class="pre">Viewer</span></code> that we have on the
+backend. Additionally, the above changes would cause a big API change in the
+most basic interaction with <code class="docutils literal notranslate"><span class="pre">napari</span></code> (<code class="docutils literal notranslate"><span class="pre">app.viewer</span></code> rather than <code class="docutils literal notranslate"><span class="pre">viewer</span></code>),
+unless we “hide” it away (i.e: <code class="docutils literal notranslate"><span class="pre">viewer.app.viewers</span></code>), which would hurt
+usability and discoverability.</p>
+<p>Additionally, there are no benefits to keeping multiple <code class="docutils literal notranslate"><span class="pre">ViewerModel</span></code> objects
+alive, since their purpose is simply to act as an evented model to update the
+GUI.</p>
+<p>Finally, this alternative would further complicate our ability to support
+multiple <em>actual</em> <code class="docutils literal notranslate"><span class="pre">Viewers</span></code> with their own window, separate from each other
+<a class="footnote-reference brackets" href="#multiple-viewers" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a>. In that case, the <code class="docutils literal notranslate"><span class="pre">viewer.app.viewers</span></code> seems like a better
+fit and wouldn’t add too much overhead to basic operations.</p>
 </section>
 <section id="spaces-app-interface">
 <h3>Spaces, <code class="docutils literal notranslate"><span class="pre">app</span></code> interface<a class="headerlink" href="#spaces-app-interface" title="Link to this heading">#</a></h3>
-<p>Alternatively, the <code class="docutils literal notranslate"><span class="pre">app</span></code> interface can be used in conjunction with the <code class="docutils literal notranslate"><span class="pre">spaces</span></code> approach, distinguishing between <code class="docutils literal notranslate"><span class="pre">Space</span></code> and <code class="docutils literal notranslate"><span class="pre">Viewer</span></code>:</p>
+<p>Alternatively, the <code class="docutils literal notranslate"><span class="pre">app</span></code> interface can be used in conjunction with the <code class="docutils literal notranslate"><span class="pre">spaces</span></code>
+approach, distinguishing between <code class="docutils literal notranslate"><span class="pre">Space</span></code> and <code class="docutils literal notranslate"><span class="pre">Viewer</span></code>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">app</span> <span class="o">=</span> <span class="n">viewer</span><span class="o">.</span><span class="n">app</span>  <span class="c1"># shared app object between viewer</span>
 <span class="n">app</span><span class="o">.</span><span class="n">spaces</span>  <span class="c1"># spaces list, but held by the app object (and thus accessible across viewers)</span>
 <span class="n">viewer</span><span class="o">.</span><span class="n">active_space</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">spaces</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># choose which space to display in a viewer</span>
 </pre></div>
 </div>
-<p>This improves on the <a class="reference internal" href="#nap-3-multiple-viewers"><span class="std std-ref">Multiple viewers, app interface</span></a> approach ont the clarity of separation between <code class="docutils literal notranslate"><span class="pre">Spaces</span></code> and <code class="docutils literal notranslate"><span class="pre">Viewers</span></code>, and on the main proposal by explicitly allowing sharing spaces between viewers.</p>
-<p>A downside is that we lose the single point of truth for the <code class="docutils literal notranslate"><span class="pre">Spaces</span></code>. If a space is loaded in two viewers, we would need to connect events so that if something about the state is changed (such as the <code class="docutils literal notranslate"><span class="pre">Dims</span></code>) it should update the state of all the other Viewers attached to the state. This is not necessary for the layerlist and the layers, since those would <em>be</em> the same objects; in fact, this is a point in favour of using <code class="docutils literal notranslate"><span class="pre">ViewerModel</span></code> themselves to encode the state, as proposed in <a class="reference internal" href="#nap-3-multiple-viewers"><span class="std std-ref">Multiple viewers, app interface</span></a>, or to at least <em>split out</em> from the <code class="docutils literal notranslate"><span class="pre">ViewerModel</span></code> the fields that would be instead held by <code class="docutils literal notranslate"><span class="pre">Spaces</span></code>.</p>
+<p>This improves on the <a class="reference internal" href="#nap-3-multiple-viewers"><span class="std std-ref">Multiple viewers, app interface</span></a> approach ont the clarity of
+separation between <code class="docutils literal notranslate"><span class="pre">Spaces</span></code> and <code class="docutils literal notranslate"><span class="pre">Viewers</span></code>, and on the main proposal by
+explicitly allowing sharing spaces between viewers.</p>
+<p>A downside is that we lose the single point of truth for the <code class="docutils literal notranslate"><span class="pre">Spaces</span></code>. If a
+space is loaded in two viewers, we would need to connect events so that if
+something about the state is changed (such as the <code class="docutils literal notranslate"><span class="pre">Dims</span></code>) it should update the
+state of all the other Viewers attached to the state. This is not necessary for
+the layerlist and the layers, since those would <em>be</em> the same objects; in fact,
+this is a point in favour of using <code class="docutils literal notranslate"><span class="pre">ViewerModel</span></code> themselves to encode the
+state, as proposed in <a class="reference internal" href="#nap-3-multiple-viewers"><span class="std std-ref">Multiple viewers, app interface</span></a>, or to at least <em>split out</em>
+from the <code class="docutils literal notranslate"><span class="pre">ViewerModel</span></code> the fields that would be instead held by <code class="docutils literal notranslate"><span class="pre">Spaces</span></code>.</p>
 </section>
 </section>
 <section id="backward-compatibility">
 <h2>Backward compatibility<a class="headerlink" href="#backward-compatibility" title="Link to this heading">#</a></h2>
-<p>These changes should be backwards compatible, since they would only expand the <code class="docutils literal notranslate"><span class="pre">ViewerModel</span></code> API by adding spaces.</p>
+<p>These changes should be backwards compatible, since they would only expand the
+<code class="docutils literal notranslate"><span class="pre">ViewerModel</span></code> API by adding spaces.</p>
 </section>
 <section id="future-work">
 <h2>Future work<a class="headerlink" href="#future-work" title="Link to this heading">#</a></h2>
 <section id="tabbed-access">
 <h3>Tabbed access<a class="headerlink" href="#tabbed-access" title="Link to this heading">#</a></h3>
-<p>As part of the “multiple viewers” proposals in the past, the idea of accessing them through tabs in the GUI was often floated <a class="footnote-reference brackets" href="#multiple-viewers-tabbed" id="id4" role="doc-noteref"><span class="fn-bracket">[</span>4<span class="fn-bracket">]</span></a>. The same idea can be applied to <code class="docutils literal notranslate"><span class="pre">spaces</span></code>. This is not necessarily mutually exclusive with the searchable dropdown approach: a space could be “pinned”, allowing easier access through the GUI. However, the primary access should not be tabs, which would the defeat one of the goals of <code class="docutils literal notranslate"><span class="pre">spaces</span></code>: de-cluttering the GUI.</p>
+<p>As part of the “multiple viewers” proposals in the past, the idea of accessing
+them through tabs in the GUI was often floated <a class="footnote-reference brackets" href="#multiple-viewers-tabbed" id="id4" role="doc-noteref"><span class="fn-bracket">[</span>4<span class="fn-bracket">]</span></a>. The
+same idea can be applied to <code class="docutils literal notranslate"><span class="pre">spaces</span></code>. This is not necessarily mutually
+exclusive with the searchable dropdown approach: a space could be “pinned”,
+allowing easier access through the GUI. However, the primary access should not
+be tabs, which would the defeat one of the goals of <code class="docutils literal notranslate"><span class="pre">spaces</span></code>: de-cluttering the
+GUI.</p>
 </section>
 <section id="multicanvas">
 <span id="nap-3-multicanvas"></span><h3>Multicanvas<a class="headerlink" href="#multicanvas" title="Link to this heading">#</a></h3>
-<p>While multicanvas is still some ways off, this NAP can provide the basis for that functionality. For example, a future multicanvas-capable viewer could associate each <code class="docutils literal notranslate"><span class="pre">Canvas</span></code> to a <code class="docutils literal notranslate"><span class="pre">Space</span></code>; this way, we already have the machinery for multiple layer lists, as well as the ability to reuse the same layer in multiple canvases, while having a different <code class="docutils literal notranslate"><span class="pre">Camera</span></code> and <code class="docutils literal notranslate"><span class="pre">Dims</span></code> setup for the different copies (note that this would rely on the current efforts in separating the slicing logic from the <code class="docutils literal notranslate"><span class="pre">Layer</span></code> object).</p>
+<p>While multicanvas is still some ways off, this NAP can provide the basis for
+that functionality. For example, a future multicanvas-capable viewer could
+associate each <code class="docutils literal notranslate"><span class="pre">Canvas</span></code> to a <code class="docutils literal notranslate"><span class="pre">Space</span></code>; this way, we already have the machinery
+for multiple layer lists, as well as the ability to reuse the same layer in
+multiple canvases, while having a different <code class="docutils literal notranslate"><span class="pre">Camera</span></code> and <code class="docutils literal notranslate"><span class="pre">Dims</span></code> setup for the
+different copies (note that this would rely on the current efforts in
+separating the slicing logic from the <code class="docutils literal notranslate"><span class="pre">Layer</span></code> object).</p>
 </section>
 </section>
 <section id="references">
 <h2>References<a class="headerlink" href="#references" title="Link to this heading">#</a></h2>
-<p>For the original discussion, see <a class="reference external" href="https://github.com/napari/napari/issues/4419">napari/napari#4419</a>.</p>
+<p>For the original discussion, see
+<a class="reference external" href="https://github.com/napari/napari/issues/4419">napari/napari#4419</a>.</p>
 </section>
 <section id="copyright">
 <h2>Copyright<a class="headerlink" href="#copyright" title="Link to this heading">#</a></h2>
 <p>This document is dedicated to the public domain with the Creative Commons CC0
-license <a class="footnote-reference brackets" href="#cc0" id="id5" role="doc-noteref"><span class="fn-bracket">[</span>5<span class="fn-bracket">]</span></a>. Attribution to this source is encouraged where appropriate, as per
-CC0+BY <a class="footnote-reference brackets" href="#cc0by" id="id6" role="doc-noteref"><span class="fn-bracket">[</span>6<span class="fn-bracket">]</span></a>.</p>
+license <a class="footnote-reference brackets" href="#cc0" id="id5" role="doc-noteref"><span class="fn-bracket">[</span>5<span class="fn-bracket">]</span></a>. Attribution to this source is encouraged where appropriate, as
+per CC0+BY <a class="footnote-reference brackets" href="#cc0by" id="id6" role="doc-noteref"><span class="fn-bracket">[</span>6<span class="fn-bracket">]</span></a>.</p>
 </section>
 </section>
 <aside class="footnote-list brackets">
@@ -1541,7 +1654,7 @@ CC0+BY <a class="footnote-reference brackets" href="#cc0by" id="id6" role="doc-n
     </div>
 
     
-      <span>9.1.0</span>
+      <span>9.1.1</span>
     
   </div>
 </div></div>

@@ -1,12 +1,15 @@
 # Advanced Topics
 
 ```{warning}
-In napari 0.7.0, legacy "npe1" plugins will only work by auto-conversion to the new plugin engine, `npe2`.
-The vast majority of plugins will continue working as before. If you notice any issues with a plugin, check out the
-[Changes to the plugin engine in 0.6.0](adapted-plugin-guide) document to see if this is affecting you.
+In napari 0.7.0, legacy "npe1" plugins will only work by auto-conversion to the
+new plugin engine, `npe2`. The vast majority of plugins will continue working
+as before. If you notice any issues with a plugin, check out the
+[Changes to the plugin engine in 0.6.0](adapted-plugin-guide) document to see
+if this is affecting you.
 ```
 
-Some plugin developers may find more **in-depth, technical information** helpful. This section describes topics, such as:
+Some plugin developers may find more **in-depth, technical information**
+helpful. This section describes topics, such as:
 
 - specifications for napari's plugin ecosystem using the plugin engine `npe2`.
 - migration to `npe2` from the deprecated napari plugin engine v1.

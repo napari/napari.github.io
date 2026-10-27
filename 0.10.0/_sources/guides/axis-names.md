@@ -71,7 +71,8 @@ the display and NumPy behavior:
 ## Automatic axis labels
 
 The viewer axis labels (`viewer.dims.axis_labels`) are updated automatically
-from the axis labels of the layers in the viewer. If you add a layer with `axis_labels` set — or use an [xarray](https://docs.xarray.dev/) `DataArray`
+from the axis labels of the layers in the viewer. If you add a layer with
+`axis_labels` set — or use an [xarray](https://docs.xarray.dev/) `DataArray`
 with named dimensions — the viewer dimension sliders and axes overlay are
 labelled accordingly, with no extra work.
 

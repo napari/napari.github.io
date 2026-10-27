@@ -12,10 +12,10 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://napari.org/stable/plugins/testing_workshop_docs/2-pytest-testing-frameworks.html" />
 <meta property="og:site_name" content="napari" />
-<meta property="og:description" content="This lesson explains how to use the pytest testing framework to make testing easier. Other lessons in this tutorial:: 1: Python’s assert keyword, 2: This lesson (Pytest testing framework), 3: Readers and fixtures, 4: Test coverage, Resource links: Testing resources. This lesson covers:: Testing f..." />
+<meta property="og:description" content="This lesson explains how to use the pytest testing framework to make testing easier. Other lessons in this tutorial: 1: Python’s assert keyword, 2: This lesson (Pytest testing framework), 3: Readers and fixtures, 4: Test coverage, Resource links: Testing resources. This lesson covers: Testing fra..." />
 <meta property="og:image" content="https://napari.org/dev/_static/opengraph_image.png" />
 <meta property="og:image:alt" content="3D segmented tribolium embryo in the napari viewer" />
-<meta name="description" content="This lesson explains how to use the pytest testing framework to make testing easier. Other lessons in this tutorial:: 1: Python’s assert keyword, 2: This lesson (Pytest testing framework), 3: Readers and fixtures, 4: Test coverage, Resource links: Testing resources. This lesson covers:: Testing f..." />
+<meta name="description" content="This lesson explains how to use the pytest testing framework to make testing easier. Other lessons in this tutorial: 1: Python’s assert keyword, 2: This lesson (Pytest testing framework), 3: Readers and fixtures, 4: Test coverage, Resource links: Testing resources. This lesson covers: Testing fra..." />
 <meta name="twitter:card" content="summary_large_image" />
 
     <title>2: Pytest testing framework &#8212; napari</title>
@@ -49,7 +49,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=d2b87285" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=9f79b9c3" />
   
   <!-- So that users can add custom icons -->
   <script defer src="../../_static/scripts/fontawesome.js?digest=18bd87630a240e9c25be"></script>
@@ -57,7 +57,7 @@
   <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=18bd87630a240e9c25be" />
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=18bd87630a240e9c25be" />
 
-    <script src="../../_static/documentation_options.js?v=be7f2f34"></script>
+    <script src="../../_static/documentation_options.js?v=4fe9927d"></script>
     <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -69,7 +69,7 @@
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.23.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.10.0a0';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.10.0rc1';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
@@ -480,25 +480,25 @@
     </p>
     <ul class="nav bd-sidenav">
       <li class="toctree-l1">
-          <a class="reference internal" href="../../community/meeting_schedule.html">Community calendar</a>
+          <a class="reference internal" href="../../community/meeting_schedule.html"><i class="fa-solid fa-calendar-days sidebar-link-icon" aria-hidden="true"></i>Community calendar</a>
       </li>
       <li class="toctree-l1">
-          <a class="reference external" href="https://napari.zulipchat.com/">Community chat</a>
+          <a class="reference external" href="https://napari.zulipchat.com/"><i class="fa-solid fa-comments sidebar-link-icon" aria-hidden="true"></i>Community chat</a>
       </li>
       <li class="toctree-l1">
-          <a class="reference internal" href="../../troubleshooting.html">Troubleshooting</a>
+          <a class="reference internal" href="../../troubleshooting.html"><i class="fa-solid fa-circle-question sidebar-link-icon" aria-hidden="true"></i>Troubleshooting</a>
       </li>
       <li class="toctree-l1">
-          <a class="reference internal" href="../../release/index.html">Release notes</a>
+          <a class="reference internal" href="../../release/index.html"><i class="fa-solid fa-newspaper sidebar-link-icon" aria-hidden="true"></i>Release notes</a>
       </li>
       <li class="toctree-l1">
-          <a class="reference internal" href="../../roadmaps/active_roadmap.html">Roadmap</a>
+          <a class="reference internal" href="../../roadmaps/active_roadmap.html"><i class="fa-solid fa-map sidebar-link-icon" aria-hidden="true"></i>Roadmap</a>
       </li>
       <li class="toctree-l1">
-          <a class="reference external" href="https://napari.org/island-dispatch">Blog</a>
+          <a class="reference external" href="https://napari.org/island-dispatch"><i class="fa-solid fa-rss sidebar-link-icon" aria-hidden="true"></i>Blog</a>
       </li>
       <li class="toctree-l1">
-          <a class="reference external" href="https://napari-hub.org">Discover plugins</a>
+          <a class="reference external" href="https://napari-hub.org"><i class="fa-solid fa-puzzle-piece sidebar-link-icon" aria-hidden="true"></i>Discover plugins</a>
       </li>
     </ul>
   </div>
@@ -568,9 +568,11 @@
                   
   <section class="tex2jax_ignore mathjax_ignore" id="pytest-testing-framework">
 <span id="plugin-testing-workshop-pytest"></span><h1>2: Pytest testing framework<a class="headerlink" href="#pytest-testing-framework" title="Link to this heading">#</a></h1>
-<p>This lesson explains how to use the <a class="reference external" href="https://docs.pytest.org/en/7.2.x/">pytest testing framework</a> to make testing easier.</p>
+<p>This lesson explains how to use the
+<a class="reference external" href="https://docs.pytest.org/en/7.2.x/">pytest testing framework</a> to make testing
+easier.</p>
 <section id="other-lessons-in-this-tutorial">
-<h2>Other lessons in this tutorial:<a class="headerlink" href="#other-lessons-in-this-tutorial" title="Link to this heading">#</a></h2>
+<h2>Other lessons in this tutorial<a class="headerlink" href="#other-lessons-in-this-tutorial" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p>1: <a class="reference internal" href="1-pythons-assert-keyword.html#plugin-testing-workshop-assert"><span class="std std-ref">Python’s assert keyword</span></a></p></li>
 <li><p>2: This lesson (Pytest testing framework)</p></li>
@@ -579,7 +581,7 @@
 <li><p>Resource links: <a class="reference internal" href="testing-resources.html#plugin-testing-resources"><span class="std std-ref">Testing resources</span></a></p></li>
 </ul>
 <section id="this-lesson-covers">
-<h3>This lesson covers:<a class="headerlink" href="#this-lesson-covers" title="Link to this heading">#</a></h3>
+<h3>This lesson covers<a class="headerlink" href="#this-lesson-covers" title="Link to this heading">#</a></h3>
 <ul class="simple">
 <li><p><a class="reference internal" href="#testing-framework-features">Testing framework features</a></p></li>
 <li><p><a class="reference internal" href="#parametrization">Parametrization</a></p></li>
@@ -587,22 +589,36 @@
 </section>
 <section id="resources">
 <h3>Resources<a class="headerlink" href="#resources" title="Link to this heading">#</a></h3>
-<p>The example plugin and all the tests discussed in this lesson are available in <a class="reference external" href="https://github.com/DragaDoncila/plugin-tests">this GitHub repository</a>.</p>
+<p>The example plugin and all the tests discussed in this lesson are available in
+<a class="reference external" href="https://github.com/DragaDoncila/plugin-tests">this GitHub repository</a>.</p>
 </section>
 </section>
 <section id="introduction">
 <h2>Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h2>
-<p>We are using pytest as a testing framework. It provides convenience tools to assist with testing. For example, it can discover tests for you if you point it to a directory or a file. It can be installed using <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">pytest</span></code>.</p>
+<p>We are using pytest as a testing framework. It provides convenience tools to
+assist with testing. For example, it can discover tests for you if you point it
+to a directory or a file. It can be installed using <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">pytest</span></code>.</p>
 </section>
 <section id="testing-framework-features">
 <h2>Testing framework features<a class="headerlink" href="#testing-framework-features" title="Link to this heading">#</a></h2>
 <p>Testing frameworks provide a whole host of useful features, including:</p>
 <ul class="simple">
-<li><p>Test discovery - directories can be crawled (searched) to find things that look like tests and run them</p></li>
-<li><p>Housekeeping and ease of use - convenient methods for writing tests and cleaning up after running the tests</p></li>
+<li><p>Test discovery - directories can be crawled (searched) to find things that
+look like tests and run them</p></li>
+<li><p>Housekeeping and ease of use - convenient methods for writing tests and
+cleaning up after running the tests</p></li>
 </ul>
-<p>Pytest goes through the target destination, such as a file or directory, finding any method or function prefaced with the word <code class="docutils literal notranslate"><span class="pre">test</span></code>. It runs all the methods and functions prefaced with the word <code class="docutils literal notranslate"><span class="pre">test</span></code> but <em>not</em> the code under the main block. When <code class="docutils literal notranslate"><span class="pre">pytest</span></code> runs against <code class="docutils literal notranslate"><span class="pre">example_test.py</span></code> (refer to the <a class="reference internal" href="1-pythons-assert-keyword.html#plugin-testing-workshop-assert"><span class="std std-ref">Python’s assert keyword</span></a> lesson), it finds several tests that all pass.</p>
-<p>If the tests fail, <code class="docutils literal notranslate"><span class="pre">pytest</span></code> is very good at tracing back the reason they failed and showing their values throughout test execution. In more complicated examples, this traceback mechanism can be very helpful. In this example, the message is that we got a <code class="docutils literal notranslate"><span class="pre">Pass</span></code> but were expecting a <code class="docutils literal notranslate"><span class="pre">Fail</span></code>. See the lines below that show the <code class="docutils literal notranslate"><span class="pre">assert</span></code> keyword and the errors.</p>
+<p>Pytest goes through the target destination, such as a file or directory,
+finding any method or function prefaced with the word <code class="docutils literal notranslate"><span class="pre">test</span></code>. It runs all the
+methods and functions prefaced with the word <code class="docutils literal notranslate"><span class="pre">test</span></code> but <em>not</em> the code under
+the main block. When <code class="docutils literal notranslate"><span class="pre">pytest</span></code> runs against <code class="docutils literal notranslate"><span class="pre">example_test.py</span></code> (refer to the
+<a class="reference internal" href="1-pythons-assert-keyword.html#plugin-testing-workshop-assert"><span class="std std-ref">Python’s assert keyword</span></a> lesson), it finds
+several tests that all pass.</p>
+<p>If the tests fail, <code class="docutils literal notranslate"><span class="pre">pytest</span></code> is very good at tracing back the reason they failed
+and showing their values throughout test execution. In more complicated
+examples, this traceback mechanism can be very helpful. In this example, the
+message is that we got a <code class="docutils literal notranslate"><span class="pre">Pass</span></code> but were expecting a <code class="docutils literal notranslate"><span class="pre">Fail</span></code>. See the lines
+below that show the <code class="docutils literal notranslate"><span class="pre">assert</span></code> keyword and the errors.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp gp-VirtualEnv">(napari-env)</span> <span class="gp">user@directory % </span>pytest
 
 <span class="go">example_test.py</span>
@@ -637,32 +653,42 @@
 <section id="parametrization">
 <h2>Parametrization<a class="headerlink" href="#parametrization" title="Link to this heading">#</a></h2>
 <p>Another very useful tool that pytest provides is parametrization.</p>
-<p>We’ve tested these functions with a single value. We need to be more thorough. Pytest allows us to parametrize tests. We decorate our function with <code class="docutils literal notranslate"><span class="pre">&#64;pytest.mark.parametrize</span></code> and pass the decorator a parameter name, <code class="docutils literal notranslate"><span class="pre">mark</span></code>, as a string, and a list of values for which we’d like to run the test function. Note that we pass in 50 as an edge case; it’s the lowest mark that will pass.</p>
+<p>We’ve tested these functions with a single value. We need to be more thorough.
+Pytest allows us to parametrize tests. We decorate our function with
+<code class="docutils literal notranslate"><span class="pre">&#64;pytest.mark.parametrize</span></code> and pass the decorator a parameter name, <code class="docutils literal notranslate"><span class="pre">mark</span></code>, as
+a string, and a list of values for which we’d like to run the test function.
+Note that we pass in 50 as an edge case; it’s the lowest mark that will pass.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pytest</span>
 
+
 <span class="k">def</span><span class="w"> </span><span class="nf">get_grade_from_mark</span><span class="p">(</span><span class="n">mark</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">mark</span> <span class="o">&gt;</span> <span class="mi">50</span>
-        <span class="k">return</span> <span class="s2">"Pass"</span>
+    <span class="k">if</span> <span class="n">mark</span> <span class="o">&gt;</span> <span class="mi">50</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s1">'Pass'</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="k">return</span> <span class="s2">"Fail"</span>
+        <span class="k">return</span> <span class="s1">'Fail'</span>
 
-<span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span><span class="s2">"mark"</span><span class="p">,</span> <span class="p">[</span><span class="mi">65</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="mi">50</span><span class="p">])</span>
+
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span><span class="s1">'mark'</span><span class="p">,</span> <span class="p">[</span><span class="mi">65</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="mi">50</span><span class="p">])</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">test_get_grade_pass</span><span class="p">(</span><span class="n">mark</span><span class="p">):</span>
-    <span class="n">grade</span> <span class="o">=</span> <span class="n">get_grade_from_mark</span><span class="p">(</span><span class="n">mark</span><span class="p">):</span>
-    <span class="k">assert</span> <span class="n">grade</span> <span class="o">==</span> <span class="s2">"Pass"</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"Expected </span><span class="si">{</span><span class="n">mark</span><span class="si">}</span><span class="s2"> to pass, but result was</span><span class="si">{</span><span class="n">grade</span><span class="si">}</span><span class="s2">"</span>
+    <span class="n">grade</span> <span class="o">=</span> <span class="n">get_grade_from_mark</span><span class="p">(</span><span class="n">mark</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">grade</span> <span class="o">==</span> <span class="s1">'Pass'</span><span class="p">,</span> <span class="sa">f</span><span class="s1">'Expected </span><span class="si">{</span><span class="n">mark</span><span class="si">}</span><span class="s1"> to pass, but result was</span><span class="si">{</span><span class="n">grade</span><span class="si">}</span><span class="s1">'</span>
 
-<span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span><span class="s2">"mark"</span><span class="p">,</span> <span class="p">[</span><span class="mi">40</span><span class="p">,</span> <span class="mi">25</span><span class="p">])</span>
+
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span><span class="s1">'mark'</span><span class="p">,</span> <span class="p">[</span><span class="mi">40</span><span class="p">,</span> <span class="mi">25</span><span class="p">])</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">test_get_grade_fail</span><span class="p">(</span><span class="n">mark</span><span class="p">):</span>
-    <span class="n">grade</span> <span class="o">=</span> <span class="n">get_grade_from_mark</span><span class="p">(</span><span class="n">mark</span><span class="p">):</span>
-    <span class="k">assert</span> <span class="n">grade</span> <span class="o">==</span> <span class="s2">"Fail"</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"Expected </span><span class="si">{</span><span class="n">mark</span><span class="si">}</span><span class="s2"> to fail, but result was</span><span class="si">{</span><span class="n">grade</span><span class="si">}</span><span class="s2">"</span>
+    <span class="n">grade</span> <span class="o">=</span> <span class="n">get_grade_from_mark</span><span class="p">(</span><span class="n">mark</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">grade</span> <span class="o">==</span> <span class="s1">'Fail'</span><span class="p">,</span> <span class="sa">f</span><span class="s1">'Expected </span><span class="si">{</span><span class="n">mark</span><span class="si">}</span><span class="s1"> to fail, but result was</span><span class="si">{</span><span class="n">grade</span><span class="si">}</span><span class="s1">'</span>
 
-<span class="k">if</span> <span class="n">_name_</span> <span class="o">==</span> <span class="s2">"_main_"</span><span class="p">;</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">'__main__'</span><span class="p">:</span>
     <span class="n">test_get_grade_pass</span><span class="p">(</span><span class="mi">65</span><span class="p">)</span>
     <span class="n">test_get_grade_fail</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">"All passing."</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">'All passing.'</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>We run <code class="docutils literal notranslate"><span class="pre">pytest</span></code> which finds and runs <code class="docutils literal notranslate"><span class="pre">test_get_grade_pass(mark)</span></code>. <code class="docutils literal notranslate"><span class="pre">test_get_grade_pass(mark)</span></code> fails because the code says <code class="docutils literal notranslate"><span class="pre">mark</span> <span class="pre">&gt;</span> <span class="pre">50</span></code>, so a mark of 50 still fails. The code should say <code class="docutils literal notranslate"><span class="pre">&gt;=50</span></code> for a mark to pass.</p>
+<p>We run <code class="docutils literal notranslate"><span class="pre">pytest</span></code> which finds and runs <code class="docutils literal notranslate"><span class="pre">test_get_grade_pass(mark)</span></code>.
+<code class="docutils literal notranslate"><span class="pre">test_get_grade_pass(mark)</span></code> fails because the code says <code class="docutils literal notranslate"><span class="pre">mark</span> <span class="pre">&gt;</span> <span class="pre">50</span></code>, so a mark
+of 50 still fails. The code should say <code class="docutils literal notranslate"><span class="pre">&gt;=50</span></code> for a mark to pass.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">example_func.py ..F..</span>
 <span class="go">================================= FAILURES ===============================</span>
 <span class="go">—------------------------ test_get_grade_pass[50] ------------------------</span>
@@ -681,8 +707,10 @@
 <span class="go">FAILED example_func_py::test_get_grade_pass[50] - AssertionError: Expected 50 to pass, but result was Fail</span>
 </pre></div>
 </div>
-<p>Another valuable feature of <code class="docutils literal notranslate"><span class="pre">pytest</span></code> is the <code class="docutils literal notranslate"><span class="pre">pytest-cov</span></code> option discussed in the <a class="reference internal" href="4-test-coverage.html#plugin-testing-workshop-coverage"><span class="std std-ref">Test coverage</span></a> lesson</p>
-<p>The next lesson in this tutorial on testing is the <a class="reference internal" href="3-readers-and-fixtures.html#plugin-testing-workshop-reader-fixtures"><span class="std std-ref">Readers and fixtures</span></a> lesson.</p>
+<p>Another valuable feature of <code class="docutils literal notranslate"><span class="pre">pytest</span></code> is the <code class="docutils literal notranslate"><span class="pre">pytest-cov</span></code> option discussed in
+the <a class="reference internal" href="4-test-coverage.html#plugin-testing-workshop-coverage"><span class="std std-ref">Test coverage</span></a> lesson</p>
+<p>The next lesson in this tutorial on testing is the
+<a class="reference internal" href="3-readers-and-fixtures.html#plugin-testing-workshop-reader-fixtures"><span class="std std-ref">Readers and fixtures</span></a> lesson.</p>
 </section>
 </section>
 
@@ -733,8 +761,8 @@
   </div>
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="pst-show_toc_level nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#other-lessons-in-this-tutorial">Other lessons in this tutorial:</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#this-lesson-covers">This lesson covers:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#other-lessons-in-this-tutorial">Other lessons in this tutorial</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#this-lesson-covers">This lesson covers</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#resources">Resources</a></li>
 </ul>
 </li>
@@ -1432,7 +1460,7 @@
     </div>
 
     
-      <span>9.1.0</span>
+      <span>9.1.1</span>
     
   </div>
 </div></div>

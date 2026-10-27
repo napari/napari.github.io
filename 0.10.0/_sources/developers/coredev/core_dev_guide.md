@@ -28,32 +28,34 @@ on our governance process, and the Steering Council's role.
 
 ## All contributors are treated the same
 
-As a core team member, you gain the ability to merge or approve
-other contributors' pull requests. Much like nuclear launch keys, it
-is a shared power: you must merge *only after* another core has
-approved the pull request, *and* after you yourself have carefully
-reviewed it. (See [Reviewing](#reviewing) and especially
+As a core team member, you gain the ability to merge or approve other
+contributors' pull requests. Much like nuclear launch keys, it is a shared
+power: you must merge *only after* another core has approved the pull request,
+*and* after you yourself have carefully reviewed it. (See
+[Reviewing](#reviewing) and especially
 [Merge Only Changes You Understand](#merge-only-changes-you-understand) below.)
-It should also be considered best practice to leave a reasonable (24hr) time window
-after approval before merge to ensure that other core team members have a reasonable
-chance to weigh in.
+It should also be considered best practice to leave a reasonable (24hr) time
+window after approval before merge to ensure that other core team members have
+a reasonable chance to weigh in.
 
-We are also an international community, with contributors from many different time zones,
-some of whom will only contribute during their working hours, others who might only be able
-to contribute during nights and weekends. It is important to be respectful of other peoples
-schedules and working habits, even if it slows the project down slightly - we are in this
-for the long run. In the same vein you also shouldn't feel pressured to be constantly
-available or online, and users or contributors who are overly demanding and unreasonable
-to the point of harassment will be directed to our [Code of Conduct](napari-coc).
+We are also an international community, with contributors from many different
+time zones, some of whom will only contribute during their working hours,
+others who might only be able to contribute during nights and weekends. It is
+important to be respectful of other peoples schedules and working habits, even
+if it slows the project down slightly - we are in this for the long run. In the
+same vein you also shouldn't feel pressured to be constantly available or
+online, and users or contributors who are overly demanding and unreasonable to
+the point of harassment will be directed to our [Code of Conduct](napari-coc).
 We value sustainable development practices over mad rushes.
 
 When merging, use GitHub's
 [Squash and Merge](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/incorporating-changes-from-a-pull-request/merging-a-pull-request#merging-a-pull-request)
 to ensure a clean git history.
 
-You should also continue to make your own pull requests as before and in accordance
-with the [general contributor guide](napari-contributing). These pull requests still
-require the approval of another core team member before they can be merged.
+You should also continue to make your own pull requests as before and in
+accordance with the [general contributor guide](napari-contributing). These
+pull requests still require the approval of another core team member before
+they can be merged.
 
 ## Reviewing
 
@@ -77,68 +79,78 @@ an abandoned pull request.
 
 When reviewing, focus on the following:
 
-1. **Usability and generality:** `napari` is a GUI application that strives to be accessible
-   to both coding and non-coding users, and new features should ultimately be
-   accessible to everyone using the app. `napari` targets the scientific user
-   community broadly, and core features should be domain-agnostic and general purpose.
-   Custom functionality is meant to be provided through our plugin ecosystem. If in doubt,
-   consult back with our [mission and values](mission-and-values).
+1. **Usability and generality:** `napari` is a GUI application that strives to
+   be accessible to both coding and non-coding users, and new features should
+   ultimately be accessible to everyone using the app. `napari` targets the
+   scientific user community broadly, and core features should be
+   domain-agnostic and general purpose. Custom functionality is meant to be
+   provided through our plugin ecosystem. If in doubt, consult back with our
+   [mission and values](mission-and-values).
 
-1. **Performance and benchmarks:** As `napari` targets scientific applications that often involve
-   large multidimensional datasets, high performance is a key value of `napari`. While
-   every new feature won't scale equally to all sizes of data, keeping in mind performance
-   and our [benchmarks](napari-benchmarks) during a review may be important, and you may
-   need to ask for benchmarks to be run and reported or new benchmarks to be added.
+1. **Performance and benchmarks:** As `napari` targets scientific applications
+   that often involve large multidimensional datasets, high performance is a
+   key value of `napari`. While every new feature won't scale equally to all
+   sizes of data, keeping in mind performance and our
+   [benchmarks](napari-benchmarks) during a review may be important, and you
+   may need to ask for benchmarks to be run and reported or new benchmarks to
+   be added.
 
 1. **APIs and stability:** Coding users and plugin developers will make
-   extensive use of our APIs. The foundation of a healthy plugin ecosystem will be
-   a fully capable and stable set of APIs, so as `napari` matures it will
-   very important to ensure our APIs are stable. For now, while the project is still
-   in an earlier stage, spending the extra time to consider names of public facing
-   variables and methods, along side function signatures, could save us considerable
-   trouble in the future. Right now we are still making breaking changes with minor
-   version numbers `0.x` and do not have a deprecation policy, but we will work to add one soon.
+   extensive use of our APIs. The foundation of a healthy plugin ecosystem will
+   be a fully capable and stable set of APIs, so as `napari` matures it will
+   very important to ensure our APIs are stable. For now, while the project is
+   still in an earlier stage, spending the extra time to consider names of
+   public facing variables and methods, along side function signatures, could
+   save us considerable trouble in the future. Right now we are still making
+   breaking changes with minor version numbers `0.x` and do not have a
+   deprecation policy, but we will work to add one soon.
 
 1. **Documentation and tutorials:** All new methods should have appropriate doc
    strings following [PEP257](https://peps.python.org/pep-0257/) and the
    [NumPy documentation guide](https://numpy.org/devdocs/dev/howto-docs.html#documentation-style).
    For API changes, make sure to check that a `.. versionadded::` or
-   `.. versionchanged::` directive has been added to the appropriate docstring. For
-   any major new features, accompanying changes should be made to our
-   [tutorials](tutorials). These should not only illustrate the new feature, but
-   explain it. Titles for all documents in napari should follow
+   `.. versionchanged::` directive has been added to the appropriate docstring.
+   For any major new features, accompanying changes should be made to our
+   [tutorials](tutorials). These should not only illustrate the new feature,
+   but explain it. Titles for all documents in napari should follow
    [sentence case capitalization](https://apastyle.apa.org/style-grammar-guidelines/capitalization/sentence-case),
    but the name `napari` should always be written in lowercase.
 
-1. **Implementations and algorithms:** You should understand the code being modified
-   or added before approving it. (See [Merge Only Changes You Understand](#merge-only-changes-you-understand)
-   below.) Implementations should do what they claim and be simple, readable, and efficient
-   in that order.
+1. **Implementations and algorithms:** You should understand the code being
+   modified or added before approving it. (See
+   [Merge Only Changes You Understand](#merge-only-changes-you-understand)
+   below.) Implementations should do what they claim and be simple, readable,
+   and efficient in that order.
 
 1. **Tests:** All contributions *must* be tested, and each added line of code
-   should be covered by at least one test. Good tests not only execute the code,
-   but explore corner cases. It can be tempting not to review tests, but please
-   do so.
+   should be covered by at least one test. Good tests not only execute the
+   code, but explore corner cases. It can be tempting not to review tests, but
+   please do so.
 
 1. **Labels and Milestones:** Make sure you add the appropriate labels and
    milestone to PRs before merging. This should be done both in the main napari
    repo and in the docs repo. Both repos have a CI check, triggered by the
-   `ready_to_merge` label, which will fail if the milestone is not set in the PR.
+   `ready_to_merge` label, which will fail if the milestone is not set in the
+   PR.
 
-Other changes may be *nitpicky*: spelling mistakes, formatting,
-etc. Do not insist contributors make these changes, but instead you should offer
-to make these changes by [pushing to their branch](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/committing-changes-to-a-pull-request-branch-created-from-a-fork), or using GitHub’s [suggestion](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/reviewing-changes-in-pull-requests/commenting-on-a-pull-request)
-[feature](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/reviewing-changes-in-pull-requests/incorporating-feedback-in-your-pull-request), and
-be prepared to make them yourself if needed. Using the suggestion feature is preferred because
-it gives the contributor a choice in whether to accept the changes.
+Other changes may be *nitpicky*: spelling mistakes, formatting, etc. Do not
+insist contributors make these changes, but instead you should offer to make
+these changes by
+[pushing to their branch](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/committing-changes-to-a-pull-request-branch-created-from-a-fork),
+or using GitHub’s
+[suggestion](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/reviewing-changes-in-pull-requests/commenting-on-a-pull-request)
+[feature](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/reviewing-changes-in-pull-requests/incorporating-feedback-in-your-pull-request),
+and be prepared to make them yourself if needed. Using the suggestion feature
+is preferred because it gives the contributor a choice in whether to accept the
+changes.
 
-Unless you know that a contributor is experienced with git, don’t
-ask for a rebase when merge conflicts arise. Instead, rebase the
-branch yourself, force-push to their branch, and advise the contributor to force-pull. If the contributor is
-no longer active, you may take over their branch by submitting a new pull
-request and closing the original, including a reference to the original pull
-request. In doing so, ensure you communicate that you are not throwing the
-contributor's work away!
+Unless you know that a contributor is experienced with git, don’t ask for a
+rebase when merge conflicts arise. Instead, rebase the branch yourself,
+force-push to their branch, and advise the contributor to force-pull. If the
+contributor is no longer active, you may take over their branch by submitting a
+new pull request and closing the original, including a reference to the
+original pull request. In doing so, ensure you communicate that you are not
+throwing the contributor's work away!
 
 ### Merge only changes you understand
 
@@ -157,8 +169,8 @@ that responsibility seriously.
 
 ## Release responsibilities
 
-`napari` ships on a monthly cadence; see the [release policy](napari-release) for the
-full process. As a core team member, you are expected to:
+`napari` ships on a monthly cadence; see the [release policy](napari-release)
+for the full process. As a core team member, you are expected to:
 
 - **Own the milestones you set.** The person who adds a milestone to a pull
   request is responsible for driving it to a mergeable state, either by working
@@ -166,8 +178,8 @@ full process. As a core team member, you are expected to:
   their own PRs or if the original author is unresponsive or unable to continue
   working on the PR.
 - **Communicate with the release manager.** If you own open milestoned PRs you
-  must regularly communicate their status to the release manager after the first
-  alpha has been released, and work with them to get the PR merged.
+  must regularly communicate their status to the release manager after the
+  first alpha has been released, and work with them to get the PR merged.
 - **Justify highlights.** If you add the `highlight` label to a pull request,
   provide the motivation plus a draft highlight note and any required images or
   videos, so the release manager does not have to re-review already-merged PRs.
@@ -177,10 +189,10 @@ full process. As a core team member, you are expected to:
   later — it should not be a reason to delay a release.
 - **Be aware of your PR's dependencies.** Sometimes your PR requires auxiliary
   changes in other repos, e.g. napari-plugin-manager, napari-metadata, etc.,
-  before napari can be released. Make a conscious effort when close to release to
-  identify such dependencies and communicate them on the PR, and explicitly to
-  the release manager. Account for these in your estimates of how long it will
-  take to get the PR/feature fully ready for release.
+  before napari can be released. Make a conscious effort when close to release
+  to identify such dependencies and communicate them on the PR, and explicitly
+  to the release manager. Account for these in your estimates of how long it
+  will take to get the PR/feature fully ready for release.
 
 ## Documentation and website
 
@@ -220,14 +232,15 @@ As a core member, you should be familiar with the following napari guides:
 ### Social resources
 
 - [#napari on image.sc](https://forum.image.sc/tag/napari).
-- [#napari](https://fosstodon.org/tags/napari) and [@napari@fosstodon.org](https://fosstodon.org/@napari) on mastodon.
+- [#napari](https://fosstodon.org/tags/napari) and
+  [@napari@fosstodon.org](https://fosstodon.org/@napari) on mastodon.
 - [napari zulip](https://napari.zulipchat.com/) community chat channel.
 
 You are not required to monitor the social resources.
 
-Where possible we prefer to point people towards asynchronous forms of communication
-like forum posts and github issues instead of realtime chat options as they are easier
-for a global community to consume.
+Where possible we prefer to point people towards asynchronous forms of
+communication like forum posts and github issues instead of realtime chat
+options as they are easier for a global community to consume.
 
 We also have a private mailing list for core team members
 `napari-core-devs@googlegroups.com` which is sparingly used for discussions
@@ -235,23 +248,22 @@ that are required to be private, such as voting on new core members.
 
 ## Inviting new core members
 
-Any core member may nominate other contributors to join the core team.
-While there is no hard-and-fast rule about who can be nominated, ideally,
-they should have: been part of the project for at least two months, contributed
-significant changes of their own, contributed to the discussion and
-review of others' work, and collaborated in a way befitting our
-community values. Beyond the number of contributions, we value the *depth* of a
-nominee's interaction with the project — whether that is depth of usage (e.g.
-as a researcher or user), depth of contribution, or depth of understanding of
-maintenance. After nomination voting will happen on a private mailing list.
-While it is expected that most votes will be unanimous, a two-thirds majority of
-the cast votes is enough.
+Any core member may nominate other contributors to join the core team. While
+there is no hard-and-fast rule about who can be nominated, ideally, they should
+have: been part of the project for at least two months, contributed significant
+changes of their own, contributed to the discussion and review of others' work,
+and collaborated in a way befitting our community values. Beyond the number of
+contributions, we value the *depth* of a nominee's interaction with the project
+— whether that is depth of usage (e.g. as a researcher or user), depth of
+contribution, or depth of understanding of maintenance. After nomination voting
+will happen on a private mailing list. While it is expected that most votes
+will be unanimous, a two-thirds majority of the cast votes is enough.
 
 Core team members can choose to become emeritus core team members and suspend
 their approval and voting rights until they become active again. Emeritus core
-team members can request **or** be invited to become active core team members at
-a later date, and active core team members will vote on this status-change as
-above. Core team members must reaffirm their membership every January. Core
+team members can request **or** be invited to become active core team members
+at a later date, and active core team members will vote on this status-change
+as above. Core team members must reaffirm their membership every January. Core
 team members who do not reaffirm their membership will automatically become
 emeritus.
 

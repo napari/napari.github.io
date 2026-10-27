@@ -4,10 +4,10 @@
 
 Units in napari describe the physical meaning of each layer axis. They work
 alongside layer transforms such as `scale` and `translate`, combining into a
-spatial transformation with dimensions that carry physical meaning.
-All layers of napari contain these transforms and `units` metadata, and they work
-together to determine how the layer is rendered and how it interacts with
-other unit-aware features, such as the scale bar.
+spatial transformation with dimensions that carry physical meaning. All layers
+of napari contain these transforms and `units` metadata, and they work together
+to determine how the layer is rendered and how it interacts with other
+unit-aware features, such as the scale bar.
 
 For interactive editing, the
 [napari-metadata](https://napari.org/napari-metadata/) plugin can expose
@@ -15,8 +15,8 @@ layer scale and units in a dock widget.
 
 ## Scale and units live on layers
 
-Scale and units are layer metadata. You can provide them when creating a layer or update
-them later from Python:
+Scale and units are layer metadata. You can provide them when creating a layer
+or update them later from Python:
 
 ```python
 import numpy as np
@@ -29,33 +29,36 @@ layer = viewer.add_image(
     units=('s', 'um', 'um'),
 )
 
-layer.units = ('usec','nm', 'nm')  # update units later
+layer.units = ('usec', 'nm', 'nm')  # update units later
 ```
 
-In this example, each pixel of the image layer is spaced by `0.25` micrometers along both axes.
-The scale is used to transform each layer from its data coordinates into rendered world coordinates,
-so both vector-based layers (points, shapes, vectors, tracks) and raster-based layers (images, labels)
-are affected by scale and units. 
+In this example, each pixel of the image layer is spaced by `0.25` micrometers
+along both axes. The scale is used to transform each layer from its data
+coordinates into rendered world coordinates, so both vector-based layers
+(points, shapes, vectors, tracks) and raster-based layers (images, labels) are
+affected by scale and units.
 
-Units can be any valid [Pint](https://pint.readthedocs.io/en/stable/) unit,
-of which [there are a plethora](https://github.com/hgrecco/pint/blob/master/pint/default_en.txt)
-to serve many different disciplines.
-Pint also has logic to disambiguate unit names, for example,
-`'micrometer'`, `'um'`, and `'µm'` are all valid and will equate to `'µm'` in napari.
+Units can be any valid [Pint](https://pint.readthedocs.io/en/stable/) unit, of
+which
+[there are a plethora](https://github.com/hgrecco/pint/blob/master/pint/default_en.txt)
+to serve many different disciplines. Pint also has logic to disambiguate unit
+names, for example, `'micrometer'`, `'um'`, and `'µm'` are all valid and will
+equate to `'µm'` in napari.
 
 If you do not set units, napari assumes pixels.
 To set *no* units, use `layer.units = ('dimensionless',...)`.
 
 ## Inheriting scale and units from xarray
 
-If you pass an [Xarray](https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html)
+If you pass an
+[Xarray](https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html)
 `DataArray` to napari, it automatically inherits metadata from it: dimension
 names become the layer's axis labels, coordinate values are used for `scale`
 and `translate`, and CF-convention `units` attributes on coordinates (validated
 with [pint](https://pint.readthedocs.io/)) become the layer units. Even
 `datetime64` coordinates are converted to a sensible time unit. See the
-[xarray example](sphx_glr_gallery_xarray-latlon-timeseries.py) for a
-full demonstration.
+[xarray example](sphx_glr_gallery_xarray-latlon-timeseries.py) for a full
+demonstration.
 
 ## When units are consistent across layers
 
@@ -70,15 +73,15 @@ but napari still aligns them in the same world coordinate system.
 ## How the scale bar gets its units
 
 The scale bar is a viewer overlay, but its label is tied to the same world
-coordinates used to render the scene.
-If units are consistent across layers, the scale bar will automatically display
-the correct units and length to scale. If you do not provide units, napari falls
-back to pixels.
+coordinates used to render the scene. If units are consistent across layers,
+the scale bar will automatically display the correct units and length to scale.
+If you do not provide units, napari falls back to pixels.
 
 If napari cannot infer a consistent layer-list unit, the scale bar becomes
 dimensionless. There is also one important special case: the scale bar label
 corresponds to the last displayed axis. If the displayed axes do not all have
-the same dimensionality, napari will warn that only the last displayed axis unit is being used.
+the same dimensionality, napari will warn that only the last displayed axis
+unit is being used.
 
 The gallery example {ref}`sphx_glr_gallery_scale_bar.py` focuses on scale bar
 appearance and layout. The gallery example

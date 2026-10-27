@@ -49,7 +49,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=d2b87285" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=9f79b9c3" />
   
   <!-- So that users can add custom icons -->
   <script defer src="../../_static/scripts/fontawesome.js?digest=18bd87630a240e9c25be"></script>
@@ -57,7 +57,7 @@
   <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=18bd87630a240e9c25be" />
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=18bd87630a240e9c25be" />
 
-    <script src="../../_static/documentation_options.js?v=be7f2f34"></script>
+    <script src="../../_static/documentation_options.js?v=4fe9927d"></script>
     <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -69,7 +69,7 @@
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.23.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.10.0a0';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.10.0rc1';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
@@ -451,9 +451,7 @@
 <li class="toctree-l2"><a class="reference internal" href="dir_organization.html">napari directory organization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="napari_models.html">napari models and events</a></li>
 <li class="toctree-l2"><a class="reference internal" href="app_model.html">napari’s application model</a></li>
-
 <li class="toctree-l2"><a class="reference internal" href="magicgui_type_reg.html"><code class="docutils literal notranslate"><span class="pre">magicgui</span></code> type registration</a></li>
-
 <li class="toctree-l2 has-children"><a class="reference internal" href="ui_sections/index.html">UI sections</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="ui_sections/application_menus_ui.html">Application menus</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ui_sections/application_status_bar_ui.html">Application status bar</a></li>
@@ -488,7 +486,6 @@
 <li class="toctree-l2"><a class="reference internal" href="../../naps/8-telemetry.html">NAP-8 — Telemetry</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../naps/9-multiple-canvases.html">NAP-9 — Multiple Views</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../naps/10-migration-event-system.html">NAP-10 — Migration of the event system</a></li>
-
 <li class="toctree-l2"><a class="reference internal" href="../../naps/template.html">NAP-X — Template and Instructions</a></li>
 </ul>
 </details></li>
@@ -505,25 +502,25 @@
     </p>
     <ul class="nav bd-sidenav">
       <li class="toctree-l1">
-          <a class="reference internal" href="../../community/meeting_schedule.html">Community calendar</a>
+          <a class="reference internal" href="../../community/meeting_schedule.html"><i class="fa-solid fa-calendar-days sidebar-link-icon" aria-hidden="true"></i>Community calendar</a>
       </li>
       <li class="toctree-l1">
-          <a class="reference external" href="https://napari.zulipchat.com/">Community chat</a>
+          <a class="reference external" href="https://napari.zulipchat.com/"><i class="fa-solid fa-comments sidebar-link-icon" aria-hidden="true"></i>Community chat</a>
       </li>
       <li class="toctree-l1">
-          <a class="reference internal" href="../../troubleshooting.html">Troubleshooting</a>
+          <a class="reference internal" href="../../troubleshooting.html"><i class="fa-solid fa-circle-question sidebar-link-icon" aria-hidden="true"></i>Troubleshooting</a>
       </li>
       <li class="toctree-l1">
-          <a class="reference internal" href="../../release/index.html">Release notes</a>
+          <a class="reference internal" href="../../release/index.html"><i class="fa-solid fa-newspaper sidebar-link-icon" aria-hidden="true"></i>Release notes</a>
       </li>
       <li class="toctree-l1">
-          <a class="reference internal" href="../../roadmaps/active_roadmap.html">Roadmap</a>
+          <a class="reference internal" href="../../roadmaps/active_roadmap.html"><i class="fa-solid fa-map sidebar-link-icon" aria-hidden="true"></i>Roadmap</a>
       </li>
       <li class="toctree-l1">
-          <a class="reference external" href="https://napari.org/island-dispatch">Blog</a>
+          <a class="reference external" href="https://napari.org/island-dispatch"><i class="fa-solid fa-rss sidebar-link-icon" aria-hidden="true"></i>Blog</a>
       </li>
       <li class="toctree-l1">
-          <a class="reference external" href="https://napari-hub.org">Discover plugins</a>
+          <a class="reference external" href="https://napari-hub.org"><i class="fa-solid fa-puzzle-piece sidebar-link-icon" aria-hidden="true"></i>Discover plugins</a>
       </li>
     </ul>
   </div>
@@ -587,20 +584,21 @@
                   
   <section class="tex2jax_ignore mathjax_ignore" id="napari-architecture-guide">
 <span id="architecture-index"></span><h1>napari architecture guide<a class="headerlink" href="#napari-architecture-guide" title="Link to this heading">#</a></h1>
-<p>These pages provide a guide to the napari software architecture
-and is aimed at contributors who would like a better understanding of the napari
-code base. For advanced napari usage documentation, see <a class="reference internal" href="../../guides/index.html#explanations"><span class="std std-ref">In-depth explanations</span></a>.</p>
+<p>These pages provide a guide to the napari software architecture and is aimed at
+contributors who would like a better understanding of the napari code base. For
+advanced napari usage documentation, see <a class="reference internal" href="../../guides/index.html#explanations"><span class="std std-ref">In-depth explanations</span></a>.</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="dir_organization.html#napari-directory-organization"><span class="std std-ref">napari directory organization</span></a>: Guide to the napari directory organization.</p></li>
-<li><p><a class="reference internal" href="ui_sections/index.html#ui-sections"><span class="std std-ref">UI sections</span></a>: Explains how napari GUI sections map to the napari source code
-directory organization.</p></li>
+<li><p><a class="reference internal" href="dir_organization.html#napari-directory-organization"><span class="std std-ref">napari directory organization</span></a>: Guide to the napari directory
+organization.</p></li>
+<li><p><a class="reference internal" href="ui_sections/index.html#ui-sections"><span class="std std-ref">UI sections</span></a>: Explains how napari GUI sections map to the napari source
+code directory organization.</p></li>
 <li><p><a class="reference internal" href="napari_models.html#napari-model-event"><span class="std std-ref">napari models and events</span></a>: Explains napari python models and how they are
 connected to Qt classes and Vispy classes.</p></li>
-<li><p><a class="reference internal" href="app_model.html#app-model"><span class="std std-ref">napari’s application model</span></a>: Explains the napari application model, a declarative schema for
-keeping track of commands, menus and keybindings of the napari GUI.</p></li>
-<li><p><a class="reference internal" href="magicgui_type_reg.html#magicgui-type-registration"><span class="std std-ref">magicgui type registration</span></a>: Explains how <code class="docutils literal notranslate"><span class="pre">magicgui</span></code> widgets declared by users
-or plugins are automatically created, inputs updated and outputs added to the
-<code class="docutils literal notranslate"><span class="pre">Viewer</span></code> for registered <code class="docutils literal notranslate"><span class="pre">napari</span></code> types.</p></li>
+<li><p><a class="reference internal" href="app_model.html#app-model"><span class="std std-ref">napari’s application model</span></a>: Explains the napari application model, a declarative schema
+for keeping track of commands, menus and keybindings of the napari GUI.</p></li>
+<li><p><a class="reference internal" href="magicgui_type_reg.html#magicgui-type-registration"><span class="std std-ref">magicgui type registration</span></a>: Explains how <code class="docutils literal notranslate"><span class="pre">magicgui</span></code> widgets declared by
+users or plugins are automatically created, inputs updated and outputs added
+to the <code class="docutils literal notranslate"><span class="pre">Viewer</span></code> for registered <code class="docutils literal notranslate"><span class="pre">napari</span></code> types.</p></li>
 </ul>
 <div class="toctree-wrapper compound">
 </div>
@@ -1333,7 +1331,7 @@ or plugins are automatically created, inputs updated and outputs added to the
     </div>
 
     
-      <span>9.1.0</span>
+      <span>9.1.1</span>
     
   </div>
 </div></div>

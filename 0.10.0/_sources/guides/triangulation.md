@@ -28,9 +28,7 @@ slow, and that it could not account for complicated shapes like polygons with
 holes in them.
 
 ```{code-cell} python
----
-tags: [hide-input, remove-stdout, remove-stderr]
----
+:tags: [hide-input, remove-stdout, remove-stderr]
 import numpy as np
 import matplotlib.pyplot as plt
 from vispy.geometry.triangulation import Triangulation
@@ -136,9 +134,9 @@ So how do you take advantage of these speedups?
    or [bermuda](https://pypi.org/project/bermuda/).
 1. Open napari's settings panel, then click on Experimental on the left hand
    navigation, and look for Triangulation backend.
-1. Select "Fastest available" and napari will use the fastest installed
+2. Select "Fastest available" and napari will use the fastest installed
    backend. Otherwise, select a specific backend. napari will fall back on the
    Pure Python implementation if the backend is not installed. You might want
    to try different backends if a specific one is having issues with your
    data. If you do encounter issues, please let us know at
-   https://github.com/napari/napari/issues.
+   <https://github.com/napari/napari/issues>.

@@ -12,10 +12,10 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://napari.org/stable/plugins/virtual_environment_docs/3-version-management.html" />
 <meta property="og:site_name" content="napari" />
-<meta property="og:description" content="This guide covers the methods of updating your version string everywhere. This guide covers:: Using git tags, Using a local script to edit files, Manually. Your goal is to make sure that you bump your version string everywhere it may appear, in unison, prior to publishing your package. A version ..." />
+<meta property="og:description" content="This guide covers the methods of updating your version string everywhere. This guide covers: Using git tags, Using a local script to edit files, Manually. Your goal is to make sure that you bump your version string everywhere it may appear, in unison, prior to publishing your package. A version n..." />
 <meta property="og:image" content="https://napari.org/dev/_static/opengraph_image.png" />
 <meta property="og:image:alt" content="3D segmented tribolium embryo in the napari viewer" />
-<meta name="description" content="This guide covers the methods of updating your version string everywhere. This guide covers:: Using git tags, Using a local script to edit files, Manually. Your goal is to make sure that you bump your version string everywhere it may appear, in unison, prior to publishing your package. A version ..." />
+<meta name="description" content="This guide covers the methods of updating your version string everywhere. This guide covers: Using git tags, Using a local script to edit files, Manually. Your goal is to make sure that you bump your version string everywhere it may appear, in unison, prior to publishing your package. A version n..." />
 <meta name="twitter:card" content="summary_large_image" />
 
     <title>Version management &#8212; napari</title>
@@ -49,7 +49,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=d2b87285" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=9f79b9c3" />
   
   <!-- So that users can add custom icons -->
   <script defer src="../../_static/scripts/fontawesome.js?digest=18bd87630a240e9c25be"></script>
@@ -57,7 +57,7 @@
   <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=18bd87630a240e9c25be" />
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=18bd87630a240e9c25be" />
 
-    <script src="../../_static/documentation_options.js?v=be7f2f34"></script>
+    <script src="../../_static/documentation_options.js?v=4fe9927d"></script>
     <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -69,7 +69,7 @@
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.23.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.10.0a0';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.10.0rc1';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
@@ -480,25 +480,25 @@
     </p>
     <ul class="nav bd-sidenav">
       <li class="toctree-l1">
-          <a class="reference internal" href="../../community/meeting_schedule.html">Community calendar</a>
+          <a class="reference internal" href="../../community/meeting_schedule.html"><i class="fa-solid fa-calendar-days sidebar-link-icon" aria-hidden="true"></i>Community calendar</a>
       </li>
       <li class="toctree-l1">
-          <a class="reference external" href="https://napari.zulipchat.com/">Community chat</a>
+          <a class="reference external" href="https://napari.zulipchat.com/"><i class="fa-solid fa-comments sidebar-link-icon" aria-hidden="true"></i>Community chat</a>
       </li>
       <li class="toctree-l1">
-          <a class="reference internal" href="../../troubleshooting.html">Troubleshooting</a>
+          <a class="reference internal" href="../../troubleshooting.html"><i class="fa-solid fa-circle-question sidebar-link-icon" aria-hidden="true"></i>Troubleshooting</a>
       </li>
       <li class="toctree-l1">
-          <a class="reference internal" href="../../release/index.html">Release notes</a>
+          <a class="reference internal" href="../../release/index.html"><i class="fa-solid fa-newspaper sidebar-link-icon" aria-hidden="true"></i>Release notes</a>
       </li>
       <li class="toctree-l1">
-          <a class="reference internal" href="../../roadmaps/active_roadmap.html">Roadmap</a>
+          <a class="reference internal" href="../../roadmaps/active_roadmap.html"><i class="fa-solid fa-map sidebar-link-icon" aria-hidden="true"></i>Roadmap</a>
       </li>
       <li class="toctree-l1">
-          <a class="reference external" href="https://napari.org/island-dispatch">Blog</a>
+          <a class="reference external" href="https://napari.org/island-dispatch"><i class="fa-solid fa-rss sidebar-link-icon" aria-hidden="true"></i>Blog</a>
       </li>
       <li class="toctree-l1">
-          <a class="reference external" href="https://napari-hub.org">Discover plugins</a>
+          <a class="reference external" href="https://napari-hub.org"><i class="fa-solid fa-puzzle-piece sidebar-link-icon" aria-hidden="true"></i>Discover plugins</a>
       </li>
     </ul>
   </div>
@@ -570,47 +570,60 @@
 <h1>Version management<a class="headerlink" href="#version-management" title="Link to this heading">#</a></h1>
 <p>This guide covers the methods of updating your version string everywhere.</p>
 <section id="this-guide-covers">
-<h2>This guide covers:<a class="headerlink" href="#this-guide-covers" title="Link to this heading">#</a></h2>
+<h2>This guide covers<a class="headerlink" href="#this-guide-covers" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p><a class="reference internal" href="#using-git-tags">Using git tags</a></p></li>
 <li><p><a class="reference internal" href="#using-a-local-script-to-edit-files">Using a local script to edit files</a></p></li>
 <li><p><a class="reference internal" href="#manually">Manually</a></p></li>
 </ul>
-<p>Your goal is to make sure that you bump your version string everywhere it may appear, in unison, prior to publishing your package. A version number can be in <code class="docutils literal notranslate"><span class="pre">init.py</span></code>, <code class="docutils literal notranslate"><span class="pre">setup.cfg</span></code>, etc.</p>
-<p>In increasing order of work, but decreasing order of magic, the methods of bumping your version string are listed below.</p>
+<p>Your goal is to make sure that you bump your version string everywhere it may
+appear, in unison, prior to publishing your package. A version number can be in
+<code class="docutils literal notranslate"><span class="pre">init.py</span></code>, <code class="docutils literal notranslate"><span class="pre">setup.cfg</span></code>, etc.</p>
+<p>In increasing order of work, but decreasing order of magic, the methods of
+bumping your version string are listed below.</p>
 </section>
 <section id="using-git-tags">
-<h2>Using git tags:<a class="headerlink" href="#using-git-tags" title="Link to this heading">#</a></h2>
-<p>You can use <a class="reference external" href="https://github.com/pypa/setuptools_scm">setuptools_scm</a> to automatically generate version numbers for your package based on tagged commits.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>configure<span class="w"> </span><span class="k">in</span><span class="w"> </span>pyproject.toml,<span class="w"> </span><span class="k">then</span>…
-<span class="gp">$ </span>git<span class="w"> </span>tag<span class="w"> </span>-a<span class="w"> </span>v0.1.0<span class="w"> </span>-m<span class="w"> </span>v0.1.0
+<h2>Using git tags<a class="headerlink" href="#using-git-tags" title="Link to this heading">#</a></h2>
+<p>You can use <a class="reference external" href="https://github.com/pypa/setuptools_scm">setuptools_scm</a> to
+automatically generate version numbers for your package based on tagged
+commits.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># configure in pyproject.toml, then…</span>
+git<span class="w"> </span>tag<span class="w"> </span>-a<span class="w"> </span>v0.1.0<span class="w"> </span>-m<span class="w"> </span>v0.1.0
 </pre></div>
 </div>
-<p>The next time you run <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">build</span></code>, either locally or in GitHub actions, your package version will be based on the latest git tag.</p>
+<p>The next time you run <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">build</span></code>, either locally or in GitHub actions,
+your package version will be based on the latest git tag.</p>
 </section>
 <section id="using-a-local-script-to-edit-files">
-<h2>Using a local script to edit files:<a class="headerlink" href="#using-a-local-script-to-edit-files" title="Link to this heading">#</a></h2>
-<p>One tool for doing this is <a class="reference external" href="https://github.com/c4urself/bump2version">bump2version</a>. For example:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">   $ </span>pip<span class="w"> </span>install<span class="w"> </span>bump2version
-<span class="gp">   # </span>configure<span class="w"> </span>all<span class="w"> </span>the<span class="w"> </span>places<span class="w"> </span>you<span class="w"> </span>use<span class="w"> </span>your<span class="w"> </span>version,<span class="w"> </span><span class="k">then</span>,<span class="w"> </span>to<span class="w"> </span>update:
-<span class="gp">   $ </span>bump2version<span class="w"> </span>--current-version<span class="w"> </span><span class="m">0</span>.5.1<span class="w"> </span>minor
+<h2>Using a local script to edit files<a class="headerlink" href="#using-a-local-script-to-edit-files" title="Link to this heading">#</a></h2>
+<p>One tool for doing this is
+<a class="reference external" href="https://github.com/c4urself/bump2version">bump2version</a>. For example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>pip<span class="w"> </span>install<span class="w"> </span>bump2version
+<span class="w">   </span><span class="c1"># configure all the places you use your version, then, to update:</span>
+<span class="w">   </span>bump2version<span class="w"> </span>--current-version<span class="w"> </span><span class="m">0</span>.5.1<span class="w"> </span>minor
 </pre></div>
 </div>
 </section>
 <section id="manually">
 <h2>Manually<a class="headerlink" href="#manually" title="Link to this heading">#</a></h2>
-<p>Updating the version number manually involves going through everywhere your version is declared and changing the version number before building your distribution. This is <em><strong>not</strong></em> recommended, you <em>will</em> eventually make mistakes and have mismatched version/metadata somewhere. In some cases this will lead to your build process failing, but it can fail silently too.</p>
+<p>Updating the version number manually involves going through everywhere your
+version is declared and changing the version number before building your
+distribution. This is <em><strong>not</strong></em> recommended, you <em>will</em> eventually make
+mistakes and have mismatched version/metadata somewhere. In some cases this
+will lead to your build process failing, but it can fail silently too.</p>
 </section>
 <section id="tips">
-<h2>Tips:<a class="headerlink" href="#tips" title="Link to this heading">#</a></h2>
+<h2>Tips<a class="headerlink" href="#tips" title="Link to this heading">#</a></h2>
 <ul class="simple">
-<li><p>The “best” versioning and deployment workflow is the one you will actually use!</p></li>
-<li><p>Get comfortable with at least one workflow for versioning and deploying your package <em>otherwise, you won’t do it.</em></p></li>
+<li><p>The “best” versioning and deployment workflow is the one you will actually
+use!</p></li>
+<li><p>Get comfortable with at least one workflow for versioning and deploying your
+package <em>otherwise, you won’t do it.</em></p></li>
 </ul>
 <p>The next topic in this series is <a class="reference internal" href="4-developer-tools.html"><span class="std std-doc">Developer tools</span></a>.</p>
 </section>
 <section id="other-topics-in-this-series">
-<h2>Other topics in this series:<a class="headerlink" href="#other-topics-in-this-series" title="Link to this heading">#</a></h2>
+<h2>Other topics in this series<a class="headerlink" href="#other-topics-in-this-series" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p><a class="reference internal" href="1-virtual-environments.html"><span class="doc std std-doc">Virtual environments</span></a></p></li>
 <li><p><a class="reference internal" href="2-deploying-your-plugin.html"><span class="std std-doc">Deploying your plugin</span></a></p></li>
@@ -667,12 +680,12 @@
   </div>
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="pst-show_toc_level nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#this-guide-covers">This guide covers:</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-git-tags">Using git tags:</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-a-local-script-to-edit-files">Using a local script to edit files:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#this-guide-covers">This guide covers</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-git-tags">Using git tags</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-a-local-script-to-edit-files">Using a local script to edit files</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#manually">Manually</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tips">Tips:</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#other-topics-in-this-series">Other topics in this series:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tips">Tips</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#other-topics-in-this-series">Other topics in this series</a></li>
 </ul>
   </nav></div>
 
@@ -1364,7 +1377,7 @@
     </div>
 
     
-      <span>9.1.0</span>
+      <span>9.1.1</span>
     
   </div>
 </div></div>

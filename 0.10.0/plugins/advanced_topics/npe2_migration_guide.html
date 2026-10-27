@@ -49,7 +49,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=d2b87285" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=9f79b9c3" />
   
   <!-- So that users can add custom icons -->
   <script defer src="../../_static/scripts/fontawesome.js?digest=18bd87630a240e9c25be"></script>
@@ -57,7 +57,7 @@
   <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=18bd87630a240e9c25be" />
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=18bd87630a240e9c25be" />
 
-    <script src="../../_static/documentation_options.js?v=be7f2f34"></script>
+    <script src="../../_static/documentation_options.js?v=4fe9927d"></script>
     <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -69,7 +69,7 @@
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.23.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.10.0a0';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.10.0rc1';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
@@ -480,25 +480,25 @@
     </p>
     <ul class="nav bd-sidenav">
       <li class="toctree-l1">
-          <a class="reference internal" href="../../community/meeting_schedule.html">Community calendar</a>
+          <a class="reference internal" href="../../community/meeting_schedule.html"><i class="fa-solid fa-calendar-days sidebar-link-icon" aria-hidden="true"></i>Community calendar</a>
       </li>
       <li class="toctree-l1">
-          <a class="reference external" href="https://napari.zulipchat.com/">Community chat</a>
+          <a class="reference external" href="https://napari.zulipchat.com/"><i class="fa-solid fa-comments sidebar-link-icon" aria-hidden="true"></i>Community chat</a>
       </li>
       <li class="toctree-l1">
-          <a class="reference internal" href="../../troubleshooting.html">Troubleshooting</a>
+          <a class="reference internal" href="../../troubleshooting.html"><i class="fa-solid fa-circle-question sidebar-link-icon" aria-hidden="true"></i>Troubleshooting</a>
       </li>
       <li class="toctree-l1">
-          <a class="reference internal" href="../../release/index.html">Release notes</a>
+          <a class="reference internal" href="../../release/index.html"><i class="fa-solid fa-newspaper sidebar-link-icon" aria-hidden="true"></i>Release notes</a>
       </li>
       <li class="toctree-l1">
-          <a class="reference internal" href="../../roadmaps/active_roadmap.html">Roadmap</a>
+          <a class="reference internal" href="../../roadmaps/active_roadmap.html"><i class="fa-solid fa-map sidebar-link-icon" aria-hidden="true"></i>Roadmap</a>
       </li>
       <li class="toctree-l1">
-          <a class="reference external" href="https://napari.org/island-dispatch">Blog</a>
+          <a class="reference external" href="https://napari.org/island-dispatch"><i class="fa-solid fa-rss sidebar-link-icon" aria-hidden="true"></i>Blog</a>
       </li>
       <li class="toctree-l1">
-          <a class="reference external" href="https://napari-hub.org">Discover plugins</a>
+          <a class="reference external" href="https://napari-hub.org"><i class="fa-solid fa-puzzle-piece sidebar-link-icon" aria-hidden="true"></i>Discover plugins</a>
       </li>
     </ul>
   </div>
@@ -567,11 +567,12 @@
 <span id="npe2-migration-guide"></span><h1>Migration to <code class="docutils literal notranslate"><span class="pre">npe2</span></code><a class="headerlink" href="#migration-to-npe2" title="Link to this heading">#</a></h1>
 <p>This document details how to convert a plugin using the first generation
 <code class="docutils literal notranslate"><span class="pre">napari-plugin-engine</span></code>, to the new <code class="docutils literal notranslate"><span class="pre">npe2</span></code> format.</p>
-<p>The primary difference between the first generation and second generation plugin
-system relates to how napari <em>discovers</em> plugin functionality. In the first
-generation plugin engine, napari had to <em>import</em> plugin modules to search for
-hook implementations decorated with <code class="docutils literal notranslate"><span class="pre">&#64;napari_hook_implementation</span></code>. In <code class="docutils literal notranslate"><span class="pre">npe2</span></code>,
-plugins declare their contributions <em>statically</em> with a <a class="reference internal" href="../technical_references/manifest.html#plugin-manifest"><span class="std std-ref">manifest file</span></a>.</p>
+<p>The primary difference between the first generation and second generation
+plugin system relates to how napari <em>discovers</em> plugin functionality. In the
+first generation plugin engine, napari had to <em>import</em> plugin modules to search
+for hook implementations decorated with <code class="docutils literal notranslate"><span class="pre">&#64;napari_hook_implementation</span></code>. In
+<code class="docutils literal notranslate"><span class="pre">npe2</span></code>, plugins declare their contributions <em>statically</em> with a
+<a class="reference internal" href="../technical_references/manifest.html#plugin-manifest"><span class="std std-ref">manifest file</span></a>.</p>
 <section id="migrating-using-the-npe2-command-line-tool">
 <h2>Migrating using the <code class="docutils literal notranslate"><span class="pre">npe2</span></code> command line tool<a class="headerlink" href="#migrating-using-the-npe2-command-line-tool" title="Link to this heading">#</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">npe2</span></code> provides a command line interface to help convert a
@@ -610,9 +611,9 @@ Options:
 <p>This step is critical: your first-generation plugin <em>must</em> be installed
 in your currently active environment for <code class="docutils literal notranslate"><span class="pre">npe2</span> <span class="pre">convert</span></code> to find it.</p>
 <p>Typically this will look something like:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">activate</span> <span class="n">your</span><span class="o">-</span><span class="n">env</span>
-<span class="n">cd</span> <span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">your</span><span class="o">/</span><span class="n">plugin</span><span class="o">/</span><span class="n">repository</span>
-<span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">e</span> <span class="o">.</span>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>conda activate your-env
+cd path/to/your/plugin/repository
+python -m pip install -e .
 </pre></div>
 </div>
 <p>If <code class="docutils literal notranslate"><span class="pre">npe2</span> <span class="pre">convert</span></code> cannot import your plugin, you will likely get an error
@@ -629,10 +630,10 @@ like:</p>
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">npe2</span> <span class="pre">convert</span></code> command will:</p>
 <ol class="arabic simple">
-<li><p>Inspect your plugin for hook implementations, and generate an npe2-compatible
-<a class="reference internal" href="../technical_references/manifest.html#plugin-manifest"><span class="std std-ref">manifest file</span></a>, called <code class="docutils literal notranslate"><span class="pre">napari.yaml</span></code>.</p></li>
-<li><p><strong>Modify</strong> your <code class="docutils literal notranslate"><span class="pre">setup.cfg</span></code> to use the new <code class="docutils literal notranslate"><span class="pre">napari.manifest</span></code> entry point, and
-include the manifest file in your package data.</p></li>
+<li><p>Inspect your plugin for hook implementations, and generate an
+npe2-compatible <a class="reference internal" href="../technical_references/manifest.html#plugin-manifest"><span class="std std-ref">manifest file</span></a>, called <code class="docutils literal notranslate"><span class="pre">napari.yaml</span></code>.</p></li>
+<li><p><strong>Modify</strong> your <code class="docutils literal notranslate"><span class="pre">setup.cfg</span></code> to use the new <code class="docutils literal notranslate"><span class="pre">napari.manifest</span></code> entry point,
+and include the manifest file in your package data.</p></li>
 </ol>
 <p>Use the <code class="docutils literal notranslate"><span class="pre">npe2</span> <span class="pre">convert</span></code> command, passing a path to a plugin
 repository (here, the current directory <code class="docutils literal notranslate"><span class="pre">.</span></code>)</p>
@@ -644,22 +645,23 @@ If<span class="w"> </span>you<span class="w"> </span>have<span class="w"> </span
 </pre></div>
 </div>
 <p>You are encouraged to inspect the newly-generated <code class="docutils literal notranslate"><span class="pre">napari.yaml</span></code> file. Refer to
-the <a class="reference internal" href="../technical_references/manifest.html#plugin-manifest"><span class="std std-ref">manifest</span></a> and <a class="reference internal" href="../technical_references/contributions.html#contributions-ref"><span class="std std-ref">contributions</span></a> references pages
-for details on each field in the manifest.</p>
+the <a class="reference internal" href="../technical_references/manifest.html#plugin-manifest"><span class="std std-ref">manifest</span></a> and <a class="reference internal" href="../technical_references/contributions.html#contributions-ref"><span class="std std-ref">contributions</span></a>
+references pages for details on each field in the manifest.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>In some cases the conversion tool may not be able to completely convert your
-plugin.  Notable cases include:</p>
+plugin. Notable cases include:</p>
 <ul class="simple">
 <li><p>multi-layer writers using the <code class="docutils literal notranslate"><span class="pre">napari_get_writer</span></code> hook specification</p></li>
-<li><p><em>locally</em> scoped functions returned from <code class="docutils literal notranslate"><span class="pre">napari_experimental_provide_function</span></code>.
-All <a class="reference internal" href="../technical_references/contributions.html#contributions-commands"><span class="std std-ref">command contributions</span></a>
-must have global <code class="docutils literal notranslate"><span class="pre">python_paths</span></code>.</p></li>
+<li><p><em>locally</em> scoped functions returned from
+<code class="docutils literal notranslate"><span class="pre">napari_experimental_provide_function</span></code>. All
+<a class="reference internal" href="../technical_references/contributions.html#contributions-commands"><span class="std std-ref">command contributions</span></a> must have global
+<code class="docutils literal notranslate"><span class="pre">python_paths</span></code>.</p></li>
 </ul>
 <p>Feel free to contact us on zulip or github if you need help converting!.</p>
 </div>
 <p>Now, update the local package metadata by repeating:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">e</span> <span class="o">.</span>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>&gt; python -m pip install -e .
 </pre></div>
 </div>
 <p>The next time napari is run, your plugin should be discovered as an
@@ -670,16 +672,18 @@ must have global <code class="docutils literal notranslate"><span class="pre">py
 <section id="migration-reference">
 <h2>Migration Reference<a class="headerlink" href="#migration-reference" title="Link to this heading">#</a></h2>
 <blockquote>
-<div><p><em>This section goes into detail on the differences between first-generation and
-second-generation implementations. In many cases, this will be more detail than
-you need. If you are still struggling with a specific conversion after using
-<code class="docutils literal notranslate"><span class="pre">npe2</span> <span class="pre">convert</span></code> and reading the <a class="reference internal" href="../technical_references/contributions.html#contributions-ref"><span class="std std-ref">contributions</span></a> reference and
-<a class="reference internal" href="../building_a_plugin/guides.html#plugin-contribution-guides"><span class="std std-ref">guides</span></a>, this section may be of help.</em></p>
+<div><p><em>This section goes into detail on the differences between first-generation
+and second-generation implementations. In many cases, this will be more
+detail than you need. If you are still struggling with a specific conversion
+after using <code class="docutils literal notranslate"><span class="pre">npe2</span> <span class="pre">convert</span></code> and reading the <a class="reference internal" href="../technical_references/contributions.html#contributions-ref"><span class="std std-ref">contributions</span></a>
+reference and <a class="reference internal" href="../building_a_plugin/guides.html#plugin-contribution-guides"><span class="std std-ref">guides</span></a>, this section may be of
+help.</em></p>
 </div></blockquote>
-<p>Existing <code class="docutils literal notranslate"><span class="pre">napari-plugin-engine</span></code> plugins expose functionality via <em>hook
-implementations</em>. These are functions decorated to indicate they fulfil a
+<p>Existing <code class="docutils literal notranslate"><span class="pre">napari-plugin-engine</span></code> plugins expose functionality via
+<em>hook implementations</em>. These are functions decorated to indicate they fulfil a
 <em>hook specification</em> described by napari. Though there are some exceptions,
-most <em>hook implementations</em> can be straightforwardly mapped to npe2 <a class="reference internal" href="../technical_references/contributions.html#contributions-ref"><span class="std std-ref">contributions</span></a></p>
+most <em>hook implementations</em> can be straightforwardly mapped to npe2
+<a class="reference internal" href="../technical_references/contributions.html#contributions-ref"><span class="std std-ref">contributions</span></a></p>
 <p><code class="docutils literal notranslate"><span class="pre">npe2</span></code> provides a command-line tool that will generate plugin manifests by
 inspecting exposed <em>hook implementations</em>. Below, we will walk through the
 kinds of migrations <code class="docutils literal notranslate"><span class="pre">npe2</span> <span class="pre">convert</span></code> helps with.</p>
@@ -693,7 +697,7 @@ that section and an example manifest. For details, refer to the
 command for an <code class="docutils literal notranslate"><span class="pre">npe2</span></code> reader.</p>
 <section id="napari-hook-spec">
 <h4>napari_hook_spec<a class="headerlink" href="#napari-hook-spec" title="Link to this heading">#</a></h4>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">napari_get_reader</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ReaderFunction</span><span class="p">]</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">napari_get_reader</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ReaderFunction</span><span class="p">]:</span> <span class="o">...</span>
 </pre></div>
 </div>
 </section>
@@ -726,12 +730,12 @@ writer, etc.</p>
 presented in napari’s “Save As” dialog.</p>
 <section id="id1">
 <h4>napari_hook_spec<a class="headerlink" href="#id1" title="Link to this heading">#</a></h4>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">napari_write_image</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">meta</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">napari_write_labels</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">meta</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">napari_write_points</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">meta</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">napari_write_shapes</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">meta</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">napari_write_surfaces</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">meta</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">napari_write_vectors</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">meta</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">napari_write_image</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">meta</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span> <span class="o">...</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">napari_write_labels</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">meta</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span> <span class="o">...</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">napari_write_points</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">meta</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span> <span class="o">...</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">napari_write_shapes</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">meta</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span> <span class="o">...</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">napari_write_surfaces</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">meta</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span> <span class="o">...</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">napari_write_vectors</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">meta</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span> <span class="o">...</span>
 </pre></div>
 </div>
 </section>
@@ -775,13 +779,11 @@ has to be imported or run until a compatible writer is found.</p>
 <h4>napari_hook_spec<a class="headerlink" href="#id2" title="Link to this heading">#</a></h4>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">napari_get_writer</span><span class="p">(</span>
     <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">layer_types</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">WriterFunction</span><span class="p">]</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">WriterFunction</span><span class="p">]:</span> <span class="o">...</span>
 </pre></div>
 </div>
 <p>Where the <code class="docutils literal notranslate"><span class="pre">WriterFunction</span></code> is something like:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">writer</span><span class="p">(</span>
-    <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">layer_data</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="nb">dict</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">writer</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">layer_data</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="nb">dict</span><span class="p">,</span> <span class="nb">str</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span> <span class="o">...</span>
 </pre></div>
 </div>
 </section>
@@ -821,19 +823,20 @@ contribution. For each of these <code class="docutils literal notranslate"><span
 <h4>napari_hook_spec<a class="headerlink" href="#id4" title="Link to this heading">#</a></h4>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">napari_experimental_provide_dock_widget</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span>
     <span class="n">AugmentedWidget</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">AugmentedWidget</span><span class="p">]</span>
-<span class="p">]</span>
+<span class="p">]:</span> <span class="o">...</span>
 </pre></div>
 </div>
 <p>or</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">napari_experimental_provide_function</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span>
     <span class="n">FunctionType</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">FunctionType</span><span class="p">]</span>
-<span class="p">]</span>
+<span class="p">]:</span> <span class="o">...</span>
 </pre></div>
 </div>
 </section>
 <section id="id5">
 <h4>Example npe2 contribution<a class="headerlink" href="#id5" title="Link to this heading">#</a></h4>
-<p><em>Dock Widget</em></p>
+<section id="dock-widget">
+<h5>Dock Widget<a class="headerlink" href="#dock-widget" title="Link to this heading">#</a></h5>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">napari-animation</span>
 <span class="nt">display_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">animation</span>
 <span class="nt">contributions</span><span class="p">:</span>
@@ -846,7 +849,9 @@ contribution. For each of these <code class="docutils literal notranslate"><span
 <span class="w">      </span><span class="nt">display_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Wizard</span>
 </pre></div>
 </div>
-<p><em>Function widget</em></p>
+</section>
+<section id="function-widget">
+<h5>Function widget<a class="headerlink" href="#function-widget" title="Link to this heading">#</a></h5>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-function-plugin</span>
 <span class="nt">display_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">My function plugin!</span>
 <span class="nt">contributions</span><span class="p">:</span>
@@ -862,13 +867,14 @@ contribution. For each of these <code class="docutils literal notranslate"><span
 </div>
 </section>
 </section>
+</section>
 <section id="sample-data-providers">
 <h3>Sample data providers<a class="headerlink" href="#sample-data-providers" title="Link to this heading">#</a></h3>
 <p>Each sample returned from <code class="docutils literal notranslate"><span class="pre">napari_provide_sample_data()</span></code> should be bound as an
 individual sample data contribution.</p>
 <section id="id6">
 <h4>napari_hook_spec<a class="headerlink" href="#id6" title="Link to this heading">#</a></h4>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">napari_provide_sample_data</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="n">SampleData</span><span class="p">,</span> <span class="n">SampleDict</span><span class="p">]]</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">napari_provide_sample_data</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="n">SampleData</span><span class="p">,</span> <span class="n">SampleDict</span><span class="p">]]:</span> <span class="o">...</span>
 </pre></div>
 </div>
 </section>
@@ -879,15 +885,16 @@ individual sample data contribution.</p>
     <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="o">*</span><span class="n">shape</span><span class="p">)</span>
     <span class="k">return</span> <span class="p">[(</span><span class="n">data</span><span class="p">,</span> <span class="p">{</span><span class="s1">'name'</span><span class="p">:</span> <span class="s1">'random data'</span><span class="p">})]</span>
 
+
 <span class="nd">@napari_hook_implementation</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">napari_provide_sample_data</span><span class="p">():</span>
     <span class="k">return</span> <span class="p">{</span>
         <span class="s1">'random data'</span><span class="p">:</span> <span class="n">_generate_random_data</span><span class="p">,</span>
         <span class="s1">'random image'</span><span class="p">:</span> <span class="s1">'https://picsum.photos/1024'</span><span class="p">,</span>
         <span class="s1">'sample_key'</span><span class="p">:</span> <span class="p">{</span>
-            <span class="s1">'display_name'</span><span class="p">:</span> <span class="s1">'Some Random Data (512 x 512)'</span>
+            <span class="s1">'display_name'</span><span class="p">:</span> <span class="s1">'Some Random Data (512 x 512)'</span><span class="p">,</span>
             <span class="s1">'data'</span><span class="p">:</span> <span class="n">_generate_random_data</span><span class="p">,</span>
-        <span class="p">}</span>
+        <span class="p">},</span>
     <span class="p">}</span>
 </pre></div>
 </div>
@@ -917,31 +924,32 @@ code in the plugin package!</p>
 <section id="example">
 <h4>Example<a class="headerlink" href="#example" title="Link to this heading">#</a></h4>
 <p>The theme provided by this hook:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">get_new_theme</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">List</span><span class="p">]]:</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">get_new_theme</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">List</span><span class="p">]]]:</span>
     <span class="c1"># specify theme(s) that should be added to napari</span>
     <span class="n">themes</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s2">"super_dark"</span><span class="p">:</span> <span class="p">{</span>
-            <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"super_dark"</span><span class="p">,</span>
-            <span class="s2">"background"</span><span class="p">:</span> <span class="s2">"rgb(12, 12, 12)"</span><span class="p">,</span>
-            <span class="s2">"foreground"</span><span class="p">:</span> <span class="s2">"rgb(65, 72, 81)"</span><span class="p">,</span>
-            <span class="s2">"primary"</span><span class="p">:</span> <span class="s2">"rgb(90, 98, 108)"</span><span class="p">,</span>
-            <span class="s2">"secondary"</span><span class="p">:</span> <span class="s2">"rgb(134, 142, 147)"</span><span class="p">,</span>
-            <span class="s2">"highlight"</span><span class="p">:</span> <span class="s2">"rgb(106, 115, 128)"</span><span class="p">,</span>
-            <span class="s2">"text"</span><span class="p">:</span> <span class="s2">"rgb(240, 241, 242)"</span><span class="p">,</span>
-            <span class="s2">"icon"</span><span class="p">:</span> <span class="s2">"rgb(209, 210, 212)"</span><span class="p">,</span>
-            <span class="s2">"warning"</span><span class="p">:</span> <span class="s2">"rgb(153, 18, 31)"</span><span class="p">,</span>
-            <span class="s2">"current"</span><span class="p">:</span> <span class="s2">"rgb(0, 122, 204)"</span><span class="p">,</span>
-            <span class="s2">"syntax_style"</span><span class="p">:</span> <span class="s2">"native"</span><span class="p">,</span>
-            <span class="s2">"console"</span><span class="p">:</span> <span class="s2">"rgb(0, 0, 0)"</span><span class="p">,</span>
-            <span class="s2">"canvas"</span><span class="p">:</span> <span class="s2">"black"</span><span class="p">,</span>
+        <span class="s1">'super_dark'</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">'name'</span><span class="p">:</span> <span class="s1">'super_dark'</span><span class="p">,</span>
+            <span class="s1">'background'</span><span class="p">:</span> <span class="s1">'rgb(12, 12, 12)'</span><span class="p">,</span>
+            <span class="s1">'foreground'</span><span class="p">:</span> <span class="s1">'rgb(65, 72, 81)'</span><span class="p">,</span>
+            <span class="s1">'primary'</span><span class="p">:</span> <span class="s1">'rgb(90, 98, 108)'</span><span class="p">,</span>
+            <span class="s1">'secondary'</span><span class="p">:</span> <span class="s1">'rgb(134, 142, 147)'</span><span class="p">,</span>
+            <span class="s1">'highlight'</span><span class="p">:</span> <span class="s1">'rgb(106, 115, 128)'</span><span class="p">,</span>
+            <span class="s1">'text'</span><span class="p">:</span> <span class="s1">'rgb(240, 241, 242)'</span><span class="p">,</span>
+            <span class="s1">'icon'</span><span class="p">:</span> <span class="s1">'rgb(209, 210, 212)'</span><span class="p">,</span>
+            <span class="s1">'warning'</span><span class="p">:</span> <span class="s1">'rgb(153, 18, 31)'</span><span class="p">,</span>
+            <span class="s1">'current'</span><span class="p">:</span> <span class="s1">'rgb(0, 122, 204)'</span><span class="p">,</span>
+            <span class="s1">'syntax_style'</span><span class="p">:</span> <span class="s1">'native'</span><span class="p">,</span>
+            <span class="s1">'console'</span><span class="p">:</span> <span class="s1">'rgb(0, 0, 0)'</span><span class="p">,</span>
+            <span class="s1">'canvas'</span><span class="p">:</span> <span class="s1">'black'</span><span class="p">,</span>
         <span class="p">}</span>
     <span class="p">}</span>
     <span class="k">return</span> <span class="n">themes</span>
 </pre></div>
 </div>
 <p>becomes this theme contribution in the plugin manifest. Note that <code class="docutils literal notranslate"><span class="pre">type</span></code>
-indicates whether the theme is light or dark, omitted color keys inherit from that base,
-and <code class="docutils literal notranslate"><span class="pre">syntax_style</span></code> stays at the top level rather than under <code class="docutils literal notranslate"><span class="pre">colors</span></code>:</p>
+indicates whether the theme is light or dark, omitted color keys inherit from
+that base, and <code class="docutils literal notranslate"><span class="pre">syntax_style</span></code> stays at the top level rather than under
+<code class="docutils literal notranslate"><span class="pre">colors</span></code>:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-plugin</span>
 <span class="nt">contributions</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">themes</span><span class="p">:</span>
@@ -986,10 +994,10 @@ this adaptor; plugins relying on import-time behaviour may malfunction.</p>
 at launch, napari can boot <em>significantly</em> faster.</p></li>
 <li><p>Plugins are imported lazily, only after one of their commands or menu items
 has been requested.</p></li>
-<li><p>It will become clearer to the user which plugin has errored (if any), since it
-will only occur when the plugin’s functionality has been requested.</p></li>
-<li><p>For napari, the internal codebase becomes <em>much</em> simpler since only the npe2 API
-needs to be used.</p></li>
+<li><p>It will become clearer to the user which plugin has errored (if any), since
+it will only occur when the plugin’s functionality has been requested.</p></li>
+<li><p>For napari, the internal codebase becomes <em>much</em> simpler since only the npe2
+API needs to be used.</p></li>
 </ul>
 </section>
 <section id="caveats">
@@ -1077,7 +1085,11 @@ following things will be “ignored” for a user using the npe2 adaptor:</p>
 </li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#widgets">Widgets</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">napari_hook_spec</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Example npe2 contribution</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Example npe2 contribution</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#dock-widget">Dock Widget</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#function-widget">Function widget</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sample-data-providers">Sample data providers</a><ul class="nav section-nav flex-column">
@@ -1787,7 +1799,7 @@ following things will be “ignored” for a user using the npe2 adaptor:</p>
     </div>
 
     
-      <span>9.1.0</span>
+      <span>9.1.1</span>
     
   </div>
 </div></div>

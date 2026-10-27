@@ -2,8 +2,10 @@
 
 # Testing and publishing
 
-Testing your plugin is an important step to ensure that it works as expected and to avoid breaking changes in the future.
-Once your plugin is tested and ready to go, you can publish it to any combination of PyPI, conda-forge, and the napari-hub.
+Testing your plugin is an important step to ensure that it works as expected
+and to avoid breaking changes in the future. Once your plugin is tested and
+ready to go, you can publish it to any combination of PyPI, conda-forge, and
+the napari-hub.
 
 ````{grid} 2
 ```{grid-item-card} Testing guidelines

@@ -13,6 +13,7 @@ caption: With this tag
 ../gallery/anisotropic_scale.rst
 ../gallery/concentric-spheres.rst
 ../gallery/dask_nD_image.rst
+../gallery/everything.rst
 ../gallery/image_custom_kernel.rst
 ../gallery/image_points_3d.rst
 ../gallery/labels3d.rst

@@ -21,23 +21,23 @@ see our comprehensive guide: [](hub-customization). This guide covers:
 
 ## Deployment
 
-When you are ready to share your plugin, [upload the Python package to
-PyPI][pypi-upload] after which it will be installable using `python -m pip install <yourpackage>`, or (assuming you added the `Framework :: napari` classifier)
-in the builtin plugin installer dialog.
+When you are ready to share your plugin,
+[upload the Python package to PyPI][pypi-upload] after which it will be
+installable using `python -m pip install <yourpackage>`, or (assuming you added
+the `Framework :: napari` classifier) in the builtin plugin installer dialog.
 
 If you used the {ref}`napari-plugin-template`, you can also
 [setup automated deployments][autodeploy] on GitHub for every tagged commit.
 
 ```{admonition} conda-forge
----
-class: attention
----
-You can also deploy your plugin to conda-forge. Check out [deploying to conda-forge](deploying-to-conda-forge) for more
-details on how to do that.
+:class: attention
+You can also deploy your plugin to conda-forge. Check out
+[deploying to conda-forge](deploying-to-conda-forge) for more details on how to
+do that.
 ```
 
-The [napari-plugin-manager](https://napari.org/napari-plugin-manager/) can be used to install plugins deployed to both
-PyPI and conda-forge.
+The [napari-plugin-manager](https://napari.org/napari-plugin-manager/) can be
+used to install plugins deployed to both PyPI and conda-forge.
 
 When you are ready for users, announce your plugin on the [Image.sc
 forum](https://forum.image.sc/tag/napari).

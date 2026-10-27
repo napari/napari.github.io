@@ -172,7 +172,7 @@ current dims point (`viewer.dims.point`).
             super().__init__('Add cross layer')
             self.viewer = viewer
             self.setChecked(False)
-            self.stateChanged.connect(self._update_cross_visibility)
+            self.toggled.connect(self._update_cross_visibility)
             self.layer = None
             self.viewer.dims.events.order.connect(self.update_cross)
             self.viewer.dims.events.ndim.connect(self._update_ndim)
@@ -204,8 +204,8 @@ current dims point (`viewer.dims.point`).
             self.layer.edge_width = 1.5
             self.update_cross()
 
-        def _update_cross_visibility(self, state):
-            if state:
+        def _update_cross_visibility(self, checked):
+            if checked:
                 self.viewer.layers.append(self.layer)
             else:
                 self.viewer.layers.remove(self.layer)

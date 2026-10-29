@@ -16,8 +16,8 @@ Latest features and improvements:
 
 This release contains several new features and many enhancements and bugfixes. We also welcomed a ton of new contributors to the community!
 
-### Grid Lines, axes and ticks
-This features has been requested for years, and we finally managed to get a version that we're happy with! With [#7827](https://github.com/napari/napari/pull/7827), you can now use `viewer.scene.overlays.grid_lines` to display a grid on your data, including unit-aware tick marks and axis labels! Try it out:
+### Coordinate Grid with axes and ticks
+This features has been requested for years, and we finally managed to get a version that we're happy with! With [#7827](https://github.com/napari/napari/pull/7827), you can now use `viewer.scene.overlays.coordinate_grid` to display a grid on your data, including unit-aware tick marks and axis labels! Try it out:
 
 ```py
 import napari
@@ -29,10 +29,10 @@ for layer in layers:
     layer.units = 'nm'
     layer.axis_labels = ['z', 'y', 'x']
 
-viewer.scene.overlays.grid_lines.visible = True
+viewer.scene.overlays.coordinate_grid.visible = True
 ```
 
-![screenshot of the viewer with the grid_lines overlay enabled, showing the grid with axis labels and units, and axis ticks](https://github.com/user-attachments/assets/54993979-4774-4e66-87fb-d1bfcb27fb98)
+![screenshot of the viewer with the coordinate_grid overlay enabled, showing the grid with axis labels and units, and axis ticks](https://github.com/user-attachments/assets/54993979-4774-4e66-87fb-d1bfcb27fb98)
 
 ### Colorful names
 

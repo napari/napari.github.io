@@ -78,7 +78,7 @@ coordinates, and may require resizing the textures to match each other.
 Download the model
 ------------------
 
-.. GENERATED FROM PYTHON SOURCE LINES 57-74
+.. GENERATED FROM PYTHON SOURCE LINES 57-86
 
 .. code-block:: Python
 
@@ -87,15 +87,27 @@ Download the model
     tmp_dir = pooch.os_cache('napari-surface-texture-example')
     os.makedirs(tmp_dir, exist_ok=True)
     data_files = {
-        'mesh': 'PocilloporaDamicornisSkin.obj',
-        # "materials": "PocilloporaVerrugosaSkinCrop.mtl",  # not yet supported
-        'Texture_0': 'PocilloporaDamicornisSkin_Texture_0.jpg',
-        'GeneratedMat2': 'PocilloporaDamicornisSkin_GeneratedMat2.png',
+        'mesh': (
+            'PocilloporaDamicornisSkin.obj',
+            'sha256:1a63fc9ce7a931ecf5f5096406c694b8425344d0d9e63edd1681aa764f0534a7',
+        ),
+        # 'materials': (  # not yet supported
+        #     'PocilloporaDamicornisSkin.mtl',
+        #     'md5:f1d0e6f408eb661d6eed77db3a383f05',
+        # ),
+        'Texture_0': (
+            'PocilloporaDamicornisSkin_Texture_0.jpg',
+            'sha256:0338c79ee43783c0a372f9a65cce21709d206ac09c9142507d0a85b9e2b8003e',
+        ),
+        'GeneratedMat2': (
+            'PocilloporaDamicornisSkin_GeneratedMat2.png',
+            'sha256:76a38c400cdc3ccda2603e901adcc730f7f4bab9da728e51054961d8c8ae22c8',
+        ),
     }
     data_to_path = {}
     print(f'downloading data into {tmp_dir}')
-    for id_, file_name in data_files.items():
-        res = pooch.retrieve(f'doi:{doi}/{file_name}', known_hash=None,  progressbar=True)
+    for id_, (file_name, known_hash) in data_files.items():
+        res = pooch.retrieve(f'doi:{doi}/{file_name}', known_hash=known_hash,  progressbar=True)
         data_to_path[id_] = res
 
 
@@ -110,21 +122,21 @@ Download the model
     downloading data into /home/runner/work/docs/docs/.cache/napari-surface-texture-example
     Downloading...
     From: https://drive.google.com/uc?id=1yuPHWlLzowlfWzVMUg-mvAEe_Tmvpzy4
-    To: /home/runner/work/docs/docs/.cache/pooch/tmpf9u5809v
-      0%|          | 0.00/93.8M [00:00<?, ?B/s]      5%|▌         | 4.72M/93.8M [00:00<00:02, 32.5MB/s]     21%|██        | 19.4M/93.8M [00:00<00:00, 78.8MB/s]     39%|███▊      | 36.2M/93.8M [00:00<00:00, 89.3MB/s]     56%|█████▋    | 53.0M/93.8M [00:00<00:00, 98.8MB/s]     73%|███████▎  | 68.7M/93.8M [00:00<00:00, 115MB/s]      86%|████████▌ | 80.7M/93.8M [00:00<00:00, 113MB/s]    100%|██████████| 93.8M/93.8M [00:00<00:00, 107MB/s]
+    To: /home/runner/work/docs/docs/.cache/pooch/tmp9q06q50t
+      0%|          | 0.00/93.8M [00:00<?, ?B/s]      1%|          | 1.05M/93.8M [00:00<00:09, 9.96MB/s]      7%|▋         | 6.82M/93.8M [00:00<00:02, 30.4MB/s]     12%|█▏        | 11.0M/93.8M [00:00<00:03, 26.1MB/s]     16%|█▌        | 15.2M/93.8M [00:00<00:02, 27.0MB/s]     23%|██▎       | 21.5M/93.8M [00:00<00:02, 31.3MB/s]     32%|███▏      | 29.9M/93.8M [00:00<00:01, 38.1MB/s]     39%|███▊      | 36.2M/93.8M [00:01<00:01, 39.4MB/s]     52%|█████▏    | 48.8M/93.8M [00:01<00:00, 50.9MB/s]     63%|██████▎   | 59.2M/93.8M [00:01<00:00, 53.0MB/s]     74%|███████▍  | 69.7M/93.8M [00:01<00:00, 58.4MB/s]     88%|████████▊ | 82.3M/93.8M [00:01<00:00, 63.2MB/s]    100%|██████████| 93.8M/93.8M [00:01<00:00, 53.4MB/s]
     Downloading...
     From: https://drive.google.com/uc?id=17tG44rMPWjAIoO_AlH9BaQkPY7GxxEN9
-    To: /home/runner/work/docs/docs/.cache/pooch/tmp7m0rtgbl
-      0%|          | 0.00/17.3M [00:00<?, ?B/s]      6%|▌         | 1.05M/17.3M [00:00<00:01, 9.73MB/s]     52%|█████▏    | 8.91M/17.3M [00:00<00:00, 47.2MB/s]     88%|████████▊ | 15.2M/17.3M [00:00<00:00, 44.9MB/s]    100%|██████████| 17.3M/17.3M [00:00<00:00, 46.5MB/s]
+    To: /home/runner/work/docs/docs/.cache/pooch/tmpk3y7koap
+      0%|          | 0.00/17.3M [00:00<?, ?B/s]      3%|▎         | 524k/17.3M [00:00<00:04, 3.97MB/s]     36%|███▋      | 6.29M/17.3M [00:00<00:00, 31.6MB/s]     58%|█████▊    | 9.96M/17.3M [00:00<00:00, 25.9MB/s]     88%|████████▊ | 15.2M/17.3M [00:00<00:00, 24.8MB/s]    100%|██████████| 17.3M/17.3M [00:00<00:00, 27.4MB/s]
     Downloading...
     From: https://drive.google.com/uc?id=1l_hGxDg6JARAyFMgWXuoIZs49qKXBv01
-    To: /home/runner/work/docs/docs/.cache/pooch/tmptv212qgx
-      0%|          | 0.00/120k [00:00<?, ?B/s]    100%|██████████| 120k/120k [00:00<00:00, 12.0MB/s]
+    To: /home/runner/work/docs/docs/.cache/pooch/tmpk7b40kyq
+      0%|          | 0.00/120k [00:00<?, ?B/s]    100%|██████████| 120k/120k [00:00<00:00, 2.08MB/s]
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 75-81
+.. GENERATED FROM PYTHON SOURCE LINES 87-93
 
 Load the model
 --------------
@@ -133,7 +145,7 @@ support reading material properties (.mtl files) nor separate texture and
 vertex indices (i.e. repeated vertices). Normal vectors read from the file
 are also ignored and re-calculated from the faces.
 
-.. GENERATED FROM PYTHON SOURCE LINES 81-83
+.. GENERATED FROM PYTHON SOURCE LINES 93-95
 
 .. code-block:: Python
 
@@ -152,7 +164,7 @@ are also ignored and re-calculated from the faces.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 84-89
+.. GENERATED FROM PYTHON SOURCE LINES 96-101
 
 Load the textures
 -----------------
@@ -160,7 +172,7 @@ This model comes with two textures: `Texture_0` is generated from
 photogrammetry of the actual object, and `GeneratedMat2` is a generated
 material to fill in  parts of the model lacking photographic texture.
 
-.. GENERATED FROM PYTHON SOURCE LINES 89-92
+.. GENERATED FROM PYTHON SOURCE LINES 101-104
 
 .. code-block:: Python
 
@@ -174,11 +186,11 @@ material to fill in  parts of the model lacking photographic texture.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 93-94
+.. GENERATED FROM PYTHON SOURCE LINES 105-106
 
 This is what the texture images look like in 2D:
 
-.. GENERATED FROM PYTHON SOURCE LINES 94-105
+.. GENERATED FROM PYTHON SOURCE LINES 106-117
 
 .. code-block:: Python
 
@@ -205,7 +217,7 @@ This is what the texture images look like in 2D:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 106-111
+.. GENERATED FROM PYTHON SOURCE LINES 118-123
 
 Create the napari layers
 ------------------------
@@ -213,7 +225,7 @@ Next create two separate layers with the same mesh - once with each texture.
 In this example the texture coordinates happen to be the same for each
 texture, but this is not a strict requirement.
 
-.. GENERATED FROM PYTHON SOURCE LINES 111-124
+.. GENERATED FROM PYTHON SOURCE LINES 123-136
 
 .. code-block:: Python
 
@@ -237,14 +249,14 @@ texture, but this is not a strict requirement.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 125-129
+.. GENERATED FROM PYTHON SOURCE LINES 137-141
 
 Add the layers to a viewer
 --------------------------
 Finally, create the viewer and add the Surface layers.
 sphinx_gallery_thumbnail_number = 2
 
-.. GENERATED FROM PYTHON SOURCE LINES 129-139
+.. GENERATED FROM PYTHON SOURCE LINES 141-151
 
 .. code-block:: Python
 
@@ -273,7 +285,7 @@ sphinx_gallery_thumbnail_number = 2
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 23.518 seconds)
+   **Total running time of the script:** (0 minutes 26.810 seconds)
 
 
 .. _sphx_glr_download_gallery_surface_multi_texture.py:

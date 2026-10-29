@@ -57,7 +57,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=18bd87630a240e9c25be" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=18bd87630a240e9c25be" />
 
-    <script src="../_static/documentation_options.js?v=4fe9927d"></script>
+    <script src="../_static/documentation_options.js?v=8cd7b7e3"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -69,7 +69,7 @@
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.23.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.10.0rc1';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.10.0rc2';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
@@ -929,45 +929,63 @@ for ways to install additional packages from within napari.</p>
 </span><a class="sphx-glr-backref-module-pathlib sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.PosixPath" title="pathlib.PosixPath"><span class="n">tmp_dir</span></a> <span class="o">=</span> <span class="n">pooch</span><span class="o">.</span><span class="n">os_cache</span><span class="p">(</span><span class="s1">'</span><span class="s1">napari-surface-texture-example</span><span class="s1">'</span><span class="p">)</span><span class="w">
 </span><a class="sphx-glr-backref-module-os sphx-glr-backref-type-py-function reference external" href="https://docs.python.org/3/library/os.html#os.makedirs" title="os.makedirs"><span class="n">os</span><span class="o">.</span><span class="n">makedirs</span></a><span class="p">(</span><a class="sphx-glr-backref-module-pathlib sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.PosixPath" title="pathlib.PosixPath"><span class="n">tmp_dir</span></a><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="w">
 </span><a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="dict"><span class="n">data_files</span></a> <span class="o">=</span> <span class="p">{</span><span class="w">
-</span>    <span class="s1">'</span><span class="s1">mesh</span><span class="s1">'</span><span class="p">:</span> <span class="s1">'</span><span class="s1">PocilloporaDamicornisSkin.obj</span><span class="s1">'</span><span class="p">,</span><span class="w">
-</span>    <span class="c1"># &quot;materials&quot;: &quot;PocilloporaVerrugosaSkinCrop.mtl&quot;,  # not yet supported</span><span class="w">
-</span>    <span class="s1">'</span><span class="s1">Texture_0</span><span class="s1">'</span><span class="p">:</span> <span class="s1">'</span><span class="s1">PocilloporaDamicornisSkin_Texture_0.jpg</span><span class="s1">'</span><span class="p">,</span><span class="w">
-</span>    <span class="s1">'</span><span class="s1">GeneratedMat2</span><span class="s1">'</span><span class="p">:</span> <span class="s1">'</span><span class="s1">PocilloporaDamicornisSkin_GeneratedMat2.png</span><span class="s1">'</span><span class="p">,</span><span class="w">
+</span>    <span class="s1">'</span><span class="s1">mesh</span><span class="s1">'</span><span class="p">:</span> <span class="p">(</span><span class="w">
+</span>        <span class="s1">'</span><span class="s1">PocilloporaDamicornisSkin.obj</span><span class="s1">'</span><span class="p">,</span><span class="w">
+</span>        <span class="s1">'</span><span class="s1">sha256:1a63fc9ce7a931ecf5f5096406c694b8425344d0d9e63edd1681aa764f0534a7</span><span class="s1">'</span><span class="p">,</span><span class="w">
+</span>    <span class="p">)</span><span class="p">,</span><span class="w">
+</span>    <span class="c1"># 'materials': (  # not yet supported</span><span class="w">
+</span>    <span class="c1">#     'PocilloporaDamicornisSkin.mtl',</span><span class="w">
+</span>    <span class="c1">#     'md5:f1d0e6f408eb661d6eed77db3a383f05',</span><span class="w">
+</span>    <span class="c1"># ),</span><span class="w">
+</span>    <span class="s1">'</span><span class="s1">Texture_0</span><span class="s1">'</span><span class="p">:</span> <span class="p">(</span><span class="w">
+</span>        <span class="s1">'</span><span class="s1">PocilloporaDamicornisSkin_Texture_0.jpg</span><span class="s1">'</span><span class="p">,</span><span class="w">
+</span>        <span class="s1">'</span><span class="s1">sha256:0338c79ee43783c0a372f9a65cce21709d206ac09c9142507d0a85b9e2b8003e</span><span class="s1">'</span><span class="p">,</span><span class="w">
+</span>    <span class="p">)</span><span class="p">,</span><span class="w">
+</span>    <span class="s1">'</span><span class="s1">GeneratedMat2</span><span class="s1">'</span><span class="p">:</span> <span class="p">(</span><span class="w">
+</span>        <span class="s1">'</span><span class="s1">PocilloporaDamicornisSkin_GeneratedMat2.png</span><span class="s1">'</span><span class="p">,</span><span class="w">
+</span>        <span class="s1">'</span><span class="s1">sha256:76a38c400cdc3ccda2603e901adcc730f7f4bab9da728e51054961d8c8ae22c8</span><span class="s1">'</span><span class="p">,</span><span class="w">
+</span>    <span class="p">)</span><span class="p">,</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span><a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="dict"><span class="n">data_to_path</span></a> <span class="o">=</span> <span class="p">{</span><span class="p">}</span><span class="w">
 </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'</span><span class="s1">downloading data into </span><span class="si">{</span><a class="sphx-glr-backref-module-pathlib sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.PosixPath" title="pathlib.PosixPath"><span class="n">tmp_dir</span></a><span class="si">}</span><span class="s1">'</span><span class="p">)</span><span class="w">
-</span><span class="k">for</span> <a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="str"><span class="n">id_</span></a><span class="p">,</span> <a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="str"><span class="n">file_name</span></a> <span class="ow">in</span> <a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="dict"><span class="n">data_files</span></a><span class="o">.</span><span class="n">items</span><span class="p">(</span><span class="p">)</span><span class="p">:</span><span class="w">
-</span>    <a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="str"><span class="n">res</span></a> <span class="o">=</span> <span class="n">pooch</span><span class="o">.</span><span class="n">retrieve</span><span class="p">(</span><span class="sa">f</span><span class="s1">'</span><span class="s1">doi:</span><span class="si">{</span><a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="str"><span class="n">doi</span></a><span class="si">}</span><span class="s1">/</span><span class="si">{</span><a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="str"><span class="n">file_name</span></a><span class="si">}</span><span class="s1">'</span><span class="p">,</span> <span class="n">known_hash</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>  <span class="n">progressbar</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="w">
+</span><span class="k">for</span> <a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="str"><span class="n">id_</span></a><span class="p">,</span> <span class="p">(</span><a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="str"><span class="n">file_name</span></a><span class="p">,</span> <a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="str"><span class="n">known_hash</span></a><span class="p">)</span> <span class="ow">in</span> <a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="dict"><span class="n">data_files</span></a><span class="o">.</span><span class="n">items</span><span class="p">(</span><span class="p">)</span><span class="p">:</span><span class="w">
+</span>    <a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="str"><span class="n">res</span></a> <span class="o">=</span> <span class="n">pooch</span><span class="o">.</span><span class="n">retrieve</span><span class="p">(</span><span class="sa">f</span><span class="s1">'</span><span class="s1">doi:</span><span class="si">{</span><a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="str"><span class="n">doi</span></a><span class="si">}</span><span class="s1">/</span><span class="si">{</span><a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="str"><span class="n">file_name</span></a><span class="si">}</span><span class="s1">'</span><span class="p">,</span> <a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="str"><span class="n">known_hash</span></a><span class="o">=</span><a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="str"><span class="n">known_hash</span></a><span class="p">,</span>  <span class="n">progressbar</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="w">
 </span>    <a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="dict"><span class="n">data_to_path</span></a><span class="p">[</span><a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="str"><span class="n">id_</span></a><span class="p">]</span> <span class="o">=</span> <a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="str"><span class="n">res</span></a><span class="w">
 </span></pre></div></div>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>downloading data into /home/runner/work/docs/docs/.cache/napari-surface-texture-example
 Downloading...
 From: https://drive.google.com/uc?id=1yuPHWlLzowlfWzVMUg-mvAEe_Tmvpzy4
-To: /home/runner/work/docs/docs/.cache/pooch/tmpf9u5809v
+To: /home/runner/work/docs/docs/.cache/pooch/tmp9q06q50t
 
   0%|          | 0.00/93.8M [00:00&lt;?, ?B/s]
-  5%|▌         | 4.72M/93.8M [00:00&lt;00:02, 32.5MB/s]
- 21%|██        | 19.4M/93.8M [00:00&lt;00:00, 78.8MB/s]
- 39%|███▊      | 36.2M/93.8M [00:00&lt;00:00, 89.3MB/s]
- 56%|█████▋    | 53.0M/93.8M [00:00&lt;00:00, 98.8MB/s]
- 73%|███████▎  | 68.7M/93.8M [00:00&lt;00:00, 115MB/s]
- 86%|████████▌ | 80.7M/93.8M [00:00&lt;00:00, 113MB/s]
-100%|██████████| 93.8M/93.8M [00:00&lt;00:00, 107MB/s]
+  1%|          | 1.05M/93.8M [00:00&lt;00:09, 9.96MB/s]
+  7%|▋         | 6.82M/93.8M [00:00&lt;00:02, 30.4MB/s]
+ 12%|█▏        | 11.0M/93.8M [00:00&lt;00:03, 26.1MB/s]
+ 16%|█▌        | 15.2M/93.8M [00:00&lt;00:02, 27.0MB/s]
+ 23%|██▎       | 21.5M/93.8M [00:00&lt;00:02, 31.3MB/s]
+ 32%|███▏      | 29.9M/93.8M [00:00&lt;00:01, 38.1MB/s]
+ 39%|███▊      | 36.2M/93.8M [00:01&lt;00:01, 39.4MB/s]
+ 52%|█████▏    | 48.8M/93.8M [00:01&lt;00:00, 50.9MB/s]
+ 63%|██████▎   | 59.2M/93.8M [00:01&lt;00:00, 53.0MB/s]
+ 74%|███████▍  | 69.7M/93.8M [00:01&lt;00:00, 58.4MB/s]
+ 88%|████████▊ | 82.3M/93.8M [00:01&lt;00:00, 63.2MB/s]
+100%|██████████| 93.8M/93.8M [00:01&lt;00:00, 53.4MB/s]
 Downloading...
 From: https://drive.google.com/uc?id=17tG44rMPWjAIoO_AlH9BaQkPY7GxxEN9
-To: /home/runner/work/docs/docs/.cache/pooch/tmp7m0rtgbl
+To: /home/runner/work/docs/docs/.cache/pooch/tmpk3y7koap
 
   0%|          | 0.00/17.3M [00:00&lt;?, ?B/s]
-  6%|▌         | 1.05M/17.3M [00:00&lt;00:01, 9.73MB/s]
- 52%|█████▏    | 8.91M/17.3M [00:00&lt;00:00, 47.2MB/s]
- 88%|████████▊ | 15.2M/17.3M [00:00&lt;00:00, 44.9MB/s]
-100%|██████████| 17.3M/17.3M [00:00&lt;00:00, 46.5MB/s]
+  3%|▎         | 524k/17.3M [00:00&lt;00:04, 3.97MB/s]
+ 36%|███▋      | 6.29M/17.3M [00:00&lt;00:00, 31.6MB/s]
+ 58%|█████▊    | 9.96M/17.3M [00:00&lt;00:00, 25.9MB/s]
+ 88%|████████▊ | 15.2M/17.3M [00:00&lt;00:00, 24.8MB/s]
+100%|██████████| 17.3M/17.3M [00:00&lt;00:00, 27.4MB/s]
 Downloading...
 From: https://drive.google.com/uc?id=1l_hGxDg6JARAyFMgWXuoIZs49qKXBv01
-To: /home/runner/work/docs/docs/.cache/pooch/tmptv212qgx
+To: /home/runner/work/docs/docs/.cache/pooch/tmpk7b40kyq
 
   0%|          | 0.00/120k [00:00&lt;?, ?B/s]
-100%|██████████| 120k/120k [00:00&lt;00:00, 12.0MB/s]
+100%|██████████| 120k/120k [00:00&lt;00:00, 2.08MB/s]
 </pre></div>
 </div>
 </section>
@@ -1038,7 +1056,7 @@ sphinx_gallery_thumbnail_number = 2</p>
 </span><span class="k">if</span> <a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="str"><span class="vm">__name__</span></a> <span class="o">==</span> <span class="s1">'</span><span class="s1">__main__</span><span class="s1">'</span><span class="p">:</span><span class="w">
 </span>    <a class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-function reference internal" href="../api/napari.html#napari.run" title="napari.run"><span class="n">napari</span><span class="o">.</span><span class="n">run</span></a><span class="p">(</span><span class="p">)</span><span class="w">
 </span></pre></div></div>
-<img src="../_images/sphx_glr_surface_multi_texture_002.png" srcset="../_images/sphx_glr_surface_multi_texture_002.png" alt="surface multi texture" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 23.518 seconds)</p>
+<img src="../_images/sphx_glr_surface_multi_texture_002.png" srcset="../_images/sphx_glr_surface_multi_texture_002.png" alt="surface multi texture" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 26.810 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-surface-multi-texture-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/5cad0060d7849fbe4473ff3a108a0774/surface_multi_texture.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">surface_multi_texture.ipynb</span></code></a></p>

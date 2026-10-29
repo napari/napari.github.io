@@ -45,7 +45,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=18bd87630a240e9c25be" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=18bd87630a240e9c25be" />
 
-    <script src="../../../_static/documentation_options.js?v=4fe9927d"></script>
+    <script src="../../../_static/documentation_options.js?v=8cd7b7e3"></script>
     <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -416,7 +416,7 @@ window.runMermaid = runMermaid;</script>
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.23.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.10.0rc1';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.10.0rc2';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
@@ -904,6 +904,10 @@ window.runMermaid = runMermaid;</script>
 <span class="p">)</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils._register</span><span class="w"> </span><span class="kn">import</span> <span class="n">create_func</span> <span class="k">as</span> <span class="n">create_add_method</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.action_manager</span><span class="w"> </span><span class="kn">import</span> <span class="n">action_manager</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.camera_orientations</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">HorizontalAxisOrientation</span><span class="p">,</span>
+    <span class="n">VerticalAxisOrientation</span><span class="p">,</span>
+<span class="p">)</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.colormaps</span><span class="w"> </span><span class="kn">import</span> <span class="n">ensure_colormap</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.events</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">Event</span><span class="p">,</span>
@@ -1861,10 +1865,19 @@ window.runMermaid = runMermaid;</script>
         <span class="n">viewbox_center</span> <span class="o">=</span> <span class="p">(</span><span class="n">viewbox_size</span> <span class="o">+</span> <span class="n">spacing</span><span class="p">)</span> <span class="o">*</span> <span class="n">viewbox</span> <span class="o">+</span> <span class="n">viewbox_size</span> <span class="o">/</span> <span class="mi">2</span>
         <span class="n">world_center</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">camera</span><span class="o">.</span><span class="n">center</span><span class="p">)</span>
 
+        <span class="c1"># account for orientation flip. Only x and y matter, not depth, because</span>
+        <span class="c1"># in 3D we poject onto the origin camera plane.</span>
+        <span class="n">vertical</span><span class="p">,</span> <span class="n">horizontal</span> <span class="o">=</span> <span class="n">camera</span><span class="o">.</span><span class="n">orientation2d</span>
+        <span class="n">flips</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+            <span class="p">[</span>
+                <span class="o">-</span><span class="mi">1</span> <span class="k">if</span> <span class="n">vertical</span> <span class="o">==</span> <span class="n">VerticalAxisOrientation</span><span class="o">.</span><span class="n">UP</span> <span class="k">else</span> <span class="mi">1</span><span class="p">,</span>
+                <span class="o">-</span><span class="mi">1</span> <span class="k">if</span> <span class="n">horizontal</span> <span class="o">==</span> <span class="n">HorizontalAxisOrientation</span><span class="o">.</span><span class="n">LEFT</span> <span class="k">else</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="p">]</span>
+        <span class="p">)</span>
+        <span class="n">canvas_offset</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">canvas_position</span><span class="p">)</span> <span class="o">-</span> <span class="n">viewbox_center</span><span class="p">)</span> <span class="o">*</span> <span class="n">flips</span>
+
         <span class="k">if</span> <span class="n">ndisplay</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
-            <span class="n">world_displayed</span> <span class="o">=</span> <span class="p">(</span>
-                <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">canvas_position</span><span class="p">)</span> <span class="o">-</span> <span class="n">viewbox_center</span>
-            <span class="p">)</span> <span class="o">/</span> <span class="n">camera</span><span class="o">.</span><span class="n">zoom</span> <span class="o">+</span> <span class="n">world_center</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">:]</span>
+            <span class="n">world_displayed</span> <span class="o">=</span> <span class="n">canvas_offset</span> <span class="o">/</span> <span class="n">camera</span><span class="o">.</span><span class="n">zoom</span> <span class="o">+</span> <span class="n">world_center</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">:]</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="c1"># this import is expensive so it is deferred to here</span>
             <span class="c1"># where it is actually needed</span>
@@ -1878,13 +1891,9 @@ window.runMermaid = runMermaid;</script>
             <span class="c1"># the depth is set to zero because we want the position at the</span>
             <span class="c1"># plane of the camera center.</span>
             <span class="c1"># Any modifications should be done by callers afterwards.</span>
-            <span class="n">canvas_position_3d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="o">*</span><span class="n">canvas_position</span><span class="p">])</span>
-            <span class="n">viewbox_center_3d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="o">*</span><span class="n">viewbox_center</span><span class="p">])</span>
+            <span class="n">canvas_position_3d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="o">*</span><span class="n">canvas_offset</span><span class="p">])</span>
             <span class="n">world_displayed</span> <span class="o">=</span> <span class="p">(</span>
-                <span class="n">rot_matrix</span><span class="o">.</span><span class="n">T</span>
-                <span class="o">@</span> <span class="p">(</span><span class="n">canvas_position_3d</span> <span class="o">-</span> <span class="n">viewbox_center_3d</span><span class="p">)</span>
-                <span class="o">/</span> <span class="n">camera</span><span class="o">.</span><span class="n">zoom</span>
-                <span class="o">+</span> <span class="n">world_center</span>
+                <span class="n">rot_matrix</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">canvas_position_3d</span> <span class="o">/</span> <span class="n">camera</span><span class="o">.</span><span class="n">zoom</span> <span class="o">+</span> <span class="n">world_center</span>
             <span class="p">)</span>
 
         <span class="c1"># with fewer dims than ndisplay , the leading components</span>

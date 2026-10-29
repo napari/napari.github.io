@@ -107,6 +107,9 @@ We are always looking for more community members to help with the triage role.
 If you are interested, please see our [triage guide](napari-triage) and reach
 out to the core team to express your interest.
 
+- [Matthias Schabel](https://github.com/napari/napari/commits?author=matthiasschabel) -
+  [@matthiasschabel](https://github.com/matthiasschabel)
+
 ## Team Roles
 
 To best serve napari's development, operations, and community, several team

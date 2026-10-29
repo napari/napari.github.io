@@ -57,7 +57,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=18bd87630a240e9c25be" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=18bd87630a240e9c25be" />
 
-    <script src="../_static/documentation_options.js?v=4fe9927d"></script>
+    <script src="../_static/documentation_options.js?v=8cd7b7e3"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -69,7 +69,7 @@
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.23.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.10.0rc1';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.10.0rc2';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
@@ -891,6 +891,7 @@ for ways to install additional packages from within napari.</p>
 </div>
 <img src="../_images/sphx_glr_xarray-latlon-timeseries_001.png" srcset="../_images/sphx_glr_xarray-latlon-timeseries_001.png" alt="xarray latlon timeseries" class = "sphx-glr-single-img"/><div class="highlight-Python notranslate"><div class="highlight"><pre><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span><span class="w">
 </span><span class="kn">import</span><span class="w"> </span><span class="nn">pint</span><span class="w">
+</span><span class="kn">import</span><span class="w"> </span><span class="nn">pooch</span><span class="w">
 </span><span class="kn">import</span><span class="w"> </span><span class="nn">xarray</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">xr</span><span class="w">
 </span><span class="w">
 </span><span class="kn">import</span><span class="w"> </span><span class="nn">napari</span><span class="w">
@@ -904,8 +905,20 @@ for ways to install additional packages from within napari.</p>
 </span><span class="w">
 </span><span class="c1"># open the xarray global sea surface temperature (40MB) and North America</span><span class="w">
 </span><span class="c1"># air temperature (30MB) datasets</span><span class="w">
-</span><span class="n">sst</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">tutorial</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span><span class="s1">'</span><span class="s1">ersstv5</span><span class="s1">'</span><span class="p">)</span><span class="w">
-</span><span class="n">airtemp</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">tutorial</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span><span class="s1">'</span><span class="s1">air_temperature</span><span class="s1">'</span><span class="p">)</span><span class="w">
+</span><a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="str"><span class="n">data_url</span></a> <span class="o">=</span> <span class="s1">'</span><span class="s1">https://github.com/pydata/xarray-data/raw/master</span><span class="s1">'</span><span class="w">
+</span><a class="sphx-glr-backref-module-pathlib sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.PosixPath" title="pathlib.PosixPath"><span class="n">cache_dir</span></a> <span class="o">=</span> <span class="n">pooch</span><span class="o">.</span><span class="n">os_cache</span><span class="p">(</span><span class="s1">'</span><span class="s1">xarray_tutorial_data</span><span class="s1">'</span><span class="p">)</span><span class="w">
+</span><a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="str"><span class="n">sst_path</span></a> <span class="o">=</span> <span class="n">pooch</span><span class="o">.</span><span class="n">retrieve</span><span class="p">(</span><span class="w">
+</span>    <span class="sa">f</span><span class="s1">'</span><span class="si">{</span><a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="str"><span class="n">data_url</span></a><span class="si">}</span><span class="s1">/ersstv5.nc</span><span class="s1">'</span><span class="p">,</span><span class="w">
+</span>    <span class="n">known_hash</span><span class="o">=</span><span class="s1">'</span><span class="s1">sha256:2ae53611d00069440641ad8ec36b216c9f543462161ae86589723c9d19ff90c6</span><span class="s1">'</span><span class="p">,</span><span class="w">
+</span>    <span class="n">path</span><span class="o">=</span><a class="sphx-glr-backref-module-pathlib sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.PosixPath" title="pathlib.PosixPath"><span class="n">cache_dir</span></a><span class="p">,</span><span class="w">
+</span><span class="p">)</span><span class="w">
+</span><a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="str"><span class="n">airtemp_path</span></a> <span class="o">=</span> <span class="n">pooch</span><span class="o">.</span><span class="n">retrieve</span><span class="p">(</span><span class="w">
+</span>    <span class="sa">f</span><span class="s1">'</span><span class="si">{</span><a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="str"><span class="n">data_url</span></a><span class="si">}</span><span class="s1">/air_temperature.nc</span><span class="s1">'</span><span class="p">,</span><span class="w">
+</span>    <span class="n">known_hash</span><span class="o">=</span><span class="s1">'</span><span class="s1">sha256:c606b89c35970a2983b914b76df4adbb409003ef34aa7cfd7f582e41f307482b</span><span class="s1">'</span><span class="p">,</span><span class="w">
+</span>    <span class="n">path</span><span class="o">=</span><a class="sphx-glr-backref-module-pathlib sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.PosixPath" title="pathlib.PosixPath"><span class="n">cache_dir</span></a><span class="p">,</span><span class="w">
+</span><span class="p">)</span><span class="w">
+</span><span class="n">sst</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span><a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="str"><span class="n">sst_path</span></a><span class="p">)</span><span class="w">
+</span><span class="n">airtemp</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span><a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="str"><span class="n">airtemp_path</span></a><span class="p">)</span><span class="w">
 </span><span class="w">
 </span><span class="c1"># Show the raw (not resampled) model data</span><span class="w">
 </span><a class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-class sphx-glr-backref-instance reference internal" href="../api/napari.Viewer.html#napari.Viewer" title="napari.Viewer"><span class="n">viewer</span></a><span class="p">,</span> <a class="sphx-glr-backref-module-napari-layers sphx-glr-backref-type-py-class sphx-glr-backref-instance reference internal" href="../api/napari.layers.Image.html#napari.layers.Image" title="napari.layers.Image"><span class="n">sst_layer</span></a> <span class="o">=</span> <a class="sphx-glr-backref-module-napari sphx-glr-backref-type-py-function reference internal" href="../api/napari.html#napari.imshow" title="napari.imshow"><span class="n">napari</span><span class="o">.</span><span class="n">imshow</span></a><span class="p">(</span><span class="w">

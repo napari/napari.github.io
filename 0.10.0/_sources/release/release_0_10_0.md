@@ -1,5 +1,5 @@
 # napari 0.10.0
-⚠️ *Note: these release notes are still in draft while 0.10.0rc1 is in prerelease testing.* ⚠️
+⚠️ *Note: these release notes are still in draft while 0.10.0rc2 is in prerelease testing.* ⚠️
 
 *Mon, Oct 26, 2026*
 
@@ -18,8 +18,8 @@ napari follows [EffVer (Intended Effort Versioning)](https://effver.org/); this 
 
 This release contains several new features and many enhancements and bugfixes. We also welcomed a ton of new contributors to the community!
 
-### Grid Lines, axes and ticks
-This features has been requested for years, and we finally managed to get a version that we're happy with! With [#7827](https://github.com/napari/napari/pull/7827), you can now use `viewer.scene.overlays.grid_lines` to display a grid on your data, including unit-aware tick marks and axis labels! Try it out:
+### Coordinate Grid with axes and ticks
+This features has been requested for years, and we finally managed to get a version that we're happy with! With [#7827](https://github.com/napari/napari/pull/7827), you can now use `viewer.scene.overlays.coordinate_grid` to display a grid on your data, including unit-aware tick marks and axis labels! Try it out:
 
 ```py
 import napari
@@ -31,10 +31,10 @@ for layer in layers:
     layer.units = 'nm'
     layer.axis_labels = ['z', 'y', 'x']
 
-viewer.scene.overlays.grid_lines.visible = True
+viewer.scene.overlays.coordinate_grid.visible = True
 ```
 
-![screenshot of the viewer with the grid_lines overlay enabled, showing the grid with axis labels and units, and axis ticks](https://github.com/user-attachments/assets/54993979-4774-4e66-87fb-d1bfcb27fb98)
+![screenshot of the viewer with the coordinate_grid overlay enabled, showing the grid with axis labels and units, and axis ticks](https://github.com/user-attachments/assets/54993979-4774-4e66-87fb-d1bfcb27fb98)
 
 ### Colorful names
 
@@ -99,6 +99,10 @@ We previously hardcoded default font sizes for all visuals in the canvas. Now ([
 
 So if you use the `scale_bar`, or `Points.text` or other layers and overlays that display text and you don't like the new default, make sure to set your font size explicitly!
 
+### Key-bindings auto-repeat enabled by default
+
+With [#9361](https://github.com/napari/napari/pull/9361), key-binding callbacks are now auto-repeated as everything else on your system. If your callbacks is a single-shot function, it will repeat when held; if it's a generator, it will behave as before. The flag `repeatable=True` no longer has an effect.
+
 
 
 ## New Features
@@ -144,6 +148,8 @@ So if you use the `scale_bar`, or `Points.text` or other layers and overlays tha
 - [perf] Defer the expensive import from scipy.spatial.transform until ndisplay=3 ([#9746](https://github.com/napari/napari/pull/9746))
 - Effectively revert PR #8725 so viewer shows when files are opened from CLI ([#9747](https://github.com/napari/napari/pull/9747))
 - [perf] Avoid xarray import (pulls in pandas) in ScalarField construction ([#9780](https://github.com/napari/napari/pull/9780))
+- Perf: Use single Tick visual per axis for Grid Lines overlay ([#9811](https://github.com/napari/napari/pull/9811))
+- Perf: Update Grid Lines in place instead of resetting them ([#9812](https://github.com/napari/napari/pull/9812))
 
 ## Bug Fixes
 
@@ -182,8 +188,16 @@ So if you use the `scale_bar`, or `Points.text` or other layers and overlays tha
 - Cancel all pending notifications on close of napari main window. ([#9776](https://github.com/napari/napari/pull/9776))
 - Fix cursor position calculation for 2d data in 3d scene ([#9781](https://github.com/napari/napari/pull/9781))
 - Fix crosshair color of Z-axis for 2D data in 3D view ([#9796](https://github.com/napari/napari/pull/9796))
-- Fix overlay draws during new viewboxes from new layers ([#9799](https://github.com/napari/napari/pull/9799))
 - Fix PySide6 Qt version check truncating patch component ([#9800](https://github.com/napari/napari/pull/9800))
+- Fix default font size for overlays of new layers ([#9806](https://github.com/napari/napari/pull/9806))
+- Fix Grid Lines overlay clipping into empty viewboxes ([#9809](https://github.com/napari/napari/pull/9809))
+- Set Qt parents of Timer and effects in `NapariQtNotification` ([#9815](https://github.com/napari/napari/pull/9815))
+- Fix canvas_to_world to account for camera orientation ([#9821](https://github.com/napari/napari/pull/9821))
+- Fix: Grid tick decimal rounding ([#9824](https://github.com/napari/napari/pull/9824))
+
+## Build Tools
+
+- ci(deps): bump certifi from 2026.10.18 to 2026.10.19 in /resources ([#9788](https://github.com/napari/napari/pull/9788))
 
 ## Documentation
 
@@ -209,6 +223,9 @@ So if you use the `scale_bar`, or `Points.text` or other layers and overlays tha
 - Update release notes v0.10.0rc1 ([docs#1182](https://github.com/napari/docs/pull/1182))
 - Add Aniket and Jacopo to the core team section ([docs#1184](https://github.com/napari/docs/pull/1184))
 - Add crosshair mention ([docs#1188](https://github.com/napari/docs/pull/1188))
+- Update release notes v0.10.0 rc2 ([docs#1191](https://github.com/napari/docs/pull/1191))
+- Rename grid lines to coordinate grid ([docs#1192](https://github.com/napari/docs/pull/1192))
+- Add Matthias Schabel to triage team  ([docs#1193](https://github.com/napari/docs/pull/1193))
 - The (almost) Everything example ([#9319](https://github.com/napari/napari/pull/9319))
 - Add info in tooltips for projection mode ([#9497](https://github.com/napari/napari/pull/9497))
 - Clarify in `LayerList` docstring when the `changed` event is emitted ([#9504](https://github.com/napari/napari/pull/9504))
@@ -273,11 +290,15 @@ So if you use the `scale_bar`, or `Points.text` or other layers and overlays tha
 - Use QEnumComboBox for depiction control ([#9742](https://github.com/napari/napari/pull/9742))
 - [pre-commit.ci] pre-commit autoupdate ([#9753](https://github.com/napari/napari/pull/9753))
 - Use pooch mocking machinery to fetch scikit-mage data from our server ([#9772](https://github.com/napari/napari/pull/9772))
+- Patch source of nilearn data in test run ([#9777](https://github.com/napari/napari/pull/9777))
 - Apply missing changes of PyQt5 drop ([#9779](https://github.com/napari/napari/pull/9779))
 - Update `certifi`, `coverage`, `hypothesis`, `napari-console`, `pandas`, `pint`, `pydantic-settings`, `virtualenv` ([#9791](https://github.com/napari/napari/pull/9791))
+- Rename grid lines to coordinate_grid ([#9813](https://github.com/napari/napari/pull/9813))
+- Add hash to pooch downloads to use cache. ([#9814](https://github.com/napari/napari/pull/9814))
+- Migrate autoswap setting ([#9820](https://github.com/napari/napari/pull/9820))
 
 
-## 24 authors added to this release (alphabetical)
+## 25 authors added to this release (alphabetical)
 
 (+) denotes first-time contributors 🥳
 
@@ -290,6 +311,7 @@ So if you use the `scale_bar`, or `Points.text` or other layers and overlays tha
 - [Clément Caporal](https://github.com/napari/napari/commits?author=ClementCaporal) - @ClementCaporal
 - [Felipe Cybis Pereira](https://github.com/napari/napari/commits?author=FelipeCybis) - @FelipeCybis +
 - [Grzegorz Bokota](https://github.com/napari/napari/commits?author=Czaki) ([docs](https://github.com/napari/docs/commits?author=Czaki))  - @Czaki
+- [Ian Hunt-Isaak](https://github.com/napari/napari/commits?author=ianhi) - @ianhi
 - [imaddde867](https://github.com/napari/napari/commits?author=imaddde867) - @imaddde867 +
 - [Jacopo Abramo](https://github.com/napari/napari/commits?author=jacopoabramo) ([docs](https://github.com/napari/docs/commits?author=jacopoabramo))  - @jacopoabramo
 - [KRiedmiller](https://github.com/napari/napari/commits?author=KRiedmiller) - @KRiedmiller +

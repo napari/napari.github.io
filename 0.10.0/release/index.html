@@ -12,10 +12,10 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://napari.org/stable/release/index.html" />
 <meta property="og:site_name" content="napari" />
-<meta property="og:description" content="Each section shows the highlights from recent releases. Click on the version links to view the complete release notes. Last updated: October 27, 2026 Recent Releases (Last 3 Months): Latest features and improvements: napari 0.10.0 (October 2026) This release contains several new features and many..." />
+<meta property="og:description" content="Each section shows the highlights from recent releases. Click on the version links to view the complete release notes. Last updated: October 29, 2026 Recent Releases (Last 3 Months): Latest features and improvements: napari 0.10.0 (October 2026) This release contains several new features and many..." />
 <meta property="og:image" content="https://napari.org/dev/_static/opengraph_image.png" />
 <meta property="og:image:alt" content="3D segmented tribolium embryo in the napari viewer" />
-<meta name="description" content="Each section shows the highlights from recent releases. Click on the version links to view the complete release notes. Last updated: October 27, 2026 Recent Releases (Last 3 Months): Latest features and improvements: napari 0.10.0 (October 2026) This release contains several new features and many..." />
+<meta name="description" content="Each section shows the highlights from recent releases. Click on the version links to view the complete release notes. Last updated: October 29, 2026 Recent Releases (Last 3 Months): Latest features and improvements: napari 0.10.0 (October 2026) This release contains several new features and many..." />
 <meta name="twitter:card" content="summary_large_image" />
 
     <title>Release Notes &#8212; napari</title>
@@ -57,7 +57,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=18bd87630a240e9c25be" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=18bd87630a240e9c25be" />
 
-    <script src="../_static/documentation_options.js?v=4fe9927d"></script>
+    <script src="../_static/documentation_options.js?v=8cd7b7e3"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -69,7 +69,7 @@
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.23.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.10.0rc1';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.10.0rc2';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
@@ -856,7 +856,7 @@
   <section class="tex2jax_ignore mathjax_ignore" id="release-notes">
 <span id="id1"></span><h1>Release Notes<a class="headerlink" href="#release-notes" title="Link to this heading">#</a></h1>
 <p>Each section shows the highlights from recent releases. Click on the version links to view the complete release notes.</p>
-<p><em>Last updated: October 27, 2026</em></p>
+<p><em>Last updated: October 29, 2026</em></p>
 <section id="recent-releases-last-3-months">
 <h2>Recent Releases (Last 3 Months)<a class="headerlink" href="#recent-releases-last-3-months" title="Link to this heading">#</a></h2>
 <p>Latest features and improvements:</p>
@@ -864,8 +864,8 @@
 <summary class="sd-summary-title sd-card-header">
 <span class="sd-summary-text">napari 0.10.0 (October 2026)</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
 <p class="sd-card-text">This release contains several new features and many enhancements and bugfixes. We also welcomed a ton of new contributors to the community!</p>
-<p class="rubric" id="grid-lines-axes-and-ticks">Grid Lines, axes and ticks</p>
-<p class="sd-card-text">This features has been requested for years, and we finally managed to get a version that we’re happy with! With <a class="reference external" href="https://github.com/napari/napari/pull/7827">#7827</a>, you can now use <code class="docutils literal notranslate"><span class="pre">viewer.scene.overlays.grid_lines</span></code> to display a grid on your data, including unit-aware tick marks and axis labels! Try it out:</p>
+<p class="rubric" id="coordinate-grid-with-axes-and-ticks">Coordinate Grid with axes and ticks</p>
+<p class="sd-card-text">This features has been requested for years, and we finally managed to get a version that we’re happy with! With <a class="reference external" href="https://github.com/napari/napari/pull/7827">#7827</a>, you can now use <code class="docutils literal notranslate"><span class="pre">viewer.scene.overlays.coordinate_grid</span></code> to display a grid on your data, including unit-aware tick marks and axis labels! Try it out:</p>
 <div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">napari</span>
 
 <span class="n">viewer</span> <span class="o">=</span> <span class="n">napari</span><span class="o">.</span><span class="n">Viewer</span><span class="p">(</span><span class="n">ndisplay</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
@@ -875,10 +875,10 @@
     <span class="n">layer</span><span class="o">.</span><span class="n">units</span> <span class="o">=</span> <span class="s1">'nm'</span>
     <span class="n">layer</span><span class="o">.</span><span class="n">axis_labels</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'z'</span><span class="p">,</span> <span class="s1">'y'</span><span class="p">,</span> <span class="s1">'x'</span><span class="p">]</span>
 
-<span class="n">viewer</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">overlays</span><span class="o">.</span><span class="n">grid_lines</span><span class="o">.</span><span class="n">visible</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">viewer</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">overlays</span><span class="o">.</span><span class="n">coordinate_grid</span><span class="o">.</span><span class="n">visible</span> <span class="o">=</span> <span class="kc">True</span>
 </pre></div>
 </div>
-<p class="sd-card-text"><img alt="screenshot of the viewer with the grid_lines overlay enabled, showing the grid with axis labels and units, and axis ticks" src="https://github.com/user-attachments/assets/54993979-4774-4e66-87fb-d1bfcb27fb98" /></p>
+<p class="sd-card-text"><img alt="screenshot of the viewer with the coordinate_grid overlay enabled, showing the grid with axis labels and units, and axis ticks" src="https://github.com/user-attachments/assets/54993979-4774-4e66-87fb-d1bfcb27fb98" /></p>
 <p class="rubric" id="colorful-names">Colorful names</p>
 <p class="sd-card-text">Another long-requested feature: displaying <a class="reference external" href="https://napari.org/stable/getting_started/layers.html#layer-overlays">layer names</a> on the canvas now has colormap-aware colors (<a class="reference external" href="https://github.com/napari/napari/pull/9598">#9598</a>)! This comes with some fancy machinery to ensure that colors are shifted enough to be always readable.</p>
 <div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">napari</span>

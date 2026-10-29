@@ -449,6 +449,11 @@ multiscale image to its finest level, `DirectLabelColormap`, and
         napari.run()
 
 
+.. rst-class:: sphx-glr-timing
+
+   **Total running time of the script:** (0 minutes 10.623 seconds)
+
+
 .. _sphx_glr_download_gallery_everything.py:
 
 .. only:: html

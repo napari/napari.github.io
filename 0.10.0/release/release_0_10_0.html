@@ -12,10 +12,10 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://napari.org/stable/release/release_0_10_0.html" />
 <meta property="og:site_name" content="napari" />
-<meta property="og:description" content="⚠️ Note: these release notes are still in draft while 0.10.0rc2 is in prerelease testing. ⚠️ Mon, Oct 26, 2026 We’re happy to announce the release of napari 0.10.0! napari is a fast, interactive, multi-dimensional image viewer for Python. It’s designed for browsing, annotating, and analyzing larg..." />
+<meta property="og:description" content="Fri, Oct 30, 2026 We’re happy to announce the release of napari 0.10.0! napari is a fast, interactive, multi-dimensional image viewer for Python. It’s designed for browsing, annotating, and analyzing large multi-dimensional images. It’s built on top of Qt (for the GUI), vispy (for performant GPU-..." />
 <meta property="og:image" content="https://napari.org/dev/_static/opengraph_image.png" />
 <meta property="og:image:alt" content="3D segmented tribolium embryo in the napari viewer" />
-<meta name="description" content="⚠️ Note: these release notes are still in draft while 0.10.0rc2 is in prerelease testing. ⚠️ Mon, Oct 26, 2026 We’re happy to announce the release of napari 0.10.0! napari is a fast, interactive, multi-dimensional image viewer for Python. It’s designed for browsing, annotating, and analyzing larg..." />
+<meta name="description" content="Fri, Oct 30, 2026 We’re happy to announce the release of napari 0.10.0! napari is a fast, interactive, multi-dimensional image viewer for Python. It’s designed for browsing, annotating, and analyzing large multi-dimensional images. It’s built on top of Qt (for the GUI), vispy (for performant GPU-..." />
 <meta name="twitter:card" content="summary_large_image" />
 
     <title>napari 0.10.0 &#8212; napari</title>
@@ -57,7 +57,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=18bd87630a240e9c25be" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=18bd87630a240e9c25be" />
 
-    <script src="../_static/documentation_options.js?v=8cd7b7e3"></script>
+    <script src="../_static/documentation_options.js?v=5767a989"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -69,7 +69,7 @@
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.23.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.10.0rc2';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.10.0';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
@@ -858,8 +858,7 @@
                   
   <section class="tex2jax_ignore mathjax_ignore" id="napari-0-10-0">
 <h1>napari 0.10.0<a class="headerlink" href="#napari-0-10-0" title="Link to this heading">#</a></h1>
-<p>⚠️ <em>Note: these release notes are still in draft while 0.10.0rc2 is in prerelease testing.</em> ⚠️</p>
-<p><em>Mon, Oct 26, 2026</em></p>
+<p><em>Fri, Oct 30, 2026</em></p>
 <p>We’re happy to announce the release of napari 0.10.0!
 napari is a fast, interactive, multi-dimensional image viewer for Python.
 It’s designed for browsing, annotating, and analyzing large multi-dimensional
@@ -1047,6 +1046,7 @@ rendering), and the scientific Python stack (numpy, scipy).</p>
 <li><p>Set Qt parents of Timer and effects in <code class="docutils literal notranslate"><span class="pre">NapariQtNotification</span></code> (<a class="reference external" href="https://github.com/napari/napari/pull/9815">#9815</a>)</p></li>
 <li><p>Fix canvas_to_world to account for camera orientation (<a class="reference external" href="https://github.com/napari/napari/pull/9821">#9821</a>)</p></li>
 <li><p>Fix: Grid tick decimal rounding (<a class="reference external" href="https://github.com/napari/napari/pull/9824">#9824</a>)</p></li>
+<li><p>Give multiscale level label a parent so it doesn’t show as a window (<a class="reference external" href="https://github.com/napari/napari/pull/9834">#9834</a>)</p></li>
 </ul>
 </section>
 <section id="build-tools">
@@ -1083,6 +1083,7 @@ rendering), and the scientific Python stack (numpy, scipy).</p>
 <li><p>Update release notes v0.10.0 rc2 (<a class="reference external" href="https://github.com/napari/docs/pull/1191">docs#1191</a>)</p></li>
 <li><p>Rename grid lines to coordinate grid (<a class="reference external" href="https://github.com/napari/docs/pull/1192">docs#1192</a>)</p></li>
 <li><p>Add Matthias Schabel to triage team  (<a class="reference external" href="https://github.com/napari/docs/pull/1193">docs#1193</a>)</p></li>
+<li><p>Update release notes v0.10.0 (<a class="reference external" href="https://github.com/napari/docs/pull/1197">docs#1197</a>)</p></li>
 <li><p>The (almost) Everything example (<a class="reference external" href="https://github.com/napari/napari/pull/9319">#9319</a>)</p></li>
 <li><p>Add info in tooltips for projection mode (<a class="reference external" href="https://github.com/napari/napari/pull/9497">#9497</a>)</p></li>
 <li><p>Clarify in <code class="docutils literal notranslate"><span class="pre">LayerList</span></code> docstring when the <code class="docutils literal notranslate"><span class="pre">changed</span></code> event is emitted (<a class="reference external" href="https://github.com/napari/napari/pull/9504">#9504</a>)</p></li>
@@ -1155,10 +1156,11 @@ rendering), and the scientific Python stack (numpy, scipy).</p>
 <li><p>Rename grid lines to coordinate_grid (<a class="reference external" href="https://github.com/napari/napari/pull/9813">#9813</a>)</p></li>
 <li><p>Add hash to pooch downloads to use cache. (<a class="reference external" href="https://github.com/napari/napari/pull/9814">#9814</a>)</p></li>
 <li><p>Migrate autoswap setting (<a class="reference external" href="https://github.com/napari/napari/pull/9820">#9820</a>)</p></li>
+<li><p>Move core devs up (<a class="reference external" href="https://github.com/napari/napari/pull/9828">#9828</a>)</p></li>
 </ul>
 </section>
 <section id="authors-added-to-this-release-alphabetical">
-<h2>25 authors added to this release (alphabetical)<a class="headerlink" href="#authors-added-to-this-release-alphabetical" title="Link to this heading">#</a></h2>
+<h2>26 authors added to this release (alphabetical)<a class="headerlink" href="#authors-added-to-this-release-alphabetical" title="Link to this heading">#</a></h2>
 <p>(+) denotes first-time contributors 🥳</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=Schefflera-Arboricola">Aditi Juneja</a> - &#64;Schefflera-Arboricola +</p></li>
@@ -1173,6 +1175,7 @@ rendering), and the scientific Python stack (numpy, scipy).</p>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=ianhi">Ian Hunt-Isaak</a> - &#64;ianhi</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=imaddde867">imaddde867</a> - &#64;imaddde867 +</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=jacopoabramo">Jacopo Abramo</a> (<a class="reference external" href="https://github.com/napari/docs/commits?author=jacopoabramo">docs</a>)  - &#64;jacopoabramo</p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=folterj">Joost de Folter</a> - &#64;folterj +</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=KRiedmiller">KRiedmiller</a> - &#64;KRiedmiller +</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=lettyz3">lettyz3</a> - &#64;lettyz3 +</p></li>
 <li><p><a class="reference external" href="https://github.com/napari/napari/commits?author=brisvag">Lorenzo Gaifas</a> (<a class="reference external" href="https://github.com/napari/docs/commits?author=brisvag">docs</a>)  - &#64;brisvag</p></li>
@@ -1283,7 +1286,7 @@ rendering), and the scientific Python stack (numpy, scipy).</p>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#build-tools">Build Tools</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#documentation">Documentation</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#other-pull-requests">Other Pull Requests</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#authors-added-to-this-release-alphabetical">25 authors added to this release (alphabetical)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#authors-added-to-this-release-alphabetical">26 authors added to this release (alphabetical)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reviewers-added-to-this-release-alphabetical">18 reviewers added to this release (alphabetical)</a></li>
 </ul>
   </nav></div>

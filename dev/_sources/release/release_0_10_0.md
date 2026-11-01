@@ -1,7 +1,6 @@
 # napari 0.10.0
-⚠️ *Note: these release notes are still in draft while 0.10.0rc2 is in prerelease testing.* ⚠️
 
-*Mon, Oct 26, 2026*
+*Fri, Oct 30, 2026*
 
 We're happy to announce the release of napari 0.10.0!
 napari is a fast, interactive, multi-dimensional image viewer for Python.
@@ -194,6 +193,7 @@ With [#9361](https://github.com/napari/napari/pull/9361), key-binding callbacks 
 - Set Qt parents of Timer and effects in `NapariQtNotification` ([#9815](https://github.com/napari/napari/pull/9815))
 - Fix canvas_to_world to account for camera orientation ([#9821](https://github.com/napari/napari/pull/9821))
 - Fix: Grid tick decimal rounding ([#9824](https://github.com/napari/napari/pull/9824))
+- Give multiscale level label a parent so it doesn't show as a window ([#9834](https://github.com/napari/napari/pull/9834))
 
 ## Build Tools
 
@@ -226,6 +226,7 @@ With [#9361](https://github.com/napari/napari/pull/9361), key-binding callbacks 
 - Update release notes v0.10.0 rc2 ([docs#1191](https://github.com/napari/docs/pull/1191))
 - Rename grid lines to coordinate grid ([docs#1192](https://github.com/napari/docs/pull/1192))
 - Add Matthias Schabel to triage team  ([docs#1193](https://github.com/napari/docs/pull/1193))
+- Update release notes v0.10.0 ([docs#1197](https://github.com/napari/docs/pull/1197))
 - The (almost) Everything example ([#9319](https://github.com/napari/napari/pull/9319))
 - Add info in tooltips for projection mode ([#9497](https://github.com/napari/napari/pull/9497))
 - Clarify in `LayerList` docstring when the `changed` event is emitted ([#9504](https://github.com/napari/napari/pull/9504))
@@ -296,9 +297,10 @@ With [#9361](https://github.com/napari/napari/pull/9361), key-binding callbacks 
 - Rename grid lines to coordinate_grid ([#9813](https://github.com/napari/napari/pull/9813))
 - Add hash to pooch downloads to use cache. ([#9814](https://github.com/napari/napari/pull/9814))
 - Migrate autoswap setting ([#9820](https://github.com/napari/napari/pull/9820))
+- Move core devs up ([#9828](https://github.com/napari/napari/pull/9828))
 
 
-## 25 authors added to this release (alphabetical)
+## 26 authors added to this release (alphabetical)
 
 (+) denotes first-time contributors 🥳
 
@@ -314,6 +316,7 @@ With [#9361](https://github.com/napari/napari/pull/9361), key-binding callbacks 
 - [Ian Hunt-Isaak](https://github.com/napari/napari/commits?author=ianhi) - @ianhi
 - [imaddde867](https://github.com/napari/napari/commits?author=imaddde867) - @imaddde867 +
 - [Jacopo Abramo](https://github.com/napari/napari/commits?author=jacopoabramo) ([docs](https://github.com/napari/docs/commits?author=jacopoabramo))  - @jacopoabramo
+- [Joost de Folter](https://github.com/napari/napari/commits?author=folterj) - @folterj +
 - [KRiedmiller](https://github.com/napari/napari/commits?author=KRiedmiller) - @KRiedmiller +
 - [lettyz3](https://github.com/napari/napari/commits?author=lettyz3) - @lettyz3 +
 - [Lorenzo Gaifas](https://github.com/napari/napari/commits?author=brisvag) ([docs](https://github.com/napari/docs/commits?author=brisvag))  - @brisvag

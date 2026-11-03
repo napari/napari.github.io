@@ -1,4 +1,4 @@
-(core-dev-guide)=
+(core-team-guide)=
 
 # Core team member guide
 
@@ -8,7 +8,7 @@ to join us. Thank you for your numerous contributions to the project
 so far.
 
 You can see a list of all the current core team members on our
-[@napari/core-devs](https://github.com/orgs/napari/teams/core-devs)
+[@napari/core-team](https://github.com/orgs/napari/teams/core-team)
 GitHub team. You should now be on that list too.
 
 This document offers guidelines for your new role. First and

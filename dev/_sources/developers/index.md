@@ -37,7 +37,7 @@ Resources for contributors
 
 Resources for core team members, including information for onboarding new core team members
 
-- [Core team member guide](core-dev-guide)
+- [Core team member guide](core-team-guide)
 - [Maintenance](napari-maintenance)
 - [Release policy](napari-release)
 - [Release guide](napari-release-guide)

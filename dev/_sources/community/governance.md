@@ -93,7 +93,7 @@ followed by acceptance through a one-week consensus seeking period.
 Triage team members can step down at any time. The
 details of the role are described in the [triage guide](napari-triage) and
 triage team members should also become familiar with the
-[core team member guide](core-dev-guide).
+[core team member guide](core-team-guide).
 
 ### Core team members
 
@@ -103,8 +103,8 @@ that this title did not accurately reflect the broad range of contributions
 we value from our community. We have therefore updated the title to be more
 inclusive.
 
-Some historical artifacts e.g. our google mailing group and our GitHub team
-cannot be renamed. Additionally, NAPs and release notes have not been
+Some historical artifacts e.g. our google mailing group cannot be renamed.
+Additionally, NAPs, historical roadmaps, and release notes have not been
 retroactively updated to reflect the new role title.
 ```
 
@@ -122,7 +122,7 @@ the SC to establish and update the project's development roadmap, and support
 the napari community at large.
 
 Core team members are expected to review code contributions while adhering to
-the [core team member guide](core-dev-guide). New core team members can be
+the [core team member guide](core-team-guide). New core team members can be
 nominated by any existing core team member, and for details on that process see
 our core team member guide. Core team members can choose to step down from
 their role and become "emeritus" core team members if they are no longer

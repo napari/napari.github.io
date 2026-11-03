@@ -6,7 +6,7 @@ This document is meant to help guide decisions about the future of `napari`, be
 it in terms of whether to accept new functionality, changes to the styling of
 the code or graphical user interface (GUI), or whether to take on new
 dependencies, among other things. It serves as a point of reference for
-[core team members](core-dev-guide) actively working on the project, and an
+[core team members](core-team-guide) actively working on the project, and an
 introduction for newcomers who want to learn a little more about where the
 project is going and what the team's values are. You can also learn more about
 how the project is managed by looking at our
@@ -72,7 +72,7 @@ scientists** to use in their daily work. We hope to accomplish this by:
 
 - We are **inclusive**. We welcome and mentor newcomers who are making their
   first contribution and strive to grow our most dedicated contributors into
-  [core team members](core-dev-guide). We have a [Code of Conduct](napari-coc)
+  [core team members](core-team-guide). We have a [Code of Conduct](napari-coc)
   to make napari a welcoming place for all.
 
 - We are **community-driven**. We respond to feature requests and proposals on

@@ -11,7 +11,7 @@ should be updated regularly.
 Because of the security GitHub policy, the commits and pull requests created by
 an action that uses default `GITHUB_TOKEN` will not trigger another action's
 runs. The possible workaround for this is to close and then reopen the pull
-request. But this requires additional actions by core devs.
+request. But this requires additional actions by core team members.
 
 To get automatically running workflows, we need to create a personal access
 token (PAT) and add it to the repository secrets. For security reasons, it is

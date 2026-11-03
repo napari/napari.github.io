@@ -233,7 +233,7 @@ member with lazy consensus, without re-running the full nomination process.
 
 Core team members do triage too, and shepherd triagers as they grow into the
 role. When you review a pull request, make sure labels and milestones are set
-as described in the [core team member guide](core-dev-guide). When you notice
+as described in the [core team member guide](core-team-guide). When you notice
 a contributor consistently helping with triage, consider nominating them for
 the triage team (see [joining the triage team](#joining-the-triage-team)
 above).

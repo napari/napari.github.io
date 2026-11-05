@@ -30,7 +30,7 @@ For information about using `magicgui` (for users and plugin developers) see
 `napari` types are either registered via the
 {func}`@register_type <magicgui.type_map.register_type>` decorator when they
 are defined or in
-[`napari/types.py`](https://github.com/napari/napari/blob/main/napari/types.py).
+[`napari/types.py`](https://github.com/napari/napari/blob/main/src/napari/types.py).
 For the full list of types registered, see [](magicgui-parameter-annotations).
 
 ### Layer types

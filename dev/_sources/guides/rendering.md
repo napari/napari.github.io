@@ -302,7 +302,7 @@ methods defined in
 
 Numpy's `ndarray` is compatible with this protocol, but so are array types from
 other packages like [Dask](https://docs.dask.org/en/latest/array.html),
-[Zarr](https://zarr.readthedocs.io/en/stable/_autoapi/zarr.core.Array.html),
+[Zarr](https://zarr.readthedocs.io/en/stable/api/zarr/array/),
 and more. This flexibility allows you refer to image data that does not fit in
 memory or still needs to be lazily computed, without complicating napari's core
 implementation at all.

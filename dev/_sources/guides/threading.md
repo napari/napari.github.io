@@ -315,7 +315,7 @@ So far we've mostly been *receiving* results from the threaded function, but we
 can send values *into* a generator-based thread as well using
 {meth}`worker.send() <napari.qt.threading.GeneratorWorker.send>` This works
 exactly like a standard python
-[generator.send](https://docs.python.org/3/reference/expressions.html#generator.send)
+[generator.send](https://docs.python.org/3/builtins/stdtypes.html#generator.send)
 pattern. This next example ties together a number of concepts and demonstrates
 two-thread communication with conditional flow control. It's a simple
 cumulative multiplier that runs in another thread, and exits if the product

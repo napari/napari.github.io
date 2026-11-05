@@ -3,7 +3,7 @@
 # napari directory organization
 
 The majority of the napari code lives in
-[`napari/`](https://github.com/napari/napari/tree/main/napari). The main
+[`napari/`](https://github.com/napari/napari/tree/main/src/napari). The main
 folders are:
 
 ```text

@@ -11,10 +11,11 @@ timepoint. Data may also be stored in some proprietary format. As the size of
 the dataset grows, viewing arbitrary slices (in time, channel, z) of these
 datasets can become cumbersome.
 
-Chunked file formats exist (such as [hdf5](https://support.hdfgroup.org/HDF5/)
-and [zarr](https://zarr.readthedocs.io/en/stable/)) that store data in a way
-that makes it easier to retrieve arbitrary subsets of the dataset, but they
-require either data duplication, or "committing" to a new file standard.
+Chunked file formats exist (such as
+[hdf5](https://www.hdfgroup.org/solutions/hdf5/) and
+[zarr](https://zarr.readthedocs.io/en/stable/)) that store data in a way that
+makes it easier to retrieve arbitrary subsets of the dataset, but they require
+either data duplication, or "committing" to a new file standard.
 
 ```{note}
 This tutorial is not meant to promote a folder of TIFFs as a "good way" to

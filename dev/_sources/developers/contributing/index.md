@@ -75,7 +75,7 @@ To set it, use `git config --global user.email your-address@example.com`.
 2. Share your changes:
 
 To push the local changes in your new feature branch to your
-[forked](https://docs.github.com/en/get-started/exploring-projects-on-github/contributing-to-a-project#forking-a-repository)
+[forked](https://docs.github.com/en/get-started/exploring-projects-on-github/contributing-to-a-project#about-forking)
 repository:
 
 ```sh

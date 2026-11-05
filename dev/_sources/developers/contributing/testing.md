@@ -51,7 +51,7 @@ CI.
 ### Integration and functional tests
 
 Our integration and functional tests are located in the
-[`napari/_tests`](https://github.com/napari/napari/tree/main/napari/_tests)
+[`napari/_tests`](https://github.com/napari/napari/tree/main/src/napari/_tests)
 folder at the top of the repository.
 
 ### Unit tests
@@ -59,9 +59,9 @@ folder at the top of the repository.
 To keep unit tests close to their related source code, these tests are located
 in module folders. For example, units tests for the `Image` layer are located
 in
-[`/napari/layers/image/_tests`](https://github.com/napari/napari/tree/main/napari/layers/image/_tests)
+[`/napari/layers/image/_tests`](https://github.com/napari/napari/tree/main/src/napari/layers/image/_tests)
 alongside the `Image` layer's module code
-[`/napari/layers/image`](https://github.com/napari/napari/tree/main/napari/layers/image).
+[`/napari/layers/image`](https://github.com/napari/napari/tree/main/src/napari/layers/image).
 
 napari is made up of its core library code and its GUI code. As a general
 practice, we strive to unit test as much of our core library code, models and
@@ -71,17 +71,17 @@ utils, independently of our GUI code.
 
 Core library tests are located in the following folders:
 
-- [`napari/layers`](https://github.com/napari/napari/tree/main/napari/layers)
-- [`napari/components`](https://github.com/napari/napari/tree/main/napari/components)
-- [`napari/utils`](https://github.com/napari/napari/tree/main/napari/utils)
+- [`napari/layers`](https://github.com/napari/napari/tree/main/src/napari/layers)
+- [`napari/components`](https://github.com/napari/napari/tree/main/src/napari/components)
+- [`napari/utils`](https://github.com/napari/napari/tree/main/src/napari/utils)
 
 #### GUI unit tests
 
 Our GUI code have tests in the following folders:
 
-- [`napari/_tests`](https://github.com/napari/napari/tree/main/napari/_tests)
-- [`napari/_qt`](https://github.com/napari/napari/tree/main/napari/_qt)
-- [`napari/_vispy`](https://github.com/napari/napari/tree/main/napari/_vispy)
+- [`napari/_tests`](https://github.com/napari/napari/tree/main/src/napari/_tests)
+- [`napari/_qt`](https://github.com/napari/napari/tree/main/src/napari/_qt)
+- [`napari/_vispy`](https://github.com/napari/napari/tree/main/src/napari/_vispy)
 
 These GUI tests are ignored when we run them in the subset of our continuous
 integration workflows. Workflows that run in a "headless" environment (without
@@ -98,9 +98,9 @@ Pytest fixtures are used to set up test state, such as setup and teardown, and
 provide frequently test data. These fixtures reduce repetitive code when
 writing and running tests. The fixtures can be found in:
 
-- [`napari/conftest.py`](https://github.com/napari/napari/blob/main/napari/conftest.py) -
+- [`napari/conftest.py`](https://github.com/napari/napari/blob/main/src/napari/conftest.py) -
   available globally to all of `napari`.
-- [`napari/utils/_testsupport.py`](https://github.com/napari/napari/blob/main/napari/utils/_testsupport.py) -
+- [`napari/utils/_testsupport.py`](https://github.com/napari/napari/blob/main/src/napari/utils/_testsupport.py) -
   available globally to all of `napari` **and** to all tests in the same
   virtual environment that `napari` is in (as this `testsupport.py` file is
   exported).
@@ -118,9 +118,9 @@ argument to `False` to prevent the viewer from fully rendering.
 napari comes with a number of samples and examples builtin. There are also
 fixtures for testing these `napari` builtin plugins that provide contributions
 that come builtin with `napari`. These fixtures are found in
-[`napari_builtins/_tests/conftest.py`](https://github.com/napari/napari/blob/main/napari_builtins/_tests/conftest.py)
+[`napari_builtins/_tests/conftest.py`](https://github.com/napari/napari/blob/main/src/napari_builtins/_tests/conftest.py)
 and are available to tests stored in
-[`napari_builtins/_tests`](https://github.com/napari/napari/tree/main/napari_builtins/_tests).
+[`napari_builtins/_tests`](https://github.com/napari/napari/tree/main/src/napari_builtins/_tests).
 
 (running-tests)=
 

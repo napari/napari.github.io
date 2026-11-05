@@ -691,7 +691,7 @@ per CC0+BY [^cc0by].
 
 [^napari-feedstock-creation]: <https://github.com/conda-forge/napari-feedstock/commit/815a24cadb9522f4fc81a41c9eb89d45b2e284eb>
 
-[^release-guide]: <https://napari.org/stable/developers/release.html>
+[^release-guide]: <https://napari.org/stable/developers/core_team/release.html>
 
 [^napari-channel]: <https://anaconda.org/napari/>
 

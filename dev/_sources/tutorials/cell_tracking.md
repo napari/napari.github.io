@@ -288,7 +288,7 @@ with btrack.BayesianTracker() as tracker:
 
 We set the configuration of the tracker using a configuration file using the
 `.configure_from_file()` method. An example configuration file can be found
-[in the btrack repository](https://github.com/quantumjot/btrack/blob/main/models/cell_config.json).
+[in the btrack-examples repository](https://github.com/lowe-lab-ucl/btrack-examples/blob/main/examples/cell_config.json).
 
 Next, the objects are linked into tracks using the `.track_interactive()`
 method. The `step_size` argument specifies how many steps are taken before

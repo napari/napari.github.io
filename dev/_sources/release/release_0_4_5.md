@@ -12,8 +12,8 @@ https://github.com/napari/napari
 ## Highlights
 
 This release is our first release using Jupyter Book to build our documentation (#2187)
-which can be seen at https://napari.org/docs/dev/, or
-https://napari.org/docs/0.4.5/ . We'll be continuing to reorganize the
+which can be seen at https://napari.org/dev/, or
+`https://napari.org/docs/0.4.5/`. We'll be continuing to reorganize the
 napari.org website to create a more integrate feel with documentation and tutorials living
 together. You can read more about our website reorganization in (#764).
 

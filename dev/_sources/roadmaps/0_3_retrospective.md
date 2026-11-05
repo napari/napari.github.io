@@ -102,7 +102,7 @@ to better understand their needs.
   should be able to account for those distortions by chaining together
   transforms - including affine and ultimately deformable transforms. We are
   tracking progress in this area in the
-  [World Coordinates project board](https://github.com/napari/napari/projects/10).
+  World Coordinates project board.
 
   > We have completed our world coordinate system, including support for affine
   > transforms, a scale bar, and an axes rotation visual. We have more work to
@@ -274,7 +274,7 @@ will likely be prioritized in future roadmaps:
   [#299](https://github.com/napari/napari/issues/299) and
   [#989](https://github.com/napari/napari/pull/989). This feature will be
   supported after we have added support for world coordinates
-  [project board 10](https://github.com/napari/napari/projects/10) and
+  project board 10 and
   rotations to our transform model.
 
 - Linked 1D plots such as histograms, timeseries, or z-profiles

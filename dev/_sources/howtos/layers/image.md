@@ -165,8 +165,8 @@ array can be a
 [numpy array](https://numpy.org/doc/stable/reference/generated/numpy.array.html),
 a [dask array](https://docs.dask.org/en/stable/array.html), an
 [xarray](https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html), a
-[zarr array](https://zarr.readthedocs.io/en/stable/api/core.html), or any other
-object that you can index into and when you call
+[zarr array](https://zarr.readthedocs.io/en/stable/api/zarr/array/), or any
+other object that you can index into and when you call
 [`np.asarray`](https://numpy.org/doc/stable/reference/generated/numpy.asarray.html)
 on it you get back a NumPy array.
 

@@ -130,7 +130,7 @@ This is because command id's may currently only be registered once, and associat
 ### `Action`s in napari
 
 In napari, menu bar actions are defined in
-[`napari/_qt/_qapp_model/qactions`](https://github.com/napari/napari/tree/main/napari/_qt/_qapp_model/qactions),
+[`napari/_qt/_qapp_model/qactions`](https://github.com/napari/napari/tree/main/src/napari/_qt/_qapp_model/qactions),
 with one file per menu. While not all menu bar actions strictly require Qt,
 they are defined for the purpose of living in a menu and are thus considered
 'GUI' actions. This also ensures that there is only one file defining both
@@ -140,7 +140,7 @@ implementation.
 
 The layer context menu actions do not require a GUI (they only require the
 `layerlist`) and thus live in
-[`napari/_app_model/actions`](https://github.com/napari/napari/tree/main/napari/_app_model/actions).
+[`napari/_app_model/actions`](https://github.com/napari/napari/tree/main/src/napari/_app_model/actions).
 
 Non-Qt `Action`s get registered with `app` during initialization of the napari
 `app`, in `NapariApplication`'s
@@ -282,7 +282,7 @@ the format (`MenuId`, \[`MenuItem` or `SubmenuItem`\]).
 ### Menus in napari
 
 In napari `MenuId` and `MenuGroup` enums are defined in
-[`napari/_app_model/constants/_menus.py`](https://github.com/napari/napari/blob/main/napari/_app_model/constants/_menus.py).
+[`napari/_app_model/constants/_menus.py`](https://github.com/napari/napari/blob/main/src/napari/_app_model/constants/_menus.py).
 Menu bar menus are created during {class}`~napari.window.Window` initialization
 via `napari._qt._qapp_model.build_qmodel_menu`. This creates a
 {class}`~app_model.backends.qt.QModelMenu` (a subclass of
@@ -290,8 +290,8 @@ via `napari._qt._qapp_model.build_qmodel_menu`. This creates a
 the {class}`~app_model.backends.qt.QModelMenu` that creates `QAction` for the
 {class}`~app_model.types.Action` associated with that menu.
 
-{class}`~app_model.types.SubmenuItem`s are defined in
-[`napari/_app_model/_submenus.py`](https://github.com/napari/napari/blob/main/napari/_app_model/_submenus.py).
+{class}`~app_model.types.SubmenuItem`s are defined with their actions in
+[`napari/_app_model/actions`](https://github.com/napari/napari/tree/main/src/napari/_app_model/actions).
 These are registered during initialization of the napari `app`, in
 `NapariApplication`'s
 {meth}`~napari._app_model._app.NapariApplication.__init__`.
@@ -485,7 +485,7 @@ of the following ways will not work:
 
 Currently there are only GUI related providers and processors.
 They are defined in
-[`napari/_qt/_qapp_model/injection`](https://github.com/napari/napari/tree/main/napari/_qt/_qapp_model/injection).
+[`napari/_qt/_qapp_model/injection`](https://github.com/napari/napari/tree/main/src/napari/_qt/_qapp_model/injection).
 They are registered in `napari._qt._qapp_model.qactions.init_qactions`,
 which gets called during initialization of `_QtMainWindow`. This is the same as
 [registration of `Action`s](app-model-actions-napari).
@@ -602,7 +602,7 @@ variables to various values obtained using
 {class}`~napari.components.LayerList` and selection
 {class}`~napari.components.LayerList` (e.g., "Number of selected points
 layers"). They are defined in
-[`napari/_app_model/context`](https://github.com/napari/napari/tree/main/napari/_app_model/context).
+[`napari/_app_model/context`](https://github.com/napari/napari/tree/main/src/napari/_app_model/context).
 An instance of each class is created and saved as an attribute of
 {class}`~napari.components.LayerList`. The
 {meth}`~napari._app_model.context._context_keys.ContextNamespace.update`

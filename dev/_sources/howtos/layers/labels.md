@@ -486,7 +486,7 @@ The `labels` layer is a subclass of the `image` layer and as such can support
 the same NumPy-like arrays, including
 [dask arrays](https://docs.dask.org/en/stable/array.html),
 [xarrays](https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html),
-and [zarr arrays](https://zarr.readthedocs.io/en/stable/api/core.html). A
+and [zarr arrays](https://zarr.readthedocs.io/en/stable/api/zarr/array/). A
 `Labels` layer must be integer valued, and the background label must be
 0\.
 

@@ -169,7 +169,7 @@ napari-plugin-debug/napari-simple-reload/
 ## Using IPython to reload code during plugin development
 
 Here, we demonstrate using the
-[autoreload extension](https://ipython.org/ipython-doc/3/config/extensions/autoreload.html)
+[autoreload extension](https://ipython.readthedocs.io/en/stable/config/extensions/autoreload.html)
 with IPython or a Jupyter notebook to open the napari viewer with the ability
 to reload the changed plugin code during development.
 

@@ -50,7 +50,7 @@ The output will be a table similar to this one:
 ```
 
 The format of this table is documented
-[in the Python profiler documentation](https://docs.python.org/3/library/profile.html#instant-user-s-manual).
+[in the Python profiler documentation](https://docs.python.org/3/library/profiling.html#understanding-profile-output).
 Because the output for complex programs such as napari can be very long, we
 suggest piping output to `less`, or saving it to a file, which can be
 investigated later. To save the output to file use the `-o` option:
@@ -75,7 +75,7 @@ include:
    ```
 
    You can find more documentation about the Stats object
-   [in the Python documentation](https://docs.python.org/3/library/profile.html#the-stats-class).
+   [in the Python documentation](https://docs.python.org/3/library/pstats.html#the-stats-class).
 
 1. Snakeviz.
 

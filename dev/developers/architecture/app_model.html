@@ -700,7 +700,7 @@ when executing the above code:</p>
 <section id="actions-in-napari">
 <span id="app-model-actions-napari"></span><h3><code class="docutils literal notranslate"><span class="pre">Action</span></code>s in napari<a class="headerlink" href="#actions-in-napari" title="Link to this heading">#</a></h3>
 <p>In napari, menu bar actions are defined in
-<a class="reference external" href="https://github.com/napari/napari/tree/main/napari/_qt/_qapp_model/qactions"><code class="docutils literal notranslate"><span class="pre">napari/_qt/_qapp_model/qactions</span></code></a>,
+<a class="reference external" href="https://github.com/napari/napari/tree/main/src/napari/_qt/_qapp_model/qactions"><code class="docutils literal notranslate"><span class="pre">napari/_qt/_qapp_model/qactions</span></code></a>,
 with one file per menu. While not all menu bar actions strictly require Qt,
 they are defined for the purpose of living in a menu and are thus considered
 ‘GUI’ actions. This also ensures that there is only one file defining both
@@ -709,7 +709,7 @@ may want to move these out of <code class="docutils literal notranslate"><span c
 implementation.</p>
 <p>The layer context menu actions do not require a GUI (they only require the
 <code class="docutils literal notranslate"><span class="pre">layerlist</span></code>) and thus live in
-<a class="reference external" href="https://github.com/napari/napari/tree/main/napari/_app_model/actions"><code class="docutils literal notranslate"><span class="pre">napari/_app_model/actions</span></code></a>.</p>
+<a class="reference external" href="https://github.com/napari/napari/tree/main/src/napari/_app_model/actions"><code class="docutils literal notranslate"><span class="pre">napari/_app_model/actions</span></code></a>.</p>
 <p>Non-Qt <code class="docutils literal notranslate"><span class="pre">Action</span></code>s get registered with <code class="docutils literal notranslate"><span class="pre">app</span></code> during initialization of the napari
 <code class="docutils literal notranslate"><span class="pre">app</span></code>, in <code class="docutils literal notranslate"><span class="pre">NapariApplication</span></code>’s
 <code class="xref py py-meth docutils literal notranslate"><span class="pre">__init__()</span></code>. Qt <code class="docutils literal notranslate"><span class="pre">Action</span></code>s get
@@ -838,15 +838,15 @@ the format (<code class="docutils literal notranslate"><span class="pre">MenuId<
 <section id="menus-in-napari">
 <h3>Menus in napari<a class="headerlink" href="#menus-in-napari" title="Link to this heading">#</a></h3>
 <p>In napari <code class="docutils literal notranslate"><span class="pre">MenuId</span></code> and <code class="docutils literal notranslate"><span class="pre">MenuGroup</span></code> enums are defined in
-<a class="reference external" href="https://github.com/napari/napari/blob/main/napari/_app_model/constants/_menus.py"><code class="docutils literal notranslate"><span class="pre">napari/_app_model/constants/_menus.py</span></code></a>.
+<a class="reference external" href="https://github.com/napari/napari/blob/main/src/napari/_app_model/constants/_menus.py"><code class="docutils literal notranslate"><span class="pre">napari/_app_model/constants/_menus.py</span></code></a>.
 Menu bar menus are created during <a class="reference internal" href="../../api/napari.window.Window.html#napari.window.Window" title="napari.window.Window"><code class="xref py py-class docutils literal notranslate"><span class="pre">Window</span></code></a> initialization
 via <code class="docutils literal notranslate"><span class="pre">napari._qt._qapp_model.build_qmodel_menu</span></code>. This creates a
 <a class="reference external" href="https://app-model.readthedocs.io/en/latest/reference/backends/qt/#app_model.backends.qt.QModelMenu" title="(in App Model v0.0.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">QModelMenu</span></code></a> (a subclass of
 <a class="reference external" href="https://doc.qt.io/qt-6/qmenu.html"><code class="docutils literal notranslate"><span class="pre">QMenu</span></code></a>) instance. It is the creation of
 the <a class="reference external" href="https://app-model.readthedocs.io/en/latest/reference/backends/qt/#app_model.backends.qt.QModelMenu" title="(in App Model v0.0.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">QModelMenu</span></code></a> that creates <code class="docutils literal notranslate"><span class="pre">QAction</span></code> for the
 <a class="reference external" href="https://app-model.readthedocs.io/en/latest/reference/types/#app_model.types.Action" title="(in App Model v0.0.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Action</span></code></a> associated with that menu.</p>
-<p><a class="reference external" href="https://app-model.readthedocs.io/en/latest/reference/types/#app_model.types.SubmenuItem" title="(in App Model v0.0.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">SubmenuItem</span></code></a>s are defined in
-<a class="reference external" href="https://github.com/napari/napari/blob/main/napari/_app_model/_submenus.py"><code class="docutils literal notranslate"><span class="pre">napari/_app_model/_submenus.py</span></code></a>.
+<p><a class="reference external" href="https://app-model.readthedocs.io/en/latest/reference/types/#app_model.types.SubmenuItem" title="(in App Model v0.0.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">SubmenuItem</span></code></a>s are defined with their actions in
+<a class="reference external" href="https://github.com/napari/napari/tree/main/src/napari/_app_model/actions"><code class="docutils literal notranslate"><span class="pre">napari/_app_model/actions</span></code></a>.
 These are registered during initialization of the napari <code class="docutils literal notranslate"><span class="pre">app</span></code>, in
 <code class="docutils literal notranslate"><span class="pre">NapariApplication</span></code>’s
 <code class="xref py py-meth docutils literal notranslate"><span class="pre">__init__()</span></code>.</p>
@@ -1019,7 +1019,7 @@ function</p></li>
 <h3>Providers and processors in napari<a class="headerlink" href="#providers-and-processors-in-napari" title="Link to this heading">#</a></h3>
 <p>Currently there are only GUI related providers and processors.
 They are defined in
-<a class="reference external" href="https://github.com/napari/napari/tree/main/napari/_qt/_qapp_model/injection"><code class="docutils literal notranslate"><span class="pre">napari/_qt/_qapp_model/injection</span></code></a>.
+<a class="reference external" href="https://github.com/napari/napari/tree/main/src/napari/_qt/_qapp_model/injection"><code class="docutils literal notranslate"><span class="pre">napari/_qt/_qapp_model/injection</span></code></a>.
 They are registered in <code class="docutils literal notranslate"><span class="pre">napari._qt._qapp_model.qactions.init_qactions</span></code>,
 which gets called during initialization of <code class="docutils literal notranslate"><span class="pre">_QtMainWindow</span></code>. This is the same as
 <a class="reference internal" href="#app-model-actions-napari"><span class="std std-ref">registration of <code class="docutils literal notranslate"><span class="pre">Action</span></code>s</span></a>.</p>
@@ -1130,7 +1130,7 @@ variables to various values obtained using
 <a class="reference internal" href="../../api/napari.components.LayerList.html#napari.components.LayerList" title="napari.components.LayerList"><code class="xref py py-class docutils literal notranslate"><span class="pre">LayerList</span></code></a> and selection
 <a class="reference internal" href="../../api/napari.components.LayerList.html#napari.components.LayerList" title="napari.components.LayerList"><code class="xref py py-class docutils literal notranslate"><span class="pre">LayerList</span></code></a> (e.g., “Number of selected points
 layers”). They are defined in
-<a class="reference external" href="https://github.com/napari/napari/tree/main/napari/_app_model/context"><code class="docutils literal notranslate"><span class="pre">napari/_app_model/context</span></code></a>.
+<a class="reference external" href="https://github.com/napari/napari/tree/main/src/napari/_app_model/context"><code class="docutils literal notranslate"><span class="pre">napari/_app_model/context</span></code></a>.
 An instance of each class is created and saved as an attribute of
 <a class="reference internal" href="../../api/napari.components.LayerList.html#napari.components.LayerList" title="napari.components.LayerList"><code class="xref py py-class docutils literal notranslate"><span class="pre">LayerList</span></code></a>. The
 <code class="xref py py-meth docutils literal notranslate"><span class="pre">update()</span></code>

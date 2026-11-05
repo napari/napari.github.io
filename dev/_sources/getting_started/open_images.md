@@ -221,14 +221,14 @@ viewer.close()
 
 There are a few examples of plugins bundling multiple readers. One example is
 [ndevio](https://napari-hub.org/plugins/ndevio.html) which wraps the family of
-[bioio](https://bioio.readthedocs.io/en/latest/) packages to provide support
+[bioio](https://bioio-devs.github.io/bioio/) packages to provide support
 for multiple microscopy file formats. Often such bundled reader plugins come
 with a set of formats supported by default, and allow the users to add optional
 formats, typically by installing additional dependencies.
 
 In the example below we illustrate how to use ndevio to open a zarr file.
 Again, we need to install ndevio with either the
-[napari plugin manager](https://napari.org/napari-plugin-manager/#installing-a-plugin-via-direct-entry)
+[napari plugin manager](https://napari.org/napari-plugin-manager/#installing-via-direct-entry)
 or your preferred Python package manager.
 
 This basic installation allows to open ome-tiff, ome-zarr, imageio etc. via the
@@ -236,7 +236,7 @@ plugin. If you need to open another format such as CZI, ND2 etc., you will have
 to install additional extensions (for example for ndevio please refer to the
 [instructions](https://github.com/ndev-kit/ndevio?tab=readme-ov-file#additional-image-format-support)).
 This can be done for example via the
-[direct entry option](https://napari.org/napari-plugin-manager/#installing-a-plugin-via-direct-entry)
+[direct entry option](https://napari.org/napari-plugin-manager/#installing-via-direct-entry)
 of the plugin manager.
 
 We are now able to just drag and drop a zarr file in the viewer to open it. We

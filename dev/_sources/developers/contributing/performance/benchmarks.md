@@ -167,7 +167,7 @@ not significant enough for airspeed velocity to report.
 ## Profiling
 
 The airspeed velocity tool also supports code profiling using
-[`cProfile`](https://docs.python.org/3/library/profile.html#module-cProfile).
+[`cProfile`](https://docs.python.org/3.14/library/profile.html#module-cProfile).
 For detailed instructions on how to use the profiling functionality see the
 [asv profiling documentation](https://asv.readthedocs.io/en/stable/using.html#running-a-benchmark-in-the-profiler).
 

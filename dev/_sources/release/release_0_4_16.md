@@ -17,7 +17,7 @@ This behavior was slow, confusing, and often led to unexpected results. You can 
 
 Before removing plugin call order, we want to make sure that file opening behavior across the GUI and command line is predictable, reproducible and explicit.
 
-After discussion in [#4102](https://github.com/napari/napari/pull/4102), [#4111](https://github.com/napari/napari/discussions/4111) and [this zulip thread](https://napari.zulipchat.com/#narrow/stream/212875-general/topic/.60viewer.2Eopen.60.20.26.20multiple.20plugins), we decided that as a guiding principle, calling `viewer.open` should not infer a plugin choice for you, and any inference behavior should be opt in.
+After discussion in [#4102](https://github.com/napari/napari/pull/4102) and [this zulip thread](https://napari.zulipchat.com/#narrow/stream/212875-general/topic/.60viewer.2Eopen.60.20.26.20multiple.20plugins), we decided that as a guiding principle, calling `viewer.open` should not infer a plugin choice for you, and any inference behavior should be opt in.
 
 This has led to the following API and GUI changes
 

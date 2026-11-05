@@ -6,44 +6,44 @@ graph LR
 	accDescr: Diagram showing the dependencies between the modules involved in the definition of the napari Layers list UI section
 	napari._qt._qapp_model(napari._qt._qapp_model)
 	napari._qt._qapp_model --> napari._qt._qapp_model._menus
-	click napari._qt._qapp_model "https://github.com/napari/napari/tree/main/napari/_qt/_qapp_model/__init__.py" _blank
+	click napari._qt._qapp_model "https://github.com/napari/napari/tree/main/src/napari/_qt/_qapp_model/__init__.py" _blank
 	napari._qt._qapp_model._menus(napari._qt._qapp_model._menus)
-	click napari._qt._qapp_model._menus "https://github.com/napari/napari/tree/main/napari/_qt/_qapp_model/_menus.py" _blank
+	click napari._qt._qapp_model._menus "https://github.com/napari/napari/tree/main/src/napari/_qt/_qapp_model/_menus.py" _blank
 	napari._qt._qapp_model.injection._qprocessors(napari._qt._qapp_model.injection._qprocessors)
 	napari._qt._qapp_model.injection._qprocessors --> napari._qt._qapp_model.injection._qproviders
 	napari._qt._qapp_model.injection._qprocessors --> napari.layers
-	click napari._qt._qapp_model.injection._qprocessors "https://github.com/napari/napari/tree/main/napari/_qt/_qapp_model/injection/_qprocessors.py" _blank
+	click napari._qt._qapp_model.injection._qprocessors "https://github.com/napari/napari/tree/main/src/napari/_qt/_qapp_model/injection/_qprocessors.py" _blank
 	napari._qt._qapp_model.injection._qproviders(napari._qt._qapp_model.injection._qproviders)
 	napari._qt._qapp_model.injection._qproviders --> napari._qt.qt_main_window
 	napari._qt._qapp_model.injection._qproviders --> napari._qt.qt_viewer
 	napari._qt._qapp_model.injection._qproviders --> napari.layers
-	click napari._qt._qapp_model.injection._qproviders "https://github.com/napari/napari/tree/main/napari/_qt/_qapp_model/injection/_qproviders.py" _blank
+	click napari._qt._qapp_model.injection._qproviders "https://github.com/napari/napari/tree/main/src/napari/_qt/_qapp_model/injection/_qproviders.py" _blank
 	napari._qt._qapp_model.qactions(napari._qt._qapp_model.qactions)
 	napari._qt._qapp_model.qactions --> napari._qt._qapp_model.injection._qprocessors
 	napari._qt._qapp_model.qactions --> napari._qt._qapp_model.injection._qproviders
 	napari._qt._qapp_model.qactions --> napari._qt._qapp_model.qactions._layerlist_context
 	napari._qt._qapp_model.qactions --> napari._qt.qt_main_window
 	napari._qt._qapp_model.qactions --> napari._qt.qt_viewer
-	click napari._qt._qapp_model.qactions "https://github.com/napari/napari/tree/main/napari/_qt/_qapp_model/qactions/__init__.py" _blank
+	click napari._qt._qapp_model.qactions "https://github.com/napari/napari/tree/main/src/napari/_qt/_qapp_model/qactions/__init__.py" _blank
 	napari._qt._qapp_model.qactions._layerlist_context(napari._qt._qapp_model.qactions._layerlist_context)
 	napari._qt._qapp_model.qactions._layerlist_context --> napari.layers
-	click napari._qt._qapp_model.qactions._layerlist_context "https://github.com/napari/napari/tree/main/napari/_qt/_qapp_model/qactions/_layerlist_context.py" _blank
+	click napari._qt._qapp_model.qactions._layerlist_context "https://github.com/napari/napari/tree/main/src/napari/_qt/_qapp_model/qactions/_layerlist_context.py" _blank
 	napari._qt.containers._base_item_model(napari._qt.containers._base_item_model)
-	click napari._qt.containers._base_item_model "https://github.com/napari/napari/tree/main/napari/_qt/containers/_base_item_model.py" _blank
+	click napari._qt.containers._base_item_model "https://github.com/napari/napari/tree/main/src/napari/_qt/containers/_base_item_model.py" _blank
 	napari._qt.containers._base_item_view(napari._qt.containers._base_item_view)
 	napari._qt.containers._base_item_view --> napari._qt.containers._base_item_model
 	napari._qt.containers._base_item_view --> napari._qt.containers._factory
-	click napari._qt.containers._base_item_view "https://github.com/napari/napari/tree/main/napari/_qt/containers/_base_item_view.py" _blank
+	click napari._qt.containers._base_item_view "https://github.com/napari/napari/tree/main/src/napari/_qt/containers/_base_item_view.py" _blank
 	napari._qt.containers._factory(napari._qt.containers._factory)
 	napari._qt.containers._factory --> napari.components.layerlist
-	click napari._qt.containers._factory "https://github.com/napari/napari/tree/main/napari/_qt/containers/_factory.py" _blank
+	click napari._qt.containers._factory "https://github.com/napari/napari/tree/main/src/napari/_qt/containers/_factory.py" _blank
 	napari._qt.containers._layer_delegate(napari._qt.containers._layer_delegate)
 	napari._qt.containers._layer_delegate --> napari._qt._qapp_model
 	napari._qt.containers._layer_delegate --> napari._qt.containers._base_item_model
 	napari._qt.containers._layer_delegate --> napari._qt.containers.qt_layer_model
 	napari._qt.containers._layer_delegate --> napari._qt.qt_resources
 	napari._qt.containers._layer_delegate --> napari.components.layerlist
-	click napari._qt.containers._layer_delegate "https://github.com/napari/napari/tree/main/napari/_qt/containers/_layer_delegate.py" _blank
+	click napari._qt.containers._layer_delegate "https://github.com/napari/napari/tree/main/src/napari/_qt/containers/_layer_delegate.py" _blank
 	napari._qt.containers.qt_layer_list(napari._qt.containers.qt_layer_list)
 	napari._qt.containers.qt_layer_list --> napari._qt._qapp_model
 	napari._qt.containers.qt_layer_list --> napari._qt._qapp_model.qactions
@@ -53,38 +53,38 @@ graph LR
 	napari._qt.containers.qt_layer_list --> napari._qt.containers.qt_list_view
 	napari._qt.containers.qt_layer_list --> napari.components.layerlist
 	napari._qt.containers.qt_layer_list --> napari.layers
-	click napari._qt.containers.qt_layer_list "https://github.com/napari/napari/tree/main/napari/_qt/containers/qt_layer_list.py" _blank
+	click napari._qt.containers.qt_layer_list "https://github.com/napari/napari/tree/main/src/napari/_qt/containers/qt_layer_list.py" _blank
 	napari._qt.containers.qt_layer_model(napari._qt.containers.qt_layer_model)
 	napari._qt.containers.qt_layer_model --> napari._qt.containers.qt_list_model
 	napari._qt.containers.qt_layer_model --> napari.layers
 	napari._qt.containers.qt_layer_model --> napari.layers.base
-	click napari._qt.containers.qt_layer_model "https://github.com/napari/napari/tree/main/napari/_qt/containers/qt_layer_model.py" _blank
+	click napari._qt.containers.qt_layer_model "https://github.com/napari/napari/tree/main/src/napari/_qt/containers/qt_layer_model.py" _blank
 	napari._qt.containers.qt_list_model(napari._qt.containers.qt_list_model)
 	napari._qt.containers.qt_list_model --> napari._qt.containers._base_item_model
-	click napari._qt.containers.qt_list_model "https://github.com/napari/napari/tree/main/napari/_qt/containers/qt_list_model.py" _blank
+	click napari._qt.containers.qt_list_model "https://github.com/napari/napari/tree/main/src/napari/_qt/containers/qt_list_model.py" _blank
 	napari._qt.containers.qt_list_view(napari._qt.containers.qt_list_view)
 	napari._qt.containers.qt_list_view --> napari._qt.containers._base_item_view
 	napari._qt.containers.qt_list_view --> napari._qt.containers.qt_list_model
-	click napari._qt.containers.qt_list_view "https://github.com/napari/napari/tree/main/napari/_qt/containers/qt_list_view.py" _blank
+	click napari._qt.containers.qt_list_view "https://github.com/napari/napari/tree/main/src/napari/_qt/containers/qt_list_view.py" _blank
 	napari._qt.qt_main_window(napari._qt.qt_main_window)
 	napari._qt.qt_main_window --> napari._qt._qapp_model
 	napari._qt.qt_main_window --> napari._qt._qapp_model.qactions
 	napari._qt.qt_main_window --> napari._qt.qt_resources
 	napari._qt.qt_main_window --> napari._qt.qt_viewer
-	click napari._qt.qt_main_window "https://github.com/napari/napari/tree/main/napari/_qt/qt_main_window.py" _blank
+	click napari._qt.qt_main_window "https://github.com/napari/napari/tree/main/src/napari/_qt/qt_main_window.py" _blank
 	napari._qt.qt_resources(napari._qt.qt_resources)
-	click napari._qt.qt_resources "https://github.com/napari/napari/tree/main/napari/_qt/qt_resources/__init__.py" _blank
+	click napari._qt.qt_resources "https://github.com/napari/napari/tree/main/src/napari/_qt/qt_resources/__init__.py" _blank
 	napari._qt.qt_viewer(napari._qt.qt_viewer)
 	napari._qt.qt_viewer --> napari.components.layerlist
 	napari._qt.qt_viewer --> napari.layers
 	napari._qt.qt_viewer --> napari.layers.base
-	click napari._qt.qt_viewer "https://github.com/napari/napari/tree/main/napari/_qt/qt_viewer.py" _blank
+	click napari._qt.qt_viewer "https://github.com/napari/napari/tree/main/src/napari/_qt/qt_viewer.py" _blank
 	napari.components.layerlist(napari.components.layerlist)
 	napari.components.layerlist --> napari.layers
 	napari.components.layerlist --> napari.layers.utils
 	napari.components.layerlist --> napari.layers.utils._link_layers
 	napari.components.layerlist --> napari.layers.utils.layer_utils
-	click napari.components.layerlist "https://github.com/napari/napari/tree/main/napari/components/layerlist.py" _blank
+	click napari.components.layerlist "https://github.com/napari/napari/tree/main/src/napari/components/layerlist.py" _blank
 	napari.layers(napari.layers)
 	napari.layers --> napari.layers.base
 	napari.layers --> napari.layers.image
@@ -94,29 +94,29 @@ graph LR
 	napari.layers --> napari.layers.surface
 	napari.layers --> napari.layers.tracks
 	napari.layers --> napari.layers.vectors
-	click napari.layers "https://github.com/napari/napari/tree/main/napari/layers/__init__.py" _blank
+	click napari.layers "https://github.com/napari/napari/tree/main/src/napari/layers/__init__.py" _blank
 	napari.layers.base(napari.layers.base)
-	click napari.layers.base "https://github.com/napari/napari/tree/main/napari/layers/base/__init__.py" _blank
+	click napari.layers.base "https://github.com/napari/napari/tree/main/src/napari/layers/base/__init__.py" _blank
 	napari.layers.image(napari.layers.image)
-	click napari.layers.image "https://github.com/napari/napari/tree/main/napari/layers/image/__init__.py" _blank
+	click napari.layers.image "https://github.com/napari/napari/tree/main/src/napari/layers/image/__init__.py" _blank
 	napari.layers.labels(napari.layers.labels)
-	click napari.layers.labels "https://github.com/napari/napari/tree/main/napari/layers/labels/__init__.py" _blank
+	click napari.layers.labels "https://github.com/napari/napari/tree/main/src/napari/layers/labels/__init__.py" _blank
 	napari.layers.points(napari.layers.points)
-	click napari.layers.points "https://github.com/napari/napari/tree/main/napari/layers/points/__init__.py" _blank
+	click napari.layers.points "https://github.com/napari/napari/tree/main/src/napari/layers/points/__init__.py" _blank
 	napari.layers.shapes(napari.layers.shapes)
-	click napari.layers.shapes "https://github.com/napari/napari/tree/main/napari/layers/shapes/__init__.py" _blank
+	click napari.layers.shapes "https://github.com/napari/napari/tree/main/src/napari/layers/shapes/__init__.py" _blank
 	napari.layers.surface(napari.layers.surface)
-	click napari.layers.surface "https://github.com/napari/napari/tree/main/napari/layers/surface/__init__.py" _blank
+	click napari.layers.surface "https://github.com/napari/napari/tree/main/src/napari/layers/surface/__init__.py" _blank
 	napari.layers.tracks(napari.layers.tracks)
-	click napari.layers.tracks "https://github.com/napari/napari/tree/main/napari/layers/tracks/__init__.py" _blank
+	click napari.layers.tracks "https://github.com/napari/napari/tree/main/src/napari/layers/tracks/__init__.py" _blank
 	napari.layers.utils(napari.layers.utils)
-	click napari.layers.utils "https://github.com/napari/napari/tree/main/napari/layers/utils/__init__.py" _blank
+	click napari.layers.utils "https://github.com/napari/napari/tree/main/src/napari/layers/utils/__init__.py" _blank
 	napari.layers.utils._link_layers(napari.layers.utils._link_layers)
-	click napari.layers.utils._link_layers "https://github.com/napari/napari/tree/main/napari/layers/utils/_link_layers.py" _blank
+	click napari.layers.utils._link_layers "https://github.com/napari/napari/tree/main/src/napari/layers/utils/_link_layers.py" _blank
 	napari.layers.utils.layer_utils(napari.layers.utils.layer_utils)
-	click napari.layers.utils.layer_utils "https://github.com/napari/napari/tree/main/napari/layers/utils/layer_utils.py" _blank
+	click napari.layers.utils.layer_utils "https://github.com/napari/napari/tree/main/src/napari/layers/utils/layer_utils.py" _blank
 	napari.layers.vectors(napari.layers.vectors)
-	click napari.layers.vectors "https://github.com/napari/napari/tree/main/napari/layers/vectors/__init__.py" _blank
+	click napari.layers.vectors "https://github.com/napari/napari/tree/main/src/napari/layers/vectors/__init__.py" _blank
 	subgraph module.napari._qt[napari._qt]
 		 napari._qt._qapp_model
 		 napari._qt.qt_main_window

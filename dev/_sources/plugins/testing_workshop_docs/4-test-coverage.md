@@ -131,8 +131,7 @@ There could be other, more complicated cases that we have not tested, but at
 the very least, we are executing all lines of code.
 
 If the html report seems cumbersome, we can print the coverage directly to the
-terminal with `--cov-report=term-missing`. This command is on the
-[slides](https://docs.google.com/presentation/d/1vD1_jhK6Xjqltmlp5Q2auXkgkvQTrr2d77_a9TqD6yk/edit#slide=id.g10c4a0816be_0_24).
+terminal with `--cov-report=term-missing`.
 That will print the exact lines of code you haven’t tested.
 
 We've got 100% coverage in the reader, no lines missed. Many `napari` plugins

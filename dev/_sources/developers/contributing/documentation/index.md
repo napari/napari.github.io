@@ -88,7 +88,7 @@ below.
   [`napari/docs/howtos`](https://github.com/napari/docs/tree/main/docs/howtos)):
   simple step by step guides demonstrating the use of common features
 - [**Getting started**](getting-started) (in
-  [`napari/docs/tutorials/fundamentals`](https://github.com/napari/docs/tree/main/docs/tutorials/fundamentals)):
+  [`napari/docs/getting_started`](https://github.com/napari/docs/tree/main/docs/getting_started)):
   these documents are a mix of tutorials and how-tos covering the fundamentals
   of installing and working with napari for beginners
 
@@ -129,9 +129,7 @@ executable by our users. This helps ensure that they are reproducible and makes
 them easier to maintain. [Jupyter notebooks](https://jupyter.org/) are a great
 option for our documents, because they allow you to easily combine code and
 well formatted text in markdown and can be executed automatically. However,
-their
-[raw JSON format](https://numpy.org/numpy-tutorials/content/pairing.html#background)
-is not great for version control, so we use
+their raw format is not great for version control, so we use
 [MyST Markdown](https://myst-parser.readthedocs.io/en/latest/) documents in our
 repository and on [napari.org](https://napari.org).
 

@@ -200,7 +200,7 @@ napari core code.
 ### Grid mode vs Multi-View
 
 The napari viewer currently has a
-[grid mode](https://napari.org/stable/tutorials/fundamentals/viewer.html#grid-button)
+[grid mode](https://napari.org/stable/getting_started/viewer.html#grid-button)
 that can be activated to distribute all layers in a rectangular grid of vispy
 `ViewBox`es according to a few simple parameters (mainly shape and stride).
 

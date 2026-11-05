@@ -631,7 +631,7 @@ CI.</p>
 <section id="integration-and-functional-tests">
 <h3>Integration and functional tests<a class="headerlink" href="#integration-and-functional-tests" title="Link to this heading">#</a></h3>
 <p>Our integration and functional tests are located in the
-<a class="reference external" href="https://github.com/napari/napari/tree/main/napari/_tests"><code class="docutils literal notranslate"><span class="pre">napari/_tests</span></code></a>
+<a class="reference external" href="https://github.com/napari/napari/tree/main/src/napari/_tests"><code class="docutils literal notranslate"><span class="pre">napari/_tests</span></code></a>
 folder at the top of the repository.</p>
 </section>
 <section id="unit-tests">
@@ -639,9 +639,9 @@ folder at the top of the repository.</p>
 <p>To keep unit tests close to their related source code, these tests are located
 in module folders. For example, units tests for the <code class="docutils literal notranslate"><span class="pre">Image</span></code> layer are located
 in
-<a class="reference external" href="https://github.com/napari/napari/tree/main/napari/layers/image/_tests"><code class="docutils literal notranslate"><span class="pre">/napari/layers/image/_tests</span></code></a>
+<a class="reference external" href="https://github.com/napari/napari/tree/main/src/napari/layers/image/_tests"><code class="docutils literal notranslate"><span class="pre">/napari/layers/image/_tests</span></code></a>
 alongside the <code class="docutils literal notranslate"><span class="pre">Image</span></code> layer’s module code
-<a class="reference external" href="https://github.com/napari/napari/tree/main/napari/layers/image"><code class="docutils literal notranslate"><span class="pre">/napari/layers/image</span></code></a>.</p>
+<a class="reference external" href="https://github.com/napari/napari/tree/main/src/napari/layers/image"><code class="docutils literal notranslate"><span class="pre">/napari/layers/image</span></code></a>.</p>
 <p>napari is made up of its core library code and its GUI code. As a general
 practice, we strive to unit test as much of our core library code, models and
 utils, independently of our GUI code.</p>
@@ -649,18 +649,18 @@ utils, independently of our GUI code.</p>
 <h4>Core library unit tests<a class="headerlink" href="#core-library-unit-tests" title="Link to this heading">#</a></h4>
 <p>Core library tests are located in the following folders:</p>
 <ul class="simple">
-<li><p><a class="reference external" href="https://github.com/napari/napari/tree/main/napari/layers"><code class="docutils literal notranslate"><span class="pre">napari/layers</span></code></a></p></li>
-<li><p><a class="reference external" href="https://github.com/napari/napari/tree/main/napari/components"><code class="docutils literal notranslate"><span class="pre">napari/components</span></code></a></p></li>
-<li><p><a class="reference external" href="https://github.com/napari/napari/tree/main/napari/utils"><code class="docutils literal notranslate"><span class="pre">napari/utils</span></code></a></p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/tree/main/src/napari/layers"><code class="docutils literal notranslate"><span class="pre">napari/layers</span></code></a></p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/tree/main/src/napari/components"><code class="docutils literal notranslate"><span class="pre">napari/components</span></code></a></p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/tree/main/src/napari/utils"><code class="docutils literal notranslate"><span class="pre">napari/utils</span></code></a></p></li>
 </ul>
 </section>
 <section id="gui-unit-tests">
 <h4>GUI unit tests<a class="headerlink" href="#gui-unit-tests" title="Link to this heading">#</a></h4>
 <p>Our GUI code have tests in the following folders:</p>
 <ul class="simple">
-<li><p><a class="reference external" href="https://github.com/napari/napari/tree/main/napari/_tests"><code class="docutils literal notranslate"><span class="pre">napari/_tests</span></code></a></p></li>
-<li><p><a class="reference external" href="https://github.com/napari/napari/tree/main/napari/_qt"><code class="docutils literal notranslate"><span class="pre">napari/_qt</span></code></a></p></li>
-<li><p><a class="reference external" href="https://github.com/napari/napari/tree/main/napari/_vispy"><code class="docutils literal notranslate"><span class="pre">napari/_vispy</span></code></a></p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/tree/main/src/napari/_tests"><code class="docutils literal notranslate"><span class="pre">napari/_tests</span></code></a></p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/tree/main/src/napari/_qt"><code class="docutils literal notranslate"><span class="pre">napari/_qt</span></code></a></p></li>
+<li><p><a class="reference external" href="https://github.com/napari/napari/tree/main/src/napari/_vispy"><code class="docutils literal notranslate"><span class="pre">napari/_vispy</span></code></a></p></li>
 </ul>
 <p>These GUI tests are ignored when we run them in the subset of our continuous
 integration workflows. Workflows that run in a “headless” environment (without
@@ -678,9 +678,9 @@ specific GUI backend are also found in these folders.</p>
 provide frequently test data. These fixtures reduce repetitive code when
 writing and running tests. The fixtures can be found in:</p>
 <ul class="simple">
-<li><p><a class="reference external" href="https://github.com/napari/napari/blob/main/napari/conftest.py"><code class="docutils literal notranslate"><span class="pre">napari/conftest.py</span></code></a> -
+<li><p><a class="reference external" href="https://github.com/napari/napari/blob/main/src/napari/conftest.py"><code class="docutils literal notranslate"><span class="pre">napari/conftest.py</span></code></a> -
 available globally to all of <code class="docutils literal notranslate"><span class="pre">napari</span></code>.</p></li>
-<li><p><a class="reference external" href="https://github.com/napari/napari/blob/main/napari/utils/_testsupport.py"><code class="docutils literal notranslate"><span class="pre">napari/utils/_testsupport.py</span></code></a> -
+<li><p><a class="reference external" href="https://github.com/napari/napari/blob/main/src/napari/utils/_testsupport.py"><code class="docutils literal notranslate"><span class="pre">napari/utils/_testsupport.py</span></code></a> -
 available globally to all of <code class="docutils literal notranslate"><span class="pre">napari</span></code> <strong>and</strong> to all tests in the same
 virtual environment that <code class="docutils literal notranslate"><span class="pre">napari</span></code> is in (as this <code class="docutils literal notranslate"><span class="pre">testsupport.py</span></code> file is
 exported).</p></li>
@@ -699,9 +699,9 @@ argument to <code class="docutils literal notranslate"><span class="pre">False</
 <p>napari comes with a number of samples and examples builtin. There are also
 fixtures for testing these <code class="docutils literal notranslate"><span class="pre">napari</span></code> builtin plugins that provide contributions
 that come builtin with <code class="docutils literal notranslate"><span class="pre">napari</span></code>. These fixtures are found in
-<a class="reference external" href="https://github.com/napari/napari/blob/main/napari_builtins/_tests/conftest.py"><code class="docutils literal notranslate"><span class="pre">napari_builtins/_tests/conftest.py</span></code></a>
+<a class="reference external" href="https://github.com/napari/napari/blob/main/src/napari_builtins/_tests/conftest.py"><code class="docutils literal notranslate"><span class="pre">napari_builtins/_tests/conftest.py</span></code></a>
 and are available to tests stored in
-<a class="reference external" href="https://github.com/napari/napari/tree/main/napari_builtins/_tests"><code class="docutils literal notranslate"><span class="pre">napari_builtins/_tests</span></code></a>.</p>
+<a class="reference external" href="https://github.com/napari/napari/tree/main/src/napari_builtins/_tests"><code class="docutils literal notranslate"><span class="pre">napari_builtins/_tests</span></code></a>.</p>
 </section>
 </section>
 <section id="running-tests">

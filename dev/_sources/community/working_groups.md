@@ -95,6 +95,6 @@ reproducible documentation._
 **Team priorities:**
 _example_
 
-- Content & organisation of napari.org
+- Content & organisation of [napari.org](https://napari.org)
 - Users must have a clear path through the documentation (currently lacking)
 - Easy for people to contribute to and keep updated

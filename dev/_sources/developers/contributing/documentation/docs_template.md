@@ -19,7 +19,7 @@ theme:
 # Docs template
 
 This template will guide you to write a well formatted document and prepare it
-for contribution to napari.org.
+for contribution to [napari.org](https://napari.org).
 
 Edit this section to include a sentence or two introducing the tutorial, and
 include a time estimate for completion.
@@ -30,8 +30,8 @@ Fill out this section with a list of things the reader will need to
 successfully follow this document. Include things like:
 
 - python and/or napari version needed
-- links to any existing napari.org tutorials or how-to guides that can help the
-  user fulfill these prerequisites
+- links to any existing [napari.org](https://napari.org) tutorials or how-to
+  guides that can help the user fulfill these prerequisites
 - the level of python/napari knowledge required to follow this document
   - try to be specific about what skills are needed e.g. 'connecting callbacks
     to layer events' or 'using matplotlib to produce plots'

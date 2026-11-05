@@ -63,8 +63,8 @@ We provide three different outputs in the conda package recipe:
 
 ### conda packages in the `napari` channel
 
-The `napari` project also has a `napari` channel in anaconda.org.
-We mainly use it to provide:
+The `napari` project also has a `napari` channel in
+[anaconda.org](https://anaconda.org/napari). We mainly use it to provide:
 
 - Nightlies built off of `main`, uploaded to the `napari/label/nightly`
   channel.

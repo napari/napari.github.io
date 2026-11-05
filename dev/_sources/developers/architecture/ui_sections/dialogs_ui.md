@@ -252,59 +252,59 @@ graph LR
 ```
 napari/
 ├─_qt/
+│ ├─qt_main_window.py
+│ ├─_qapp_model/
+│ │ ├─qactions/
+│ │ │ ├─_help.py
+│ │ │ ├─_file.py
+│ │ │ ├─_debug.py
+│ │ │ ├─__init__.py
+│ │ │ └─_plugins.py
+│ │ ├─injection/
+│ │ │ ├─_qprocessors.py
+│ │ │ └─_qproviders.py
+│ │ └─_menus.py
+│ ├─utils.py
+│ ├─dialogs/
+│ │ ├─qt_modal.py
+│ │ ├─qt_notification.py
+│ │ ├─screenshot_dialog.py
+│ │ ├─qt_about.py
+│ │ ├─confirm_close_dialog.py
+│ │ ├─preferences_dialog.py
+│ │ ├─qt_activity_dialog.py
+│ │ └─qt_reader_dialog.py
+│ ├─qt_viewer.py
 │ ├─widgets/
-│ │ ├─qt_histogram.py
-│ │ ├─qt_viewer_status_bar.py
-│ │ ├─qt_color_swatch.py
-│ │ ├─qt_histogram_content.py
-│ │ ├─qt_dims.py
-│ │ ├─qt_highlight_preview.py
-│ │ ├─qt_extension2reader.py
-│ │ ├─qt_logger.py
-│ │ ├─qt_font_size.py
-│ │ ├─qt_progress_bar.py
-│ │ ├─qt_viewer_tour.py
 │ │ ├─qt_dims_sorter.py
-│ │ ├─qt_tooltip.py
-│ │ ├─qt_tips.py
 │ │ ├─qt_scrollbar.py
 │ │ ├─qt_command_palette.py
 │ │ ├─qt_dims_slider.py
+│ │ ├─qt_spinbox.py
+│ │ ├─qt_dims.py
+│ │ ├─qt_progress_bar.py
+│ │ ├─qt_highlight_preview.py
+│ │ ├─qt_tips.py
+│ │ ├─qt_histogram.py
+│ │ ├─qt_color_swatch.py
+│ │ ├─qt_histogram_content.py
+│ │ ├─qt_font_size.py
+│ │ ├─qt_viewer_status_bar.py
+│ │ ├─qt_extension2reader.py
+│ │ ├─qt_viewer_tour.py
+│ │ ├─qt_tooltip.py
 │ │ ├─qt_histogram_settings.py
-│ │ └─qt_spinbox.py
-│ ├─dialogs/
-│ │ ├─qt_activity_dialog.py
-│ │ ├─qt_notification.py
-│ │ ├─qt_about.py
-│ │ ├─qt_modal.py
-│ │ ├─qt_reader_dialog.py
-│ │ ├─screenshot_dialog.py
-│ │ ├─preferences_dialog.py
-│ │ └─confirm_close_dialog.py
-│ ├─_qplugins/
-│ │ └─_qnpe2.py
-│ ├─utils.py
-│ ├─_qapp_model/
-│ │ ├─qactions/
-│ │ │ ├─_file.py
-│ │ │ ├─_plugins.py
-│ │ │ ├─_help.py
-│ │ │ ├─_debug.py
-│ │ │ └─__init__.py
-│ │ ├─_menus.py
-│ │ └─injection/
-│ │   ├─_qprocessors.py
-│ │   └─_qproviders.py
-│ ├─qt_viewer.py
-│ └─qt_main_window.py
+│ │ └─qt_logger.py
+│ └─_qplugins/
+│   └─_qnpe2.py
 └─_vendor/
   └─qt_json_builder/
     ├─qt_jsonschema_form/
-    │ ├─signal.py
-    │ ├─form.py
-    │ ├─defaults.py
-    │ ├─utils.py
     │ ├─widgets.py
+    │ ├─signal.py
+    │ ├─utils.py
+    │ ├─defaults.py
+    │ ├─form.py
     │ └─__init__.py
     └─__init__.py
 ```

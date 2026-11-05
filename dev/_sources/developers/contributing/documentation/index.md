@@ -42,8 +42,8 @@ repositories:
 1. The main napari documentation is built from sources located at the
    [napari/docs](https://github.com/napari/docs) repository on GitHub. That
    repository is where all the narrative documentation (e.g. tutorials, how-to
-   guides, etc. on napari.org) pull requests should be made. This narrative
-   napari documentation is written in
+   guides, etc. on [napari.org](https://napari.org)) pull requests should be
+   made. This narrative napari documentation is written in
    [MyST markdown](https://myst-parser.readthedocs.io/en/latest/index.html), a
    version of [commonmark](https://spec.commonmark.org/) Markdown (see a
    [markdown cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet))
@@ -194,7 +194,7 @@ complete builds by commenting on the PR with:
 
 where `<target>` can be:
 
-- `html` : a full build, just like napari.org live
+- `html` : a full build, just like [napari.org](https://napari.org) live
 - `html-noplot` : a full build, but without the gallery examples from
   `napari/napari`
 - `docs` : only the content from `napari/docs`, with notebook code cells
@@ -705,8 +705,9 @@ document locally as it would appear on `napari.org`.
 make html
 ```
 
-This matches what is deployed at napari.org and may take 20+ minutes,
-repeatedly opening napari windows as examples and notebook cells are executed.
+This matches what is deployed at [napari.org](https://napari.org) and may take
+20+ minutes, repeatedly opening napari windows as examples and notebook cells
+are executed.
 
 If your changes don't involve the examples gallery from
 `napari/napari/examples`, you can skip the gallery:

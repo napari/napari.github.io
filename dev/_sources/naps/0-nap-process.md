@@ -32,10 +32,10 @@ their revision history is the historical record of the feature proposal
 ### Scope of NAPs
 
 The napari project has grown in scope beyond just the software living in the
-github.com/napari/napari repository. It includes several other software
-packages such as npe2 (napari plugin engine 2), superqt, and magicgui, tools
-for the community such as the napari plugin template, a webpage, and a chat
-forum, among others.
+[github.com/napari/napari](https://github.com/napari/napari) repository. It
+includes several other software packages such as npe2 (napari plugin engine 2),
+superqt, and magicgui, tools for the community such as the napari plugin
+template, a webpage, and a chat forum, among others.
 
 Additionally, napari sits at the center of a much broader community of users,
 plugin developers, educators, and downstream or helper libraries.
@@ -153,8 +153,8 @@ napari repo, as long as it is properly marked as WIP (work in progress).
 
 ### Review and Resolution
 
-NAPs are discussed in Zulip, on image.sc, and on GitHub. The possible paths
-of the status of NAPs are as follows:
+NAPs are discussed in Zulip, on [image.sc](https://image.sc), and on GitHub.
+The possible paths of the status of NAPs are as follows:
 
 ```{image} _static/nap-flowchart.png
 ```

@@ -129,7 +129,8 @@ the release guide [^release-guide].
 
 Pre-release packages are additionally built in our CI by cloning the
 conda-forge feedstock and patching it to use the local source. The artifacts
-are uploaded to the `napari` channel at Anaconda.org [^napari-channel].
+are uploaded to the `napari` channel at
+[Anaconda.org](https://anaconda.org/napari) [^napari-channel].
 
 While napari itself has been on conda-forge for some years now, until recently,
 the plugin ecosystem still broadly relied on PyPI. In the case of napari users
@@ -263,7 +264,7 @@ This separation allows us to:
 
 The installer relies on conda-forge to obtain the needed packages. Pre-release
 installers can be built thanks to the nightlies available on the napari channel
-in Anaconda.org.
+in [Anaconda.org](https://anaconda.org/napari).
 
 ### Milestone 3: Adding support for conda packages in the plugin manager
 

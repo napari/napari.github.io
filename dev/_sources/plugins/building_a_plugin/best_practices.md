@@ -224,7 +224,7 @@ up to report test coverage, but you can test locally as well, using
    [exempt specific lines](https://coverage.readthedocs.io/en/6.4.4/excluding.html#excluding-code-from-coverage-py)
    from coverage with the comment `# pragma: no cover`
 1. In the napari plugin template, coverage tests from github actions will be
-   uploaded to codecov.io
+   uploaded to [codecov.io](https://codecov.io)
 
 ## Set style for additional windows in your plugin
 

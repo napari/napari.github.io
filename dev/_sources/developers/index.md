@@ -60,5 +60,5 @@ There are a number of ways to contact the napari community:
   You can find
   [a comprehensive guide to GitHub Markdown](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax)
 - [Image.sc forum](https://forum.image.sc/tag/napari): napari is a community
-  partner on the Image.sc forum. All usage support requests should be posted on
-  the forum with the tag "napari".
+  partner on the [Image.sc](https://image.sc) forum. All usage support requests
+  should be posted on the forum with the tag "napari".

@@ -20,7 +20,7 @@ Plugins can be discovered in the following places:
   find napari plugins.
 
 Users may also find plugins by searching on GitHub, napari's Zulip chat, and
-the image.sc forum.
+the [image.sc](https://image.sc) forum.
 
 ## Installing plugins with napari
 

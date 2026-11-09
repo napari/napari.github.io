@@ -132,7 +132,7 @@ future. This NAP will be updated to reflect the current state of telemetry.
 
 Total systems:
 <https://plausible.io/>
-<https://sentry.io/>
+<https://sentry.io/welcome/>
 <https://opentelemetry.io/>
 
 Visualizations:

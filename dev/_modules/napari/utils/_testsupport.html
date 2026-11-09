@@ -45,7 +45,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=18bd87630a240e9c25be" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=18bd87630a240e9c25be" />
 
-    <script src="../../../_static/documentation_options.js?v=7129ee2d"></script>
+    <script src="../../../_static/documentation_options.js?v=607b1033"></script>
     <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -821,7 +821,9 @@ window.runMermaid = runMermaid;</script>
                 <article class="bd-article">
                   
   <h1>Source code for napari.utils._testsupport</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">gc</span>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">gc</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">shutil</span>
@@ -831,23 +833,33 @@ window.runMermaid = runMermaid;</script>
 <span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">functools</span><span class="w"> </span><span class="kn">import</span> <span class="n">lru_cache</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">TYPE_CHECKING</span><span class="p">,</span> <span class="n">Protocol</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">unittest.mock</span><span class="w"> </span><span class="kn">import</span> <span class="n">patch</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">weakref</span><span class="w"> </span><span class="kn">import</span> <span class="n">WeakSet</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">pytest</span>
 
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
-    <span class="kn">from</span><span class="w"> </span><span class="nn">pytest</span><span class="w"> </span><span class="kn">import</span> <span class="n">FixtureRequest</span>  <span class="c1"># noqa: PT013</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">collections.abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Generator</span><span class="p">,</span> <span class="n">Sequence</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span>
+
+    <span class="kn">from</span><span class="w"> </span><span class="nn">npe2._pytest_plugin</span><span class="w"> </span><span class="kn">import</span> <span class="n">TestPluginManager</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">pytestqt.qtbot</span><span class="w"> </span><span class="kn">import</span> <span class="n">QtBot</span>
+
+    <span class="kn">from</span><span class="w"> </span><span class="nn">napari</span><span class="w"> </span><span class="kn">import</span> <span class="n">Viewer</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">napari._app_model._app</span><span class="w"> </span><span class="kn">import</span> <span class="n">NapariApplication</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">napari._qt.qt_viewer</span><span class="w"> </span><span class="kn">import</span> <span class="n">QtViewer</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">napari._vispy.mouse_event</span><span class="w"> </span><span class="kn">import</span> <span class="n">VectorF64</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils._proxies</span><span class="w"> </span><span class="kn">import</span> <span class="n">PublicOnlyProxy</span>
 
 <span class="n">_SAVE_GRAPH_OPNAME</span> <span class="o">=</span> <span class="s1">'--save-leaked-object-graph'</span>
 
 
-<span class="k">def</span><span class="w"> </span><span class="nf">_empty</span><span class="p">(</span><span class="o">*</span><span class="n">_</span><span class="p">,</span> <span class="o">**</span><span class="n">__</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_empty</span><span class="p">(</span><span class="o">*</span><span class="n">_</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">**</span><span class="n">__</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">"""Empty function for mocking"""</span>
 
 
-<span class="k">def</span><span class="w"> </span><span class="nf">pytest_addoption</span><span class="p">(</span><span class="n">parser</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">pytest_addoption</span><span class="p">(</span><span class="n">parser</span><span class="p">:</span> <span class="n">pytest</span><span class="o">.</span><span class="n">Parser</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="n">parser</span><span class="o">.</span><span class="n">addoption</span><span class="p">(</span>
         <span class="s1">'--show-napari-viewer'</span><span class="p">,</span>
         <span class="n">action</span><span class="o">=</span><span class="s1">'store_true'</span><span class="p">,</span>
@@ -867,7 +879,7 @@ window.runMermaid = runMermaid;</script>
 <span class="n">COUNTER</span> <span class="o">=</span> <span class="mi">0</span>
 
 
-<span class="k">def</span><span class="w"> </span><span class="nf">fail_obj_graph</span><span class="p">(</span><span class="n">Klass</span><span class="p">):</span>  <span class="c1"># pragma: no cover</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">fail_obj_graph</span><span class="p">(</span><span class="n">Klass</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="n">QtViewer</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
 <span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Fail is a given class _instances weakset is non empty and print the object graph.</span>
 <span class="sd">    """</span>
@@ -890,6 +902,11 @@ window.runMermaid = runMermaid;</script>
         <span class="p">)</span>
 
         <span class="n">gc</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>
+        <span class="n">file_path_dot</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">Klass</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">-leak-backref-graph-</span><span class="si">{</span><span class="n">COUNTER</span><span class="si">}</span><span class="s1">.dot'</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">absolute</span><span class="p">()</span>
+        <span class="c1"># report the dot file unless a pdf gets rendered below</span>
+        <span class="n">file_path</span> <span class="o">=</span> <span class="n">file_path_dot</span>
         <span class="k">if</span> <span class="n">graphviz_available</span><span class="p">:</span>
             <span class="n">file_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span>
                 <span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">Klass</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">-leak-backref-graph-</span><span class="si">{</span><span class="n">COUNTER</span><span class="si">}</span><span class="s1">.pdf'</span>
@@ -899,9 +916,6 @@ window.runMermaid = runMermaid;</script>
                 <span class="n">max_depth</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
                 <span class="n">filename</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">file_path</span><span class="p">),</span>
             <span class="p">)</span>
-        <span class="n">file_path_dot</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span>
-            <span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">Klass</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">-leak-backref-graph-</span><span class="si">{</span><span class="n">COUNTER</span><span class="si">}</span><span class="s1">.dot'</span>
-        <span class="p">)</span><span class="o">.</span><span class="n">absolute</span><span class="p">()</span>
         <span class="n">objgraph</span><span class="o">.</span><span class="n">show_backrefs</span><span class="p">(</span>
             <span class="nb">list</span><span class="p">(</span><span class="n">Klass</span><span class="o">.</span><span class="n">_instances</span><span class="p">),</span>
             <span class="n">max_depth</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
@@ -925,7 +939,7 @@ window.runMermaid = runMermaid;</script>
 
 
 <span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span><span class="p">(</span><span class="n">autouse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">_clean_themes</span><span class="p">():</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_clean_themes</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
     <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">theme</span>
 
     <span class="n">themes</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">theme</span><span class="o">.</span><span class="n">available_themes</span><span class="p">())</span>
@@ -936,7 +950,9 @@ window.runMermaid = runMermaid;</script>
 
 
 <span class="nd">@pytest</span><span class="o">.</span><span class="n">hookimpl</span><span class="p">(</span><span class="n">tryfirst</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">hookwrapper</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">pytest_runtest_makereport</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">call</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">pytest_runtest_makereport</span><span class="p">(</span>
+    <span class="n">item</span><span class="p">:</span> <span class="n">pytest</span><span class="o">.</span><span class="n">Item</span><span class="p">,</span> <span class="n">call</span><span class="p">:</span> <span class="n">pytest</span><span class="o">.</span><span class="n">CallInfo</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
     <span class="c1"># https://docs.pytest.org/en/latest/example/simple.html#making-test-result-information-available-in-fixtures</span>
     <span class="c1"># execute all other hooks to obtain the report object</span>
     <span class="n">outcome</span> <span class="o">=</span> <span class="k">yield</span>
@@ -949,7 +965,7 @@ window.runMermaid = runMermaid;</script>
 
 
 <span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">mock_app_model</span><span class="p">():</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">mock_app_model</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">[</span><span class="n">NapariApplication</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">"""Mock clean 'test_app' `NapariApplication` instance.</span>
 
 <span class="sd">    This fixture must be used whenever `napari._app_model.get_app_model()` is called to</span>
@@ -981,11 +997,11 @@ window.runMermaid = runMermaid;</script>
     <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
 
         <span class="nd">@lru_cache</span>
-        <span class="k">def</span><span class="w"> </span><span class="nf">init_qactions</span><span class="p">():</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">init_qactions</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">pass</span>
 
         <span class="nd">@lru_cache</span>
-        <span class="k">def</span><span class="w"> </span><span class="nf">_initialize_plugins</span><span class="p">():</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">_initialize_plugins</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">pass</span>
 
     <span class="n">app</span> <span class="o">=</span> <span class="n">NapariApplication</span><span class="p">(</span><span class="s1">'test_app'</span><span class="p">)</span>
@@ -1000,7 +1016,11 @@ window.runMermaid = runMermaid;</script>
 
 
 <span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">plugin_settings</span><span class="p">(</span><span class="n">npe2pm</span><span class="p">,</span> <span class="n">tmp_path</span><span class="p">,</span> <span class="n">monkeypatch</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">plugin_settings</span><span class="p">(</span>
+    <span class="n">npe2pm</span><span class="p">:</span> <span class="n">TestPluginManager</span><span class="p">,</span>
+    <span class="n">tmp_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span>
+    <span class="n">monkeypatch</span><span class="p">:</span> <span class="n">pytest</span><span class="o">.</span><span class="n">MonkeyPatch</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">"""Make `napari.settings.get_plugin_settings` fresh for each test.</span>
 
 <span class="sd">    Clears the `_PLUGIN_SETTINGS` cache and redirects the default plugin</span>
@@ -1054,15 +1074,27 @@ window.runMermaid = runMermaid;</script>
     <span class="n">napari_settings</span><span class="o">.</span><span class="n">_clear_plugin_settings_cache</span><span class="p">()</span>
 
 
+<span class="k">class</span><span class="w"> </span><span class="nc">ViewerFactory</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Callable returned by the ``make_napari_viewer`` fixture."""</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__call__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="o">*</span><span class="n">model_args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+        <span class="n">ViewerClass</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="n">Viewer</span><span class="p">]</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span>
+        <span class="n">strict_qt</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">model_kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Viewer</span><span class="p">:</span> <span class="o">...</span>
+
+
 <div class="viewcode-block" id="make_napari_viewer">
 <a class="viewcode-back" href="../../../developers/contributing/testing.html#napari.utils._testsupport.make_napari_viewer">[docs]</a>
 <span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">make_napari_viewer</span><span class="p">(</span>
-    <span class="n">qtbot</span><span class="p">,</span>
-    <span class="n">request</span><span class="p">:</span> <span class="s1">'FixtureRequest'</span><span class="p">,</span>
-    <span class="n">mock_app_model</span><span class="p">,</span>
-    <span class="n">monkeypatch</span><span class="p">,</span>
-<span class="p">):</span>
+    <span class="n">qtbot</span><span class="p">:</span> <span class="n">QtBot</span><span class="p">,</span>
+    <span class="n">request</span><span class="p">:</span> <span class="n">pytest</span><span class="o">.</span><span class="n">FixtureRequest</span><span class="p">,</span>
+    <span class="n">mock_app_model</span><span class="p">:</span> <span class="n">NapariApplication</span><span class="p">,</span>
+    <span class="n">monkeypatch</span><span class="p">:</span> <span class="n">pytest</span><span class="o">.</span><span class="n">MonkeyPatch</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">[</span><span class="n">ViewerFactory</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">"""A pytest fixture function that creates a napari viewer for use in testing.</span>
 
 <span class="sd">    This fixture will take care of creating a viewer and cleaning up at the end of the</span>
@@ -1144,7 +1176,7 @@ window.runMermaid = runMermaid;</script>
     <span class="n">request</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">_viewer_weak_set</span> <span class="o">=</span> <span class="n">viewers</span>
 
     <span class="c1"># may be overridden by using the parameter `strict_qt`</span>
-    <span class="n">_strict</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">_strict</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">False</span>
 
     <span class="n">initial</span> <span class="o">=</span> <span class="n">QApplication</span><span class="o">.</span><span class="n">topLevelWidgets</span><span class="p">()</span>
     <span class="n">prior_exception</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">sys</span><span class="p">,</span> <span class="s1">'last_value'</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
@@ -1158,23 +1190,27 @@ window.runMermaid = runMermaid;</script>
 
     <span class="k">if</span> <span class="s1">'enable_console'</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">request</span><span class="o">.</span><span class="n">keywords</span><span class="p">:</span>
 
-        <span class="k">def</span><span class="w"> </span><span class="nf">_dummy_widget</span><span class="p">(</span><span class="o">*</span><span class="n">_</span><span class="p">):</span>
-            <span class="n">w</span> <span class="o">=</span> <span class="n">QWidget</span><span class="p">()</span>
-            <span class="n">w</span><span class="o">.</span><span class="n">_update_theme</span> <span class="o">=</span> <span class="n">_empty</span>
-            <span class="k">return</span> <span class="n">w</span>
+        <span class="k">class</span><span class="w"> </span><span class="nc">_DummyConsole</span><span class="p">(</span><span class="n">QWidget</span><span class="p">):</span>
+            <span class="k">def</span><span class="w"> </span><span class="nf">_update_theme</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">_</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">**</span><span class="n">__</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">pass</span>
+
+        <span class="k">def</span><span class="w"> </span><span class="nf">_dummy_widget</span><span class="p">(</span><span class="o">*</span><span class="n">_</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">QWidget</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">_DummyConsole</span><span class="p">()</span>
 
         <span class="n">monkeypatch</span><span class="o">.</span><span class="n">setattr</span><span class="p">(</span>
             <span class="s1">'napari._qt.qt_viewer.QtViewer._get_console'</span><span class="p">,</span> <span class="n">_dummy_widget</span>
         <span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">actual_factory</span><span class="p">(</span>
-        <span class="o">*</span><span class="n">model_args</span><span class="p">,</span>
-        <span class="n">ViewerClass</span><span class="o">=</span><span class="n">Viewer</span><span class="p">,</span>
-        <span class="n">strict_qt</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="o">**</span><span class="n">model_kwargs</span><span class="p">,</span>
-    <span class="p">):</span>
+        <span class="o">*</span><span class="n">model_args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+        <span class="n">ViewerClass</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="n">Viewer</span><span class="p">]</span> <span class="o">=</span> <span class="n">Viewer</span><span class="p">,</span>
+        <span class="n">strict_qt</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">model_kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Viewer</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">strict_qt</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">strict_qt</span> <span class="o">=</span> <span class="n">is_internal_test</span> <span class="ow">or</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">'NAPARI_STRICT_QT'</span><span class="p">)</span>
+            <span class="n">strict_qt</span> <span class="o">=</span> <span class="n">is_internal_test</span> <span class="ow">or</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span>
+                <span class="s1">'NAPARI_STRICT_QT'</span><span class="p">,</span> <span class="kc">False</span>
+            <span class="p">)</span>
         <span class="k">nonlocal</span> <span class="n">_strict</span>
         <span class="n">_strict</span> <span class="o">=</span> <span class="n">strict_qt</span>
 
@@ -1231,15 +1267,20 @@ window.runMermaid = runMermaid;</script>
     <span class="c1"># and "strict" mode was used.</span>
     <span class="k">if</span> <span class="n">_strict</span> <span class="ow">and</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">sys</span><span class="p">,</span> <span class="s1">'last_value'</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">is</span> <span class="n">prior_exception</span><span class="p">:</span>
         <span class="n">QApplication</span><span class="o">.</span><span class="n">processEvents</span><span class="p">()</span>
-        <span class="n">leak</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">QApplication</span><span class="o">.</span><span class="n">topLevelWidgets</span><span class="p">())</span><span class="o">.</span><span class="n">difference</span><span class="p">(</span><span class="n">initial</span><span class="p">)</span>
-        <span class="n">leak</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">leak</span> <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">objectName</span><span class="p">()</span> <span class="o">!=</span> <span class="s1">'handled_widget'</span><span class="p">)</span>
+        <span class="n">leak</span><span class="p">:</span> <span class="nb">set</span><span class="p">[</span><span class="n">QWidget</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">QApplication</span><span class="o">.</span><span class="n">topLevelWidgets</span><span class="p">())</span><span class="o">.</span><span class="n">difference</span><span class="p">(</span>
+            <span class="n">initial</span>
+        <span class="p">)</span>
+        <span class="n">leak_filtered</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">leak</span> <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">objectName</span><span class="p">()</span> <span class="o">!=</span> <span class="s1">'handled_widget'</span><span class="p">]</span>
         <span class="c1"># still not sure how to clean up some of the remaining vispy</span>
         <span class="c1"># vispy.app.backends._qt.CanvasBackendDesktop widgets...</span>
         <span class="c1"># observed in `test_sys_info.py`</span>
-        <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">n</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">!=</span> <span class="s1">'CanvasBackendDesktop'</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">leak</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">any</span><span class="p">(</span>
+            <span class="n">n</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">!=</span> <span class="s1">'CanvasBackendDesktop'</span>
+            <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">leak_filtered</span>
+        <span class="p">):</span>
             <span class="c1"># just a warning... but this can be converted to test errors</span>
             <span class="c1"># in pytest with `-W error`</span>
-            <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"""The following Widgets leaked!: </span><span class="si">{</span><span class="n">leak</span><span class="si">}</span><span class="s2">.</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"""The following Widgets leaked!: </span><span class="si">{</span><span class="n">leak_filtered</span><span class="si">}</span><span class="s2">.</span>
 
 <span class="s2">            Note: If other tests are failing it is likely that widgets will leak</span>
 <span class="s2">            as they will be (indirectly) attached to the tracebacks of previous failures.</span>
@@ -1259,7 +1300,10 @@ window.runMermaid = runMermaid;</script>
 
 
 <span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">make_napari_viewer_proxy</span><span class="p">(</span><span class="n">make_napari_viewer</span><span class="p">,</span> <span class="n">monkeypatch</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">make_napari_viewer_proxy</span><span class="p">(</span>
+    <span class="n">make_napari_viewer</span><span class="p">:</span> <span class="n">ViewerFactory</span><span class="p">,</span>
+    <span class="n">monkeypatch</span><span class="p">:</span> <span class="n">pytest</span><span class="o">.</span><span class="n">MonkeyPatch</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="n">PublicOnlyProxy</span><span class="p">[</span><span class="n">Viewer</span><span class="p">]]:</span>
 <span class="w">    </span><span class="sd">"""Fixture that returns a function for creating a napari viewer wrapped in proxy.</span>
 <span class="sd">    Use in the same way like `make_napari_viewer` fixture.</span>
 
@@ -1275,9 +1319,11 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">    """</span>
     <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils._proxies</span><span class="w"> </span><span class="kn">import</span> <span class="n">PublicOnlyProxy</span>
 
-    <span class="n">proxies</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">proxies</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">PublicOnlyProxy</span><span class="p">[</span><span class="n">Viewer</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[]</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">actual_factory</span><span class="p">(</span><span class="o">*</span><span class="n">model_args</span><span class="p">,</span> <span class="n">ensure_main_thread</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">model_kwargs</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">actual_factory</span><span class="p">(</span>
+        <span class="o">*</span><span class="n">model_args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">ensure_main_thread</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">model_kwargs</span><span class="p">:</span> <span class="n">Any</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PublicOnlyProxy</span><span class="p">[</span><span class="n">Viewer</span><span class="p">]:</span>
         <span class="n">monkeypatch</span><span class="o">.</span><span class="n">setenv</span><span class="p">(</span>
             <span class="s1">'NAPARI_ENSURE_PLUGIN_MAIN_THREAD'</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">ensure_main_thread</span><span class="p">)</span>
         <span class="p">)</span>
@@ -1290,36 +1336,35 @@ window.runMermaid = runMermaid;</script>
     <span class="k">return</span> <span class="n">actual_factory</span>
 
 
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">_MouseEvent</span><span class="p">:</span>
+    <span class="nb">type</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">position</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span>
+    <span class="n">is_dragging</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">dims_displayed</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">dims_point</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">view_direction</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="n">VectorF64</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">pos</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">button</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">handled</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+
+
 <span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">MouseEvent</span><span class="p">():</span>
-<span class="w">    </span><span class="sd">"""Create a subclass for simulating vispy mouse events.</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">MouseEvent</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">type</span><span class="p">[</span><span class="n">_MouseEvent</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""Return a dataclass for simulating napari mouse events.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    Event : Type</span>
-<span class="sd">        A new dataclass named Event that can be used to create an</span>
-<span class="sd">        object with fields "type" and "is_dragging".</span>
+<span class="sd">    type[_MouseEvent]</span>
+<span class="sd">        A dataclass that can be used in place of a NapariMouseEvent in tests.</span>
 <span class="sd">    """</span>
-
-    <span class="nd">@dataclass</span>
-    <span class="k">class</span><span class="w"> </span><span class="nc">Event</span><span class="p">:</span>
-        <span class="nb">type</span><span class="p">:</span> <span class="nb">str</span>
-        <span class="n">position</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span>
-        <span class="n">is_dragging</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
-        <span class="n">dims_displayed</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-        <span class="n">dims_point</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="n">view_direction</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="n">pos</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-        <span class="n">button</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="n">handled</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
-
-    <span class="k">return</span> <span class="n">Event</span>
+    <span class="k">return</span> <span class="n">_MouseEvent</span>
 
 
 <span class="k">class</span><span class="w"> </span><span class="nc">LeakSafeLogRecord</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">LogRecord</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">"""LogRecord that converts args to strings to prevent reference retention."""</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="c1"># Convert args to strings immediately</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">args</span><span class="p">:</span>
@@ -1330,7 +1375,7 @@ window.runMermaid = runMermaid;</script>
 
 
 <span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span><span class="p">(</span><span class="n">autouse</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="s1">'session'</span><span class="p">)</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">use_leak_safe_log_records</span><span class="p">():</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">use_leak_safe_log_records</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">"""Use custom LogRecord factory that doesn't retain object references."""</span>
     <span class="n">original_record_factory</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogRecordFactory</span><span class="p">()</span>
 

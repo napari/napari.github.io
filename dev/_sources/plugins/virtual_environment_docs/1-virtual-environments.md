@@ -52,7 +52,7 @@ Adding the `conda-forge` channel to the conda config makes packages in
 `conda-forge` visible to the conda installer. Setting `channel_priority` to
 strict ensures packages in high priority channels are always installed over
 packages of the same name in lower priority channels. See
-[this guide](https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-channels.html)
+[this guide](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-channels.html)
 for more details.
 
 Make sure the `conda-forge` channel is in your config by using the following

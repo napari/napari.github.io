@@ -340,4 +340,4 @@ This document has been placed in the public domain.
 [MyST markdown]: https://myst-parser.readthedocs.io/en/latest/index.html
 [MyST markdown cheat sheet]: https://myst-parser.readthedocs.io/en/latest/syntax/syntax.html
 [napari steering council]: https://napari.org/community/governance.html
-[sphinx]: https://www.sphinx-doc.org/en/stable/
+[sphinx]: https://www.sphinx-doc.org/en/master/

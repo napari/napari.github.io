@@ -57,7 +57,7 @@ The current version of your plugin. We strongly recommend using
 [Semantic Versioning (SemVer)](https://semver.org/) or
 [Intended Effort Versioning (EffVer)](https://jacobtomlinson.dev/effver/) with
 Python conventions for pre-releases
-([PEP 440](https://www.python.org/dev/peps/pep-0440/)).
+([PEP 440](https://peps.python.org/pep-0440/)).
 
 ```toml
 [project]

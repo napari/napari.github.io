@@ -39,11 +39,11 @@ To quickly get started with debugging your plugin, you can do the following:
 
 1. Setup the [pdb](https://docs.python.org/3/library/pdb.html) or the debugger
    in your IDE (such as
-   [VSCode](https://code.visualstudio.com/docs/editor/debugging) or
+   [VSCode](https://code.visualstudio.com/docs/debugtest/debugging) or
    [PyCharm](https://www.jetbrains.com/help/pycharm/debugging-code.html#general-procedure))
    to run this script in debug mode with any desired breakpoints set. For
    example, in VSCode, you can
-   [set a breakpoint](https://code.visualstudio.com/Docs/editor/debugging#_breakpoints)
+   [set a breakpoint](https://code.visualstudio.com/docs/debugtest/debugging)
    by clicking on the line number in the script.
 
 1. Run the created napari launch script in debug mode. For example, in VSCode,

@@ -60,7 +60,7 @@ These *auto-modify* your code.
 
 ## Napari plugin-specific tools
 
-- [Static plugin checks](https://github.com/tlambert03/napari-plugin-checks)
+- [Static plugin checks](https://github.com/napari/napari-plugin-checks)
   - This is a *pre-commit hook*. It is intended to be added to your
     `.pre-commit-config.yaml` file.
   - It *statically* (without importing) checks various best practices about

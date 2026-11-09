@@ -16,7 +16,7 @@ changing our minimum required `pydantic` version to 2.2. This will bring
 significant speed and functionality advantages to napari. `Pydantic` v2 was
 released nearly 2 years ago, so we feel that there has been adequate time for
 plugins to update (there is
-[a detailed migration guide](https://docs.pydantic.dev/latest/migration/)).
+[a detailed migration guide](https://pydantic.dev/docs/validation/latest/get-started/migration/)).
 However, there may be plugins that depend on pydantic that have not been
 updated to work with pydantic 2, but can be installed with napari 0.6.0,
 because it is not typical to set upper bounds on dependencies. In this case,

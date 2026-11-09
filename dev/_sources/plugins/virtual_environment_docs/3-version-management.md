@@ -17,7 +17,7 @@ bumping your version string are listed below.
 
 ## Using git tags
 
-You can use [setuptools_scm](https://github.com/pypa/setuptools_scm) to
+You can use [setuptools_scm](https://github.com/pypa/setuptools-scm) to
 automatically generate version numbers for your package based on tagged
 commits.
 

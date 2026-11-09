@@ -130,4 +130,4 @@ information about other tests when one of the tests fails.
 
 Making testing more convenient is where
 [testing frameworks](plugin-testing-workshop-pytest), like
-[pytest](https://docs.pytest.org/) come in.
+[pytest](https://docs.pytest.org/en/stable/) come in.

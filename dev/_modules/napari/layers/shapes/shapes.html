@@ -45,7 +45,7 @@
   <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=18bd87630a240e9c25be" />
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=18bd87630a240e9c25be" />
 
-    <script src="../../../../_static/documentation_options.js?v=7129ee2d"></script>
+    <script src="../../../../_static/documentation_options.js?v=607b1033"></script>
     <script src="../../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -1507,7 +1507,7 @@ window.runMermaid = runMermaid;</script>
     <span class="k">def</span><span class="w"> </span><span class="nf">data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_finish_drawing</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">selected_data</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
-        <span class="n">prior_data</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>
+        <span class="n">prior_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">nshapes</span> <span class="o">&gt;</span> <span class="mi">0</span>
         <span class="n">data</span><span class="p">,</span> <span class="n">shape_type</span> <span class="o">=</span> <span class="n">extract_shape_type</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
         <span class="n">n_new_shapes</span> <span class="o">=</span> <span class="n">number_of_shapes</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
         <span class="c1"># not given a shape_type through data</span>
@@ -1556,7 +1556,7 @@ window.runMermaid = runMermaid;</script>
         <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s1">'value'</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
             <span class="s1">'vertex_indices'</span><span class="p">:</span> <span class="p">((),),</span>
-            <span class="s1">'data_indices'</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">))),</span>
+            <span class="s1">'data_indices'</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nshapes</span><span class="p">)),</span>
         <span class="p">}</span>
         <span class="k">if</span> <span class="n">prior_data</span> <span class="ow">and</span> <span class="n">data_not_empty</span><span class="p">:</span>
             <span class="n">kwargs</span><span class="p">[</span><span class="s1">'action'</span><span class="p">]</span> <span class="o">=</span> <span class="n">ActionType</span><span class="o">.</span><span class="n">CHANGING</span>
@@ -1678,7 +1678,11 @@ window.runMermaid = runMermaid;</script>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_get_ndim</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">"""Determine number of dimensions of the layer."""</span>
-        <span class="n">ndim</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">nshapes</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">ndim</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">nshapes</span> <span class="o">==</span> <span class="mi">0</span>
+            <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data_view</span><span class="o">.</span><span class="n">shapes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="p">)</span>
         <span class="k">return</span> <span class="n">ndim</span>
 
     <span class="nd">@property</span>
@@ -1689,7 +1693,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        -------</span>
 <span class="sd">        extent_data : array, shape (2, D)</span>
 <span class="sd">        """</span>
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">nshapes</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
 
         <span class="n">bounding_boxes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
@@ -2065,8 +2069,7 @@ window.runMermaid = runMermaid;</script>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">z_indices</span> <span class="o">=</span> <span class="p">[</span><span class="n">z_index</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nshapes</span><span class="p">)]</span>
 
-        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">z_idx</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">z_indices</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_data_view</span><span class="o">.</span><span class="n">update_z_index</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">z_idx</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_data_view</span><span class="o">.</span><span class="n">update_z_indices</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nshapes</span><span class="p">),</span> <span class="n">z_indices</span><span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">selected_data</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Selection</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
@@ -2157,15 +2160,15 @@ window.runMermaid = runMermaid;</script>
             <span class="bp">self</span><span class="o">.</span><span class="n">refresh_colors</span><span class="p">(</span><span class="n">update_color_mapping</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">nshapes</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
                 <span class="n">transformed_color</span> <span class="o">=</span> <span class="n">transform_color_with_defaults</span><span class="p">(</span>
-                    <span class="n">num_entries</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">),</span>
+                    <span class="n">num_entries</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">nshapes</span><span class="p">,</span>
                     <span class="n">colors</span><span class="o">=</span><span class="n">color</span><span class="p">,</span>
                     <span class="n">elem_name</span><span class="o">=</span><span class="s1">'face_color'</span><span class="p">,</span>
                     <span class="n">default</span><span class="o">=</span><span class="s1">'white'</span><span class="p">,</span>
                 <span class="p">)</span>
                 <span class="n">colors</span> <span class="o">=</span> <span class="n">normalize_and_broadcast_colors</span><span class="p">(</span>
-                    <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">),</span> <span class="n">transformed_color</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">nshapes</span><span class="p">,</span> <span class="n">transformed_color</span>
                 <span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">colors</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
@@ -2503,16 +2506,12 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        """</span>
         <span class="n">ndisplay</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">ndisplay</span>
         <span class="n">order</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">order</span>
-
-        <span class="c1"># get the coordinates of the vertices for the shapes in view</span>
-        <span class="n">in_view_shapes_coords</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_data_view</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_view_indices</span>
-        <span class="p">]</span>
-
+        <span class="c1"># avoid rebuilding lists</span>
+        <span class="n">displayed</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">displayed</span>
+        <span class="n">shapes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data_view</span><span class="o">.</span><span class="n">shapes</span>
         <span class="c1"># get the coordinates for the dimensions being displayed</span>
         <span class="n">sliced_in_view_coords</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="n">position</span><span class="p">[:,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">displayed</span><span class="p">]</span>
-            <span class="k">for</span> <span class="n">position</span> <span class="ow">in</span> <span class="n">in_view_shapes_coords</span>
+            <span class="n">shapes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">[:,</span> <span class="n">displayed</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_view_indices</span>
         <span class="p">]</span>
         <span class="c1"># TODO: fix types here with np.asarray(sliced_in_view_coords)</span>
         <span class="c1"># but blocked by https://github.com/napari/napari/issues/6294</span>
@@ -3661,7 +3660,7 @@ window.runMermaid = runMermaid;</script>
         <span class="n">colormapped</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_thumbnail_shape</span><span class="p">)</span>
         <span class="n">colormapped</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
         <span class="c1"># if the shapes layer is empty, don't update, just leave it black</span>
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">nshapes</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">thumbnail</span> <span class="o">=</span> <span class="n">colormapped</span>
         <span class="c1"># don't update the thumbnail if dragging a shape</span>
         <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_moving</span> <span class="ow">is</span> <span class="kc">False</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_allow_thumbnail_update</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
@@ -3726,7 +3725,7 @@ window.runMermaid = runMermaid;</script>
                     <span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_moving_value</span> <span class="o">=</span> <span class="p">(</span><span class="n">moving_index</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_moving_value</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
 
-            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">selected_data</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">nshapes</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">selected_data</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">selected_data</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
             <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">selected_data</span><span class="p">:</span>
                 <span class="n">selected_not_removed</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">selected_data</span> <span class="o">-</span> <span class="nb">set</span><span class="p">(</span><span class="n">indices</span><span class="p">)</span>
@@ -3786,7 +3785,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">            A dictionary containing all relevant details of the shape.</span>
 <span class="sd">        """</span>
 
-        <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">index</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">index</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">nshapes</span><span class="p">):</span>
             <span class="k">return</span> <span class="p">{</span>
                 <span class="s1">'data'</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
                 <span class="s1">'shape_type'</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
@@ -3798,7 +3797,7 @@ window.runMermaid = runMermaid;</script>
             <span class="p">}</span>
 
         <span class="n">info</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s1">'data'</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">index</span><span class="p">],</span>
+            <span class="s1">'data'</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data_view</span><span class="o">.</span><span class="n">shapes</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
             <span class="s1">'shape_type'</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">shape_type</span><span class="p">[</span><span class="n">index</span><span class="p">],</span>
             <span class="s1">'edge_width'</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">edge_width</span><span class="p">[</span><span class="n">index</span><span class="p">],</span>
             <span class="s1">'edge_color'</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">edge_color</span><span class="p">[</span><span class="n">index</span><span class="p">],</span>
@@ -3826,7 +3825,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">            Dictionary containing the removed shape's data.</span>
 <span class="sd">        """</span>
         <span class="k">if</span> <span class="n">index</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
-            <span class="n">index</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+            <span class="n">index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">nshapes</span> <span class="o">-</span> <span class="mi">1</span>
         <span class="n">info</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_shape_info</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">remove</span><span class="p">([</span><span class="n">index</span><span class="p">])</span>
         <span class="k">return</span> <span class="n">info</span></div>
@@ -4115,8 +4114,7 @@ window.runMermaid = runMermaid;</script>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">selected_data</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">return</span>
         <span class="n">new_z_index</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data_view</span><span class="o">.</span><span class="n">_z_index</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
-        <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">selected_data</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_data_view</span><span class="o">.</span><span class="n">update_z_index</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">new_z_index</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_data_view</span><span class="o">.</span><span class="n">update_z_indices</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">selected_data</span><span class="p">,</span> <span class="n">new_z_index</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">refresh</span><span class="p">(</span><span class="n">extent</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">highlight</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></div>
 
 
@@ -4127,8 +4125,7 @@ window.runMermaid = runMermaid;</script>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">selected_data</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">return</span>
         <span class="n">new_z_index</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data_view</span><span class="o">.</span><span class="n">_z_index</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
-        <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">selected_data</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_data_view</span><span class="o">.</span><span class="n">update_z_index</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">new_z_index</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_data_view</span><span class="o">.</span><span class="n">update_z_indices</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">selected_data</span><span class="p">,</span> <span class="n">new_z_index</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">refresh</span><span class="p">(</span><span class="n">extent</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">highlight</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></div>
 
 

@@ -22,7 +22,7 @@ These resources may be helpful in developing tests:
 - [codecov](https://about.codecov.io/) - As long as your code has tests and
   your coverage tool can output coverage results you can use Codecov.
 
-- [GitHub workflow docs](https://docs.github.com/en/actions/writing-workflows/quickstart) -
+- [GitHub workflow docs](https://docs.github.com/en/actions/get-started/quickstart) -
   You need only a GitHub repository to create and run a GitHub Actions
   workflow.
 

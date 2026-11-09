@@ -6,7 +6,7 @@ In this tutorial, we will use napari to view and annotate a segmentation with
 bounding boxes and text labels. Here we perform a segmentation by setting an
 intensity threshold with Otsu's method, but this same approach could also be
 used to visualize the results of other image processing algorithms such as
-[object detection with neural networks](https://www.tensorflow.org/lite/examples/object_detection/overview).
+[object detection with neural networks](https://github.com/tensorflow/examples/tree/master/lite/examples/object_detection).
 
 ![napari viewer showing eight roughly circular shapes. The shapes are classified according to circularity and have bounding boxes automatically generated around them showing a circularity parameter and an integer for a label.](../_static/images/annotated_bbox.png)
 

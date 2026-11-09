@@ -28,7 +28,7 @@ here:
 **Note:** This goes for dependencies too! Check all your dependencies for wheel
 availability.
 
-**[build](https://pypa-build.readthedocs.io/en/latest/)** is the recommended
+**[build](https://build.pypa.io/en/latest/)** is the recommended
 package builder that bundles your source code into `sdist` or `wheel`
 distributions. Install `build` into your local environment and then run it at
 the root of your package to build your package, as shown below:
@@ -110,7 +110,7 @@ jobs:
 ```
 
 **Note:** Gate this action on some criterion, e.g. a git tag as above, or
-[some other criterion](https://docs.github.com/en/actions/writing-workflows/choosing-when-your-workflow-runs/events-that-trigger-workflows).
+[some other criterion](https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows).
 
 (deploying-to-conda-forge)=
 

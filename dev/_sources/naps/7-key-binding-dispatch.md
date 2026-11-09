@@ -489,7 +489,7 @@ class KeyBindingDispatcher:
 ## Related Work
 
 The entire key binding system is heavily influenced by
-[VSCode's keyboard shortcuts](https://code.visualstudio.com/docs/getstarted/keybindings),
+[VSCode's keyboard shortcuts](https://code.visualstudio.com/docs/configure/keybindings),
 and to a lesser extent,
 [Emacs](https://www.gnu.org/software/emacs/manual/html_node/emacs/Key-Bindings.html)
 and [vim](https://vimdoc.sourceforge.net/htmldoc/map.html). However, as these

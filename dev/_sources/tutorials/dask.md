@@ -222,7 +222,7 @@ dataset was originally described in
 ```{admonition} Getting the data
 
 You can download the dataset from
-[here](https://datadryad.org/stash/dataset/doi:10.5061/dryad.119f80q). In this
+[here](https://datadryad.org/dataset/doi:10.5061/dryad.119f80q). In this
 example we use the
 [FLASH25_100um_TIFF_Axial data](https://datadryad.org/stash/downloads/file_stream/182482).
 This link will download a ~2 Gb `.zip` file and after extracting the compressed

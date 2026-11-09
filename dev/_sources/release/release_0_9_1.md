@@ -13,7 +13,7 @@ This is a bug fix release, primarily fixing a regression in how dock widgets are
 For more information, examples, and documentation, please visit our website,
 https://napari.org.
 
-napari follows [EffVer (Intended Effort Versioning)](https://effver.org/); this is a **Micro** release containing bug fixes, so we encourage upgrading.
+napari follows [EffVer (Intended Effort Versioning)](https://jacobtomlinson.dev/effver/); this is a **Micro** release containing bug fixes, so we encourage upgrading.
 
 ## Improvements
 

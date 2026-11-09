@@ -52,7 +52,7 @@ repositories:
    [napari/npe2](https://github.com/napari/npe2) repository (e.g. the
    [contributions reference page](contributions-ref)) and should be modified
    there. This is documentation is written with
-   [Jinja](https://jinja.palletsprojects.com/en/3.1.x/).
+   [Jinja](https://jinja.palletsprojects.com/en/stable/).
 1. The [examples gallery](gallery) is generated from Python source files and
    changes to the gallery should be made to the
    [napari/napari](https://github.com/napari/napari) repository (see also
@@ -173,12 +173,12 @@ or
 [editing an existing file](https://docs.github.com/en/repositories/working-with-files/managing-files/editing-files)
 on the [napari/docs](https://github.com/napari/docs) GitHub repository. It's
 best if you first
-[fork](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo)
+[fork](https://docs.github.com/en/pull-requests/how-tos/work-with-forks/fork-a-repo)
 the [napari/docs](https://github.com/napari/docs) repository to your own GitHub
 account, create a
-[feature branch](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-and-deleting-branches-within-your-repository#creating-a-branch),
+[feature branch](https://docs.github.com/en/pull-requests/how-tos/commit-changes/managing-branches-within-your-repository),
 upload/create/edit files through the GitHub web interface, and then
-[open a pull request from your fork](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request-from-a-fork)
+[open a pull request from your fork](https://docs.github.com/en/pull-requests/how-tos/create-pull-requests/creating-a-pull-request-from-a-fork)
 back to [napari-docs](https://github.com/napari/docs).
 
 When you submit your PR, CI will kick off several jobs, including generation of
@@ -225,11 +225,11 @@ making sure your documentation has built correctly.
 ## Contributing to the napari documentation with a local setup
 
 ```{attention}
-We now recommend using [`pixi`](https://pixi.sh) for local doc builds. It works
-natively on Windows, macOS, and Linux, and it will automatically clone the main
-`napari/napari` repository inside its environment. You might still prefer
-`make` for headless builds, or when adding gallery examples (which requires a
-full local napari clone). Follow this link for the
+We now recommend using [`pixi`](https://pixi.prefix.dev/) for local doc builds.
+It works natively on Windows, macOS, and Linux, and it will automatically clone
+the main `napari/napari` repository inside its environment. You might still
+prefer `make` for headless builds, or when adding gallery examples (which
+requires a full local napari clone). Follow this link for the
 [advanced `make` instructions](make-advanced).
 ```
 
@@ -237,8 +237,8 @@ full local napari clone). Follow this link for the
 
 ### 0. Prerequisites
 
-[Fork](https://docs.github.com/en/get-started/quickstart/fork-a-repo) then
-clone the documentation repository
+[Fork](https://docs.github.com/en/pull-requests/how-tos/work-with-forks/fork-a-repo)
+then clone the documentation repository
 [napari/docs](https://github.com/napari/docs) to your machine. To clone the
 repository, you can follow any of the options in the
 [GitHub guide to cloning](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository)
@@ -430,12 +430,12 @@ to build and preview the documentation before submitting your pull request.
 #### 3.1. Building locally
 
 To build the documentation locally, we recommend using
-[`pixi`](https://pixi.sh), which provides a simple cross-platform approach and
-automatically clones the
+[`pixi`](https://pixi.prefix.dev/), which provides a simple cross-platform
+approach and automatically clones the
 [main napari repository](https://github.com/napari/napari) inside its
 environment.
 
-1. [Install `pixi`](https://pixi.sh/dev/installation/) and restart your
+1. [Install `pixi`](https://pixi.prefix.dev/dev/installation/) and restart your
    terminal. Verify with:
 
    ```bash
@@ -623,10 +623,10 @@ moved from the main flow.
 ###### Fork and clone the napari and docs repositories
 
 You should first
-[fork](https://docs.github.com/en/get-started/quickstart/fork-a-repo) and then
-clone both the [napari/napari](https://github.com/napari/napari) and the
-[napari/docs](https://github.com/napari/docs) repositories to your machine. To
-clone these repositories, you can follow any of the options in the
+[fork](https://docs.github.com/en/pull-requests/how-tos/work-with-forks/fork-a-repo)
+and then clone both the [napari/napari](https://github.com/napari/napari) and
+the [napari/docs](https://github.com/napari/docs) repositories to your machine.
+To clone these repositories, you can follow any of the options in the
 [GitHub guide to cloning](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository)
 (if you run into issues refer to
 [the troubleshooting guide](https://docs.github.com/en/repositories/creating-and-managing-repositories/troubleshooting-cloning-errors)).
@@ -784,7 +784,7 @@ If you are running a full build, you can run it in a "headless GUI"
 mode, which will prevent napari windows from popping up during the build.
 
 1. If you are using **X11** as your display server and you have
-   [xvfb](https://www.x.org/releases/X11R7.6/doc/man/man1/Xvfb.1.xhtml)
+   [xvfb](https://xorg.freedesktop.org/archive/X11R7.6/doc/man/man1/Xvfb.1.xhtml)
    installed on your system, you can use the `docs-xvfb` command:
 
    ```bash
@@ -795,7 +795,7 @@ mode, which will prevent napari windows from popping up during the build.
    build.
 
 2. If you are using **Wayland** as your display server, and you have `xwfb-run` installed
-   on your system (part of the [xwayland-run utilities](https://gitlab.freedesktop.org/ofourdan/xwayland-runcan),
+   on your system (part of the [xwayland-run utilities](https://gitlab.freedesktop.org/ofourdan/xwayland-run),
    you can use the `docs-xwfb` command:
 
    ```bash

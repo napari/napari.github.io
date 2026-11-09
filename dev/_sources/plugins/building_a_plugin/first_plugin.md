@@ -293,7 +293,7 @@ Once napari starts, select `napari-hello: Hello World` from the
 ## 5. (Optional) Build your plugin for distribution
 
 You can build a distributable package using the
-[`build`](https://pypa-build.readthedocs.io/en/latest/) tool.
+[`build`](https://build.pypa.io/en/latest/) tool.
 
 ```sh
 python -m build

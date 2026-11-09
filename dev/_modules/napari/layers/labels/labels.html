@@ -45,7 +45,7 @@
   <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=18bd87630a240e9c25be" />
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=18bd87630a240e9c25be" />
 
-    <script src="../../../../_static/documentation_options.js?v=7129ee2d"></script>
+    <script src="../../../../_static/documentation_options.js?v=607b1033"></script>
     <script src="../../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -2070,6 +2070,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        applied locally on a numpy array, so replay does not depend on any</span>
 <span class="sd">        backend's advanced-indexing semantics.</span>
 <span class="sd">        """</span>
+        <span class="k">assert</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">MultiScaleData</span><span class="p">)</span>
         <span class="n">values</span> <span class="o">=</span> <span class="n">atom</span><span class="o">.</span><span class="n">old_values</span> <span class="k">if</span> <span class="n">undoing</span> <span class="k">else</span> <span class="n">atom</span><span class="o">.</span><span class="n">new_value</span>
         <span class="k">if</span> <span class="n">atom</span><span class="o">.</span><span class="n">mask</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="c1"># The whole bounding box changed: assign directly.</span>
@@ -2176,6 +2177,8 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        """</span>
         <span class="kn">from</span><span class="w"> </span><span class="nn">skimage.segmentation</span><span class="w"> </span><span class="kn">import</span> <span class="n">flood</span>
 
+        <span class="k">assert</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">MultiScaleData</span><span class="p">)</span>
+
         <span class="n">int_coord</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">coord</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">))</span>
         <span class="c1"># If requested fill location is outside data shape then return</span>
         <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">less</span><span class="p">(</span><span class="n">int_coord</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span> <span class="ow">or</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span>
@@ -2267,6 +2270,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        coordinates : sequence</span>
 <span class="sd">            new cursor coordinates</span>
 <span class="sd">        """</span>
+        <span class="k">assert</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">MultiScaleData</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">coordinates</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">return</span>
         <span class="n">interp_coord</span> <span class="o">=</span> <span class="n">interpolate_coordinates</span><span class="p">(</span>
@@ -2700,6 +2704,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">            self.data[slice_key]. Providing this avoids redundant reads when</span>
 <span class="sd">            data is already available (e.g. in fill).</span>
 <span class="sd">        """</span>
+        <span class="k">assert</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">MultiScaleData</span><span class="p">)</span>
         <span class="c1"># slice_key consists solely of slices, so the extracted region keeps</span>
         <span class="c1"># the full data dimensionality; give the painted-dims mask (and a</span>
         <span class="c1"># pre-loaded region, if any) matching length-1 axes.</span>
@@ -3000,6 +3005,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        ----------</span>
 <span class="sd">        .. [2] https://numpy.org/doc/stable/user/basics.indexing.html</span>
 <span class="sd">        """</span>
+        <span class="k">assert</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">MultiScaleData</span><span class="p">)</span>
         <span class="n">changed_indices</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">indices</span><span class="p">]</span> <span class="o">!=</span> <span class="n">value</span>
         <span class="n">indices</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">changed_indices</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">indices</span><span class="p">)</span>
 

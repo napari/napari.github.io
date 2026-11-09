@@ -13,7 +13,7 @@ Most required tools mentioned here are in
 ```{important}
 The first step in managing a release is to create a new Issue in napari/napari
 with the
-[`release` template](https://github.com/napari/napari/tree/main/.github/ISSUE_TEMPLATE/release.md).
+[`release` template](https://github.com/napari/napari/blob/main/.github/ISSUE_TEMPLATE/release.md).
 ```
 
 ## Release management
@@ -91,13 +91,13 @@ The `napari/napari` repository must have a PyPI API token as a GitHub secret.
 This likely has been done already, but if it has not, follow
 [this guide](https://docs.pypi.org/your-account/managing-your-account/#api-tokens-for-authentication)
 to gain a token and
-[this guide](https://docs.github.com/en/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions)
+[this guide](https://docs.github.com/en/actions/how-tos/write-workflows/choose-what-workflows-do/use-secrets)
 to add it as a secret.
 
 ### Determining the version
 
 The version of `napari` is automatically determined at install time by
-[`setuptools_scm`](https://github.com/pypa/setuptools_scm) from the latest
+[`setuptools_scm`](https://github.com/pypa/setuptools-scm) from the latest
 [`git` tag](https://git-scm.com/book/en/v2/Git-Basics-Tagging) beginning with
 `v`. Thus, you'll need to tag the
 [reference](https://git-scm.com/book/en/v2/Git-Internals-Git-References) with

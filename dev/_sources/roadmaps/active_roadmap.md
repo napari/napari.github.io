@@ -288,7 +288,7 @@ GUI workflows.*
   Prioritize fast visualization interactivity over letting async and lazy
   loading do all the work.
   [#5941](https://github.com/napari/napari/issues/5941),
-  [#5943](https://github.com/napari/napari/issues/5943),
+  [#5943](https://github.com/napari/napari/pull/5943),
   [#5956](https://github.com/napari/napari/issues/5956),
   [#6046](https://github.com/napari/napari/issues/6046)
 

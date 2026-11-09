@@ -71,7 +71,7 @@ the sake of evaluation safety, napari's `Expr` only supports a subset of
 operations, omitting things like function calls, generators, comprehensions,
 and collections. It's not important to fully understand ASTs to use napari
 expressions, but for a good introduction to Python's abstract syntax tree (AST)
-module, see <https://greentreesnakes.readthedocs.io>.
+module, see <https://greentreesnakes.readthedocs.io/en/latest/>.
 ```
 
 A string expression can be converted to a napari `Expr` object with the

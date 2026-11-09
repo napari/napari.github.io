@@ -57,7 +57,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=18bd87630a240e9c25be" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=18bd87630a240e9c25be" />
 
-    <script src="../../../_static/documentation_options.js?v=7129ee2d"></script>
+    <script src="../../../_static/documentation_options.js?v=607b1033"></script>
     <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -635,7 +635,7 @@ with some additional features.</p></li>
 <a class="reference external" href="https://github.com/napari/npe2">napari/npe2</a> repository (e.g. the
 <a class="reference internal" href="../../../plugins/technical_references/contributions.html#contributions-ref"><span class="std std-ref">contributions reference page</span></a>) and should be modified
 there. This is documentation is written with
-<a class="reference external" href="https://jinja.palletsprojects.com/en/3.1.x/">Jinja</a>.</p></li>
+<a class="reference external" href="https://jinja.palletsprojects.com/en/stable/">Jinja</a>.</p></li>
 <li><p>The <a class="reference internal" href="../../../gallery.html#gallery"><span class="std std-ref">examples gallery</span></a> is generated from Python source files and
 changes to the gallery should be made to the
 <a class="reference external" href="https://github.com/napari/napari">napari/napari</a> repository (see also
@@ -749,12 +749,12 @@ or
 <a class="reference external" href="https://docs.github.com/en/repositories/working-with-files/managing-files/editing-files">editing an existing file</a>
 on the <a class="reference external" href="https://github.com/napari/docs">napari/docs</a> GitHub repository. It’s
 best if you first
-<a class="reference external" href="https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo">fork</a>
+<a class="reference external" href="https://docs.github.com/en/pull-requests/how-tos/work-with-forks/fork-a-repo">fork</a>
 the <a class="reference external" href="https://github.com/napari/docs">napari/docs</a> repository to your own GitHub
 account, create a
-<a class="reference external" href="https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-and-deleting-branches-within-your-repository#creating-a-branch">feature branch</a>,
+<a class="reference external" href="https://docs.github.com/en/pull-requests/how-tos/commit-changes/managing-branches-within-your-repository">feature branch</a>,
 upload/create/edit files through the GitHub web interface, and then
-<a class="reference external" href="https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request-from-a-fork">open a pull request from your fork</a>
+<a class="reference external" href="https://docs.github.com/en/pull-requests/how-tos/create-pull-requests/creating-a-pull-request-from-a-fork">open a pull request from your fork</a>
 back to <a class="reference external" href="https://github.com/napari/docs">napari-docs</a>.</p>
 <p>When you submit your PR, CI will kick off several jobs, including generation of
 a preview of the documentation. By default, CI will use the <code class="docutils literal notranslate"><span class="pre">slimfast</span></code> build
@@ -797,17 +797,17 @@ making sure your documentation has built correctly.</p>
 <h2>Contributing to the napari documentation with a local setup<a class="headerlink" href="#contributing-to-the-napari-documentation-with-a-local-setup" title="Link to this heading">#</a></h2>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
-<p>We now recommend using <a class="reference external" href="https://pixi.sh"><code class="docutils literal notranslate"><span class="pre">pixi</span></code></a> for local doc builds. It works
-natively on Windows, macOS, and Linux, and it will automatically clone the main
-<code class="docutils literal notranslate"><span class="pre">napari/napari</span></code> repository inside its environment. You might still prefer
-<code class="docutils literal notranslate"><span class="pre">make</span></code> for headless builds, or when adding gallery examples (which requires a
-full local napari clone). Follow this link for the
+<p>We now recommend using <a class="reference external" href="https://pixi.prefix.dev/"><code class="docutils literal notranslate"><span class="pre">pixi</span></code></a> for local doc builds.
+It works natively on Windows, macOS, and Linux, and it will automatically clone
+the main <code class="docutils literal notranslate"><span class="pre">napari/napari</span></code> repository inside its environment. You might still
+prefer <code class="docutils literal notranslate"><span class="pre">make</span></code> for headless builds, or when adding gallery examples (which
+requires a full local napari clone). Follow this link for the
 <a class="reference internal" href="#make-advanced"><span class="std std-ref">advanced <code class="docutils literal notranslate"><span class="pre">make</span></code> instructions</span></a>.</p>
 </div>
 <section id="prerequisites">
 <span id="id1"></span><h3>0. Prerequisites<a class="headerlink" href="#prerequisites" title="Link to this heading">#</a></h3>
-<p><a class="reference external" href="https://docs.github.com/en/get-started/quickstart/fork-a-repo">Fork</a> then
-clone the documentation repository
+<p><a class="reference external" href="https://docs.github.com/en/pull-requests/how-tos/work-with-forks/fork-a-repo">Fork</a>
+then clone the documentation repository
 <a class="reference external" href="https://github.com/napari/docs">napari/docs</a> to your machine. To clone the
 repository, you can follow any of the options in the
 <a class="reference external" href="https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository">GitHub guide to cloning</a>
@@ -979,12 +979,12 @@ to build and preview the documentation before submitting your pull request.</p>
 <section id="building-locally">
 <span id="build-docs-locally"></span><h4>3.1. Building locally<a class="headerlink" href="#building-locally" title="Link to this heading">#</a></h4>
 <p>To build the documentation locally, we recommend using
-<a class="reference external" href="https://pixi.sh"><code class="docutils literal notranslate"><span class="pre">pixi</span></code></a>, which provides a simple cross-platform approach and
-automatically clones the
+<a class="reference external" href="https://pixi.prefix.dev/"><code class="docutils literal notranslate"><span class="pre">pixi</span></code></a>, which provides a simple cross-platform
+approach and automatically clones the
 <a class="reference external" href="https://github.com/napari/napari">main napari repository</a> inside its
 environment.</p>
 <ol class="arabic">
-<li><p><a class="reference external" href="https://pixi.sh/dev/installation/">Install <code class="docutils literal notranslate"><span class="pre">pixi</span></code></a> and restart your
+<li><p><a class="reference external" href="https://pixi.prefix.dev/dev/installation/">Install <code class="docutils literal notranslate"><span class="pre">pixi</span></code></a> and restart your
 terminal. Verify with:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pixi<span class="w"> </span>--version
 </pre></div>
@@ -1140,10 +1140,10 @@ moved from the main flow.</p>
 <p class="rubric" id="make-prerequisites">Make: Prerequisites</p>
 <p class="rubric" id="fork-and-clone-the-napari-and-docs-repositories">Fork and clone the napari and docs repositories</p>
 <p class="sd-card-text">You should first
-<a class="reference external" href="https://docs.github.com/en/get-started/quickstart/fork-a-repo">fork</a> and then
-clone both the <a class="reference external" href="https://github.com/napari/napari">napari/napari</a> and the
-<a class="reference external" href="https://github.com/napari/docs">napari/docs</a> repositories to your machine. To
-clone these repositories, you can follow any of the options in the
+<a class="reference external" href="https://docs.github.com/en/pull-requests/how-tos/work-with-forks/fork-a-repo">fork</a>
+and then clone both the <a class="reference external" href="https://github.com/napari/napari">napari/napari</a> and
+the <a class="reference external" href="https://github.com/napari/docs">napari/docs</a> repositories to your machine.
+To clone these repositories, you can follow any of the options in the
 <a class="reference external" href="https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository">GitHub guide to cloning</a>
 (if you run into issues refer to
 <a class="reference external" href="https://docs.github.com/en/repositories/creating-and-managing-repositories/troubleshooting-cloning-errors">the troubleshooting guide</a>).
@@ -1275,7 +1275,7 @@ be rebuilt.</p>
 mode, which will prevent napari windows from popping up during the build.</p>
 <ol class="arabic">
 <li><p class="sd-card-text">If you are using <strong>X11</strong> as your display server and you have
-<a class="reference external" href="https://www.x.org/releases/X11R7.6/doc/man/man1/Xvfb.1.xhtml">xvfb</a>
+<a class="reference external" href="https://xorg.freedesktop.org/archive/X11R7.6/doc/man/man1/Xvfb.1.xhtml">xvfb</a>
 installed on your system, you can use the <code class="docutils literal notranslate"><span class="pre">docs-xvfb</span></code> command:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>make<span class="w"> </span>docs-xvfb
 </pre></div>
@@ -1284,7 +1284,7 @@ installed on your system, you can use the <code class="docutils literal notransl
 build.</p>
 </li>
 <li><p class="sd-card-text">If you are using <strong>Wayland</strong> as your display server, and you have <code class="docutils literal notranslate"><span class="pre">xwfb-run</span></code> installed
-on your system (part of the <a class="reference external" href="https://gitlab.freedesktop.org/ofourdan/xwayland-runcan">xwayland-run utilities</a>,
+on your system (part of the <a class="reference external" href="https://gitlab.freedesktop.org/ofourdan/xwayland-run">xwayland-run utilities</a>,
 you can use the <code class="docutils literal notranslate"><span class="pre">docs-xwfb</span></code> command:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>make<span class="w"> </span>docs-xwfb
 </pre></div>

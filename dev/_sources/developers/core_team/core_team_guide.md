@@ -49,7 +49,7 @@ the point of harassment will be directed to our [Code of Conduct](napari-coc).
 We value sustainable development practices over mad rushes.
 
 When merging, use GitHub's
-[Squash and Merge](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/incorporating-changes-from-a-pull-request/merging-a-pull-request#merging-a-pull-request)
+[Squash and Merge](https://docs.github.com/en/pull-requests/how-tos/merge-and-close-pull-requests/merging-a-pull-request)
 to ensure a clean git history.
 
 You should also continue to make your own pull requests as before and in
@@ -101,7 +101,7 @@ When reviewing, focus on the following:
    critical to ensure that our APIs are stable. Spending the extra time to
    consider names of public facing variables and methods, alongside function
    signatures, will save us considerable trouble in the future.
-   napari follows [EffVer](https://effver.org). The
+   napari follows [EffVer](https://jacobtomlinson.dev/effver/). The
    [release policy](napari-release) permits deprecations in `MACRO` and
    `MESO` releases only. We do not yet have a full deprecation policy, so
    until one exists, prefer a deprecation cycle over a direct breaking
@@ -140,10 +140,10 @@ When reviewing, focus on the following:
 Other changes may be *nitpicky*: spelling mistakes, formatting, etc. Do not
 insist contributors make these changes, but instead you should offer to make
 these changes by
-[pushing to their branch](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/committing-changes-to-a-pull-request-branch-created-from-a-fork),
+[pushing to their branch](https://docs.github.com/en/pull-requests/how-tos/commit-changes/committing-changes-to-a-pull-request-branch-created-from-a-fork),
 or using GitHub’s
-[suggestion](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/reviewing-changes-in-pull-requests/commenting-on-a-pull-request)
-[feature](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/reviewing-changes-in-pull-requests/incorporating-feedback-in-your-pull-request),
+[suggestion](https://docs.github.com/en/pull-requests/how-tos/review-pull-requests/commenting-on-a-pull-request)
+[feature](https://docs.github.com/en/pull-requests/how-tos/review-pull-requests/incorporating-feedback-in-your-pull-request),
 and be prepared to make them yourself if needed. Using the suggestion feature
 is preferred because it gives the contributor a choice in whether to accept the
 changes.

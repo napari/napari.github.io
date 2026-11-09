@@ -11,7 +11,7 @@ rendering), and the scientific Python stack (numpy, scipy).
 For more information, examples, and documentation, please visit our website,
 https://napari.org.
 
-napari follows [EffVer (Intended Effort Versioning)](https://effver.org/); this is a **Meso** release containing awesome new features, but some effort may be needed when updating previous projects to use this version.
+napari follows [EffVer (Intended Effort Versioning)](https://jacobtomlinson.dev/effver/); this is a **Meso** release containing awesome new features, but some effort may be needed when updating previous projects to use this version.
 
 ## Highlights
 

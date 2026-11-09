@@ -11,7 +11,7 @@ rendering), and the scientific Python stack (numpy, scipy).
 For more information, examples, and documentation, please visit our website,
 https://napari.org.
 
-napari follows [EffVer (Intended Effort Versioning)](https://effver.org/); this is a **Macro** release containing awesome new features, but may require dedication of some significant time when upgrading projects to use this version.
+napari follows [EffVer (Intended Effort Versioning)](https://jacobtomlinson.dev/effver/); this is a **Macro** release containing awesome new features, but may require dedication of some significant time when upgrading projects to use this version.
 
 ## Highlights
 
@@ -39,7 +39,7 @@ metadata will now be much more informative!
 
 ### Xarray metadata is now inherited
 
-In the same vein, if you work with [Xarray](https://docs.xarray.dev/) — common in climate,
+In the same vein, if you work with [Xarray](https://docs.xarray.dev/en/stable/) — common in climate,
 geoscience, and many places where data ships with labelled coordinates — napari
 now reads metadata straight from your `DataArray`s. When you add an xarray
 object to the viewer, napari will use its dimension names as axis labels, infer

@@ -72,9 +72,9 @@ the display and NumPy behavior:
 
 The viewer axis labels (`viewer.dims.axis_labels`) are updated automatically
 from the axis labels of the layers in the viewer. If you add a layer with
-`axis_labels` set — or use an [xarray](https://docs.xarray.dev/) `DataArray`
-with named dimensions — the viewer dimension sliders and axes overlay are
-labelled accordingly, with no extra work.
+`axis_labels` set — or use an [xarray](https://docs.xarray.dev/en/stable/)
+`DataArray` with named dimensions — the viewer dimension sliders and axes
+overlay are labelled accordingly, with no extra work.
 
 When several layers have axis labels, napari uses the labels from the
 annotated layer with the most dimensions. If multiple equally long annotated

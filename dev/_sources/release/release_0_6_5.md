@@ -11,7 +11,7 @@ rendering), and the scientific Python stack (numpy, scipy).
 For more information, examples, and documentation, please visit our website,
 https://napari.org.
 
-napari follows [EffVer (Intended Effort Versioning)](https://effver.org/); this is a **Meso** release containing awesome new features, but some effort may be needed when updating previous projects to use this version.
+napari follows [EffVer (Intended Effort Versioning)](https://jacobtomlinson.dev/effver/); this is a **Meso** release containing awesome new features, but some effort may be needed when updating previous projects to use this version.
 
 ## Highlights
 
@@ -19,7 +19,7 @@ This a sizeable release containing a few new exciting features and a lot of bugf
 
 ### EffVer and no more _alpha_
 
-It is our first release officially following the [EffVer versioning scheme](https://effver.org/). We also took this occasion to (finally!) remove the `Alpha` qualifier from the project ([#8288](https://github.com/napari/napari/pull/8288)), to better reflect the reality of the extensive use of napari in production. Note that these changes are just formally bringing up to date the state of the project: our development continues as before!
+It is our first release officially following the [EffVer versioning scheme](https://jacobtomlinson.dev/effver/). We also took this occasion to (finally!) remove the `Alpha` qualifier from the project ([#8288](https://github.com/napari/napari/pull/8288)), to better reflect the reality of the extensive use of napari in production. Note that these changes are just formally bringing up to date the state of the project: our development continues as before!
 
 ### Define a startup script for custom launch behaviour
 

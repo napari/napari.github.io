@@ -123,8 +123,8 @@ roles are contracted. Currently contracted roles are listed below:
   [#release](https://napari.zulipchat.com/#narrow/channel/215289-release)
   channel.
 
-We are also contracting with [Quansight](https://quansight.com/) for some key
-maintenance items:
+We are also contracting with [Quansight](https://www.quansight.com/) for some
+key maintenance items:
 
 - [Melissa Weber Mendonça](https://github.com/melissawm) is working on
   auto-generating videos and screenshots for our documentation and other

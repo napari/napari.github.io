@@ -45,7 +45,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=18bd87630a240e9c25be" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=18bd87630a240e9c25be" />
 
-    <script src="../../../_static/documentation_options.js?v=7129ee2d"></script>
+    <script src="../../../_static/documentation_options.js?v=607b1033"></script>
     <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -839,13 +839,12 @@ window.runMermaid = runMermaid;</script>
 <span class="kn">from</span><span class="w"> </span><span class="nn">weakref</span><span class="w"> </span><span class="kn">import</span> <span class="n">WeakSet</span><span class="p">,</span> <span class="n">ref</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">qtpy.QtCore</span><span class="w"> </span><span class="kn">import</span> <span class="n">QCoreApplication</span><span class="p">,</span> <span class="n">QObject</span><span class="p">,</span> <span class="n">Qt</span><span class="p">,</span> <span class="n">QUrl</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qtpy.QtCore</span><span class="w"> </span><span class="kn">import</span> <span class="n">QCoreApplication</span><span class="p">,</span> <span class="n">QObject</span><span class="p">,</span> <span class="n">Qt</span><span class="p">,</span> <span class="n">QUrl</span><span class="p">,</span> <span class="n">Signal</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">qtpy.QtGui</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">QGuiApplication</span><span class="p">,</span>
     <span class="n">QImage</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">qtpy.QtWidgets</span><span class="w"> </span><span class="kn">import</span> <span class="n">QFileDialog</span><span class="p">,</span> <span class="n">QSplitter</span><span class="p">,</span> <span class="n">QVBoxLayout</span><span class="p">,</span> <span class="n">QWidget</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">superqt</span><span class="w"> </span><span class="kn">import</span> <span class="n">ensure_main_thread</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari._app_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_app_model</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari._qt.containers</span><span class="w"> </span><span class="kn">import</span> <span class="n">QtLayerList</span>
@@ -977,6 +976,8 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">    """</span>
 
     <span class="n">_instances</span><span class="p">:</span> <span class="n">ClassVar</span><span class="p">[</span><span class="n">WeakSet</span><span class="p">[</span><span class="n">QtViewer</span><span class="p">]]</span> <span class="o">=</span> <span class="n">WeakSet</span><span class="p">()</span>
+    <span class="c1"># Slice responses, passed from the slicing thread to the main thread.</span>
+    <span class="n">_slice_ready</span> <span class="o">=</span> <span class="n">Signal</span><span class="p">(</span><span class="nb">object</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -1045,7 +1046,8 @@ window.runMermaid = runMermaid;</script>
         <span class="bp">self</span><span class="o">.</span><span class="n">setOrientation</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">Orientation</span><span class="o">.</span><span class="n">Vertical</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">main_widget</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">_layer_slicer</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">ready</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_on_slice_ready</span><span class="p">)</span>  <span class="c1"># pyrefly: ignore [bad-argument-type]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_slice_ready</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_on_slice_ready</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">_layer_slicer</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">ready</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_emit_slice_ready</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_on_active_change</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">inserted</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_camera_depth</span><span class="p">)</span>
@@ -1437,14 +1439,22 @@ window.runMermaid = runMermaid;</script>
             <span class="bp">self</span><span class="o">.</span><span class="n">dockConsole</span><span class="o">.</span><span class="n">setWidget</span><span class="p">(</span><span class="n">console</span><span class="p">)</span>
             <span class="n">console</span><span class="o">.</span><span class="n">setParent</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dockConsole</span><span class="p">)</span>
 
-    <span class="nd">@ensure_main_thread</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">_on_slice_ready</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n">Event</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_emit_slice_ready</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n">Event</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">"""Callback connected to `viewer._layer_slicer.events.ready`.</span>
 
-<span class="sd">        Provides updates after slicing using the slice response data.</span>
+<span class="sd">        Pass the slice response data to the main thread via a Qt signal.</span>
+<span class="sd">        Do not use ensure_main_theard on Qt object because it creates</span>
+<span class="sd">        temporary objects that result in deadlocks on CI.</span>
+<span class="sd">        """</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_slice_ready</span><span class="o">.</span><span class="n">emit</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_on_slice_ready</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">responses</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="n">weakref</span><span class="o">.</span><span class="n">ReferenceType</span><span class="p">[</span><span class="n">Layer</span><span class="p">],</span> <span class="n">Any</span><span class="p">]</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Provide updates on the main thread using the slice response data.</span>
+
 <span class="sd">        This only gets triggered on the async slicing path.</span>
 <span class="sd">        """</span>
-        <span class="n">responses</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="n">weakref</span><span class="o">.</span><span class="n">ReferenceType</span><span class="p">[</span><span class="n">Layer</span><span class="p">],</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">value</span>
         <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">'napari'</span><span class="p">)</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
             <span class="s1">'QtViewer._on_slice_ready: </span><span class="si">%s</span><span class="s1">'</span><span class="p">,</span> <span class="n">responses</span>
         <span class="p">)</span>

@@ -12,12 +12,12 @@ an issue or submit a pull request on
 
 | **Database** | **Description** |
 | ------------ | --------------- |
-| [Allen Brain Atlases](http://portal.brain-map.org) | Human and mouse brain atlas containing gene expression, anatomic, and genomic data |
+| [Allen Brain Atlases](https://brain-map.org/) | Human and mouse brain atlas containing gene expression, anatomic, and genomic data |
 | [Allen Cell Explorer](https://www.allencell.org) | Database of cell data, segmentations, and analyses with multiple experimental parameters. |
 | [Berkeley Drosophila Genome Project (BDGP) in situ database](https://insitu.fruitfly.org/cgi-bin/ex/insitu.pl) | Patterns of gene expression in Drosophila embryogenesis. |
 | [The Cell Image Library](https://www.cellimagelibrary.org/) | Public resource database of images, videos, and animations of cells, capturing a wide diversity of organisms, cell types, and cellular processes. |
-| [FlyLight Imagery](https://open.quiltdata.com/b/janelia-flylight-imagery) | 3D fly's central nervous system captured by confocal laser scanning microscope. |
-| [OpenCell](https://opencell.czbiohub.org/download) | A proteome-scale collection of protein localization and interaction measurements in human cells. Contains fluorescence microscopy and IP-MS data. |
+| [FlyLight Imagery](https://app.quilt.bio/b/janelia-flylight-imagery) | 3D fly's central nervous system captured by confocal laser scanning microscope. |
+| [OpenCell](https://opencell.sf.czbiohub.org/download) | A proteome-scale collection of protein localization and interaction measurements in human cells. Contains fluorescence microscopy and IP-MS data. |
 | [Whole Slide Imaging Repository](https://digitalpathologyassociation.org/whole-slide-imaging-repository) | Collections of whole slide imaging repositories. |
 | [BioImage Archive](https://www.ebi.ac.uk/biostudies/bioimages/studies) | Description and data of biological studies; links to databases at EMBL-EBI (European Molecular Biology Laboratory–European Bioinformatics Institute). |
 | [Image Data Resource (IDR)](https://idr.openmicroscopy.org) | Public data repository for storing and integrating image data sets from published scientific studies. |
@@ -28,11 +28,11 @@ an issue or submit a pull request on
 | [OME-NGFF files on IDR](https://idr.github.io/ome-ngff-samples/) | Catalog of IDR images formatted as OME-NGFF. |
 | [Cell Tracking Challenge](https://celltrackingchallenge.net/datasets) | Repository of annotated videos from the Cell Tracking Challenge; contains contrast-enhancing (PhC, DIC) or fluorescence (widefield, confocal, multiphoton, and light sheet microsocopy) data. |
 | [Bio-Formats supported formats](https://docs.openmicroscopy.org/bio-formats/6.9.1/supported-formats.html) | Example files for Bio-Formats supported formats. |
-| [BioImage Informatics Index (BIII) datasets](http://biii.eu/dataset) | Mix of datasets and links to other data repositories. |
+| [BioImage Informatics Index (BIII) datasets](https://biii.eu/dataset) | Mix of datasets and links to other data repositories. |
 | [SCIFIO](https://scif.io/images/) | Example images with CC0 licenses. |
 | [EPFL Super-resolution microscopy datasets](https://srm.epfl.ch/srm/dataset/) | Super-resolution microscopy datasets. |
 | [Brain Observatory Storage Service & Database](https://bossdb.org/) | BossDB is a volumetric database for 3D and 4D neuroscience data, with API access. |
-| [Mouse Brain Atlas](http://mousebrain.org/) | Spatiotranscriptomics data of mouse brain. |
+| [Mouse Brain Atlas](https://linnarssonlab.org/mousebrain/) | Spatiotranscriptomics data of mouse brain. |
 | [Broad Bioimage Benchmark Collection](https://bbbc.broadinstitute.org/image_sets) | Benchmark images with ground truth segmentation. |
 | [DANDI Archive](https://dandiarchive.org/) | The BRAIN Initiative archive for publishing and sharing neurophysiology data including electrophysiology, optophysiology, and behavioral time-series, and images from immunostaining experiments. |
 | [Human BioMolecular Atlas Program (HuBMAP)](https://portal.hubmapconsortium.org/) | An open platform to discover, visualize and download standardized healthy single-cell and spatial tissue data. |

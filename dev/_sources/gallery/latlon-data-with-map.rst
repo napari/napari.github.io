@@ -137,7 +137,7 @@ with the POI. Requires geopandas and contextily to be installed.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (15 minutes 46.773 seconds)
+   **Total running time of the script:** (1 minutes 10.727 seconds)
 
 
 .. _sphx_glr_download_gallery_latlon-data-with-map.py:

@@ -168,7 +168,7 @@ and
   of `left` or `right`, *unless:*
 
   1. the widget, or any widget in its primary layout, has a vertical
-     [`QSizePolicy`](https://doc.qt.io/archives/qt-5.15/qsizepolicy.html)
+     [`QSizePolicy`](https://doc.qt.io/archives/qt-5.15/qsizepolicy.html#Policy-enum)
      of `Expanding`, `MinimumExpanding`, or `Ignored`
 
   1. `add_vertical_stretch=False` is provided to `add_dock_widget`,

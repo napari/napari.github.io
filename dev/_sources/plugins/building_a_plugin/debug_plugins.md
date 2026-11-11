@@ -43,7 +43,7 @@ To quickly get started with debugging your plugin, you can do the following:
    [PyCharm](https://www.jetbrains.com/help/pycharm/debugging-code.html#general-procedure))
    to run this script in debug mode with any desired breakpoints set. For
    example, in VSCode, you can
-   [set a breakpoint](https://code.visualstudio.com/docs/debugtest/debugging)
+   [set a breakpoint](https://code.visualstudio.com/docs/debugtest/debugging#_breakpoints)
    by clicking on the line number in the script.
 
 1. Run the created napari launch script in debug mode. For example, in VSCode,

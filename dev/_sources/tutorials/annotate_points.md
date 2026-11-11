@@ -19,7 +19,7 @@ In this tutorial, we will use napari (requires version 0.3.2 or greater) to
 make a simple GUI application for annotating points in videos. This GUI could
 be useful for making annotations required to train algorithms for markless
 tracking of animals (e.g.,
-[DeepLabCut](http://mlabofai.org/deeplabcut)). In this tutorial,
+[DeepLabCut](https://mlabofai.org/deeplabcut)). In this tutorial,
 we will cover creating and interacting with a Points layer with features (i.e.,
 labels for the points), connecting custom UI elements to events, and creating
 custom keybindings.

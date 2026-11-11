@@ -49,7 +49,7 @@ the point of harassment will be directed to our [Code of Conduct](napari-coc).
 We value sustainable development practices over mad rushes.
 
 When merging, use GitHub's
-[Squash and Merge](https://docs.github.com/en/pull-requests/how-tos/merge-and-close-pull-requests/merging-a-pull-request)
+[Squash and Merge](https://docs.github.com/en/pull-requests/how-tos/merge-and-close-pull-requests/merging-a-pull-request#merging-a-pull-request)
 to ensure a clean git history.
 
 You should also continue to make your own pull requests as before and in

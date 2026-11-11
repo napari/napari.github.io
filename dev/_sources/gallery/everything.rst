@@ -451,7 +451,7 @@ multiscale image to its finest level, `DirectLabelColormap`, and
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 10.308 seconds)
+   **Total running time of the script:** (0 minutes 10.338 seconds)
 
 
 .. _sphx_glr_download_gallery_everything.py:

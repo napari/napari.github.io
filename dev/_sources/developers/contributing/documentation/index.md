@@ -176,7 +176,7 @@ best if you first
 [fork](https://docs.github.com/en/pull-requests/how-tos/work-with-forks/fork-a-repo)
 the [napari/docs](https://github.com/napari/docs) repository to your own GitHub
 account, create a
-[feature branch](https://docs.github.com/en/pull-requests/how-tos/commit-changes/managing-branches-within-your-repository),
+[feature branch](https://docs.github.com/en/pull-requests/how-tos/commit-changes/managing-branches-within-your-repository#creating-a-branch),
 upload/create/edit files through the GitHub web interface, and then
 [open a pull request from your fork](https://docs.github.com/en/pull-requests/how-tos/create-pull-requests/creating-a-pull-request-from-a-fork)
 back to [napari-docs](https://github.com/napari/docs).

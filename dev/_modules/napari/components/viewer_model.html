@@ -45,7 +45,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=75c7c72ae941e8b558d8" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=75c7c72ae941e8b558d8" />
 
-    <script src="../../../_static/documentation_options.js?v=be16c315"></script>
+    <script src="../../../_static/documentation_options.js?v=5fdd0e75"></script>
     <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -845,9 +845,6 @@ window.runMermaid = runMermaid;</script>
 <span class="kn">from</span><span class="w"> </span><span class="nn">urllib.parse</span><span class="w"> </span><span class="kn">import</span> <span class="n">urlparse</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-
-<span class="c1"># This cannot be condition to TYPE_CHECKING or the stubgen fails</span>
-<span class="c1"># with undefined Context.</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pydantic</span><span class="w"> </span><span class="kn">import</span> <span class="n">Field</span><span class="p">,</span> <span class="n">PrivateAttr</span><span class="p">,</span> <span class="n">field_validator</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">typing_extensions</span><span class="w"> </span><span class="kn">import</span> <span class="n">deprecated</span>
 
@@ -902,7 +899,7 @@ window.runMermaid = runMermaid;</script>
     <span class="n">PathOrPaths</span><span class="p">,</span>
     <span class="n">SampleData</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils._register</span><span class="w"> </span><span class="kn">import</span> <span class="n">create_func</span> <span class="k">as</span> <span class="n">create_add_method</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils._register</span><span class="w"> </span><span class="kn">import</span> <span class="n">create_add_method</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.action_manager</span><span class="w"> </span><span class="kn">import</span> <span class="n">action_manager</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.camera_orientations</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">HorizontalAxisOrientation</span><span class="p">,</span>
@@ -2789,7 +2786,14 @@ window.runMermaid = runMermaid;</script>
             <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
                 <span class="sa">f</span><span class="s1">'_add_layer_from_data received an unexpected keyword argument (</span><span class="si">{</span><span class="n">bad_key</span><span class="si">}</span><span class="s1">) for layer type </span><span class="si">{</span><span class="n">layer_type</span><span class="si">}</span><span class="s1">'</span>
             <span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">exc</span>
-        <span class="k">return</span> <span class="n">layer</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">layer</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="k">else</span> <span class="p">[</span><span class="n">layer</span><span class="p">]</span></div>
+        <span class="k">return</span> <span class="n">layer</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">layer</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="k">else</span> <span class="p">[</span><span class="n">layer</span><span class="p">]</span>
+
+    <span class="n">add_labels</span> <span class="o">=</span> <span class="n">create_add_method</span><span class="p">(</span><span class="n">Labels</span><span class="p">)</span>
+    <span class="n">add_points</span> <span class="o">=</span> <span class="n">create_add_method</span><span class="p">(</span><span class="n">Points</span><span class="p">)</span>
+    <span class="n">add_shapes</span> <span class="o">=</span> <span class="n">create_add_method</span><span class="p">(</span><span class="n">Shapes</span><span class="p">)</span>
+    <span class="n">add_surface</span> <span class="o">=</span> <span class="n">create_add_method</span><span class="p">(</span><span class="n">Surface</span><span class="p">)</span>
+    <span class="n">add_tracks</span> <span class="o">=</span> <span class="n">create_add_method</span><span class="p">(</span><span class="n">Tracks</span><span class="p">)</span>
+    <span class="n">add_vectors</span> <span class="o">=</span> <span class="n">create_add_method</span><span class="p">(</span><span class="n">Vectors</span><span class="p">)</span></div>
 
 
 
@@ -2954,18 +2958,6 @@ window.runMermaid = runMermaid;</script>
         <span class="n">params</span> <span class="o">=</span> <span class="n">inspect</span><span class="o">.</span><span class="n">signature</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">ViewerModel</span><span class="p">,</span> <span class="n">meth</span><span class="p">))</span><span class="o">.</span><span class="n">parameters</span>
         <span class="n">valid</span><span class="p">[</span><span class="n">meth</span><span class="p">[</span><span class="mi">4</span><span class="p">:]]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">params</span><span class="p">)</span> <span class="o">-</span> <span class="p">{</span><span class="s1">'self'</span><span class="p">,</span> <span class="s1">'kwargs'</span><span class="p">}</span>
     <span class="k">return</span> <span class="n">valid</span>
-
-
-<span class="k">for</span> <span class="n">_layer</span> <span class="ow">in</span> <span class="p">(</span>
-    <span class="n">layers</span><span class="o">.</span><span class="n">Labels</span><span class="p">,</span>
-    <span class="n">layers</span><span class="o">.</span><span class="n">Points</span><span class="p">,</span>
-    <span class="n">layers</span><span class="o">.</span><span class="n">Shapes</span><span class="p">,</span>
-    <span class="n">layers</span><span class="o">.</span><span class="n">Surface</span><span class="p">,</span>
-    <span class="n">layers</span><span class="o">.</span><span class="n">Tracks</span><span class="p">,</span>
-    <span class="n">layers</span><span class="o">.</span><span class="n">Vectors</span><span class="p">,</span>
-<span class="p">):</span>
-    <span class="n">func</span> <span class="o">=</span> <span class="n">create_add_method</span><span class="p">(</span><span class="n">_layer</span><span class="p">)</span>
-    <span class="nb">setattr</span><span class="p">(</span><span class="n">ViewerModel</span><span class="p">,</span> <span class="n">func</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">func</span><span class="p">)</span>  <span class="c1"># pyrefly: ignore [missing-attribute]</span>
 </pre></div>
 
                 </article>

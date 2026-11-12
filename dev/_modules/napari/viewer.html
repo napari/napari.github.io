@@ -45,7 +45,7 @@
   <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=75c7c72ae941e8b558d8" />
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=75c7c72ae941e8b558d8" />
 
-    <script src="../../_static/documentation_options.js?v=56f3755b"></script>
+    <script src="../../_static/documentation_options.js?v=859dd853"></script>
     <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -1113,6 +1113,11 @@ window.runMermaid = runMermaid;</script>
         <span class="c1"># Disconnect changes to dims before removing layers one-by-one</span>
         <span class="c1"># to avoid any unnecessary slicing.</span>
         <span class="n">disconnect_events</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">events</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+        <span class="c1"># The canvas is deleted with the window, so it does not need to</span>
+        <span class="c1"># update its scene graph after the layers are removed. The window is</span>
+        <span class="c1"># gone if the viewer was already closed.</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="p">,</span> <span class="s1">'_qt_window'</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">_qt_viewer</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">_closing</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="c1"># Remove all the layers from the viewer</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
         <span class="c1"># Close the main window</span>

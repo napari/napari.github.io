@@ -61,6 +61,11 @@ toggling the grid mode off, the auto-tiling behavior can be seen.
         napari.run()
 
 
+.. rst-class:: sphx-glr-timing
+
+   **Total running time of the script:** (0 minutes 21.428 seconds)
+
+
 .. _sphx_glr_download_gallery_colorbar_tiling.py:
 
 .. only:: html

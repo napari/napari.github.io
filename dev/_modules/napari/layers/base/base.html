@@ -45,7 +45,7 @@
   <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=75c7c72ae941e8b558d8" />
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=75c7c72ae941e8b558d8" />
 
-    <script src="../../../../_static/documentation_options.js?v=3ec06b5d"></script>
+    <script src="../../../../_static/documentation_options.js?v=50deab32"></script>
     <script src="../../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -2991,7 +2991,10 @@ window.runMermaid = runMermaid;</script>
         <span class="bp">self</span><span class="o">.</span><span class="n">corner_pixels</span> <span class="o">=</span> <span class="n">corners</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_update_draw</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">scale_factor</span><span class="p">,</span> <span class="n">corner_pixels_displayed</span><span class="p">,</span> <span class="n">shape_threshold</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">scale_factor</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+        <span class="n">corner_pixels_displayed</span><span class="p">:</span> <span class="n">npt</span><span class="o">.</span><span class="n">NDArray</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">floating</span><span class="p">],</span>
+        <span class="n">shape_threshold</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">"""Update canvas scale and corner values on draw.</span>
 
@@ -3005,7 +3008,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        corner_pixels_displayed : array, shape (2, 2)</span>
 <span class="sd">            Coordinates of the top-left and bottom-right canvas pixels in</span>
 <span class="sd">            world coordinates.</span>
-<span class="sd">        shape_threshold : tuple</span>
+<span class="sd">        shape_threshold : tuple[float, float]</span>
 <span class="sd">            Requested shape of field of view in data coordinates.</span>
 <span class="sd">        """</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">scale_factor</span> <span class="o">=</span> <span class="n">scale_factor</span>

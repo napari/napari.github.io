@@ -114,6 +114,11 @@ which is represented as a numpy array, we can move and adjust objects in the nap
         napari.run()
 
 
+.. rst-class:: sphx-glr-timing
+
+   **Total running time of the script:** (0 minutes 12.498 seconds)
+
+
 .. _sphx_glr_download_gallery_affine_coffee_cup.py:
 
 .. only:: html

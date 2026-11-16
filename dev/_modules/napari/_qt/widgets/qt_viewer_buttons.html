@@ -45,7 +45,7 @@
   <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=75c7c72ae941e8b558d8" />
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=75c7c72ae941e8b558d8" />
 
-    <script src="../../../../_static/documentation_options.js?v=3ec06b5d"></script>
+    <script src="../../../../_static/documentation_options.js?v=50deab32"></script>
     <script src="../../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -828,7 +828,7 @@ window.runMermaid = runMermaid;</script>
 <span class="kn">from</span><span class="w"> </span><span class="nn">functools</span><span class="w"> </span><span class="kn">import</span> <span class="n">wraps</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
 
-<span class="kn">from</span><span class="w"> </span><span class="nn">qtpy.QtCore</span><span class="w"> </span><span class="kn">import</span> <span class="n">QEvent</span><span class="p">,</span> <span class="n">Qt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">qtpy.QtCore</span><span class="w"> </span><span class="kn">import</span> <span class="n">QEvent</span><span class="p">,</span> <span class="n">QPoint</span><span class="p">,</span> <span class="n">Qt</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">qtpy.QtWidgets</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">QApplication</span><span class="p">,</span>
     <span class="n">QCheckBox</span><span class="p">,</span>
@@ -1173,18 +1173,22 @@ window.runMermaid = runMermaid;</script>
 <span class="w">        </span><span class="sd">"""Position the popup so that it remains with the viewer.</span>
 
 <span class="sd">        Use the location of the button as a reference and place the popup</span>
-<span class="sd">        above it. move_to will adjust the position if the popup is too close</span>
-<span class="sd">        to the edge of the screen.</span>
+<span class="sd">        above it, horizontally centered on the button. The popup is shifted</span>
+<span class="sd">        horizontally to stay within the viewer window, and move_to will</span>
+<span class="sd">        adjust the position if the popup is too close to the edge of the</span>
+<span class="sd">        screen.</span>
 <span class="sd">        """</span>
+        <span class="n">width</span> <span class="o">=</span> <span class="n">popup</span><span class="o">.</span><span class="n">sizeHint</span><span class="p">()</span><span class="o">.</span><span class="n">width</span><span class="p">()</span>
+        <span class="n">height</span> <span class="o">=</span> <span class="n">popup</span><span class="o">.</span><span class="n">sizeHint</span><span class="p">()</span><span class="o">.</span><span class="n">height</span><span class="p">()</span>
         <span class="n">button_rect</span> <span class="o">=</span> <span class="n">button</span><span class="o">.</span><span class="n">rect</span><span class="p">()</span>
-        <span class="n">button_pos</span> <span class="o">=</span> <span class="n">button</span><span class="o">.</span><span class="n">mapToGlobal</span><span class="p">(</span><span class="n">button_rect</span><span class="o">.</span><span class="n">topLeft</span><span class="p">())</span>
+        <span class="n">button_top_center</span> <span class="o">=</span> <span class="n">button</span><span class="o">.</span><span class="n">mapToGlobal</span><span class="p">(</span>
+            <span class="n">QPoint</span><span class="p">(</span><span class="n">button_rect</span><span class="o">.</span><span class="n">center</span><span class="p">()</span><span class="o">.</span><span class="n">x</span><span class="p">(),</span> <span class="n">button_rect</span><span class="o">.</span><span class="n">top</span><span class="p">())</span>
+        <span class="p">)</span>
+        <span class="n">left</span> <span class="o">=</span> <span class="n">button_top_center</span><span class="o">.</span><span class="n">x</span><span class="p">()</span> <span class="o">-</span> <span class="n">width</span> <span class="o">//</span> <span class="mi">2</span>
+        <span class="n">window_rect</span> <span class="o">=</span> <span class="n">button</span><span class="o">.</span><span class="n">window</span><span class="p">()</span><span class="o">.</span><span class="n">geometry</span><span class="p">()</span>
+        <span class="n">left</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="n">window_rect</span><span class="o">.</span><span class="n">right</span><span class="p">()</span> <span class="o">-</span> <span class="n">width</span><span class="p">),</span> <span class="n">window_rect</span><span class="o">.</span><span class="n">left</span><span class="p">())</span>
         <span class="n">popup</span><span class="o">.</span><span class="n">move_to</span><span class="p">(</span>
-            <span class="p">(</span>
-                <span class="n">button_pos</span><span class="o">.</span><span class="n">x</span><span class="p">(),</span>
-                <span class="n">button_pos</span><span class="o">.</span><span class="n">y</span><span class="p">()</span> <span class="o">-</span> <span class="n">popup</span><span class="o">.</span><span class="n">sizeHint</span><span class="p">()</span><span class="o">.</span><span class="n">height</span><span class="p">()</span> <span class="o">-</span> <span class="mi">5</span><span class="p">,</span>
-                <span class="n">popup</span><span class="o">.</span><span class="n">sizeHint</span><span class="p">()</span><span class="o">.</span><span class="n">width</span><span class="p">(),</span>
-                <span class="n">popup</span><span class="o">.</span><span class="n">sizeHint</span><span class="p">()</span><span class="o">.</span><span class="n">height</span><span class="p">(),</span>
-            <span class="p">)</span>
+            <span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="n">button_top_center</span><span class="o">.</span><span class="n">y</span><span class="p">()</span> <span class="o">-</span> <span class="n">height</span> <span class="o">-</span> <span class="mi">5</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">)</span>
         <span class="p">)</span>
         <span class="n">popup</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
@@ -1501,8 +1505,7 @@ window.runMermaid = runMermaid;</script>
         <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">dim_sorter</span><span class="p">)</span>
         <span class="n">pop</span><span class="o">.</span><span class="n">frame</span><span class="o">.</span><span class="n">setLayout</span><span class="p">(</span><span class="n">layout</span><span class="p">)</span>
 
-        <span class="c1"># show popup</span>
-        <span class="n">pop</span><span class="o">.</span><span class="n">show_above_mouse</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_position_popup_inside_viewer</span><span class="p">(</span><span class="n">pop</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">rollDimsButton</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_update_grid_button</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">gridViewButton</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
@@ -1607,7 +1610,7 @@ window.runMermaid = runMermaid;</script>
         <span class="n">grid_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">spacing_help_symbol</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
 
         <span class="n">popup</span><span class="o">.</span><span class="n">frame</span><span class="o">.</span><span class="n">setLayout</span><span class="p">(</span><span class="n">grid_layout</span><span class="p">)</span>
-        <span class="n">popup</span><span class="o">.</span><span class="n">show_above_mouse</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_position_popup_inside_viewer</span><span class="p">(</span><span class="n">popup</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">gridViewButton</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_update_grid_width</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">"""Update the width value in grid shape.</span>

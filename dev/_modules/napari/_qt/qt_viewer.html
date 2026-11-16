@@ -45,7 +45,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=75c7c72ae941e8b558d8" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=75c7c72ae941e8b558d8" />
 
-    <script src="../../../_static/documentation_options.js?v=3ec06b5d"></script>
+    <script src="../../../_static/documentation_options.js?v=50deab32"></script>
     <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -829,6 +829,7 @@ window.runMermaid = runMermaid;</script>
 <span class="kn">import</span><span class="w"> </span><span class="nn">traceback</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">weakref</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">concurrent.futures</span><span class="w"> </span><span class="kn">import</span> <span class="n">Future</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">TYPE_CHECKING</span><span class="p">,</span>
@@ -880,12 +881,12 @@ window.runMermaid = runMermaid;</script>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.key_bindings</span><span class="w"> </span><span class="kn">import</span> <span class="n">KeymapHandler</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.misc</span><span class="w"> </span><span class="kn">import</span> <span class="n">in_ipython</span><span class="p">,</span> <span class="n">in_jupyter</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.naming</span><span class="w"> </span><span class="kn">import</span> <span class="n">CallerFrame</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.notifications</span><span class="w"> </span><span class="kn">import</span> <span class="n">show_info</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.notifications</span><span class="w"> </span><span class="kn">import</span> <span class="n">notification_manager</span><span class="p">,</span> <span class="n">show_info</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari._vispy</span><span class="w"> </span><span class="kn">import</span> <span class="n">VispyCanvas</span><span class="p">,</span> <span class="n">create_vispy_layer</span>  <span class="c1"># isort:skip</span>
 
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
-    <span class="kn">from</span><span class="w"> </span><span class="nn">collections.abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">Generator</span><span class="p">,</span> <span class="n">Sequence</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">collections.abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Generator</span><span class="p">,</span> <span class="n">Sequence</span>
     <span class="kn">from</span><span class="w"> </span><span class="nn">types</span><span class="w"> </span><span class="kn">import</span> <span class="n">FrameType</span>
 
     <span class="kn">from</span><span class="w"> </span><span class="nn">napari_console</span><span class="w"> </span><span class="kn">import</span> <span class="n">QtConsole</span>
@@ -979,6 +980,9 @@ window.runMermaid = runMermaid;</script>
     <span class="c1"># Slice responses, passed from the slicing thread to the main thread.</span>
     <span class="n">_slice_ready</span> <span class="o">=</span> <span class="n">Signal</span><span class="p">(</span><span class="nb">object</span><span class="p">)</span>
 
+    <span class="c1"># emitted from any thread when a future is done, handled on the main thread</span>
+    <span class="n">_future_ready</span> <span class="o">=</span> <span class="n">Signal</span><span class="p">(</span><span class="n">Future</span><span class="p">)</span>
+
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">viewer</span><span class="p">:</span> <span class="n">ViewerModel</span><span class="p">,</span>
@@ -1005,6 +1009,8 @@ window.runMermaid = runMermaid;</script>
         <span class="bp">self</span><span class="o">.</span><span class="n">_key_map_handler</span><span class="o">.</span><span class="n">keymap_providers</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_console_backlog</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_console</span><span class="p">:</span> <span class="n">QtConsole</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="c1"># futures whose result is still to be added, see `_add_future`</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_futures</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="n">Future</span><span class="p">,</span> <span class="n">Callable</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="kc">None</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_dockLayerList</span><span class="p">:</span> <span class="n">QtViewerDockWidget</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_dockLayerControls</span><span class="p">:</span> <span class="n">QtViewerDockWidget</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
@@ -1060,6 +1066,7 @@ window.runMermaid = runMermaid;</script>
         <span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">inserted</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_on_add_layer_change</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_future_ready</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_add_result_from_future</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">setAcceptDrops</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
 
@@ -1497,6 +1504,50 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        """</span>
         <span class="n">layer</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">value</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_add_layer</span><span class="p">(</span><span class="n">layer</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_add_future</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">future</span><span class="p">:</span> <span class="n">Future</span><span class="p">,</span> <span class="n">add_result</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Add the result of ``future`` to the viewer once it is done.</span>
+
+<span class="sd">        The future may finish in a background thread, but layers must be</span>
+<span class="sd">        added on the main thread. The done callback only emits</span>
+<span class="sd">        ``_future_ready``, whose slot runs on the main thread.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        future : Future</span>
+<span class="sd">            An instance of `concurrent.futures.Future` (or any third-party)</span>
+<span class="sd">            object with the same interface, whose result is layer data.</span>
+<span class="sd">        add_result : callable</span>
+<span class="sd">            Called on the main thread with the result of ``future`` and</span>
+<span class="sd">            the viewer as ``viewer`` keyword, once the future is done.</span>
+<span class="sd">        """</span>
+        <span class="c1"># Keep the future first, then add the callback. If the future is</span>
+        <span class="c1"># already finished, the callback runs right away and removes it.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_futures</span><span class="p">[</span><span class="n">future</span><span class="p">]</span> <span class="o">=</span> <span class="n">add_result</span>
+        <span class="n">future</span><span class="o">.</span><span class="n">add_done_callback</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_on_future_ready</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_on_future_ready</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">future</span><span class="p">:</span> <span class="n">Future</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Done callback of a future added with `_add_future`.</span>
+
+<span class="sd">        This may run in any thread, so it only emits a signal.</span>
+<span class="sd">        """</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_future_ready</span><span class="o">.</span><span class="n">emit</span><span class="p">(</span><span class="n">future</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_add_result_from_future</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">future</span><span class="p">:</span> <span class="n">Future</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Add the result of a finished future to the viewer."""</span>
+        <span class="n">add_result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_futures</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">future</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">future</span><span class="o">.</span><span class="n">cancelled</span><span class="p">():</span>
+            <span class="k">return</span>
+        <span class="c1"># Show the error to the user. If we let it raise, it would only be</span>
+        <span class="c1"># printed to the log.</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">exc</span> <span class="o">:=</span> <span class="n">future</span><span class="o">.</span><span class="n">exception</span><span class="p">())</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">notification_manager</span><span class="o">.</span><span class="n">receive_error</span><span class="p">(</span>
+                <span class="nb">type</span><span class="p">(</span><span class="n">exc</span><span class="p">),</span> <span class="n">exc</span><span class="p">,</span> <span class="n">exc</span><span class="o">.</span><span class="n">__traceback__</span>
+            <span class="p">)</span>
+            <span class="k">return</span>
+        <span class="n">add_result</span><span class="p">(</span><span class="n">future</span><span class="o">.</span><span class="n">result</span><span class="p">(),</span> <span class="n">viewer</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">viewer</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_update_camera_depth</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">"""When the layer extents change, update the camera depth.</span>

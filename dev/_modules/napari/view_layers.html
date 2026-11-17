@@ -45,7 +45,7 @@
   <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=75c7c72ae941e8b558d8" />
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=75c7c72ae941e8b558d8" />
 
-    <script src="../../_static/documentation_options.js?v=e3a764b2"></script>
+    <script src="../../_static/documentation_options.js?v=72fb3baa"></script>
     <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -893,7 +893,8 @@ window.runMermaid = runMermaid;</script>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">added</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
         <span class="n">added</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">added</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">arg_name</span><span class="p">,</span> <span class="n">arg_val</span> <span class="ow">in</span> <span class="n">dims_kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-        <span class="nb">setattr</span><span class="p">(</span><span class="n">viewer</span><span class="o">.</span><span class="n">dims</span><span class="p">,</span> <span class="n">arg_name</span><span class="p">,</span> <span class="n">arg_val</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">arg_val</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="nb">setattr</span><span class="p">(</span><span class="n">viewer</span><span class="o">.</span><span class="n">dims</span><span class="p">,</span> <span class="n">arg_name</span><span class="p">,</span> <span class="n">arg_val</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">viewer</span><span class="p">,</span> <span class="n">added</span>
 
 
@@ -1021,8 +1022,8 @@ window.runMermaid = runMermaid;</script>
     <span class="n">visible</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="n">viewer</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">title</span><span class="o">=</span><span class="s1">'napari'</span><span class="p">,</span>
-    <span class="n">ndisplay</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
-    <span class="n">order</span><span class="o">=</span><span class="p">(),</span>
+    <span class="n">ndisplay</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">order</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">show</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Viewer</span><span class="p">,</span> <span class="n">Image</span> <span class="o">|</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Image</span><span class="p">,</span> <span class="o">...</span><span class="p">]]:</span>
 <span class="w">    </span><span class="sd">"""Load data into an Image layer and return the Viewer and Layer.</span>
@@ -1152,11 +1153,11 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">    title : string, optional</span>
 <span class="sd">        The title of the viewer window. By default 'napari'.</span>
 <span class="sd">    ndisplay : {2, 3}, optional</span>
-<span class="sd">        Number of displayed dimensions. By default 2.</span>
+<span class="sd">        Number of displayed dimensions.</span>
 <span class="sd">    order : tuple of int, optional</span>
 <span class="sd">        Order in which dimensions are displayed where the last two or last</span>
 <span class="sd">        three dimensions correspond to row x column or plane x row x column if</span>
-<span class="sd">        ndisplay is 2 or 3. By default None</span>
+<span class="sd">        ndisplay is 2 or 3.</span>
 <span class="sd">    axis_labels : list of str, optional</span>
 <span class="sd">        Dimension names. By default they are labeled with sequential numbers</span>
 <span class="sd">    show : bool, optional</span>

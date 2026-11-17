@@ -11,6 +11,15 @@ Each section shows the highlights from recent releases. Click on the version lin
 
 Latest features and improvements:
 
+````{dropdown} napari 0.10.1 (November 2026)
+:open:
+
+- Skip the canvas cleanup when closing the viewer ([#9870](https://github.com/napari/napari/pull/9870))
+
+[View full release notes →](release_0_10_1)
+
+````
+
 ````{dropdown} napari 0.10.0 (October 2026)
 :open:
 

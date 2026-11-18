@@ -45,7 +45,7 @@
   <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=75c7c72ae941e8b558d8" />
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=75c7c72ae941e8b558d8" />
 
-    <script src="../../../../_static/documentation_options.js?v=a1fe1db8"></script>
+    <script src="../../../../_static/documentation_options.js?v=9b358e8c"></script>
     <script src="../../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -870,7 +870,10 @@ window.runMermaid = runMermaid;</script>
     <span class="n">interpolate_coordinates</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.layers.labels._slice</span><span class="w"> </span><span class="kn">import</span> <span class="n">_LabelsSliceRequest</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">napari.layers.utils.layer_utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">_FeatureTable</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">napari.layers.utils.layer_utils</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">_FeatureTable</span><span class="p">,</span>
+    <span class="n">_resize_to_thumbnail</span><span class="p">,</span>
+<span class="p">)</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.types</span><span class="w"> </span><span class="kn">import</span> <span class="n">LayerDataType</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils._dtype</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">get_dtype_limits</span><span class="p">,</span>
@@ -1887,8 +1890,6 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        like adjusting gamma or changing the data based on the contrast</span>
 <span class="sd">        limits.</span>
 <span class="sd">        """</span>
-        <span class="kn">from</span><span class="w"> </span><span class="nn">scipy</span><span class="w"> </span><span class="kn">import</span> <span class="n">ndimage</span> <span class="k">as</span> <span class="n">ndi</span>
-
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slicing_state</span><span class="o">.</span><span class="n">loaded</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
             <span class="c1"># ASYNC_TODO: Do not compute the thumbnail until we are loaded.</span>
             <span class="c1"># Is there a nicer way to prevent this from getting called?</span>
@@ -1901,16 +1902,7 @@ window.runMermaid = runMermaid;</script>
             <span class="c1"># use max projection. For labels, ideally we would use "first</span>
             <span class="c1"># nonzero projection", but we leave that for a future PR. (TODO)</span>
             <span class="n">image</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-        <span class="n">imshape</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">image</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="mi">2</span><span class="p">])</span>
-        <span class="n">thumbshape</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_thumbnail_shape</span><span class="p">[:</span><span class="mi">2</span><span class="p">])</span>
-
-        <span class="n">raw_zoom_factor</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">thumbshape</span> <span class="o">/</span> <span class="n">imshape</span><span class="p">)</span>
-        <span class="n">new_shape</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span>
-            <span class="n">raw_zoom_factor</span> <span class="o">*</span> <span class="n">imshape</span><span class="p">,</span> <span class="n">a_min</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">a_max</span><span class="o">=</span><span class="n">thumbshape</span>
-        <span class="p">)</span>
-        <span class="n">zoom_factor</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">new_shape</span> <span class="o">/</span> <span class="n">imshape</span><span class="p">)</span>
-
-        <span class="n">downsampled</span> <span class="o">=</span> <span class="n">ndi</span><span class="o">.</span><span class="n">zoom</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">zoom_factor</span><span class="p">,</span> <span class="n">prefilter</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">downsampled</span> <span class="o">=</span> <span class="n">_resize_to_thumbnail</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_thumbnail_shape</span><span class="p">[:</span><span class="mi">2</span><span class="p">])</span>
         <span class="n">color_array</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">colormap</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">downsampled</span><span class="p">)</span>
         <span class="n">color_array</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">*=</span> <span class="bp">self</span><span class="o">.</span><span class="n">opacity</span>
 

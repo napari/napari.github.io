@@ -25,6 +25,7 @@ Resources for contributors
   - [Development installation](dev-installation)
   - [Testing](napari-testing)
   - [Type checking](napari-typing)
+    - [Typing cheat sheet](napari-typing-patterns)
   - [Performance](performance)
     - [Profiling](napari-profiling)
     - [Benchmarks](napari-benchmarks)

@@ -45,7 +45,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=75c7c72ae941e8b558d8" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=75c7c72ae941e8b558d8" />
 
-    <script src="../../../_static/documentation_options.js?v=9b358e8c"></script>
+    <script src="../../../_static/documentation_options.js?v=b5ec43fd"></script>
     <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -834,6 +834,7 @@ window.runMermaid = runMermaid;</script>
     <span class="n">MutableMapping</span><span class="p">,</span>
     <span class="n">Sequence</span><span class="p">,</span>
 <span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">contextlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">contextmanager</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">functools</span><span class="w"> </span><span class="kn">import</span> <span class="n">lru_cache</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
@@ -1039,6 +1040,8 @@ window.runMermaid = runMermaid;</script>
     <span class="n">_layer_list_scroll_progress</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="c1"># True if any layer had custom axis labels the last time layers changed</span>
     <span class="n">_layers_had_custom_axis_labels</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">PrivateAttr</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="c1"># True while dims changes should not slice layers, see _defer_slicing</span>
+    <span class="n">_slicing_deferred</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">PrivateAttr</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">'napari'</span><span class="p">,</span> <span class="n">ndisplay</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="p">(),</span> <span class="n">axis_labels</span><span class="o">=</span><span class="p">()</span>
@@ -1617,6 +1620,19 @@ window.runMermaid = runMermaid;</script>
             <span class="n">layers</span><span class="o">=</span><span class="p">[</span><span class="n">event</span><span class="o">.</span><span class="n">layer</span><span class="p">],</span> <span class="n">dims</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">True</span>
         <span class="p">)</span>
 
+    <span class="nd">@contextmanager</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_defer_slicing</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="kc">None</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""Prevent dims changes from slicing layers.</span>
+
+<span class="sd">        The caller is responsible for slicing afterwards.</span>
+<span class="sd">        """</span>
+        <span class="n">previous</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slicing_deferred</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_slicing_deferred</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">yield</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_slicing_deferred</span> <span class="o">=</span> <span class="n">previous</span>
+
     <span class="k">def</span><span class="w"> </span><span class="nf">_update_layers</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">layers</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">"""Updates the contained layers.</span>
 
@@ -1625,6 +1641,8 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        layers : list of napari.layers.Layer, optional</span>
 <span class="sd">            List of layers to update. If none provided updates all.</span>
 <span class="sd">        """</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slicing_deferred</span><span class="p">:</span>
+            <span class="k">return</span>
         <span class="n">layers</span> <span class="o">=</span> <span class="n">layers</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">units</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">extent</span><span class="o">.</span><span class="n">units</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_layer_slicer</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">layers</span><span class="o">=</span><span class="n">layers</span><span class="p">,</span> <span class="n">dims</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="p">)</span>
@@ -1948,15 +1966,20 @@ window.runMermaid = runMermaid;</script>
             <span class="n">layer</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">mode</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_on_layer_mode_change</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_layer_help_from_mode</span><span class="p">(</span><span class="n">layer</span><span class="p">)</span>
 
-        <span class="c1"># Update dims</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_on_layers_change</span><span class="p">()</span>
+        <span class="c1"># For the first layer, set the dims to the middle</span>
+        <span class="n">first_layer_being_added</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="n">first_layer_being_added</span><span class="p">:</span>
+            <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_defer_slicing</span><span class="p">():</span>
+                <span class="c1"># Update dims</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_on_layers_change</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">_go_to_center_step</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_on_layers_change</span><span class="p">()</span>
         <span class="c1"># Slice current layer based on dims</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_update_layers</span><span class="p">(</span><span class="n">layers</span><span class="o">=</span><span class="p">[</span><span class="n">layer</span><span class="p">])</span>
 
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-            <span class="c1"># set dims slider to the middle of all dimensions</span>
+        <span class="k">if</span> <span class="n">first_layer_being_added</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">reset_view</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">dims</span><span class="o">.</span><span class="n">_go_to_center_step</span><span class="p">()</span>
 
     <span class="nd">@staticmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">_layer_help_from_mode</span><span class="p">(</span><span class="n">layer</span><span class="p">:</span> <span class="n">Layer</span><span class="p">):</span>

@@ -45,7 +45,7 @@
   <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=75c7c72ae941e8b558d8" />
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=75c7c72ae941e8b558d8" />
 
-    <script src="../../../../_static/documentation_options.js?v=9b358e8c"></script>
+    <script src="../../../../_static/documentation_options.js?v=b5ec43fd"></script>
     <script src="../../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -928,7 +928,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        the final column is a length N translation vector and a 1 or a napari</span>
 <span class="sd">        `Affine` transform object. Applied as an extra transform on top of the</span>
 <span class="sd">        provided scale, rotate, and shear values.</span>
-<span class="sd">    antialiasing: float</span>
+<span class="sd">    antialiasing : float</span>
 <span class="sd">        Amount of antialiasing in canvas pixels.</span>
 <span class="sd">    axis_labels : tuple of str, optional</span>
 <span class="sd">        Dimension names of the layer data.</span>
@@ -936,18 +936,19 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">    blending : str</span>
 <span class="sd">        One of a list of preset blending modes that determines how RGB and</span>
 <span class="sd">        alpha values of the layer visual get mixed. Allowed values are</span>
-<span class="sd">        {'opaque', 'translucent', 'translucent_no_depth', 'additive', and 'minimum'}.</span>
+<span class="sd">        {'opaque', 'translucent', 'translucent_no_depth', 'additive', 'minimum',</span>
+<span class="sd">        and 'multiplicative'}.</span>
 <span class="sd">    border_color : str, array-like, dict</span>
 <span class="sd">        Color of the point marker border. Numeric color values should be RGB(A).</span>
 <span class="sd">    border_color_cycle : np.ndarray, list</span>
 <span class="sd">        Cycle of colors (provided as string name, RGB, or RGBA) to map to border_color if a</span>
-<span class="sd">        categorical attribute is used color the vectors.</span>
+<span class="sd">        categorical attribute is used to color the points.</span>
 <span class="sd">    border_colormap : str, napari.utils.Colormap</span>
-<span class="sd">        Colormap to set border_color if a continuous attribute is used to set face_color.</span>
+<span class="sd">        Colormap to set border_color if a continuous attribute is used to set border_color.</span>
 <span class="sd">    border_contrast_limits : None, (float, float)</span>
 <span class="sd">        clims for mapping the property to a color map. These are the min and max value</span>
 <span class="sd">        of the specified property that are mapped to 0 and 1, respectively.</span>
-<span class="sd">        The default value is None. If set the none, the clims will be set to</span>
+<span class="sd">        The default value is None. If set to None, the clims will be set to</span>
 <span class="sd">        (property.min(), property.max())</span>
 <span class="sd">    border_width : float, array</span>
 <span class="sd">        Width of the symbol border in pixels.</span>
@@ -966,13 +967,13 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        Color of the point marker body. Numeric color values should be RGB(A).</span>
 <span class="sd">    face_color_cycle : np.ndarray, list</span>
 <span class="sd">        Cycle of colors (provided as string name, RGB, or RGBA) to map to face_color if a</span>
-<span class="sd">        categorical attribute is used color the vectors.</span>
+<span class="sd">        categorical attribute is used to color the points.</span>
 <span class="sd">    face_colormap : str, napari.utils.Colormap</span>
 <span class="sd">        Colormap to set face_color if a continuous attribute is used to set face_color.</span>
 <span class="sd">    face_contrast_limits : None, (float, float)</span>
 <span class="sd">        clims for mapping the property to a color map. These are the min and max value</span>
 <span class="sd">        of the specified property that are mapped to 0 and 1, respectively.</span>
-<span class="sd">        The default value is None. If set the none, the clims will be set to</span>
+<span class="sd">        The default value is None. If set to None, the clims will be set to</span>
 <span class="sd">        (property.min(), property.max())</span>
 <span class="sd">    feature_defaults : dict[str, Any] or DataFrame</span>
 <span class="sd">        The default value of each feature in a table with one row.</span>
@@ -991,7 +992,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">    properties : dict {str: array (N,)}, DataFrame</span>
 <span class="sd">        Properties for each point. Each property should be an array of length N,</span>
 <span class="sd">        where N is the number of points.</span>
-<span class="sd">    property_choices : dict {str: array (N,)}</span>
+<span class="sd">    property_choices : dict {str: array}</span>
 <span class="sd">        possible values for each property.</span>
 <span class="sd">    rotate : float, 3-tuple of float, or n-D array.</span>
 <span class="sd">        If a float convert into a 2D rotation matrix using that value as an</span>
@@ -1024,7 +1025,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">    text : str, dict</span>
 <span class="sd">        Text to be displayed with the points. If text is set to a key in properties,</span>
 <span class="sd">        the value of that property will be displayed. Multiple properties can be</span>
-<span class="sd">        composed using f-string-like syntax (e.g., '{property_1}, {float_property:.2f}).</span>
+<span class="sd">        composed using f-string-like syntax (e.g., '{property_1}, {float_property:.2f}').</span>
 <span class="sd">        A dictionary can be provided with keyword arguments to set the text values</span>
 <span class="sd">        and display properties. See TextManager.__init__() for the valid keyword arguments.</span>
 <span class="sd">        For example usage, see /napari/examples/add_points_with_text.py.</span>
@@ -1050,42 +1051,42 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">    properties : dict {str: array (N,)} or DataFrame</span>
 <span class="sd">        Annotations for each point. Each property should be an array of length N,</span>
 <span class="sd">        where N is the number of points.</span>
-<span class="sd">    text : str</span>
-<span class="sd">        Text to be displayed with the points. If text is set to a key in properties, the value of</span>
+<span class="sd">    text : TextManager</span>
+<span class="sd">        Manager of the text displayed with the points. If text is set to a key in properties, the value of</span>
 <span class="sd">        that property will be displayed. Multiple properties can be composed using f-string-like</span>
-<span class="sd">        syntax (e.g., '{property_1}, {float_property:.2f}).</span>
+<span class="sd">        syntax (e.g., '{property_1}, {float_property:.2f}').</span>
 <span class="sd">        For example usage, see /napari/examples/add_points_with_text.py.</span>
 <span class="sd">    symbol : array of str</span>
 <span class="sd">        Array of symbols for each point.</span>
 <span class="sd">    size : array (N,)</span>
-<span class="sd">        Array of sizes for each point. Must have the same shape as the layer `data`.</span>
+<span class="sd">        Array of sizes for each point. Must have the same length as the layer `data`.</span>
 <span class="sd">    border_width : array (N,)</span>
 <span class="sd">        Width of the marker borders in pixels for all points</span>
-<span class="sd">    border_width : array (N,)</span>
-<span class="sd">        Width of the marker borders for all points as a fraction of their size.</span>
+<span class="sd">    border_width_is_relative : bool</span>
+<span class="sd">        If enabled, border_width is interpreted as a fraction of the point size.</span>
 <span class="sd">    border_color : Nx4 numpy array</span>
 <span class="sd">        Array of border color RGBA values, one for each point.</span>
 <span class="sd">    border_color_cycle : np.ndarray, list</span>
 <span class="sd">        Cycle of colors (provided as string name, RGB, or RGBA) to map to border_color if a</span>
-<span class="sd">        categorical attribute is used color the vectors.</span>
+<span class="sd">        categorical attribute is used to color the points.</span>
 <span class="sd">    border_colormap : str, napari.utils.Colormap</span>
-<span class="sd">        Colormap to set border_color if a continuous attribute is used to set face_color.</span>
+<span class="sd">        Colormap to set border_color if a continuous attribute is used to set border_color.</span>
 <span class="sd">    border_contrast_limits : None, (float, float)</span>
 <span class="sd">        clims for mapping the property to a color map. These are the min and max value</span>
 <span class="sd">        of the specified property that are mapped to 0 and 1, respectively.</span>
-<span class="sd">        The default value is None. If set the none, the clims will be set to</span>
+<span class="sd">        The default value is None. If set to None, the clims will be set to</span>
 <span class="sd">        (property.min(), property.max())</span>
 <span class="sd">    face_color : Nx4 numpy array</span>
 <span class="sd">        Array of face color RGBA values, one for each point.</span>
 <span class="sd">    face_color_cycle : np.ndarray, list</span>
 <span class="sd">        Cycle of colors (provided as string name, RGB, or RGBA) to map to face_color if a</span>
-<span class="sd">        categorical attribute is used color the vectors.</span>
+<span class="sd">        categorical attribute is used to color the points.</span>
 <span class="sd">    face_colormap : str, napari.utils.Colormap</span>
 <span class="sd">        Colormap to set face_color if a continuous attribute is used to set face_color.</span>
 <span class="sd">    face_contrast_limits : None, (float, float)</span>
 <span class="sd">        clims for mapping the property to a color map. These are the min and max value</span>
 <span class="sd">        of the specified property that are mapped to 0 and 1, respectively.</span>
-<span class="sd">        The default value is None. If set the none, the clims will be set to</span>
+<span class="sd">        The default value is None. If set to None, the clims will be set to</span>
 <span class="sd">        (property.min(), property.max())</span>
 <span class="sd">    current_symbol : Symbol</span>
 <span class="sd">        Symbol for the next point to be added or the currently selected points.</span>
@@ -1099,7 +1100,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        Border color of the marker border for the next point to be added or the currently</span>
 <span class="sd">        selected point.</span>
 <span class="sd">    current_face_color : str</span>
-<span class="sd">        Face color of the marker border for the next point to be added or the currently</span>
+<span class="sd">        Face color of the marker for the next point to be added or the currently</span>
 <span class="sd">        selected point.</span>
 <span class="sd">    selected_data : Selection</span>
 <span class="sd">        Integer indices of any selected points.</span>
@@ -1112,6 +1113,9 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        In SELECT mode the cursor can select points by clicking on them or</span>
 <span class="sd">        by dragging a box around them. Once selected points can be moved,</span>
 <span class="sd">        have their properties edited, or be deleted.</span>
+
+<span class="sd">        In TRANSFORM mode the layer can be translated, rescaled or rotated</span>
+<span class="sd">        by dragging the handles of the transform box.</span>
 <span class="sd">    face_color_mode : str</span>
 <span class="sd">        Face color setting mode.</span>
 
@@ -1130,13 +1134,13 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        COLORMAP allows color to be set via a color map over an attribute</span>
 <span class="sd">    shading : Shading</span>
 <span class="sd">        Shading mode.</span>
-<span class="sd">    antialiasing: float</span>
+<span class="sd">    antialiasing : float</span>
 <span class="sd">        Amount of antialiasing in canvas pixels.</span>
 <span class="sd">    canvas_size_limits : tuple of float</span>
 <span class="sd">        Lower and upper limits for the size of points in canvas pixels.</span>
 <span class="sd">    shown : 1-D array of bool</span>
 <span class="sd">        Whether each point is shown.</span>
-<span class="sd">    units: tuple of pint.Unit</span>
+<span class="sd">    units : tuple of pint.Unit</span>
 <span class="sd">        Units of the layer data in world coordinates.</span>
 
 <span class="sd">    Notes</span>
@@ -1154,10 +1158,6 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">    _view_selected :</span>
 <span class="sd">        Integer indices of selected points in the currently viewed slice within</span>
 <span class="sd">        the `_view_data` array.</span>
-<span class="sd">    _selected_box : array (4, 2) or None</span>
-<span class="sd">        Four corners of any box either around currently selected points or</span>
-<span class="sd">        being created during a drag action. Starting in the top left and</span>
-<span class="sd">        going clockwise.</span>
 <span class="sd">    _drag_start : list or None</span>
 <span class="sd">        Coordinates of first cursor click during a drag action. Gets reset to</span>
 <span class="sd">        None after dragging is done.</span>
@@ -1879,7 +1879,7 @@ window.runMermaid = runMermaid;</script>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">border_width</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">"""(N, D) array: border_width of all N points."""</span>
+<span class="w">        </span><span class="sd">"""(N,) array: border_width of all N points."""</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_border_width</span>
 
     <span class="nd">@border_width</span><span class="o">.</span><span class="n">setter</span>

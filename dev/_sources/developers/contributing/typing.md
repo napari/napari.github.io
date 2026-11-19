@@ -7,6 +7,13 @@ every pull request and has to pass before we merge, but
 **you are not expected to fix type errors in your own PR**. If it fails and the
 fix isn't obvious, ask for help and a team member will be eager to guide you.
 
+```{tip}
+Why annotate at all? Type hints make code easier to read, because the
+signature tells you what goes in and what comes out. They let the checker catch
+many bugs before the code runs, and they give your editor better completion and
+go-to-definition.
+```
+
 ```{note}
 Why we moved off mypy, and what we compared against, is in the Island Dispatch
 post
@@ -37,12 +44,36 @@ addition, the [code editor integration](https://pyrefly.org/en/docs/IDE/) reads
 the same `[tool.pyrefly]` configuration, but it sees your environment too — so
 treat editor suggestions as a hint and `tox -e pyrefly` as the standard.
 
+(napari-typing-annotating)=
+
 ## Annotating new code
 
 1. **Annotate the parameters and return values** you are adding or changing,
    and leave unrelated types alone — a bug fix shouldn't turn into a typing
    sweep. Only modify previous annotations if they are relevant to the
-   contribution you are making.
+   contribution you are making. For example:
+
+   `````{tab-set}
+
+   ````{tab-item} Without annotations
+   ```python
+   def scale(values, factor=1.0):
+       return [value * factor for value in values]
+   ```
+   ````
+
+   ````{tab-item} With annotations
+   ```python
+   from collections.abc import Iterable
+
+
+   def scale(values: Iterable[float], factor: float = 1.0) -> list[float]:
+       return [value * factor for value in values]
+   ```
+   ````
+
+   `````
+
 2. When feasible, **add `from __future__ import annotations`** at the top of
    any module that doesn't have it yet. This makes annotations lazy, so they
    are not executed at runtime until required, in order to infer the types.
@@ -52,12 +83,24 @@ treat editor suggestions as a hint and `tox -e pyrefly` as the standard.
    and potential import cycles stay out of the runtime path. Ruff rules flag
    these and will often move them for you with pre-commit. To do this, add
    `from typing import TYPE_CHECKING` to the top of the file, then wrap the
-   imports in:
+   imports in it:
 
    ```python
+   from __future__ import annotations
+
+   from typing import TYPE_CHECKING
+
    if TYPE_CHECKING:
-       from some_module import SomeType
+       import numpy as np
+
+
+   def describe(image: np.ndarray) -> str:
+       return f'{image.ndim}D image'
    ```
+
+   `typing.TYPE_CHECKING` is `False` when the program runs and is only treated
+   as `True` by type checkers, so the import inside the block is never executed
+   at runtime.
 
    ```{important}
    Lazy evaluation of annotation breaks tools that require runtime type
@@ -76,7 +119,7 @@ treat editor suggestions as a hint and `tox -e pyrefly` as the standard.
   contract other modules rely on, and locals are inferred well enough without
   help.
 - **Parameters should accept the widest type that works; returns give back the
-  concrete type you built.** When psosible, take `Iterable`, `Sequence` or
+  concrete type you built.** When possible, take `Iterable`, `Sequence` or
   `Mapping` rather than `list` or `dict`, and hand back the `list` or `dict`
   you actually made.
 - **`Any` switches off checking for everything it touches.** It is sometimes
@@ -97,6 +140,9 @@ treat editor suggestions as a hint and `tox -e pyrefly` as the standard.
   even where the annotation is `npt.NDArray`. Read more in the
   [NumPy typing guide](https://numpy.org/doc/stable/reference/typing.html),
   including about `npt.ArrayLike` for inputs that can be converted to arrays.
+
+For short, self-contained examples of these rules, see the
+[typing cheat sheet](napari-typing-patterns).
 
 ## When the check complains
 
@@ -172,3 +218,8 @@ wrong with the type it could see.
 - [Type hints cheat sheet](https://mypy.readthedocs.io/en/stable/cheat_sheet_py3.html)
   — syntax suggestions to copy. It is written for mypy, but the syntax is the
   same.
+- [`typing` module reference](https://docs.python.org/3/library/typing.html)
+  — the standard library documentation for `TYPE_CHECKING`, `Protocol`,
+  `cast` and the other names used above.
+- [Typing cheat sheet](napari-typing-patterns): napari's own short examples
+  of the patterns on this page.

@@ -1,5 +1,5 @@
 # napari 0.10.1
-⚠️ *Note: these release notes are still in draft while 0.10.1rc1 is in prerelease testing.* ⚠️
+⚠️ *Note: these release notes are still in draft while 0.10.1rc2 is in prerelease testing.* ⚠️
 
 *Mon, Nov 23, 2026*
 
@@ -92,6 +92,7 @@ The napari codebase is getting more and move type annotation coverage! This rele
 - Print notebook execution traceback in docs build log ([docs#1228](https://github.com/napari/docs/pull/1228))
 - Use livingobjects.ebi.ac.uk for IDR zarr sample in open_images ([docs#1229](https://github.com/napari/docs/pull/1229))
 - Last release notes update for 0.10.1 (rc1) ([docs#1230](https://github.com/napari/docs/pull/1230))
+- v0.10.1rc2 release notes ([docs#1231](https://github.com/napari/docs/pull/1231))
 - TYP: add type hints in `_evented_list.py` ([#9241](https://github.com/napari/napari/pull/9241))
 - docs: update moved tutorial links in two examples ([#9810](https://github.com/napari/napari/pull/9810))
 - Add Parameters section to `compute_nice_ticks docstring` ([#9842](https://github.com/napari/napari/pull/9842))
@@ -132,6 +133,7 @@ The napari codebase is getting more and move type annotation coverage! This rele
 - Speed up test suite: gc.freeze, cached builtins manifest, no sleeps in label color tests ([#9854](https://github.com/napari/napari/pull/9854))
 - Fix deadlock between slicing thread and main thread on PySide6 ([#9856](https://github.com/napari/napari/pull/9856))
 - Fail quicker at end of test sections on CI ([#9868](https://github.com/napari/napari/pull/9868))
+- Use `_QtMainWindow` instead of `ensure_main_thread` for `Notification` ([#9871](https://github.com/napari/napari/pull/9871))
 - Update `coverage`, `hypothesis`, `ipython`, `npe2`, `pandas`, `platformdirs`, `pydantic`, `tifffile`, `virtualenv` ([#9873](https://github.com/napari/napari/pull/9873))
 - [pre-commit.ci] pre-commit autoupdate ([#9877](https://github.com/napari/napari/pull/9877))
 - Update the comment in `VispyCanvas.screenshot()` to reflect current state ([#9878](https://github.com/napari/napari/pull/9878))
@@ -153,6 +155,7 @@ The napari codebase is getting more and move type annotation coverage! This rele
 - Bump tox-min-req and tox-gh-actions ([#9932](https://github.com/napari/napari/pull/9932))
 - Fix type issue from merge ([#9938](https://github.com/napari/napari/pull/9938))
 - Fix flaky crosshair screenshot test ([#9941](https://github.com/napari/napari/pull/9941))
+- Update dependency constraints and fix pyrefly 1.5 errors ([#9942](https://github.com/napari/napari/pull/9942))
 
 
 ## 20 authors added to this release (alphabetical)

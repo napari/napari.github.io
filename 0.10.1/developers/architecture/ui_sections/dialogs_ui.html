@@ -49,7 +49,7 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=2c704d47" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=e9e83e5f" />
   
   <!-- So that users can add custom icons -->
   <script defer src="../../../_static/scripts/fontawesome.js?digest=75c7c72ae941e8b558d8"></script>
@@ -57,7 +57,7 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=75c7c72ae941e8b558d8" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=75c7c72ae941e8b558d8" />
 
-    <script src="../../../_static/documentation_options.js?v=ddc2bf6f"></script>
+    <script src="../../../_static/documentation_options.js?v=b333a791"></script>
     <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -428,7 +428,7 @@ window.runMermaid = runMermaid;</script>
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.24.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.10.1a0';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.10.1rc1';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
@@ -792,7 +792,10 @@ window.runMermaid = runMermaid;</script>
 <li class="toctree-l2"><a class="reference internal" href="../../contributing/ai.html">AI use policy and guidelines</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../contributing/dev_install.html">Setting up a development installation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../contributing/testing.html">Testing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../contributing/typing.html">Type checking</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../contributing/typing.html">Type checking</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../contributing/typing_patterns.html">Typing cheat sheet</a></li>
+</ul>
+</details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../contributing/performance/index.html">Performance</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../contributing/performance/profiling.html">Profiling</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../contributing/performance/benchmarks.html">Benchmarks</a></li>
@@ -1203,61 +1206,61 @@ window.runMermaid = runMermaid;</script>
 <h2>Source code directory layout (related to modules inside <code class="docutils literal notranslate"><span class="pre">napari</span></code>)<a class="headerlink" href="#source-code-directory-layout-related-to-modules-inside-napari" title="Link to this heading">#</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>napari/
 ├─_qt/
-│ ├─widgets/
-│ │ ├─qt_histogram.py
-│ │ ├─qt_viewer_status_bar.py
-│ │ ├─qt_color_swatch.py
-│ │ ├─qt_histogram_content.py
-│ │ ├─qt_dims.py
-│ │ ├─qt_highlight_preview.py
-│ │ ├─qt_extension2reader.py
-│ │ ├─qt_logger.py
-│ │ ├─qt_font_size.py
-│ │ ├─qt_progress_bar.py
-│ │ ├─qt_viewer_tour.py
-│ │ ├─qt_dims_sorter.py
-│ │ ├─qt_tooltip.py
-│ │ ├─qt_tips.py
-│ │ ├─qt_scrollbar.py
-│ │ ├─qt_command_palette.py
-│ │ ├─qt_dims_slider.py
-│ │ ├─qt_histogram_settings.py
-│ │ └─qt_spinbox.py
-│ ├─dialogs/
-│ │ ├─qt_activity_dialog.py
-│ │ ├─qt_notification.py
-│ │ ├─qt_about.py
-│ │ ├─qt_modal.py
-│ │ ├─qt_reader_dialog.py
-│ │ ├─screenshot_dialog.py
-│ │ ├─preferences_dialog.py
-│ │ └─confirm_close_dialog.py
+│ ├─_qapp_model/
+│ │ ├─injection/
+│ │ │ ├─_qproviders.py
+│ │ │ └─_qprocessors.py
+│ │ ├─qactions/
+│ │ │ ├─__init__.py
+│ │ │ ├─_debug.py
+│ │ │ ├─_file.py
+│ │ │ ├─_plugins.py
+│ │ │ └─_help.py
+│ │ └─_menus.py
+│ ├─qt_main_window.py
 │ ├─_qplugins/
 │ │ └─_qnpe2.py
 │ ├─utils.py
-│ ├─_qapp_model/
-│ │ ├─qactions/
-│ │ │ ├─_file.py
-│ │ │ ├─_plugins.py
-│ │ │ ├─_help.py
-│ │ │ ├─_debug.py
-│ │ │ └─__init__.py
-│ │ ├─_menus.py
-│ │ └─injection/
-│ │   ├─_qprocessors.py
-│ │   └─_qproviders.py
-│ ├─qt_viewer.py
-│ └─qt_main_window.py
+│ ├─widgets/
+│ │ ├─qt_progress_bar.py
+│ │ ├─qt_color_swatch.py
+│ │ ├─qt_histogram_settings.py
+│ │ ├─qt_spinbox.py
+│ │ ├─qt_dims_slider.py
+│ │ ├─qt_viewer_tour.py
+│ │ ├─qt_font_size.py
+│ │ ├─qt_scrollbar.py
+│ │ ├─qt_viewer_status_bar.py
+│ │ ├─qt_histogram.py
+│ │ ├─qt_tips.py
+│ │ ├─qt_histogram_content.py
+│ │ ├─qt_logger.py
+│ │ ├─qt_dims.py
+│ │ ├─qt_tooltip.py
+│ │ ├─qt_extension2reader.py
+│ │ ├─qt_command_palette.py
+│ │ ├─qt_dims_sorter.py
+│ │ └─qt_highlight_preview.py
+│ ├─dialogs/
+│ │ ├─preferences_dialog.py
+│ │ ├─qt_about.py
+│ │ ├─confirm_close_dialog.py
+│ │ ├─screenshot_dialog.py
+│ │ ├─qt_reader_dialog.py
+│ │ ├─qt_activity_dialog.py
+│ │ ├─qt_modal.py
+│ │ └─qt_notification.py
+│ └─qt_viewer.py
 └─_vendor/
   └─qt_json_builder/
-    ├─qt_jsonschema_form/
-    │ ├─signal.py
-    │ ├─form.py
-    │ ├─defaults.py
-    │ ├─utils.py
-    │ ├─widgets.py
-    │ └─__init__.py
-    └─__init__.py
+    ├─__init__.py
+    └─qt_jsonschema_form/
+      ├─__init__.py
+      ├─utils.py
+      ├─defaults.py
+      ├─signal.py
+      ├─widgets.py
+      └─form.py
 </pre></div>
 </div>
 </section>

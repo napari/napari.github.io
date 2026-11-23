@@ -248,7 +248,7 @@ CC BY 4.0, Payne et al. (2019) <https://doi.org/10.1126/science.aay3446>):
 :tags: [remove-input]
 
 viewer = napari.Viewer()
-viewer.open('https://uk1s3.embassy.ebi.ac.uk/idr/zarr/v0.4/idr0101A/13457537.zarr', plugin='ndevio')
+viewer.open('https://livingobjects.ebi.ac.uk/idr/zarr/v0.4/idr0101A/13457537.zarr', plugin='ndevio')
 viewer.window.resize(width, height)
 nbscreenshot(viewer, alt_text="napari viewer showing a multi-channel zarr image opened via ndevio of a in situ genome sequencing in a fibroblast.")
 ```

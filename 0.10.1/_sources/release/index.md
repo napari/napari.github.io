@@ -4,7 +4,7 @@
 
 Each section shows the highlights from recent releases. Click on the version links to view the complete release notes.
 
-*Last updated: November 17, 2026*
+*Last updated: November 23, 2026*
 
 
 ## Recent Releases (Last 3 Months)
@@ -14,7 +14,19 @@ Latest features and improvements:
 ````{dropdown} napari 0.10.1 (November 2026)
 :open:
 
-- Skip the canvas cleanup when closing the viewer ([#9870](https://github.com/napari/napari/pull/9870))
+This is a maintenance-focused release: it has few new features, but contains a ton of performance and maintenance work that will enhance both working _with_ napari and _on_ napari! And of course, tons of bug fixes :)
+
+### CI speedups and improvements
+
+Our automated testing and deploying machinery (CI) has accumulated slowness and technical debt over the years. During this release cycle, we tackled several of these issues (chief among them ([#9870](https://github.com/napari/napari/pull/9870))) and cut test time on our pull request by up to half!
+
+### Various Performance enhancements
+
+`Labels` painting, `Shapes` and slicing in general got several performance improvements. Many workflows will benefit from this, so make sure to try out things that used to be slow to check if you're one of the lucky winners ;)
+
+### Typing progress
+
+The napari codebase is getting more and move type annotation coverage! This release merged more than a dozen typing-related pull request, which helped (and will help) us find bugs and develop both napari and napari plugins more easily. We'll continue this trend in the upcoming releases!
 
 [View full release notes →](release_0_10_1)
 
@@ -108,6 +120,11 @@ The napari team has been working hard to improve our release process, and based 
 [View full release notes →](release_0_9_2)
 
 ````
+
+
+
+
+## Releases from 3-6 Months Ago
 
 ````{dropdown} napari 0.9.0 (August 2026)
 :open:
@@ -341,11 +358,6 @@ please remove it. (For now, `trans._()` is a no-op.)
 [View full release notes →](release_0_9_0)
 
 ````
-
-
-
-
-## Releases from 3-6 Months Ago
 
 ````{dropdown} napari 0.8.0 (July 2026)
 :open:

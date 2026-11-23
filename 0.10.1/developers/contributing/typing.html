@@ -49,7 +49,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=2c704d47" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=e9e83e5f" />
   
   <!-- So that users can add custom icons -->
   <script defer src="../../_static/scripts/fontawesome.js?digest=75c7c72ae941e8b558d8"></script>
@@ -57,7 +57,7 @@
   <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=75c7c72ae941e8b558d8" />
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=75c7c72ae941e8b558d8" />
 
-    <script src="../../_static/documentation_options.js?v=ddc2bf6f"></script>
+    <script src="../../_static/documentation_options.js?v=b333a791"></script>
     <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -69,7 +69,7 @@
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.24.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.10.1a0';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.10.1rc1';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
@@ -78,7 +78,7 @@
     <link rel="canonical" href="https://napari.org/stable/developers/contributing/typing.html" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Performance" href="performance/index.html" />
+    <link rel="next" title="Typing cheat sheet" href="typing_patterns.html" />
     <link rel="prev" title="Testing" href="testing.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="color-scheme" content="light dark"/>
@@ -433,7 +433,10 @@
 <li class="toctree-l2"><a class="reference internal" href="ai.html">AI use policy and guidelines</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dev_install.html">Setting up a development installation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="testing.html">Testing</a></li>
-<li class="toctree-l2 current active"><a aria-current="page" class="current reference internal" href="#">Type checking</a></li>
+<li class="toctree-l2 current active has-children"><a aria-current="page" class="current reference internal" href="#">Type checking</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="typing_patterns.html">Typing cheat sheet</a></li>
+</ul>
+</details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="performance/index.html">Performance</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="performance/profiling.html">Profiling</a></li>
 <li class="toctree-l3"><a class="reference internal" href="performance/benchmarks.html">Benchmarks</a></li>
@@ -591,6 +594,13 @@
 every pull request and has to pass before we merge, but
 <strong>you are not expected to fix type errors in your own PR</strong>. If it fails and the
 fix isn’t obvious, ask for help and a team member will be eager to guide you.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Why annotate at all? Type hints make code easier to read, because the
+signature tells you what goes in and what comes out. They let the checker catch
+many bugs before the code runs, and they give your editor better completion and
+go-to-definition.</p>
+</div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Why we moved off mypy, and what we compared against, is in the Island Dispatch
@@ -618,12 +628,34 @@ the same <code class="docutils literal notranslate"><span class="pre">[tool.pyre
 treat editor suggestions as a hint and <code class="docutils literal notranslate"><span class="pre">tox</span> <span class="pre">-e</span> <span class="pre">pyrefly</span></code> as the standard.</p>
 </section>
 <section id="annotating-new-code">
-<h2>Annotating new code<a class="headerlink" href="#annotating-new-code" title="Link to this heading">#</a></h2>
+<span id="napari-typing-annotating"></span><h2>Annotating new code<a class="headerlink" href="#annotating-new-code" title="Link to this heading">#</a></h2>
 <ol class="arabic">
 <li><p><strong>Annotate the parameters and return values</strong> you are adding or changing,
 and leave unrelated types alone — a bug fix shouldn’t turn into a typing
 sweep. Only modify previous annotations if they are relevant to the
-contribution you are making.</p></li>
+contribution you are making. For example:</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-0">
+Without annotations</label><div class="sd-tab-content docutils">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">scale</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">factor</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">value</span> <span class="o">*</span> <span class="n">factor</span> <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">values</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<input id="sd-tab-item-1" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-1">
+With annotations</label><div class="sd-tab-content docutils">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">collections.abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">Iterable</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">scale</span><span class="p">(</span><span class="n">values</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span> <span class="n">factor</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]:</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">value</span> <span class="o">*</span> <span class="n">factor</span> <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">values</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</li>
 <li><p>When feasible, <strong>add <code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">__future__</span> <span class="pre">import</span> <span class="pre">annotations</span></code></strong> at the top of
 any module that doesn’t have it yet. This makes annotations lazy, so they
 are not executed at runtime until required, in order to infer the types.
@@ -633,11 +665,22 @@ used in the code should be wrapped in quotes to avoid early evaluation.</p></li>
 and potential import cycles stay out of the runtime path. Ruff rules flag
 these and will often move them for you with pre-commit. To do this, add
 <code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">typing</span> <span class="pre">import</span> <span class="pre">TYPE_CHECKING</span></code> to the top of the file, then wrap the
-imports in:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
-    <span class="kn">from</span><span class="w"> </span><span class="nn">some_module</span><span class="w"> </span><span class="kn">import</span> <span class="n">SomeType</span>
+imports in it:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
+
+<span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">describe</span><span class="p">(</span><span class="n">image</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">return</span> <span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">image</span><span class="o">.</span><span class="n">ndim</span><span class="si">}</span><span class="s1">D image'</span>
 </pre></div>
 </div>
+<p><code class="docutils literal notranslate"><span class="pre">typing.TYPE_CHECKING</span></code> is <code class="docutils literal notranslate"><span class="pre">False</span></code> when the program runs and is only treated
+as <code class="docutils literal notranslate"><span class="pre">True</span></code> by type checkers, so the import inside the block is never executed
+at runtime.</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>Lazy evaluation of annotation breaks tools that require runtime type
@@ -658,7 +701,7 @@ why, as described below.</p></li>
 contract other modules rely on, and locals are inferred well enough without
 help.</p></li>
 <li><p><strong>Parameters should accept the widest type that works; returns give back the
-concrete type you built.</strong> When psosible, take <code class="docutils literal notranslate"><span class="pre">Iterable</span></code>, <code class="docutils literal notranslate"><span class="pre">Sequence</span></code> or
+concrete type you built.</strong> When possible, take <code class="docutils literal notranslate"><span class="pre">Iterable</span></code>, <code class="docutils literal notranslate"><span class="pre">Sequence</span></code> or
 <code class="docutils literal notranslate"><span class="pre">Mapping</span></code> rather than <code class="docutils literal notranslate"><span class="pre">list</span></code> or <code class="docutils literal notranslate"><span class="pre">dict</span></code>, and hand back the <code class="docutils literal notranslate"><span class="pre">list</span></code> or <code class="docutils literal notranslate"><span class="pre">dict</span></code>
 you actually made.</p></li>
 <li><p><strong><code class="docutils literal notranslate"><span class="pre">Any</span></code> switches off checking for everything it touches.</strong> It is sometimes
@@ -680,6 +723,8 @@ even where the annotation is <code class="docutils literal notranslate"><span cl
 <a class="reference external" href="https://numpy.org/doc/stable/reference/typing.html">NumPy typing guide</a>,
 including about <code class="docutils literal notranslate"><span class="pre">npt.ArrayLike</span></code> for inputs that can be converted to arrays.</p></li>
 </ul>
+<p>For short, self-contained examples of these rules, see the
+<a class="reference internal" href="typing_patterns.html#napari-typing-patterns"><span class="std std-ref">typing cheat sheet</span></a>.</p>
 </section>
 <section id="when-the-check-complains">
 <h2>When the check complains<a class="headerlink" href="#when-the-check-complains" title="Link to this heading">#</a></h2>
@@ -769,8 +814,15 @@ version of the “accept the widest type that works” point above.</p></li>
 <li><p><a class="reference external" href="https://mypy.readthedocs.io/en/stable/cheat_sheet_py3.html">Type hints cheat sheet</a>
 — syntax suggestions to copy. It is written for mypy, but the syntax is the
 same.</p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3/library/typing.html"><code class="docutils literal notranslate"><span class="pre">typing</span></code> module reference</a>
+— the standard library documentation for <code class="docutils literal notranslate"><span class="pre">TYPE_CHECKING</span></code>, <code class="docutils literal notranslate"><span class="pre">Protocol</span></code>,
+<code class="docutils literal notranslate"><span class="pre">cast</span></code> and the other names used above.</p></li>
+<li><p><a class="reference internal" href="typing_patterns.html#napari-typing-patterns"><span class="std std-ref">Typing cheat sheet</span></a>: napari’s own short examples
+of the patterns on this page.</p></li>
 </ul>
 </section>
+<div class="toctree-wrapper compound">
+</div>
 </section>
 
 
@@ -793,11 +845,11 @@ same.</p></li>
       </div>
     </a>
     <a class="right-next"
-       href="performance/index.html"
+       href="typing_patterns.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Performance</p>
+        <p class="prev-next-title">Typing cheat sheet</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

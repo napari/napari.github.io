@@ -219,52 +219,52 @@ graph LR
 ```
 napari/
 ├─_qt/
-│ ├─widgets/
-│ │ ├─qt_viewer_status_bar.py
-│ │ ├─qt_welcome.py
-│ │ ├─qt_dims.py
-│ │ ├─qt_viewer_dock_widget.py
-│ │ ├─qt_mirrored_sliders_popup.py
-│ │ ├─qt_viewer_tour.py
-│ │ ├─qt_dims_sorter.py
-│ │ ├─qt_viewer_buttons.py
-│ │ ├─qt_tooltip.py
-│ │ ├─qt_scrollbar.py
-│ │ ├─qt_command_palette.py
-│ │ ├─qt_dims_slider.py
-│ │ └─qt_spinbox.py
-│ ├─dialogs/
-│ │ └─__init__.py
-│ ├─utils.py
-│ ├─containers/
+│ ├─layer_controls/
 │ │ └─__init__.py
 │ ├─_qapp_model/
 │ │ └─qactions/
-│ │   ├─_debug.py
-│ │   └─__init__.py
-│ ├─threads/
-│ │ ├─status_checker.py
-│ │ └─__init__.py
-│ ├─qt_viewer.py
+│ │   ├─__init__.py
+│ │   └─_debug.py
 │ ├─qt_main_window.py
-│ └─layer_controls/
-│   └─__init__.py
-├─components/
-│ ├─viewer_model.py
-│ ├─scene.py
-│ ├─_layer_slicer.py
-│ ├─dims.py
-│ ├─layerlist.py
-│ ├─_viewer_mouse_bindings.py
-│ ├─overlays/
+│ ├─utils.py
+│ ├─containers/
 │ │ └─__init__.py
-│ ├─cursor.py
-│ ├─camera.py
-│ ├─grid.py
-│ ├─_viewer_key_bindings.py
-│ ├─_viewer_constants.py
-│ ├─canvas.py
-│ └─tooltip.py
-└─layers/
-  └─__init__.py
+│ ├─widgets/
+│ │ ├─qt_spinbox.py
+│ │ ├─qt_dims_slider.py
+│ │ ├─qt_viewer_tour.py
+│ │ ├─qt_scrollbar.py
+│ │ ├─qt_viewer_status_bar.py
+│ │ ├─qt_viewer_buttons.py
+│ │ ├─qt_dims.py
+│ │ ├─qt_welcome.py
+│ │ ├─qt_tooltip.py
+│ │ ├─qt_viewer_dock_widget.py
+│ │ ├─qt_mirrored_sliders_popup.py
+│ │ ├─qt_command_palette.py
+│ │ └─qt_dims_sorter.py
+│ ├─dialogs/
+│ │ └─__init__.py
+│ ├─threads/
+│ │ ├─__init__.py
+│ │ └─status_checker.py
+│ └─qt_viewer.py
+├─layers/
+│ └─__init__.py
+└─components/
+  ├─camera.py
+  ├─_viewer_mouse_bindings.py
+  ├─cursor.py
+  ├─layerlist.py
+  ├─scene.py
+  ├─tooltip.py
+  ├─grid.py
+  ├─dims.py
+  ├─canvas.py
+  ├─_viewer_constants.py
+  ├─_layer_slicer.py
+  ├─viewer_model.py
+  ├─_viewer_key_bindings.py
+  └─overlays/
+    └─__init__.py
 ```

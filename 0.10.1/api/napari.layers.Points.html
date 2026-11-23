@@ -47,7 +47,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=2082cf3c" />
     <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=2c704d47" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=e9e83e5f" />
   
   <!-- So that users can add custom icons -->
   <script defer src="../_static/scripts/fontawesome.js?digest=75c7c72ae941e8b558d8"></script>
@@ -55,7 +55,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=75c7c72ae941e8b558d8" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=75c7c72ae941e8b558d8" />
 
-    <script src="../_static/documentation_options.js?v=ddc2bf6f"></script>
+    <script src="../_static/documentation_options.js?v=b333a791"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -67,7 +67,7 @@
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.24.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.10.1a0';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.10.1rc1';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
@@ -634,7 +634,7 @@
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>data</strong> (<em>array</em><em> (</em><em>N</em><em>, </em><em>D</em><em>)</em>) – Coordinates for N points in D dimensions.</p></li>
-<li><p><strong>ndim</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>) – Number of dimensions for shapes. When data is not None, ndim must be D.
+<li><p><strong>ndim</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>) – Number of dimensions for points. When data is not None, ndim must be D.
 An empty points layer can be instantiated with arbitrary ndim.</p></li>
 <li><p><strong>affine</strong> (<em>n-D array</em><em> or </em><a class="reference internal" href="napari.utils.transforms.Affine.html#napari.utils.transforms.Affine" title="napari.utils.transforms.Affine"><em>napari.utils.transforms.Affine</em></a>) – (N+1, N+1) affine transformation matrix in homogeneous coordinates.
 The first (N, N) entries correspond to a linear transform and
@@ -646,14 +646,15 @@ provided scale, rotate, and shear values.</p></li>
 If not provided, axis_labels will be set to (…, ‘-2’, ‘-1’).</p></li>
 <li><p><strong>blending</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a>) – One of a list of preset blending modes that determines how RGB and
 alpha values of the layer visual get mixed. Allowed values are
-{‘opaque’, ‘translucent’, ‘translucent_no_depth’, ‘additive’, and ‘minimum’}.</p></li>
+{‘opaque’, ‘translucent’, ‘translucent_no_depth’, ‘additive’, ‘minimum’,
+and ‘multiplicative’}.</p></li>
 <li><p><strong>border_color</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em>, </em><em>array-like</em><em>, </em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><em>dict</em></a>) – Color of the point marker border. Numeric color values should be RGB(A).</p></li>
 <li><p><strong>border_color_cycle</strong> (<em>np.ndarray</em><em>, </em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)"><em>list</em></a>) – Cycle of colors (provided as string name, RGB, or RGBA) to map to border_color if a
-categorical attribute is used color the vectors.</p></li>
-<li><p><strong>border_colormap</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em>, </em><a class="reference internal" href="napari.utils.Colormap.html#napari.utils.Colormap" title="napari.utils.Colormap"><em>napari.utils.Colormap</em></a>) – Colormap to set border_color if a continuous attribute is used to set face_color.</p></li>
+categorical attribute is used to color the points.</p></li>
+<li><p><strong>border_colormap</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em>, </em><a class="reference internal" href="napari.utils.Colormap.html#napari.utils.Colormap" title="napari.utils.Colormap"><em>napari.utils.Colormap</em></a>) – Colormap to set border_color if a continuous attribute is used to set border_color.</p></li>
 <li><p><strong>border_contrast_limits</strong> (<em>None</em><em>, </em><em>(</em><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><em>float</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><em>float</em></a><em>)</em>) – clims for mapping the property to a color map. These are the min and max value
 of the specified property that are mapped to 0 and 1, respectively.
-The default value is None. If set the none, the clims will be set to
+The default value is None. If set to None, the clims will be set to
 (property.min(), property.max())</p></li>
 <li><p><strong>border_width</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><em>float</em></a><em>, </em><em>array</em>) – Width of the symbol border in pixels.</p></li>
 <li><p><strong>border_width_is_relative</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><em>bool</em></a>) – If enabled, border_width is interpreted as a fraction of the point size.</p></li>
@@ -665,11 +666,11 @@ Valid dictionary keys are {‘position’, ‘normal’, and ‘enabled’}.
 Values on the negative side of the normal are discarded if the plane is enabled.</p></li>
 <li><p><strong>face_color</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em>, </em><em>array-like</em><em>, </em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><em>dict</em></a>) – Color of the point marker body. Numeric color values should be RGB(A).</p></li>
 <li><p><strong>face_color_cycle</strong> (<em>np.ndarray</em><em>, </em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)"><em>list</em></a>) – Cycle of colors (provided as string name, RGB, or RGBA) to map to face_color if a
-categorical attribute is used color the vectors.</p></li>
+categorical attribute is used to color the points.</p></li>
 <li><p><strong>face_colormap</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em>, </em><a class="reference internal" href="napari.utils.Colormap.html#napari.utils.Colormap" title="napari.utils.Colormap"><em>napari.utils.Colormap</em></a>) – Colormap to set face_color if a continuous attribute is used to set face_color.</p></li>
 <li><p><strong>face_contrast_limits</strong> (<em>None</em><em>, </em><em>(</em><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><em>float</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><em>float</em></a><em>)</em>) – clims for mapping the property to a color map. These are the min and max value
 of the specified property that are mapped to 0 and 1, respectively.
-The default value is None. If set the none, the clims will be set to
+The default value is None. If set to None, the clims will be set to
 (property.min(), property.max())</p></li>
 <li><p><strong>feature_defaults</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em>, </em><em>Any</em><em>] or </em><em>DataFrame</em>) – The default value of each feature in a table with one row.</p></li>
 <li><p><strong>features</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em>, </em><em>array-like</em><em>] or </em><em>DataFrame</em>) – Features table where each row corresponds to a point and each column
@@ -681,7 +682,7 @@ is a feature.</p></li>
 be projected onto the viewed dimensions. Must fit to cls._projectionclass.</p></li>
 <li><p><strong>properties</strong> (<em>dict {str: array</em><em> (</em><em>N</em><em>,</em><em>)</em><em>}</em><em>, </em><em>DataFrame</em>) – Properties for each point. Each property should be an array of length N,
 where N is the number of points.</p></li>
-<li><p><strong>property_choices</strong> (<em>dict {str: array</em><em> (</em><em>N</em><em>,</em><em>)</em><em>}</em>) – possible values for each property.</p></li>
+<li><p><strong>property_choices</strong> (<em>dict {str: array}</em>) – possible values for each property.</p></li>
 <li><p><strong>rotate</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><em>float</em></a><em>, </em><em>3-tuple</em><em> of </em><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><em>float</em></a><em>, or </em><em>n-D array.</em>) – If a float convert into a 2D rotation matrix using that value as an
 angle. If 3-tuple convert into a 3D rotation matrix, using a yaw,
 pitch, roll convention. Otherwise assume an nD rotation. Angles are
@@ -707,7 +708,7 @@ following: arrow, clobber, cross, diamond, disc, hbar, ring,
 square, star, tailed_arrow, triangle_down, triangle_up, vbar, x.</p></li>
 <li><p><strong>text</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><em>dict</em></a>) – Text to be displayed with the points. If text is set to a key in properties,
 the value of that property will be displayed. Multiple properties can be
-composed using f-string-like syntax (e.g., ‘{property_1}, {float_property:.2f}).
+composed using f-string-like syntax (e.g., ‘{property_1}, {float_property:.2f}’).
 A dictionary can be provided with keyword arguments to set the text values
 and display properties. See TextManager.__init__() for the valid keyword arguments.
 For example usage, see /napari/examples/add_points_with_text.py.</p></li>
@@ -778,13 +779,13 @@ where N is the number of points.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="napari.layers.Points.text">
 <span class="sig-name descname"><span class="pre">text</span></span><a class="headerlink" href="#napari.layers.Points.text" title="Link to this definition">#</a></dt>
-<dd><p>Text to be displayed with the points. If text is set to a key in properties, the value of
+<dd><p>Manager of the text displayed with the points. If text is set to a key in properties, the value of
 that property will be displayed. Multiple properties can be composed using f-string-like
-syntax (e.g., ‘{property_1}, {float_property:.2f}).
+syntax (e.g., ‘{property_1}, {float_property:.2f}’).
 For example usage, see /napari/examples/add_points_with_text.py.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)">str</a></p>
+<dd class="field-odd"><p>TextManager</p>
 </dd>
 </dl>
 </dd></dl>
@@ -803,7 +804,7 @@ For example usage, see /napari/examples/add_points_with_text.py.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="napari.layers.Points.size">
 <span class="sig-name descname"><span class="pre">size</span></span><a class="headerlink" href="#napari.layers.Points.size" title="Link to this definition">#</a></dt>
-<dd><p>Array of sizes for each point. Must have the same shape as the layer <cite>data</cite>.</p>
+<dd><p>Array of sizes for each point. Must have the same length as the layer <cite>data</cite>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>array (N,)</p>
@@ -823,12 +824,12 @@ For example usage, see /napari/examples/add_points_with_text.py.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="id0">
-<span class="sig-name descname"><span class="pre">border_width</span></span><a class="headerlink" href="#id0" title="Link to this definition">#</a></dt>
-<dd><p>Width of the marker borders for all points as a fraction of their size.</p>
+<dt class="sig sig-object py" id="napari.layers.Points.border_width_is_relative">
+<span class="sig-name descname"><span class="pre">border_width_is_relative</span></span><a class="headerlink" href="#napari.layers.Points.border_width_is_relative" title="Link to this definition">#</a></dt>
+<dd><p>If enabled, border_width is interpreted as a fraction of the point size.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>array (N,)</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)">bool</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -848,7 +849,7 @@ For example usage, see /napari/examples/add_points_with_text.py.</p>
 <dt class="sig sig-object py" id="napari.layers.Points.border_color_cycle">
 <span class="sig-name descname"><span class="pre">border_color_cycle</span></span><a class="headerlink" href="#napari.layers.Points.border_color_cycle" title="Link to this definition">#</a></dt>
 <dd><p>Cycle of colors (provided as string name, RGB, or RGBA) to map to border_color if a
-categorical attribute is used color the vectors.</p>
+categorical attribute is used to color the points.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>np.ndarray, <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)">list</a></p>
@@ -859,7 +860,7 @@ categorical attribute is used color the vectors.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="napari.layers.Points.border_colormap">
 <span class="sig-name descname"><span class="pre">border_colormap</span></span><a class="headerlink" href="#napari.layers.Points.border_colormap" title="Link to this definition">#</a></dt>
-<dd><p>Colormap to set border_color if a continuous attribute is used to set face_color.</p>
+<dd><p>Colormap to set border_color if a continuous attribute is used to set border_color.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)">str</a>, <a class="reference internal" href="napari.utils.Colormap.html#napari.utils.Colormap" title="napari.utils.Colormap">napari.utils.Colormap</a></p>
@@ -872,7 +873,7 @@ categorical attribute is used color the vectors.</p>
 <span class="sig-name descname"><span class="pre">border_contrast_limits</span></span><a class="headerlink" href="#napari.layers.Points.border_contrast_limits" title="Link to this definition">#</a></dt>
 <dd><p>clims for mapping the property to a color map. These are the min and max value
 of the specified property that are mapped to 0 and 1, respectively.
-The default value is None. If set the none, the clims will be set to
+The default value is None. If set to None, the clims will be set to
 (property.min(), property.max())</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -896,7 +897,7 @@ The default value is None. If set the none, the clims will be set to
 <dt class="sig sig-object py" id="napari.layers.Points.face_color_cycle">
 <span class="sig-name descname"><span class="pre">face_color_cycle</span></span><a class="headerlink" href="#napari.layers.Points.face_color_cycle" title="Link to this definition">#</a></dt>
 <dd><p>Cycle of colors (provided as string name, RGB, or RGBA) to map to face_color if a
-categorical attribute is used color the vectors.</p>
+categorical attribute is used to color the points.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>np.ndarray, <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)">list</a></p>
@@ -920,7 +921,7 @@ categorical attribute is used color the vectors.</p>
 <span class="sig-name descname"><span class="pre">face_contrast_limits</span></span><a class="headerlink" href="#napari.layers.Points.face_contrast_limits" title="Link to this definition">#</a></dt>
 <dd><p>clims for mapping the property to a color map. These are the min and max value
 of the specified property that are mapped to 0 and 1, respectively.
-The default value is None. If set the none, the clims will be set to
+The default value is None. If set to None, the clims will be set to
 (property.min(), property.max())</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -979,7 +980,7 @@ selected point.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="napari.layers.Points.current_face_color">
 <span class="sig-name descname"><span class="pre">current_face_color</span></span><a class="headerlink" href="#napari.layers.Points.current_face_color" title="Link to this definition">#</a></dt>
-<dd><p>Face color of the marker border for the next point to be added or the currently
+<dd><p>Face color of the marker for the next point to be added or the currently
 selected point.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -1008,6 +1009,8 @@ allows for normal interactivity with the canvas.</p>
 <p>In SELECT mode the cursor can select points by clicking on them or
 by dragging a box around them. Once selected points can be moved,
 have their properties edited, or be deleted.</p>
+<p>In TRANSFORM mode the layer can be translated, rescaled or rotated
+by dragging the handles of the transform box.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)">str</a></p>
@@ -1113,10 +1116,6 @@ have their properties edited, or be deleted.</p>
 <dt>_view_selected :</dt><dd><p>Integer indices of selected points in the currently viewed slice within
 the <cite>_view_data</cite> array.</p>
 </dd>
-<dt>_selected_box<span class="classifier">array (4, 2) or None</span></dt><dd><p>Four corners of any box either around currently selected points or
-being created during a drag action. Starting in the top left and
-going clockwise.</p>
-</dd>
 <dt>_drag_start<span class="classifier">list or None</span></dt><dd><p>Coordinates of first cursor click during a drag action. Gets reset to
 None after dragging is done.</p>
 </dd>
@@ -1214,37 +1213,37 @@ None after dragging is done.</p>
 <tr class="row-even"><td><p><a class="reference internal" href="#napari.layers.Points.affine" title="napari.layers.Points.affine"><code class="xref py py-obj docutils literal notranslate"><span class="pre">affine</span></code></a></p></td>
 <td><p>Extra affine transform to go from physical to world coordinates.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#id1" title="napari.layers.Points.antialiasing"><code class="xref py py-obj docutils literal notranslate"><span class="pre">antialiasing</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#id0" title="napari.layers.Points.antialiasing"><code class="xref py py-obj docutils literal notranslate"><span class="pre">antialiasing</span></code></a></p></td>
 <td><p>Amount of antialiasing in canvas pixels.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#id2" title="napari.layers.Points.axis_labels"><code class="xref py py-obj docutils literal notranslate"><span class="pre">axis_labels</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#id1" title="napari.layers.Points.axis_labels"><code class="xref py py-obj docutils literal notranslate"><span class="pre">axis_labels</span></code></a></p></td>
 <td><p>tuple of axis labels for the layer.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Points.blending" title="napari.layers.Points.blending"><code class="xref py py-obj docutils literal notranslate"><span class="pre">blending</span></code></a></p></td>
 <td><p>Determines how RGB and alpha values get mixed.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#id3" title="napari.layers.Points.border_color"><code class="xref py py-obj docutils literal notranslate"><span class="pre">border_color</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#id2" title="napari.layers.Points.border_color"><code class="xref py py-obj docutils literal notranslate"><span class="pre">border_color</span></code></a></p></td>
 <td><p>Array of RGBA border colors for each point</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#id4" title="napari.layers.Points.border_color_cycle"><code class="xref py py-obj docutils literal notranslate"><span class="pre">border_color_cycle</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#id3" title="napari.layers.Points.border_color_cycle"><code class="xref py py-obj docutils literal notranslate"><span class="pre">border_color_cycle</span></code></a></p></td>
 <td><p>Color cycle for border_color.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#id5" title="napari.layers.Points.border_color_mode"><code class="xref py py-obj docutils literal notranslate"><span class="pre">border_color_mode</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#id4" title="napari.layers.Points.border_color_mode"><code class="xref py py-obj docutils literal notranslate"><span class="pre">border_color_mode</span></code></a></p></td>
 <td><p>border color setting mode</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Points.border_colorbar" title="napari.layers.Points.border_colorbar"><code class="xref py py-obj docutils literal notranslate"><span class="pre">border_colorbar</span></code></a></p></td>
 <td><p>The colorbar associated with this layer's color manager.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#id6" title="napari.layers.Points.border_colormap"><code class="xref py py-obj docutils literal notranslate"><span class="pre">border_colormap</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#id5" title="napari.layers.Points.border_colormap"><code class="xref py py-obj docutils literal notranslate"><span class="pre">border_colormap</span></code></a></p></td>
 <td><p>Return the colormap to be applied to a property to get the border color.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#id7" title="napari.layers.Points.border_contrast_limits"><code class="xref py py-obj docutils literal notranslate"><span class="pre">border_contrast_limits</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#id6" title="napari.layers.Points.border_contrast_limits"><code class="xref py py-obj docutils literal notranslate"><span class="pre">border_contrast_limits</span></code></a></p></td>
 <td><p>contrast limits for mapping the border_color colormap property to 0 and 1</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#id8" title="napari.layers.Points.border_width"><code class="xref py py-obj docutils literal notranslate"><span class="pre">border_width</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#id7" title="napari.layers.Points.border_width"><code class="xref py py-obj docutils literal notranslate"><span class="pre">border_width</span></code></a></p></td>
 <td><p>border_width of all N points.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#napari.layers.Points.border_width_is_relative" title="napari.layers.Points.border_width_is_relative"><code class="xref py py-obj docutils literal notranslate"><span class="pre">border_width_is_relative</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#id8" title="napari.layers.Points.border_width_is_relative"><code class="xref py py-obj docutils literal notranslate"><span class="pre">border_width_is_relative</span></code></a></p></td>
 <td><p>treat border_width as a fraction of point size.</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">bounding_box</span></code></p></td>
@@ -1442,14 +1441,14 @@ None after dragging is done.</p>
 </dd></dl>
 
 <dl class="py property">
-<dt class="sig sig-object py" id="id1">
-<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">antialiasing</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><span class="pre">float</span></a></span><a class="headerlink" href="#id1" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="id0">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">antialiasing</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><span class="pre">float</span></a></span><a class="headerlink" href="#id0" title="Link to this definition">#</a></dt>
 <dd><p>Amount of antialiasing in canvas pixels.</p>
 </dd></dl>
 
 <dl class="py property">
-<dt class="sig sig-object py" id="id2">
-<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">axis_labels</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.15)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#id2" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="id1">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">axis_labels</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.15)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#id1" title="Link to this definition">#</a></dt>
 <dd><p>tuple of axis labels for the layer.</p>
 </dd></dl>
 
@@ -1550,8 +1549,8 @@ blend_equation=(‘min’).</p>
 </dd></dl>
 
 <dl class="py property">
-<dt class="sig sig-object py" id="id3">
-<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">border_color</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><span class="pre">ndarray</span></a></span><a class="headerlink" href="#id3" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="id2">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">border_color</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><span class="pre">ndarray</span></a></span><a class="headerlink" href="#id2" title="Link to this definition">#</a></dt>
 <dd><p>Array of RGBA border colors for each point</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -1561,8 +1560,8 @@ blend_equation=(‘min’).</p>
 </dd></dl>
 
 <dl class="py property">
-<dt class="sig sig-object py" id="id4">
-<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">border_color_cycle</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><span class="pre">ndarray</span></a></span><a class="headerlink" href="#id4" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="id3">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">border_color_cycle</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><span class="pre">ndarray</span></a></span><a class="headerlink" href="#id3" title="Link to this definition">#</a></dt>
 <dd><p>Color cycle for border_color.
 Can be a list of colors defined by name, RGB or RGBA</p>
 <dl class="field-list simple">
@@ -1573,8 +1572,8 @@ Can be a list of colors defined by name, RGB or RGBA</p>
 </dd></dl>
 
 <dl class="py property">
-<dt class="sig sig-object py" id="id5">
-<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">border_color_mode</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a></span><a class="headerlink" href="#id5" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="id4">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">border_color_mode</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a></span><a class="headerlink" href="#id4" title="Link to this definition">#</a></dt>
 <dd><p>border color setting mode</p>
 <p>DIRECT (default mode) allows each point to be set arbitrarily</p>
 <p>CYCLE allows the color to be set via a color cycle over an attribute</p>
@@ -1593,8 +1592,8 @@ Can be a list of colors defined by name, RGB or RGBA</p>
 </dd></dl>
 
 <dl class="py property">
-<dt class="sig sig-object py" id="id6">
-<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">border_colormap</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="napari.utils.Colormap.html#napari.utils.Colormap" title="napari.utils.colormaps.colormap.Colormap"><span class="pre">Colormap</span></a></span><a class="headerlink" href="#id6" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="id5">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">border_colormap</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="napari.utils.Colormap.html#napari.utils.Colormap" title="napari.utils.colormaps.colormap.Colormap"><span class="pre">Colormap</span></a></span><a class="headerlink" href="#id5" title="Link to this definition">#</a></dt>
 <dd><p>Return the colormap to be applied to a property to get the border color.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -1607,8 +1606,8 @@ Can be a list of colors defined by name, RGB or RGBA</p>
 </dd></dl>
 
 <dl class="py property">
-<dt class="sig sig-object py" id="id7">
-<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">border_contrast_limits</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.15)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#id7" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="id6">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">border_contrast_limits</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.15)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.15)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#id6" title="Link to this definition">#</a></dt>
 <dd><p>contrast limits for mapping
 the border_color colormap property to 0 and 1</p>
 <dl class="field-list simple">
@@ -1619,19 +1618,19 @@ the border_color colormap property to 0 and 1</p>
 </dd></dl>
 
 <dl class="py property">
-<dt class="sig sig-object py" id="id8">
-<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">border_width</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><span class="pre">ndarray</span></a></span><a class="headerlink" href="#id8" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="id7">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">border_width</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><span class="pre">ndarray</span></a></span><a class="headerlink" href="#id7" title="Link to this definition">#</a></dt>
 <dd><p>border_width of all N points.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>(N, D) array</p>
+<dd class="field-odd"><p>(N,) array</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py property">
-<dt class="sig sig-object py" id="napari.layers.Points.border_width_is_relative">
-<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">border_width_is_relative</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><span class="pre">bool</span></a></span><a class="headerlink" href="#napari.layers.Points.border_width_is_relative" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="id8">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">border_width_is_relative</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><span class="pre">bool</span></a></span><a class="headerlink" href="#id8" title="Link to this definition">#</a></dt>
 <dd><p>treat border_width as a fraction of point size.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -2580,7 +2579,7 @@ dimensions will be used.</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.layers.Points.symbol"><code class="docutils literal notranslate"><span class="pre">Points.symbol</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.layers.Points.size"><code class="docutils literal notranslate"><span class="pre">Points.size</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.layers.Points.border_width"><code class="docutils literal notranslate"><span class="pre">Points.border_width</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id0"><code class="docutils literal notranslate"><span class="pre">Points.border_width</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.layers.Points.border_width_is_relative"><code class="docutils literal notranslate"><span class="pre">Points.border_width_is_relative</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.layers.Points.border_color"><code class="docutils literal notranslate"><span class="pre">Points.border_color</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.layers.Points.border_color_cycle"><code class="docutils literal notranslate"><span class="pre">Points.border_color_cycle</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.layers.Points.border_colormap"><code class="docutils literal notranslate"><span class="pre">Points.border_colormap</span></code></a></li>
@@ -2605,18 +2604,18 @@ dimensions will be used.</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.layers.Points.units"><code class="docutils literal notranslate"><span class="pre">Points.units</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.layers.Points.add"><code class="docutils literal notranslate"><span class="pre">Points.add()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.layers.Points.affine"><code class="docutils literal notranslate"><span class="pre">Points.affine</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1"><code class="docutils literal notranslate"><span class="pre">Points.antialiasing</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2"><code class="docutils literal notranslate"><span class="pre">Points.axis_labels</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id0"><code class="docutils literal notranslate"><span class="pre">Points.antialiasing</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1"><code class="docutils literal notranslate"><span class="pre">Points.axis_labels</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.layers.Points.bind_key"><code class="docutils literal notranslate"><span class="pre">Points.bind_key()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.layers.Points.blending"><code class="docutils literal notranslate"><span class="pre">Points.blending</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3"><code class="docutils literal notranslate"><span class="pre">Points.border_color</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4"><code class="docutils literal notranslate"><span class="pre">Points.border_color_cycle</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5"><code class="docutils literal notranslate"><span class="pre">Points.border_color_mode</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2"><code class="docutils literal notranslate"><span class="pre">Points.border_color</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3"><code class="docutils literal notranslate"><span class="pre">Points.border_color_cycle</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4"><code class="docutils literal notranslate"><span class="pre">Points.border_color_mode</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.layers.Points.border_colorbar"><code class="docutils literal notranslate"><span class="pre">Points.border_colorbar</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6"><code class="docutils literal notranslate"><span class="pre">Points.border_colormap</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7"><code class="docutils literal notranslate"><span class="pre">Points.border_contrast_limits</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8"><code class="docutils literal notranslate"><span class="pre">Points.border_width</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.layers.Points.border_width_is_relative"><code class="docutils literal notranslate"><span class="pre">Points.border_width_is_relative</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5"><code class="docutils literal notranslate"><span class="pre">Points.border_colormap</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6"><code class="docutils literal notranslate"><span class="pre">Points.border_contrast_limits</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7"><code class="docutils literal notranslate"><span class="pre">Points.border_width</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8"><code class="docutils literal notranslate"><span class="pre">Points.border_width_is_relative</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9"><code class="docutils literal notranslate"><span class="pre">Points.canvas_size_limits</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.layers.Points.click_plane_from_click_data"><code class="docutils literal notranslate"><span class="pre">Points.click_plane_from_click_data()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#napari.layers.Points.create"><code class="docutils literal notranslate"><span class="pre">Points.create()</span></code></a></li>

@@ -37,7 +37,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=2c704d47" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=e9e83e5f" />
   
   <!-- So that users can add custom icons -->
   <script defer src="../../_static/scripts/fontawesome.js?digest=75c7c72ae941e8b558d8"></script>
@@ -45,7 +45,7 @@
   <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=75c7c72ae941e8b558d8" />
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=75c7c72ae941e8b558d8" />
 
-    <script src="../../_static/documentation_options.js?v=ddc2bf6f"></script>
+    <script src="../../_static/documentation_options.js?v=b333a791"></script>
     <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -416,7 +416,7 @@ window.runMermaid = runMermaid;</script>
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.24.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.10.1a0';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.10.1rc1';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
@@ -826,12 +826,29 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">This module provides the `imshow` function.</span>
 <span class="sd">"""</span>
 
+<span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+
 <span class="kn">import</span><span class="w"> </span><span class="nn">inspect</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">overload</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">TYPE_CHECKING</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">TypeAlias</span><span class="p">,</span> <span class="n">overload</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.components.dims</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dims</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.layers</span><span class="w"> </span><span class="kn">import</span> <span class="n">Image</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.viewer</span><span class="w"> </span><span class="kn">import</span> <span class="n">Viewer</span>
+
+<span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">collections.abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">Sequence</span>
+
+    <span class="kn">import</span><span class="w"> </span><span class="nn">numpy.typing</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">npt</span>
+
+    <span class="kn">from</span><span class="w"> </span><span class="nn">napari.layers.image._image_constants</span><span class="w"> </span><span class="kn">import</span> <span class="n">InterpolationStr</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">napari.layers.utils.plane</span><span class="w"> </span><span class="kn">import</span> <span class="n">ClippingPlane</span><span class="p">,</span> <span class="n">SlicingPlane</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">napari.types</span><span class="w"> </span><span class="kn">import</span> <span class="n">ArrayLike</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.colormaps.colormap_utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">ValidColormapArg</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.transforms</span><span class="w"> </span><span class="kn">import</span> <span class="n">Affine</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.transforms._units</span><span class="w"> </span><span class="kn">import</span> <span class="n">UnitsLike</span>
+
+    <span class="c1"># the clipping planes of one layer</span>
+    <span class="n">ClippingPlanes</span><span class="p">:</span> <span class="n">TypeAlias</span> <span class="o">=</span> <span class="nb">dict</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">dict</span> <span class="o">|</span> <span class="n">ClippingPlane</span><span class="p">]</span>
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'imshow'</span><span class="p">]</span>
 
@@ -841,9 +858,9 @@ window.runMermaid = runMermaid;</script>
 <span class="k">def</span><span class="w"> </span><span class="nf">_make_viewer_then</span><span class="p">(</span>
     <span class="n">add_method</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="o">/</span><span class="p">,</span>
-    <span class="o">*</span><span class="n">args</span><span class="p">,</span>
+    <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
     <span class="n">viewer</span><span class="p">:</span> <span class="n">Viewer</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Viewer</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">"""Create a viewer, call given add_* method, then return viewer and layer.</span>
 
@@ -893,137 +910,142 @@ window.runMermaid = runMermaid;</script>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">added</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
         <span class="n">added</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">added</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">arg_name</span><span class="p">,</span> <span class="n">arg_val</span> <span class="ow">in</span> <span class="n">dims_kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-        <span class="nb">setattr</span><span class="p">(</span><span class="n">viewer</span><span class="o">.</span><span class="n">dims</span><span class="p">,</span> <span class="n">arg_name</span><span class="p">,</span> <span class="n">arg_val</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">arg_val</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="nb">setattr</span><span class="p">(</span><span class="n">viewer</span><span class="o">.</span><span class="n">dims</span><span class="p">,</span> <span class="n">arg_name</span><span class="p">,</span> <span class="n">arg_val</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">viewer</span><span class="p">,</span> <span class="n">added</span>
 
 
 <span class="nd">@overload</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">imshow</span><span class="p">(</span>
-    <span class="n">data</span><span class="p">,</span>
+    <span class="n">data</span><span class="p">:</span> <span class="n">ArrayLike</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">ArrayLike</span><span class="p">],</span>
     <span class="o">*</span><span class="p">,</span>
     <span class="n">channel_axis</span><span class="p">:</span> <span class="kc">None</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span>
-    <span class="n">affine</span><span class="o">=...</span><span class="p">,</span>
-    <span class="n">attenuation</span><span class="o">=...</span><span class="p">,</span>
-    <span class="n">auto_contrast</span><span class="o">=...</span><span class="p">,</span>
-    <span class="n">axis_labels</span><span class="o">=...</span><span class="p">,</span>
-    <span class="n">blending</span><span class="o">=...</span><span class="p">,</span>
-    <span class="n">cache</span><span class="o">=...</span><span class="p">,</span>
-    <span class="n">colormap</span><span class="o">=...</span><span class="p">,</span>
-    <span class="n">contrast_limits</span><span class="o">=...</span><span class="p">,</span>
-    <span class="n">custom_interpolation_kernel_2d</span><span class="o">=...</span><span class="p">,</span>
-    <span class="n">depiction</span><span class="o">=...</span><span class="p">,</span>
-    <span class="n">experimental_clipping_planes</span><span class="o">=...</span><span class="p">,</span>
-    <span class="n">gamma</span><span class="o">=...</span><span class="p">,</span>
-    <span class="n">interpolation2d</span><span class="o">=...</span><span class="p">,</span>
-    <span class="n">interpolation3d</span><span class="o">=...</span><span class="p">,</span>
-    <span class="n">iso_threshold</span><span class="o">=...</span><span class="p">,</span>
-    <span class="n">locked_data_level</span><span class="o">=...</span><span class="p">,</span>
-    <span class="n">metadata</span><span class="o">=...</span><span class="p">,</span>
-    <span class="n">multiscale</span><span class="o">=...</span><span class="p">,</span>
-    <span class="n">name</span><span class="o">=...</span><span class="p">,</span>
-    <span class="n">opacity</span><span class="o">=...</span><span class="p">,</span>
-    <span class="n">plane</span><span class="o">=...</span><span class="p">,</span>
-    <span class="n">projection_mode</span><span class="o">=...</span><span class="p">,</span>
-    <span class="n">rendering</span><span class="o">=...</span><span class="p">,</span>
-    <span class="n">rgb</span><span class="o">=...</span><span class="p">,</span>
-    <span class="n">rotate</span><span class="o">=...</span><span class="p">,</span>
-    <span class="n">scale</span><span class="o">=...</span><span class="p">,</span>
-    <span class="n">shear</span><span class="o">=...</span><span class="p">,</span>
-    <span class="n">translate</span><span class="o">=...</span><span class="p">,</span>
-    <span class="n">units</span><span class="o">=...</span><span class="p">,</span>
-    <span class="n">visible</span><span class="o">=...</span><span class="p">,</span>
-    <span class="n">viewer</span><span class="o">=...</span><span class="p">,</span>
-    <span class="n">title</span><span class="o">=...</span><span class="p">,</span>
-    <span class="n">ndisplay</span><span class="o">=...</span><span class="p">,</span>
-    <span class="n">order</span><span class="o">=...</span><span class="p">,</span>
-    <span class="n">show</span><span class="o">=...</span><span class="p">,</span>
+    <span class="n">affine</span><span class="p">:</span> <span class="n">npt</span><span class="o">.</span><span class="n">ArrayLike</span> <span class="o">|</span> <span class="n">Affine</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span>
+    <span class="n">attenuation</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span>
+    <span class="n">auto_contrast</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span>
+    <span class="n">axis_labels</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span>
+    <span class="n">blending</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span>
+    <span class="n">cache</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span>
+    <span class="n">colormap</span><span class="p">:</span> <span class="n">ValidColormapArg</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span>
+    <span class="n">contrast_limits</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span>
+    <span class="n">custom_interpolation_kernel_2d</span><span class="p">:</span> <span class="n">npt</span><span class="o">.</span><span class="n">ArrayLike</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span>
+    <span class="n">depiction</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span>
+    <span class="n">experimental_clipping_planes</span><span class="p">:</span> <span class="n">ClippingPlanes</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span>
+    <span class="n">gamma</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span>
+    <span class="n">interpolation2d</span><span class="p">:</span> <span class="n">InterpolationStr</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span>
+    <span class="n">interpolation3d</span><span class="p">:</span> <span class="n">InterpolationStr</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span>
+    <span class="n">iso_threshold</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span>
+    <span class="n">locked_data_level</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span>
+    <span class="n">metadata</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span>
+    <span class="n">multiscale</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span>
+    <span class="n">opacity</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span>
+    <span class="n">plane</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">|</span> <span class="n">SlicingPlane</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span>
+    <span class="n">projection_mode</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span>
+    <span class="n">rendering</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span>
+    <span class="n">rgb</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span>
+    <span class="n">rotate</span><span class="p">:</span> <span class="n">npt</span><span class="o">.</span><span class="n">ArrayLike</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span>
+    <span class="n">scale</span><span class="p">:</span> <span class="n">npt</span><span class="o">.</span><span class="n">ArrayLike</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span>
+    <span class="n">shear</span><span class="p">:</span> <span class="n">npt</span><span class="o">.</span><span class="n">ArrayLike</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span>
+    <span class="n">translate</span><span class="p">:</span> <span class="n">npt</span><span class="o">.</span><span class="n">ArrayLike</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span>
+    <span class="n">units</span><span class="p">:</span> <span class="n">UnitsLike</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span>
+    <span class="n">visible</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span>
+    <span class="n">viewer</span><span class="p">:</span> <span class="n">Viewer</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span>
+    <span class="n">title</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span>
+    <span class="n">ndisplay</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span>
+    <span class="n">order</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span>
+    <span class="n">show</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Viewer</span><span class="p">,</span> <span class="n">Image</span><span class="p">]:</span> <span class="o">...</span>
 
 
 <span class="nd">@overload</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">imshow</span><span class="p">(</span>
-    <span class="n">data</span><span class="p">,</span>
+    <span class="n">data</span><span class="p">:</span> <span class="n">ArrayLike</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">ArrayLike</span><span class="p">],</span>
     <span class="o">*</span><span class="p">,</span>
     <span class="n">channel_axis</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
-    <span class="n">affine</span><span class="o">=...</span><span class="p">,</span>
-    <span class="n">attenuation</span><span class="o">=...</span><span class="p">,</span>
-    <span class="n">auto_contrast</span><span class="o">=...</span><span class="p">,</span>
-    <span class="n">axis_labels</span><span class="o">=...</span><span class="p">,</span>
-    <span class="n">blending</span><span class="o">=...</span><span class="p">,</span>
-    <span class="n">cache</span><span class="o">=...</span><span class="p">,</span>
-    <span class="n">colormap</span><span class="o">=...</span><span class="p">,</span>
-    <span class="n">contrast_limits</span><span class="o">=...</span><span class="p">,</span>
-    <span class="n">custom_interpolation_kernel_2d</span><span class="o">=...</span><span class="p">,</span>
-    <span class="n">depiction</span><span class="o">=...</span><span class="p">,</span>
-    <span class="n">experimental_clipping_planes</span><span class="o">=...</span><span class="p">,</span>
-    <span class="n">gamma</span><span class="o">=...</span><span class="p">,</span>
-    <span class="n">interpolation2d</span><span class="o">=...</span><span class="p">,</span>
-    <span class="n">interpolation3d</span><span class="o">=...</span><span class="p">,</span>
-    <span class="n">iso_threshold</span><span class="o">=...</span><span class="p">,</span>
-    <span class="n">locked_data_level</span><span class="o">=...</span><span class="p">,</span>
-    <span class="n">metadata</span><span class="o">=...</span><span class="p">,</span>
-    <span class="n">multiscale</span><span class="o">=...</span><span class="p">,</span>
-    <span class="n">name</span><span class="o">=...</span><span class="p">,</span>
-    <span class="n">opacity</span><span class="o">=...</span><span class="p">,</span>
-    <span class="n">plane</span><span class="o">=...</span><span class="p">,</span>
-    <span class="n">projection_mode</span><span class="o">=...</span><span class="p">,</span>
-    <span class="n">rendering</span><span class="o">=...</span><span class="p">,</span>
-    <span class="n">rgb</span><span class="o">=...</span><span class="p">,</span>
-    <span class="n">rotate</span><span class="o">=...</span><span class="p">,</span>
-    <span class="n">scale</span><span class="o">=...</span><span class="p">,</span>
-    <span class="n">shear</span><span class="o">=...</span><span class="p">,</span>
-    <span class="n">translate</span><span class="o">=...</span><span class="p">,</span>
-    <span class="n">units</span><span class="o">=...</span><span class="p">,</span>
-    <span class="n">visible</span><span class="o">=...</span><span class="p">,</span>
-    <span class="n">viewer</span><span class="o">=...</span><span class="p">,</span>
-    <span class="n">title</span><span class="o">=...</span><span class="p">,</span>
-    <span class="n">ndisplay</span><span class="o">=...</span><span class="p">,</span>
-    <span class="n">order</span><span class="o">=...</span><span class="p">,</span>
-    <span class="n">show</span><span class="o">=...</span><span class="p">,</span>
+    <span class="n">affine</span><span class="p">:</span> <span class="n">npt</span><span class="o">.</span><span class="n">ArrayLike</span> <span class="o">|</span> <span class="n">Affine</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Affine</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span>
+    <span class="n">attenuation</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span>
+    <span class="n">auto_contrast</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span>
+    <span class="n">axis_labels</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span>
+    <span class="n">blending</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span>
+    <span class="n">cache</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span>
+    <span class="n">colormap</span><span class="p">:</span> <span class="n">ValidColormapArg</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">ValidColormapArg</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span>
+    <span class="n">contrast_limits</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span><span class="p">]]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span>
+    <span class="n">custom_interpolation_kernel_2d</span><span class="p">:</span> <span class="n">npt</span><span class="o">.</span><span class="n">ArrayLike</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span>
+    <span class="n">depiction</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span>
+    <span class="n">experimental_clipping_planes</span><span class="p">:</span> <span class="n">ClippingPlanes</span>
+    <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">ClippingPlanes</span><span class="p">]</span>
+    <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span>
+    <span class="n">gamma</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span>
+    <span class="n">interpolation2d</span><span class="p">:</span> <span class="n">InterpolationStr</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">InterpolationStr</span><span class="p">]</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span>
+    <span class="n">interpolation3d</span><span class="p">:</span> <span class="n">InterpolationStr</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">InterpolationStr</span><span class="p">]</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span>
+    <span class="n">iso_threshold</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span>
+    <span class="n">locked_data_level</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span>
+    <span class="n">metadata</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">dict</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span>
+    <span class="n">multiscale</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span>
+    <span class="n">opacity</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span>
+    <span class="n">plane</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">|</span> <span class="n">SlicingPlane</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">dict</span> <span class="o">|</span> <span class="n">SlicingPlane</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span>
+    <span class="n">projection_mode</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span>
+    <span class="n">rendering</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span>
+    <span class="n">rgb</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span>
+    <span class="n">rotate</span><span class="p">:</span> <span class="n">npt</span><span class="o">.</span><span class="n">ArrayLike</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span>
+    <span class="n">scale</span><span class="p">:</span> <span class="n">npt</span><span class="o">.</span><span class="n">ArrayLike</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span>
+    <span class="n">shear</span><span class="p">:</span> <span class="n">npt</span><span class="o">.</span><span class="n">ArrayLike</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span>
+    <span class="n">translate</span><span class="p">:</span> <span class="n">npt</span><span class="o">.</span><span class="n">ArrayLike</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span>
+    <span class="n">units</span><span class="p">:</span> <span class="n">UnitsLike</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">UnitsLike</span><span class="p">]</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span>
+    <span class="n">visible</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span>
+    <span class="n">viewer</span><span class="p">:</span> <span class="n">Viewer</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span>
+    <span class="n">title</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span>
+    <span class="n">ndisplay</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span>
+    <span class="n">order</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span>
+    <span class="n">show</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Viewer</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Image</span><span class="p">,</span> <span class="o">...</span><span class="p">]]:</span> <span class="o">...</span>
 
 
 <div class="viewcode-block" id="imshow">
 <a class="viewcode-back" href="../../api/napari.view_layers.html#napari.imshow">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">imshow</span><span class="p">(</span>
-    <span class="n">data</span><span class="p">,</span>
+    <span class="n">data</span><span class="p">:</span> <span class="n">ArrayLike</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">ArrayLike</span><span class="p">],</span>
     <span class="o">*</span><span class="p">,</span>
-    <span class="n">channel_axis</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">affine</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">attenuation</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span>
-    <span class="n">auto_contrast</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-    <span class="n">axis_labels</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">blending</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">cache</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-    <span class="n">colormap</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">contrast_limits</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">custom_interpolation_kernel_2d</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">depiction</span><span class="o">=</span><span class="s1">'volume'</span><span class="p">,</span>
-    <span class="n">experimental_clipping_planes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">gamma</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
-    <span class="n">interpolation2d</span><span class="o">=</span><span class="s1">'nearest'</span><span class="p">,</span>
-    <span class="n">interpolation3d</span><span class="o">=</span><span class="s1">'linear'</span><span class="p">,</span>
-    <span class="n">iso_threshold</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">locked_data_level</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">metadata</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">multiscale</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">opacity</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
-    <span class="n">plane</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">projection_mode</span><span class="o">=</span><span class="s1">'mean'</span><span class="p">,</span>
-    <span class="n">rendering</span><span class="o">=</span><span class="s1">'mip'</span><span class="p">,</span>
-    <span class="n">rgb</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">rotate</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">scale</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">shear</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">translate</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">units</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">visible</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-    <span class="n">viewer</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">title</span><span class="o">=</span><span class="s1">'napari'</span><span class="p">,</span>
-    <span class="n">ndisplay</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
-    <span class="n">order</span><span class="o">=</span><span class="p">(),</span>
-    <span class="n">show</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">channel_axis</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">affine</span><span class="p">:</span> <span class="n">npt</span><span class="o">.</span><span class="n">ArrayLike</span> <span class="o">|</span> <span class="n">Affine</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Affine</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">attenuation</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.05</span><span class="p">,</span>
+    <span class="n">auto_contrast</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">axis_labels</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">blending</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">cache</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">colormap</span><span class="p">:</span> <span class="n">ValidColormapArg</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">ValidColormapArg</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">contrast_limits</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span><span class="p">]]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">custom_interpolation_kernel_2d</span><span class="p">:</span> <span class="n">npt</span><span class="o">.</span><span class="n">ArrayLike</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">depiction</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="s1">'volume'</span><span class="p">,</span>
+    <span class="n">experimental_clipping_planes</span><span class="p">:</span> <span class="n">ClippingPlanes</span>
+    <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">ClippingPlanes</span><span class="p">]</span>
+    <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">gamma</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span>
+    <span class="n">interpolation2d</span><span class="p">:</span> <span class="n">InterpolationStr</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">InterpolationStr</span><span class="p">]</span> <span class="o">=</span> <span class="s1">'nearest'</span><span class="p">,</span>
+    <span class="n">interpolation3d</span><span class="p">:</span> <span class="n">InterpolationStr</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">InterpolationStr</span><span class="p">]</span> <span class="o">=</span> <span class="s1">'linear'</span><span class="p">,</span>
+    <span class="n">iso_threshold</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">locked_data_level</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">metadata</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">dict</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">multiscale</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">opacity</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span>
+    <span class="n">plane</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">|</span> <span class="n">SlicingPlane</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">dict</span> <span class="o">|</span> <span class="n">SlicingPlane</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">projection_mode</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="s1">'mean'</span><span class="p">,</span>
+    <span class="n">rendering</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="s1">'mip'</span><span class="p">,</span>
+    <span class="n">rgb</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">rotate</span><span class="p">:</span> <span class="n">npt</span><span class="o">.</span><span class="n">ArrayLike</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">scale</span><span class="p">:</span> <span class="n">npt</span><span class="o">.</span><span class="n">ArrayLike</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">shear</span><span class="p">:</span> <span class="n">npt</span><span class="o">.</span><span class="n">ArrayLike</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">translate</span><span class="p">:</span> <span class="n">npt</span><span class="o">.</span><span class="n">ArrayLike</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">units</span><span class="p">:</span> <span class="n">UnitsLike</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">UnitsLike</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">visible</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">viewer</span><span class="p">:</span> <span class="n">Viewer</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">title</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">'napari'</span><span class="p">,</span>
+    <span class="n">ndisplay</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">order</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">show</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Viewer</span><span class="p">,</span> <span class="n">Image</span> <span class="o">|</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Image</span><span class="p">,</span> <span class="o">...</span><span class="p">]]:</span>
 <span class="w">    </span><span class="sd">"""Load data into an Image layer and return the Viewer and Layer.</span>
 
@@ -1053,7 +1075,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        top of the provided scale, rotate, and shear values.</span>
 <span class="sd">    attenuation : float or list of float</span>
 <span class="sd">        Attenuation rate for attenuated maximum intensity projection.</span>
-<span class="sd">    auto_contrast : bool</span>
+<span class="sd">    auto_contrast : bool or list of bool</span>
 <span class="sd">        Wether to automatically set contrast limits to the min and max of the</span>
 <span class="sd">        currently viewed slice. If True, contrast limits will be updated</span>
 <span class="sd">        whenever the slice changes.</span>
@@ -1099,7 +1121,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        Same as 'interpolation2d' but for 3D rendering.</span>
 <span class="sd">    iso_threshold : float or list of float</span>
 <span class="sd">        Threshold for isosurface.</span>
-<span class="sd">    locked_data_level : int, optional</span>
+<span class="sd">    locked_data_level : int or list of int, optional</span>
 <span class="sd">        Lock the multiscale resolution level to a specific index. When set,</span>
 <span class="sd">        forces rendering at the given multiscale level instead of automatic</span>
 <span class="sd">        level selection based on the viewport. Set to ``None`` (default) to</span>
@@ -1118,11 +1140,11 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        Name of the layer.</span>
 <span class="sd">    opacity : float or list</span>
 <span class="sd">        Opacity of the layer visual, between 0.0 and 1.0.</span>
-<span class="sd">    plane : dict or SlicingPlane</span>
+<span class="sd">    plane : dict or SlicingPlane, or list of these</span>
 <span class="sd">        Properties defining plane rendering in 3D. Properties are defined in</span>
 <span class="sd">        data coordinates. Valid dictionary keys are</span>
 <span class="sd">        {'position', 'normal', 'thickness', and 'enabled'}.</span>
-<span class="sd">    projection_mode : str</span>
+<span class="sd">    projection_mode : str or list of str</span>
 <span class="sd">        How data outside the viewed dimensions, but inside the thick Dims slice will</span>
 <span class="sd">        be projected onto the viewed dimensions. Must fit to cls._projectionclass</span>
 <span class="sd">    rendering : str or list of str</span>
@@ -1146,19 +1168,22 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        A vector of shear values for an upper triangular n-D shear matrix.</span>
 <span class="sd">    translate : tuple of float or list of tuple of float</span>
 <span class="sd">        Translation values for the layer.</span>
+<span class="sd">    units : tuple of str or pint.Unit, optional</span>
+<span class="sd">        Units of the layer data in world coordinates.</span>
 <span class="sd">    visible : bool or list of bool</span>
 <span class="sd">        Whether the layer visual is currently being displayed.</span>
 <span class="sd">    viewer : Viewer object, optional, by default None.</span>
 <span class="sd">    title : string, optional</span>
 <span class="sd">        The title of the viewer window. By default 'napari'.</span>
 <span class="sd">    ndisplay : {2, 3}, optional</span>
-<span class="sd">        Number of displayed dimensions. By default 2.</span>
+<span class="sd">        Number of displayed dimensions.</span>
 <span class="sd">    order : tuple of int, optional</span>
 <span class="sd">        Order in which dimensions are displayed where the last two or last</span>
 <span class="sd">        three dimensions correspond to row x column or plane x row x column if</span>
 <span class="sd">        ndisplay is 2 or 3. By default None</span>
-<span class="sd">    axis_labels : list of str, optional</span>
-<span class="sd">        Dimension names. By default they are labeled with sequential numbers</span>
+<span class="sd">    axis_labels : list of str or list of list of str, optional</span>
+<span class="sd">        Dimension names. With ``channel_axis``, one list per channel can be</span>
+<span class="sd">        given. By default they are labeled with sequential numbers</span>
 <span class="sd">    show : bool, optional</span>
 <span class="sd">        Whether to show the viewer after instantiation. By default True.</span>
 

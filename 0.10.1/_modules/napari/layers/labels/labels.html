@@ -37,7 +37,7 @@
     <link rel="stylesheet" type="text/css" href="../../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../../../../_static/custom.css?v=2c704d47" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/custom.css?v=e9e83e5f" />
   
   <!-- So that users can add custom icons -->
   <script defer src="../../../../_static/scripts/fontawesome.js?digest=75c7c72ae941e8b558d8"></script>
@@ -45,7 +45,7 @@
   <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=75c7c72ae941e8b558d8" />
 <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=75c7c72ae941e8b558d8" />
 
-    <script src="../../../../_static/documentation_options.js?v=ddc2bf6f"></script>
+    <script src="../../../../_static/documentation_options.js?v=b333a791"></script>
     <script src="../../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -416,7 +416,7 @@ window.runMermaid = runMermaid;</script>
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.24.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.10.1a0';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.10.1rc1';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
@@ -870,7 +870,10 @@ window.runMermaid = runMermaid;</script>
     <span class="n">interpolate_coordinates</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.layers.labels._slice</span><span class="w"> </span><span class="kn">import</span> <span class="n">_LabelsSliceRequest</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">napari.layers.utils.layer_utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">_FeatureTable</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">napari.layers.utils.layer_utils</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">_FeatureTable</span><span class="p">,</span>
+    <span class="n">_resize_to_thumbnail</span><span class="p">,</span>
+<span class="p">)</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.types</span><span class="w"> </span><span class="kn">import</span> <span class="n">LayerDataType</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils._dtype</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">get_dtype_limits</span><span class="p">,</span>
@@ -1621,7 +1624,7 @@ window.runMermaid = runMermaid;</script>
         <span class="n">dtype_lims</span> <span class="o">=</span> <span class="n">get_dtype_limits</span><span class="p">(</span><span class="n">layer_dtype</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">dtype_lims</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">label</span> <span class="ow">or</span> <span class="n">dtype_lims</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">label</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">WrongSelectedLabelError</span><span class="p">(</span>
-                <span class="n">dtype</span><span class="o">=</span><span class="n">layer_dtype</span><span class="p">,</span>  <span class="c1"># pyrefly: ignore [bad-argument-type]</span>
+                <span class="n">dtype</span><span class="o">=</span><span class="n">layer_dtype</span><span class="p">,</span>
                 <span class="n">value</span><span class="o">=</span><span class="n">label</span><span class="p">,</span>
                 <span class="n">lower_bound</span><span class="o">=</span><span class="n">dtype_lims</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
                 <span class="n">upper_bound</span><span class="o">=</span><span class="n">dtype_lims</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
@@ -1887,8 +1890,6 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">        like adjusting gamma or changing the data based on the contrast</span>
 <span class="sd">        limits.</span>
 <span class="sd">        """</span>
-        <span class="kn">from</span><span class="w"> </span><span class="nn">scipy</span><span class="w"> </span><span class="kn">import</span> <span class="n">ndimage</span> <span class="k">as</span> <span class="n">ndi</span>
-
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slicing_state</span><span class="o">.</span><span class="n">loaded</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
             <span class="c1"># ASYNC_TODO: Do not compute the thumbnail until we are loaded.</span>
             <span class="c1"># Is there a nicer way to prevent this from getting called?</span>
@@ -1901,16 +1902,7 @@ window.runMermaid = runMermaid;</script>
             <span class="c1"># use max projection. For labels, ideally we would use "first</span>
             <span class="c1"># nonzero projection", but we leave that for a future PR. (TODO)</span>
             <span class="n">image</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-        <span class="n">imshape</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">image</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="mi">2</span><span class="p">])</span>
-        <span class="n">thumbshape</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_thumbnail_shape</span><span class="p">[:</span><span class="mi">2</span><span class="p">])</span>
-
-        <span class="n">raw_zoom_factor</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">thumbshape</span> <span class="o">/</span> <span class="n">imshape</span><span class="p">)</span>
-        <span class="n">new_shape</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span>
-            <span class="n">raw_zoom_factor</span> <span class="o">*</span> <span class="n">imshape</span><span class="p">,</span> <span class="n">a_min</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">a_max</span><span class="o">=</span><span class="n">thumbshape</span>
-        <span class="p">)</span>
-        <span class="n">zoom_factor</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">new_shape</span> <span class="o">/</span> <span class="n">imshape</span><span class="p">)</span>
-
-        <span class="n">downsampled</span> <span class="o">=</span> <span class="n">ndi</span><span class="o">.</span><span class="n">zoom</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">zoom_factor</span><span class="p">,</span> <span class="n">prefilter</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">downsampled</span> <span class="o">=</span> <span class="n">_resize_to_thumbnail</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_thumbnail_shape</span><span class="p">[:</span><span class="mi">2</span><span class="p">])</span>
         <span class="n">color_array</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">colormap</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">downsampled</span><span class="p">)</span>
         <span class="n">color_array</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">*=</span> <span class="bp">self</span><span class="o">.</span><span class="n">opacity</span>
 
@@ -2278,17 +2270,73 @@ window.runMermaid = runMermaid;</script>
         <span class="n">interp_coord</span> <span class="o">=</span> <span class="n">interpolate_coordinates</span><span class="p">(</span>
             <span class="n">last_cursor_coord</span><span class="p">,</span> <span class="n">coordinates</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">brush_size</span>
         <span class="p">)</span>
-        <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">interp_coord</span><span class="p">:</span>
-            <span class="k">if</span> <span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">ndisplay</span> <span class="o">==</span> <span class="mi">3</span>
-                <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="nb">tuple</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">c</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">))]</span> <span class="o">==</span> <span class="mi">0</span>
-            <span class="p">):</span>
-                <span class="k">continue</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mode</span> <span class="ow">in</span> <span class="p">[</span><span class="n">Mode</span><span class="o">.</span><span class="n">PAINT</span><span class="p">,</span> <span class="n">Mode</span><span class="o">.</span><span class="n">ERASE</span><span class="p">]:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">paint</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">new_label</span><span class="p">,</span> <span class="n">refresh</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mode</span> <span class="o">==</span> <span class="n">Mode</span><span class="o">.</span><span class="n">FILL</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slice_input</span><span class="o">.</span><span class="n">ndisplay</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="c1"># In 3D, drop interpolated points that were background before</span>
+            <span class="c1"># this event. The cursor only picks labelled voxels, so points</span>
+            <span class="c1"># are always inside the data.</span>
+            <span class="n">centers</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">interp_coord</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+            <span class="n">lo</span><span class="p">,</span> <span class="n">hi</span> <span class="o">=</span> <span class="n">centers</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span> <span class="n">centers</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="n">region</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="nb">tuple</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">slice</span><span class="p">,</span> <span class="n">lo</span><span class="p">,</span> <span class="n">hi</span><span class="p">))])</span>
+            <span class="n">on_label</span> <span class="o">=</span> <span class="n">region</span><span class="p">[</span><span class="nb">tuple</span><span class="p">((</span><span class="n">centers</span> <span class="o">-</span> <span class="n">lo</span><span class="p">)</span><span class="o">.</span><span class="n">T</span><span class="p">)]</span> <span class="o">!=</span> <span class="mi">0</span>
+            <span class="n">interp_coord</span> <span class="o">=</span> <span class="n">interp_coord</span><span class="p">[</span><span class="n">on_label</span><span class="p">]</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mode</span> <span class="ow">in</span> <span class="p">[</span><span class="n">Mode</span><span class="o">.</span><span class="n">PAINT</span><span class="p">,</span> <span class="n">Mode</span><span class="o">.</span><span class="n">ERASE</span><span class="p">]:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_paint_coordinates</span><span class="p">(</span><span class="n">interp_coord</span><span class="p">,</span> <span class="n">new_label</span><span class="p">,</span> <span class="n">refresh</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mode</span> <span class="o">==</span> <span class="n">Mode</span><span class="o">.</span><span class="n">FILL</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">interp_coord</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">new_label</span><span class="p">,</span> <span class="n">refresh</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_partial_labels_refresh</span><span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_paint_coordinates</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">coords</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+        <span class="n">new_label</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">refresh</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Paint a brush stamp at each coordinate as one combined edit.</span>
+
+<span class="sd">        If the coordinates differ in a non-painted dim, the stamps lie in</span>
+<span class="sd">        different planes and are painted one at a time instead.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        coords : np.ndarray, shape (N, ndim)</span>
+<span class="sd">            Brush centers in image coordinates.</span>
+<span class="sd">        new_label : int</span>
+<span class="sd">            Value of the new label to be painted.</span>
+<span class="sd">        refresh : bool</span>
+<span class="sd">            Whether to refresh view slice or not.</span>
+<span class="sd">        """</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_validate_label_in_range</span><span class="p">(</span><span class="n">new_label</span><span class="p">)</span>
+        <span class="n">centers</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">coords</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">centers</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="n">shape</span><span class="p">,</span> <span class="n">dims_to_paint</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_shape_and_dims_to_paint</span><span class="p">()</span>
+
+        <span class="n">non_painted</span> <span class="o">=</span> <span class="p">[</span><span class="n">d</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ndim</span><span class="p">)</span> <span class="k">if</span> <span class="n">d</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">dims_to_paint</span><span class="p">]</span>
+        <span class="n">planes</span> <span class="o">=</span> <span class="n">centers</span><span class="p">[:,</span> <span class="n">non_painted</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">planes</span> <span class="o">!=</span> <span class="n">planes</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+            <span class="c1"># e.g. a 2D brush dragged through a 3D view, or a slice change</span>
+            <span class="c1"># mid-drag</span>
+            <span class="k">for</span> <span class="n">center</span> <span class="ow">in</span> <span class="n">centers</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_paint_coordinates</span><span class="p">(</span><span class="n">center</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">],</span> <span class="n">new_label</span><span class="p">,</span> <span class="n">refresh</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="n">slice_coord</span> <span class="o">=</span> <span class="n">centers</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_validate_non_painted_coord</span><span class="p">(</span><span class="n">slice_coord</span><span class="p">,</span> <span class="n">dims_to_paint</span><span class="p">)</span>
+
+        <span class="n">brush_info</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_brush_mask_and_bbox</span><span class="p">(</span>
+            <span class="n">centers</span><span class="p">,</span> <span class="n">dims_to_paint</span><span class="p">,</span> <span class="n">shape</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">brush_info</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="n">mask</span><span class="p">,</span> <span class="n">min_vals</span><span class="p">,</span> <span class="n">max_vals</span> <span class="o">=</span> <span class="n">brush_info</span>
+        <span class="n">slice_key</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_build_slice_key</span><span class="p">(</span>
+            <span class="n">slice_coord</span><span class="p">,</span> <span class="n">dims_to_paint</span><span class="p">,</span> <span class="n">min_vals</span><span class="p">,</span> <span class="n">max_vals</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_paint_region_with_mask</span><span class="p">(</span>
+            <span class="n">slice_key</span><span class="p">,</span> <span class="n">mask</span><span class="p">,</span> <span class="n">new_label</span><span class="p">,</span> <span class="n">dims_to_paint</span><span class="p">,</span> <span class="n">refresh</span>
+        <span class="p">)</span>
 
 <div class="viewcode-block" id="Labels.paint">
 <a class="viewcode-back" href="../../../../api/napari.layers.Labels.html#napari.layers.Labels.paint">[docs]</a>
@@ -2313,41 +2361,24 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">            Whether to refresh view slice or not. Set to False to batch paint</span>
 <span class="sd">            calls.</span>
 <span class="sd">        """</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_validate_label_in_range</span><span class="p">(</span><span class="n">new_label</span><span class="p">)</span>
-        <span class="n">shape</span><span class="p">,</span> <span class="n">dims_to_paint</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_shape_and_dims_to_paint</span><span class="p">()</span>
-
-        <span class="n">slice_coord</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">c</span><span class="p">))</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">coord</span><span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_validate_non_painted_coord</span><span class="p">(</span><span class="n">slice_coord</span><span class="p">,</span> <span class="n">dims_to_paint</span><span class="p">)</span>
-
-        <span class="n">brush_info</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_brush_mask_and_bbox</span><span class="p">(</span>
-            <span class="n">slice_coord</span><span class="p">,</span> <span class="n">dims_to_paint</span><span class="p">,</span> <span class="n">shape</span>
-        <span class="p">)</span>
-
-        <span class="k">if</span> <span class="n">brush_info</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">return</span>
-
-        <span class="n">mask</span><span class="p">,</span> <span class="n">min_vals</span><span class="p">,</span> <span class="n">max_vals</span> <span class="o">=</span> <span class="n">brush_info</span>
-        <span class="n">slice_key</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_build_slice_key</span><span class="p">(</span>
-            <span class="n">slice_coord</span><span class="p">,</span> <span class="n">dims_to_paint</span><span class="p">,</span> <span class="n">min_vals</span><span class="p">,</span> <span class="n">max_vals</span>
-        <span class="p">)</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">_paint_region_with_mask</span><span class="p">(</span>
-            <span class="n">slice_key</span><span class="p">,</span> <span class="n">mask</span><span class="p">,</span> <span class="n">new_label</span><span class="p">,</span> <span class="n">dims_to_paint</span><span class="p">,</span> <span class="n">refresh</span>
-        <span class="p">)</span></div>
+        <span class="n">coords</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">([</span><span class="n">coord</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">coords</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">():</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">'Coordinate </span><span class="si">{</span><span class="n">coord</span><span class="si">}</span><span class="s1"> must be finite.'</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_paint_coordinates</span><span class="p">(</span><span class="n">coords</span><span class="p">,</span> <span class="n">new_label</span><span class="p">,</span> <span class="n">refresh</span><span class="p">)</span></div>
 
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_get_brush_mask_and_bbox</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
-        <span class="n">coord</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span>
+        <span class="n">centers</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
         <span class="n">dims_to_paint</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
         <span class="n">shape</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">"""Compute the mask and bounding box for a brush painting operation.</span>
+<span class="w">        </span><span class="sd">"""Compute the union mask and bounding box of brush stamps at centers.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        coord : Sequence[float]</span>
-<span class="sd">            Position of mouse cursor in image coordinates.</span>
+<span class="sd">        centers : np.ndarray of int, shape (N, ndim)</span>
+<span class="sd">            Brush centers in image coordinates.</span>
 <span class="sd">        dims_to_paint : list[int]</span>
 <span class="sd">            The dimensions across which the painting will be performed.</span>
 <span class="sd">        shape : list[int]</span>
@@ -2363,16 +2394,13 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">                Minimum (inclusive) indices for each painted dimension.</span>
 <span class="sd">            - max_vals : np.ndarray</span>
 <span class="sd">                Maximum (exclusive) indices for each painted dimension.</span>
-<span class="sd">            Returns None if the brush operation is invalid.</span>
+<span class="sd">            Returns None if stamp's bounding box does not overlap the data.</span>
 <span class="sd">        """</span>
         <span class="n">paint_scale</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
             <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">scale</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">dims_to_paint</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span>
         <span class="p">)</span>
 
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_edit_dimensions</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span><span class="p">:</span>
-            <span class="n">coord_paint</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">coord</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">dims_to_paint</span><span class="p">])</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">coord_paint</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">coord</span><span class="p">)</span>
+        <span class="n">painted_centers</span> <span class="o">=</span> <span class="n">centers</span><span class="p">[:,</span> <span class="n">dims_to_paint</span><span class="p">]</span>
 
         <span class="c1"># Ensure circle doesn't have spurious point on edge by keeping radius as 0.5</span>
         <span class="n">radius</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">brush_size</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.5</span>
@@ -2384,25 +2412,34 @@ window.runMermaid = runMermaid;</script>
         <span class="n">normalized_scale</span> <span class="o">=</span> <span class="n">normalized_scale</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">normalized_scale</span><span class="p">)</span>
         <span class="n">radius_pixels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">radius</span> <span class="o">/</span> <span class="n">normalized_scale</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
 
-        <span class="n">center</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">coord_paint</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
-
-        <span class="n">min_vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">center</span> <span class="o">-</span> <span class="n">radius_pixels</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-        <span class="n">max_vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">minimum</span><span class="p">(</span><span class="n">center</span> <span class="o">+</span> <span class="n">radius_pixels</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">shape</span><span class="p">)</span>
-
-        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">min_vals</span> <span class="o">&gt;=</span> <span class="n">max_vals</span><span class="p">):</span>
+        <span class="c1"># Clip each stamp's bbox to the data and drop stamps entirely outside</span>
+        <span class="n">origins</span> <span class="o">=</span> <span class="n">painted_centers</span> <span class="o">-</span> <span class="n">radius_pixels</span>
+        <span class="n">stamp_mins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">origins</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">stamp_maxs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">minimum</span><span class="p">(</span><span class="n">painted_centers</span> <span class="o">+</span> <span class="n">radius_pixels</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">shape</span><span class="p">)</span>
+        <span class="n">inside</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">stamp_mins</span> <span class="o">&lt;</span> <span class="n">stamp_maxs</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">inside</span><span class="p">):</span>
             <span class="k">return</span> <span class="kc">None</span>
+        <span class="n">origins</span> <span class="o">=</span> <span class="n">origins</span><span class="p">[</span><span class="n">inside</span><span class="p">]</span>
+        <span class="n">stamp_mins</span><span class="p">,</span> <span class="n">stamp_maxs</span> <span class="o">=</span> <span class="n">stamp_mins</span><span class="p">[</span><span class="n">inside</span><span class="p">],</span> <span class="n">stamp_maxs</span><span class="p">[</span><span class="n">inside</span><span class="p">]</span>
+        <span class="n">min_vals</span> <span class="o">=</span> <span class="n">stamp_mins</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">max_vals</span> <span class="o">=</span> <span class="n">stamp_maxs</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 
-        <span class="n">bbox_shape</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">max_vals</span> <span class="o">-</span> <span class="n">min_vals</span><span class="p">)</span>
-        <span class="n">center_in_bbox</span> <span class="o">=</span> <span class="n">center</span> <span class="o">-</span> <span class="n">min_vals</span>
-
-        <span class="n">brush_mask</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_create_brush_mask</span><span class="p">(</span>
-            <span class="n">bbox_shape</span><span class="p">,</span> <span class="n">radius</span><span class="p">,</span> <span class="n">center_in_bbox</span><span class="p">,</span> <span class="n">normalized_scale</span>
+        <span class="c1"># Each stamp is the clipped part of one shared brush template</span>
+        <span class="n">template</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_create_brush_mask</span><span class="p">(</span>
+            <span class="nb">tuple</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">radius_pixels</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span>
+            <span class="n">radius</span><span class="p">,</span>
+            <span class="n">radius_pixels</span><span class="p">,</span>
+            <span class="n">normalized_scale</span><span class="p">,</span>
         <span class="p">)</span>
+        <span class="n">mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">tuple</span><span class="p">(</span><span class="n">max_vals</span> <span class="o">-</span> <span class="n">min_vals</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">origin</span><span class="p">,</span> <span class="n">lo</span><span class="p">,</span> <span class="n">hi</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span>
+            <span class="n">origins</span><span class="p">,</span> <span class="n">stamp_mins</span><span class="p">,</span> <span class="n">stamp_maxs</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">True</span>
+        <span class="p">):</span>
+            <span class="n">mask</span><span class="p">[</span><span class="nb">tuple</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">slice</span><span class="p">,</span> <span class="n">lo</span> <span class="o">-</span> <span class="n">min_vals</span><span class="p">,</span> <span class="n">hi</span> <span class="o">-</span> <span class="n">min_vals</span><span class="p">))]</span> <span class="o">|=</span> <span class="n">template</span><span class="p">[</span>
+                <span class="nb">tuple</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">slice</span><span class="p">,</span> <span class="n">lo</span> <span class="o">-</span> <span class="n">origin</span><span class="p">,</span> <span class="n">hi</span> <span class="o">-</span> <span class="n">origin</span><span class="p">))</span>
+            <span class="p">]</span>
 
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">brush_mask</span><span class="p">):</span>
-            <span class="k">return</span> <span class="kc">None</span>
-
-        <span class="k">return</span> <span class="n">brush_mask</span><span class="p">,</span> <span class="n">min_vals</span><span class="p">,</span> <span class="n">max_vals</span>
+        <span class="k">return</span> <span class="n">mask</span><span class="p">,</span> <span class="n">min_vals</span><span class="p">,</span> <span class="n">max_vals</span>
 
 <div class="viewcode-block" id="Labels.paint_polygon">
 <a class="viewcode-back" href="../../../../api/napari.layers.Labels.html#napari.layers.Labels.paint_polygon">[docs]</a>

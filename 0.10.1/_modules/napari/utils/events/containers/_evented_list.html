@@ -37,7 +37,7 @@
     <link rel="stylesheet" type="text/css" href="../../../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
     <link rel="stylesheet" type="text/css" href="../../../../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
     <link rel="stylesheet" type="text/css" href="../../../../../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../../../../../_static/custom.css?v=2c704d47" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/custom.css?v=e9e83e5f" />
   
   <!-- So that users can add custom icons -->
   <script defer src="../../../../../_static/scripts/fontawesome.js?digest=75c7c72ae941e8b558d8"></script>
@@ -45,7 +45,7 @@
   <link rel="preload" as="script" href="../../../../../_static/scripts/bootstrap.js?digest=75c7c72ae941e8b558d8" />
 <link rel="preload" as="script" href="../../../../../_static/scripts/pydata-sphinx-theme.js?digest=75c7c72ae941e8b558d8" />
 
-    <script src="../../../../../_static/documentation_options.js?v=ddc2bf6f"></script>
+    <script src="../../../../../_static/documentation_options.js?v=b333a791"></script>
     <script src="../../../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -416,7 +416,7 @@ window.runMermaid = runMermaid;</script>
     <script>
         DOCUMENTATION_OPTIONS.theme_version = '0.24.0';
         DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://napari.org/dev/_static/version_switcher.json';
-        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.10.1a0';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.10.1rc1';
         DOCUMENTATION_OPTIONS.show_version_warning_banner =
             true;
         </script>
@@ -848,6 +848,7 @@ window.runMermaid = runMermaid;</script>
 <span class="kn">import</span><span class="w"> </span><span class="nn">contextlib</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">collections.abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Generator</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Sequence</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">cast</span><span class="p">,</span> <span class="n">overload</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">napari.utils.events.containers._typed</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">_L</span><span class="p">,</span>
@@ -895,9 +896,9 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">    moved (index: int, new_index: int, value: T)</span>
 <span class="sd">        emitted after ``value`` is moved from ``index`` to ``new_index``</span>
 <span class="sd">    changed (index: int, old_value: T, value: T)</span>
-<span class="sd">        emitted when item at ``index`` is changed from ``old_value`` to ``value``</span>
-<span class="sd">    changed &lt;OVERLOAD&gt; (index: slice, old_value: List[_T], value: List[_T])</span>
-<span class="sd">        emitted when item at ``index`` is changed from ``old_value`` to ``value``</span>
+<span class="sd">        emitted when item at ``index`` is changed from ``old_value`` to ``value``.</span>
+<span class="sd">        Slice assignment emits remove and insert events instead; an extended</span>
+<span class="sd">        slice emits one ``changed`` per index.</span>
 <span class="sd">    reordered (value: self)</span>
 <span class="sd">        emitted when the list is reordered (eg. moved/reversed).</span>
 <span class="sd">    """</span>
@@ -909,7 +910,7 @@ window.runMermaid = runMermaid;</script>
         <span class="n">data</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">_T</span><span class="p">]</span> <span class="o">=</span> <span class="p">(),</span>
         <span class="o">*</span><span class="p">,</span>
         <span class="n">basetype</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="n">_T</span><span class="p">]</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">type</span><span class="p">[</span><span class="n">_T</span><span class="p">]]</span> <span class="o">=</span> <span class="p">(),</span>
-        <span class="n">lookup</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">type</span><span class="p">[</span><span class="n">_L</span><span class="p">],</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">_T</span><span class="p">],</span> <span class="n">_T</span> <span class="o">|</span> <span class="n">_L</span><span class="p">]]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">lookup</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">type</span><span class="p">[</span><span class="n">_L</span><span class="p">],</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">_T</span><span class="p">],</span> <span class="n">_L</span><span class="p">]]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">lookup</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">lookup</span> <span class="o">=</span> <span class="p">{}</span>
@@ -919,9 +920,9 @@ window.runMermaid = runMermaid;</script>
             <span class="s1">'removing'</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>  <span class="c1"># int</span>
             <span class="s1">'removed'</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>  <span class="c1"># Tuple[int, Any] - (idx, value)</span>
             <span class="s1">'moving'</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>  <span class="c1"># Tuple[int, int]</span>
-            <span class="s1">'moved'</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>  <span class="c1"># Tuple[Tuple[int, int], Any]</span>
+            <span class="s1">'moved'</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>  <span class="c1"># Tuple[int, int, Any] - (idx, new_idx, value)</span>
             <span class="s1">'changed'</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>  <span class="c1"># Tuple[int, Any, Any] - (idx, old, new)</span>
-            <span class="s1">'reordered'</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>  <span class="c1"># None</span>
+            <span class="s1">'reordered'</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>  <span class="c1"># self</span>
         <span class="p">}</span>
 
         <span class="c1"># For inheritance: If the mro already provides an EmitterGroup, add...</span>
@@ -941,38 +942,47 @@ window.runMermaid = runMermaid;</script>
     <span class="c1"># def extend(self, value: Iterable[_T]): ...</span>
     <span class="c1"># def remove(self, value: T): ...</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">_T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="nd">@overload</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">_T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span> <span class="o">...</span>  <span class="c1"># pragma: no cover</span>
+
+    <span class="nd">@overload</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__setitem__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">slice</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">_T</span><span class="p">]</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span> <span class="o">...</span>  <span class="c1"># pragma: no cover</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">Index</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">_T</span> <span class="o">|</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">_T</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">old</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_list</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>  <span class="c1"># https://github.com/napari/napari/pull/2120</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="nb">slice</span><span class="p">):</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">):</span>
                 <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">'Can only assign an iterable to slice'</span><span class="p">)</span>
-            <span class="n">value</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span>
-                <span class="n">value</span>
-            <span class="p">)</span>  <span class="c1"># make sure we don't empty generators and reuse them</span>
-            <span class="k">if</span> <span class="n">value</span> <span class="o">==</span> <span class="n">old</span><span class="p">:</span>
+            <span class="c1"># make sure we don't empty generators and reuse them</span>
+            <span class="n">new_values</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">new_values</span> <span class="o">==</span> <span class="n">old</span><span class="p">:</span>
                 <span class="k">return</span>
-            <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_type_check</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">value</span><span class="p">]</span>  <span class="c1"># before we mutate the list</span>
+            <span class="c1"># before we mutate the list</span>
+            <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_type_check</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">new_values</span><span class="p">]</span>
             <span class="k">if</span> <span class="n">key</span><span class="o">.</span><span class="n">step</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># extended slices are more restricted</span>
                 <span class="n">indices</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="o">*</span><span class="n">key</span><span class="o">.</span><span class="n">indices</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">))))</span>
-                <span class="k">if</span> <span class="ow">not</span> <span class="nb">len</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">indices</span><span class="p">):</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="nb">len</span><span class="p">(</span><span class="n">new_values</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">indices</span><span class="p">):</span>
                     <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                        <span class="sa">f</span><span class="s1">'attempt to assign sequence of size </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">value</span><span class="p">)</span><span class="si">}</span><span class="s1"> to extended slice of size </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">indices</span><span class="p">)</span><span class="si">}</span><span class="s1">'</span>
+                        <span class="sa">f</span><span class="s1">'attempt to assign sequence of size </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">new_values</span><span class="p">)</span><span class="si">}</span><span class="s1"> to extended slice of size </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">indices</span><span class="p">)</span><span class="si">}</span><span class="s1">'</span>
                     <span class="p">)</span>
-                <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">indices</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+                <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">indices</span><span class="p">,</span> <span class="n">new_values</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
                     <span class="bp">self</span><span class="o">.</span><span class="fm">__setitem__</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">del</span> <span class="bp">self</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
                 <span class="n">start</span> <span class="o">=</span> <span class="n">key</span><span class="o">.</span><span class="n">start</span> <span class="ow">or</span> <span class="mi">0</span>
-                <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+                <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">new_values</span><span class="p">):</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">start</span> <span class="o">+</span> <span class="n">i</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="n">old</span><span class="p">:</span>
                 <span class="k">return</span>
-            <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__setitem__</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+            <span class="c1"># int key: value is a single item</span>
+            <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__setitem__</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">cast</span><span class="p">(</span><span class="s1">'_T'</span><span class="p">,</span> <span class="n">value</span><span class="p">))</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">changed</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="n">key</span><span class="p">,</span> <span class="n">old_value</span><span class="o">=</span><span class="n">old</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="n">value</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_delitem_indices</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">Index</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">object</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="s1">'EventedList[_T]'</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]:</span>
         <span class="c1"># returning List[(self, int)] allows subclasses to pass nested members</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
@@ -985,7 +995,7 @@ window.runMermaid = runMermaid;</script>
         <span class="n">valid</span> <span class="o">=</span> <span class="p">{</span><span class="nb">int</span><span class="p">,</span> <span class="nb">slice</span><span class="p">}</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_lookup</span><span class="p">))</span>
         <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="sa">f</span><span class="s1">'Deletion index must be </span><span class="si">{</span><span class="n">valid</span><span class="si">!r}</span><span class="s1">, got </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">key</span><span class="p">)</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="fm">__delitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">Index</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__delitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">object</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="c1"># delete from the end</span>
         <span class="k">for</span> <span class="n">parent</span><span class="p">,</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_delitem_indices</span><span class="p">(</span><span class="n">key</span><span class="p">),</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
             <span class="n">parent</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">removing</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="n">index</span><span class="p">)</span>
@@ -1011,7 +1021,7 @@ window.runMermaid = runMermaid;</script>
 <span class="w">        </span><span class="sd">"""An item in the list emitted an event.  Re-emit with index"""</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="s1">'index'</span><span class="p">):</span>
             <span class="k">with</span> <span class="n">contextlib</span><span class="o">.</span><span class="n">suppress</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">):</span>
-                <span class="n">event</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">source</span><span class="p">)</span>
+                <span class="n">event</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">source</span><span class="p">)</span>  <span class="c1"># pyrefly: ignore[missing-attribute]</span>
 
         <span class="c1"># reemit with this object's EventEmitter</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
@@ -1036,6 +1046,21 @@ window.runMermaid = runMermaid;</script>
 
 <span class="sd">        Both indices refer to the list prior to any object removal</span>
 <span class="sd">        (pre-move space).</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        src_index : int</span>
+<span class="sd">            The index of the object to move.</span>
+<span class="sd">        dest_index : int, optional</span>
+<span class="sd">            The index to insert the object before, in pre-move space.</span>
+<span class="sd">            By default 0, the front of the list. A negative value counts</span>
+<span class="sd">            from the end, so ``-1`` moves the object to the end.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        bool</span>
+<span class="sd">            True if the object was moved. False if nothing changed because</span>
+<span class="sd">            ``dest_index`` is ``src_index`` or ``src_index + 1``.</span>
 <span class="sd">        """</span>
         <span class="k">if</span> <span class="n">dest_index</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="n">dest_index</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
@@ -1066,8 +1091,8 @@ window.runMermaid = runMermaid;</script>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        sources : Sequence[int or slice]</span>
-<span class="sd">            A sequence of indices</span>
+<span class="sd">        sources : Iterable[int or slice]</span>
+<span class="sd">            The indices to move</span>
 <span class="sd">        dest_index : int, optional</span>
 <span class="sd">            The destination index.  All sources will be inserted before this</span>
 <span class="sd">            index (in pre-move space), by default 0... which has the effect of</span>
@@ -1086,8 +1111,7 @@ window.runMermaid = runMermaid;</script>
 <span class="sd">            are not ``int`` or ``slice``.</span>
 <span class="sd">        """</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
-            <span class="s1">'move_multiple(sources=</span><span class="si">{sources}</span><span class="s1">, dest_index=</span><span class="si">{dest_index}</span><span class="s1">)'</span><span class="p">,</span>
-            <span class="n">extra</span><span class="o">=</span><span class="p">{</span><span class="s1">'sources'</span><span class="p">:</span> <span class="n">sources</span><span class="p">,</span> <span class="s1">'dest_index'</span><span class="p">:</span> <span class="n">dest_index</span><span class="p">},</span>
+            <span class="s1">'move_multiple(sources=</span><span class="si">%s</span><span class="s1">, dest_index=</span><span class="si">%s</span><span class="s1">)'</span><span class="p">,</span> <span class="n">sources</span><span class="p">,</span> <span class="n">dest_index</span>
         <span class="p">)</span>
 
         <span class="c1"># calling list here makes sure that there are no index errors up front</span>
@@ -1126,10 +1150,22 @@ window.runMermaid = runMermaid;</script>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        sources : Iterable[tuple[int, ...]]</span>
-<span class="sd">            An iterable of tuple[int] that should be moved to ``dest_index``.</span>
-<span class="sd">        dest_index : Tuple[int]</span>
+<span class="sd">        sources : Iterable[int or slice]</span>
+<span class="sd">            Indices or slices that should be moved to ``dest_index``.</span>
+<span class="sd">        dest_index : int</span>
 <span class="sd">            The destination for sources.</span>
+
+<span class="sd">        Yields</span>
+<span class="sd">        ------</span>
+<span class="sd">        tuple[int, int]</span>
+<span class="sd">            ``(from_index, to_index)`` for one ``move`` call. The indices</span>
+<span class="sd">            already account for the moves yielded before it.</span>
+
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        TypeError</span>
+<span class="sd">            If the destination index is a slice, or any of the source indices</span>
+<span class="sd">            are not ``int`` or ``slice``.</span>
 <span class="sd">        """</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dest_index</span><span class="p">,</span> <span class="nb">slice</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">'Destination index may not be a slice'</span><span class="p">)</span>

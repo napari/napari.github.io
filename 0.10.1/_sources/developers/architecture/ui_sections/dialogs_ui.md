@@ -252,59 +252,59 @@ graph LR
 ```
 napari/
 ├─_qt/
-│ ├─widgets/
-│ │ ├─qt_histogram.py
-│ │ ├─qt_viewer_status_bar.py
-│ │ ├─qt_color_swatch.py
-│ │ ├─qt_histogram_content.py
-│ │ ├─qt_dims.py
-│ │ ├─qt_highlight_preview.py
-│ │ ├─qt_extension2reader.py
-│ │ ├─qt_logger.py
-│ │ ├─qt_font_size.py
-│ │ ├─qt_progress_bar.py
-│ │ ├─qt_viewer_tour.py
-│ │ ├─qt_dims_sorter.py
-│ │ ├─qt_tooltip.py
-│ │ ├─qt_tips.py
-│ │ ├─qt_scrollbar.py
-│ │ ├─qt_command_palette.py
-│ │ ├─qt_dims_slider.py
-│ │ ├─qt_histogram_settings.py
-│ │ └─qt_spinbox.py
-│ ├─dialogs/
-│ │ ├─qt_activity_dialog.py
-│ │ ├─qt_notification.py
-│ │ ├─qt_about.py
-│ │ ├─qt_modal.py
-│ │ ├─qt_reader_dialog.py
-│ │ ├─screenshot_dialog.py
-│ │ ├─preferences_dialog.py
-│ │ └─confirm_close_dialog.py
+│ ├─_qapp_model/
+│ │ ├─injection/
+│ │ │ ├─_qproviders.py
+│ │ │ └─_qprocessors.py
+│ │ ├─qactions/
+│ │ │ ├─__init__.py
+│ │ │ ├─_debug.py
+│ │ │ ├─_file.py
+│ │ │ ├─_plugins.py
+│ │ │ └─_help.py
+│ │ └─_menus.py
+│ ├─qt_main_window.py
 │ ├─_qplugins/
 │ │ └─_qnpe2.py
 │ ├─utils.py
-│ ├─_qapp_model/
-│ │ ├─qactions/
-│ │ │ ├─_file.py
-│ │ │ ├─_plugins.py
-│ │ │ ├─_help.py
-│ │ │ ├─_debug.py
-│ │ │ └─__init__.py
-│ │ ├─_menus.py
-│ │ └─injection/
-│ │   ├─_qprocessors.py
-│ │   └─_qproviders.py
-│ ├─qt_viewer.py
-│ └─qt_main_window.py
+│ ├─widgets/
+│ │ ├─qt_progress_bar.py
+│ │ ├─qt_color_swatch.py
+│ │ ├─qt_histogram_settings.py
+│ │ ├─qt_spinbox.py
+│ │ ├─qt_dims_slider.py
+│ │ ├─qt_viewer_tour.py
+│ │ ├─qt_font_size.py
+│ │ ├─qt_scrollbar.py
+│ │ ├─qt_viewer_status_bar.py
+│ │ ├─qt_histogram.py
+│ │ ├─qt_tips.py
+│ │ ├─qt_histogram_content.py
+│ │ ├─qt_logger.py
+│ │ ├─qt_dims.py
+│ │ ├─qt_tooltip.py
+│ │ ├─qt_extension2reader.py
+│ │ ├─qt_command_palette.py
+│ │ ├─qt_dims_sorter.py
+│ │ └─qt_highlight_preview.py
+│ ├─dialogs/
+│ │ ├─preferences_dialog.py
+│ │ ├─qt_about.py
+│ │ ├─confirm_close_dialog.py
+│ │ ├─screenshot_dialog.py
+│ │ ├─qt_reader_dialog.py
+│ │ ├─qt_activity_dialog.py
+│ │ ├─qt_modal.py
+│ │ └─qt_notification.py
+│ └─qt_viewer.py
 └─_vendor/
   └─qt_json_builder/
-    ├─qt_jsonschema_form/
-    │ ├─signal.py
-    │ ├─form.py
-    │ ├─defaults.py
-    │ ├─utils.py
-    │ ├─widgets.py
-    │ └─__init__.py
-    └─__init__.py
+    ├─__init__.py
+    └─qt_jsonschema_form/
+      ├─__init__.py
+      ├─utils.py
+      ├─defaults.py
+      ├─signal.py
+      ├─widgets.py
+      └─form.py
 ```

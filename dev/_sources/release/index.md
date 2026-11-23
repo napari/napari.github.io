@@ -4,7 +4,7 @@
 
 Each section shows the highlights from recent releases. Click on the version links to view the complete release notes.
 
-*Last updated: November 20, 2026*
+*Last updated: November 23, 2026*
 
 
 ## Recent Releases (Last 3 Months)
@@ -120,6 +120,11 @@ The napari team has been working hard to improve our release process, and based 
 [View full release notes →](release_0_9_2)
 
 ````
+
+
+
+
+## Releases from 3-6 Months Ago
 
 ````{dropdown} napari 0.9.0 (August 2026)
 :open:
@@ -353,11 +358,6 @@ please remove it. (For now, `trans._()` is a no-op.)
 [View full release notes →](release_0_9_0)
 
 ````
-
-
-
-
-## Releases from 3-6 Months Ago
 
 ````{dropdown} napari 0.8.0 (July 2026)
 :open:
